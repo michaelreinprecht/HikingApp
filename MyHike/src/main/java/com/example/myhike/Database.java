@@ -14,9 +14,10 @@ public class Database {
         }
 
         // Define the database connection parameters
-        String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
-        String dbUser = "postgres";
-        String dbPassword = "dodojesus";
+        String dbUrl = "jdbc:postgresql://ep-raspy-art-31333345.eu-central-1.aws.neon.tech/MyHike";
+        String dbUser = "group_d_main";
+        String dbPassword = "4hYq5IaBCWie";
+
         // Create a SQL query
         String sql = "SELECT * FROM MyHike.route";
 
