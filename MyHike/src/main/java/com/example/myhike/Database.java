@@ -19,7 +19,7 @@ public class Database {
         String dbPassword = "4hYq5IaBCWie";
 
         // Create a SQL query
-        String sql = "SELECT * FROM MyHike.route";
+        String sql = "SELECT * FROM MyHike.hike";
 
         try (   Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
                 Statement statement = connection.createStatement();
@@ -28,10 +28,10 @@ public class Database {
             // Loop through the results and display them
             while (resultSet.next()) {
                 // TODO remove printing of data once we use it later on.
-                String routeName = resultSet.getString("route_name");
-                System.out.println("Column Value: " + routeName + "<br>");
+                String hikeName = resultSet.getString("hike_name");
+                System.out.println("Column Value: " + hikeName + "<br>");
                 //out.println("Column Value: " + routeName + "<br>");
-                return routeName;
+                return hikeName;
             }
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
