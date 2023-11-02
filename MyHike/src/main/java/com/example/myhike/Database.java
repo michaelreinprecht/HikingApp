@@ -1,11 +1,33 @@
 package com.example.myhike;
 
+import facade.JPAFacade;
+import models.Hike;
+
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 
 public class Database {
     //TODO: return Hike-Object, just returning single String for testing purposes.
     public static String LoadData() {
+
+        //Hibernate Test getById
+        JPAFacade facade = new JPAFacade();
+        Hike hike= facade.getHikeById(1);
+        return hike.getHikeName();
+
+        /*
+        //Hibernate Test get all
+        JPAFacade facade = new JPAFacade();
+        List<Hike> hikes= facade.getAllHikes();
+        for (Hike hike : hikes) {
+            return hike.getHikeName();
+        }
+        return null;
+        */
+
+
+        /*
         //Load postgre Driver
         try {
             Class.forName("org.postgresql.Driver");
@@ -38,5 +60,7 @@ public class Database {
             //out.println("An error occurred: " + e.getMessage());
         }
         return null;
+
+         */
     }
 }
