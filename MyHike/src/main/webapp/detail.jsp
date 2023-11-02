@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.myhike.Database" %><%--
   Created by IntelliJ IDEA.
   User: cindy
   Date: 31.10.2023
@@ -43,14 +43,17 @@
         <div class="container-fluid" style="background-color: white; padding: 0">
             <div class="row" style="width: 100%; margin: 0; padding: 0">
                 <div class="col-md-auto" style="margin-left: 10px;">
+                    <%var Hike=Database.getHikeById(1);%><br>
                     <label style="text-align: center; color: green; font-style: italic">Hike anzeigen</label><br>
-                    <label>Name</label><br>
-                    <label>Beschreibung</label><br>
-                    <label>Region</label><br>
-                    <label>Start</label> <label>Ende</label><br>
-                    <label>Höhenmeter</label>
-                    <label>Distanz</label><br>
-                    <label>Dauer</label>
+                    <label>Name: </label><br>
+                    <label><%=Hike.getHikeName()%></label><br>
+                    <label>Description:</label><br>
+                    <label><%=Hike.getHikeDescription()%></label><br>
+                    <label>Region: <%=Hike.getHikeRegion().getRegionName()%></label><br>
+                    <label>GPS: <%=Hike.getHikeStart()%> bis </label> <label><%=Hike.getHikeEnd()%></label><br>
+                    <label>Altitude: <%=Hike.getHikeAltitude()%>m </label>
+                    <label>Distance: <%=Hike.getHikeDistance()%></label><br>
+                    <label>Duration: <%=Hike.getHikeDuration()%></label>
                 </div>
                 <div class="col-md" style="background-color: lightblue; padding: 0;">
                     <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
