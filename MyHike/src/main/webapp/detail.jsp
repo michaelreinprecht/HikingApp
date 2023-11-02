@@ -50,7 +50,7 @@
                     <label>Description:</label><br>
                     <label><%=Hike.getHikeDescription()%></label><br>
                     <label>Region: <%=Hike.getHikeRegion().getRegionName()%></label><br>
-                    <label>GPS: <%=Hike.getHikeStart()%> bis </label> <label><%=Hike.getHikeEnd()%></label><br>
+                    <label>GPS: <%=Hike.getHikeStartLon()%> bis </label> <label><%=Hike.getHikeEndLon()%></label><br>
                     <label>Altitude: <%=Hike.getHikeAltitude()%>m </label>
                     <label>Distance: <%=Hike.getHikeDistance()%></label><br>
                     <label>Duration: <%=Hike.getHikeDuration()%></label>

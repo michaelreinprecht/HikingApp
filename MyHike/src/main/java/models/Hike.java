@@ -10,8 +10,10 @@ public class Hike {
     private Integer hikeId;
     private String hikeName;
     private String hikeDescription;
-    private BigDecimal hikeStart;
-    private BigDecimal hikeEnd;
+    private BigDecimal hikeStartLon;
+    private BigDecimal hikeStartLat;
+    private BigDecimal hikeEndLon;
+    private BigDecimal hikeEndLat;
     private Time hikeDuration;
     private Integer hikeAltitude;
     private BigDecimal hikeDistance;
@@ -47,20 +49,36 @@ public class Hike {
         this.hikeDescription = hikeDescription;
     }
 
-    @Column(name = "hike_start", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeStart() {
-        return hikeStart;
+    @Column(name = "hike_start_lon", precision = 9, scale = 6, nullable = false)
+    public BigDecimal getHikeStartLon() {
+        return hikeStartLon;
     }
-    public void setHikeStart(BigDecimal hikeStart) {
-        this.hikeStart = hikeStart;
+    public void setHikeStartLon(BigDecimal hikeStartLon) {
+        this.hikeStartLon = hikeStartLon;
     }
 
-    @Column(name = "hike_end", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeEnd() {
-        return hikeEnd;
+    @Column(name = "hike_start_lat", precision = 9, scale = 6, nullable = false)
+    public BigDecimal getHikeStartLat() {
+        return hikeStartLat;
     }
-    public void setHikeEnd(BigDecimal hikeEnd) {
-        this.hikeEnd = hikeEnd;
+    public void setHikeStartLat(BigDecimal hikeStartLat) {
+        this.hikeStartLat = hikeStartLat;
+    }
+
+    @Column(name = "hike_end_lon", precision = 9, scale = 6, nullable = false)
+    public BigDecimal getHikeEndLon() {
+        return hikeEndLon;
+    }
+    public void setHikeEndLon(BigDecimal hikeEndLon) {
+        this.hikeEndLon = hikeEndLon;
+    }
+
+    @Column(name = "hike_end_lat", precision = 9, scale = 6, nullable = false)
+    public BigDecimal getHikeEndLat() {
+        return hikeEndLat;
+    }
+    public void setHikeEndLat(BigDecimal hikeEndLat) {
+        this.hikeEndLat = hikeEndLat;
     }
 
     @Column(name = "hike_duration")
@@ -143,8 +161,10 @@ public class Hike {
                 "hikeId=" + hikeId +
                 ", hikeName='" + hikeName + '\'' +
                 ", hikeDescription='" + hikeDescription + '\'' +
-                ", hikeStart=" + hikeStart +
-                ", hikeEnd=" + hikeEnd +
+                ", hikeStartLon=" + hikeStartLon +
+                ", hikeStartLat=" + hikeStartLat +
+                ", hikeEndLon=" + hikeEndLon +
+                ", hikeEndLat=" + hikeEndLat +
                 ", hikeDuration=" + hikeDuration +
                 ", hikeAltitude=" + hikeAltitude +
                 ", hikeDistance=" + hikeDistance +
