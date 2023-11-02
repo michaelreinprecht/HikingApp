@@ -4,6 +4,8 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="org.postgresql.Driver" %>
 <%@ page import="com.example.myhike.Database" %>
+<%@ page import="models.Hike" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -42,21 +44,27 @@
 
 <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
-    <div class="col-md-auto" style="margin-left: 10px;">
-        <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
-        Welcome at the hiking application!<br/>
-        <%=Database.getAllHikes()%><br>
-        <a href="detail.jsp">click me </a>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    </div>
-    <div class="col-md" style="background-color: lightblue; padding: 0;">
-        <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
-    </div>
+        <div class="col-md-auto" style="margin-left: 10px;">
+            <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
+            Welcome to the hiking application!<br/>
+            <!-- Assume Database.getAllHikes() returns a list of hikes with their IDs and names -->
+            <%
+                // Assuming Database.getAllHikes() returns a list of Hike objects with id and name properties
+                List<Hike> hikes = Database.getAllHikes();
+                for (Hike hike : hikes) {
+            %>
+            <div>
+                <a href="detail.jsp?Id=<%=hike.getHikeId()%>"><%=hike.getHikeName()%></a>
+            </div>
+            <% } %>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        </div>
+        <div class="col-md" style="background-color: lightblue; padding: 0;">
+            <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
+        </div>
     </div>
 </div>
+
 
 <!-- Bootstrap imports -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
