@@ -20,12 +20,11 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
 
     @Override
     public Hike getById(int id) throws SQLException {
-        try (Session session = getSession();) {
-            Hike hike = session.get(Hike.class, id);
-            return hike;
-        } catch (Exception e) {
-            e.printStackTrace();
+        EntityManager entityManager = getEntityManager();
+        try {
+            return entityManager.find(Hike.class, id);
+        } finally {
+            entityManager.close();
         }
-        return null;
     }
 }
