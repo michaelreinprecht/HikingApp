@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Discover <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.jsp">Discover <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Routes</a>
@@ -45,7 +45,8 @@
     <div class="col-md-auto" style="margin-left: 10px;">
         <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
         Welcome at the hiking application!<br/>
-        <%=Database.LoadData()%>
+        <%=Database.LoadData()%><br>
+        <a href="detail.jsp">click me </a>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
