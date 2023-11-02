@@ -9,13 +9,9 @@ import java.util.List;
 
 public class Database {
     //TODO: return Hike-Object, just returning single String for testing purposes.
-    public static String LoadData() {
-        //Hibernate Test get all
+    public static Hike getHikeById(int id) {
         JPAFacade facade = new JPAFacade();
-        List<Hike> hikes= facade.getAllHikes();
-        for (Hike hike : hikes) {
-            return hike.getHikeName();
-        }
-        return null;
+        Hike hike = facade.getHikeById(id);
+        return hike;
     }
 }
