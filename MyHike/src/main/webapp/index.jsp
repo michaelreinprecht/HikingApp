@@ -45,7 +45,7 @@
     <div class="col-md-auto" style="margin-left: 10px;">
         <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
         Welcome at the hiking application!<br/>
-        <%=Database.LoadData()%><br>
+        <%=Database.getAllHikes()%><br>
         <a href="detail.jsp">click me </a>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
