@@ -1,6 +1,8 @@
 package broker;
 
 import models.Hike;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
@@ -14,5 +16,16 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
         List<Hike> hikes= (List<Hike>) entityManager.createQuery("from models.Hike").getResultList();
         entityManager.close();
         return hikes;
+    }
+
+    @Override
+    public Hike getById(int id) throws SQLException {
+        try (Session session = getSession();) {
+            Hike hike = session.get(Hike.class, id);
+            return hike;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

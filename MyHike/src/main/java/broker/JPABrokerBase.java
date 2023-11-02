@@ -1,5 +1,8 @@
 package broker;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,7 +16,18 @@ public abstract class JPABrokerBase<T> {
         return entityManager;
     }
 
+    public Session getSession() throws SQLException {
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("MyHike");
+        try (SessionFactory sessionFactory = fact.unwrap(SessionFactory.class)) {
+            return sessionFactory.openSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public abstract List<T> getAll() throws SQLException;
+    public abstract T getById(int id) throws SQLException;
 
     public void insert(T value) throws SQLException {
         EntityManager entityManager = getEntityManager();

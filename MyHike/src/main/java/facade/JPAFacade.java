@@ -11,11 +11,10 @@ public class JPAFacade implements IDatabaseFacade {
 
     public static void main(String[] args) {
         //Testen Annotations
+        //Hibernate Test getById
         JPAFacade facade = new JPAFacade();
-        List<Hike> hikes= facade.getAllHikes();
-        for (Hike hike : hikes) {
-            System.out.println(hike.toString());
-        }
+        Hike hike= facade.getHikeById(1);
+        System.out.println(hike.getHikeName());
     }
 
     public void save(Object value) {
@@ -65,7 +64,14 @@ public class JPAFacade implements IDatabaseFacade {
     }
 
     public Hike getHikeById(int id) {
-        // TODO Auto-generated method stub
+        JPABrokerBase<Hike> broker = new JPAHikeBroker();
+        try {
+            return broker.getById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
