@@ -55,7 +55,8 @@
                     <label>GPS: <%=Hike.getHikeStartLon()%> bis </label> <label><%=Hike.getHikeEndLon()%></label><br>
                     <label>Altitude: <%=Hike.getHikeAltitude()%>m </label>
                     <label>Distance: <%=Hike.getHikeDistance()%>km</label><br>
-                    <label>Duration: <%=Hike.getHikeDuration()%></label>
+                    <label>Duration: <%=Hike.getHikeDuration()%></label><br>
+                    <label>Landscape: <%=Hike.getHikeLandscape()%> </label>
                 </div>
                 <div class="col-md" style="background-color: lightblue; padding: 0;">
                     <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
