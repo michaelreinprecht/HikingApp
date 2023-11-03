@@ -4,7 +4,7 @@ import broker.JPABrokerBase;
 import broker.JPAHikeBroker;
 import models.Hike;
 import models.Month;
-//import models.RecommendedIn;
+import models.Recommended;
 
 import javax.persistence.*;
 import java.sql.SQLException;
@@ -15,9 +15,9 @@ public class JPAFacade implements IDatabaseFacade {
     public static void main(String[] args) {
         JPAFacade facade = new JPAFacade();
         Hike hike = facade.getHikeById(1);
-        List<Month> months = hike.getRecommendedMonths();
-        for (Month month: months) {
-            System.out.println(month.getMonthName());
+        List<Recommended> months = hike.getRecommendedList();
+        for (Recommended month: months) {
+            System.out.println(month);
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class Month {
     private Integer monthId;
     private String monthName;
-    private List<Hike> hikes;
+    private List<Recommended> recommendedList;
 
     @Id
     @Column(name = "month_id")
@@ -27,11 +27,11 @@ public class Month {
         this.monthName = monthName;
     }
 
-    @ManyToMany(mappedBy = "recommendedMonths")
-    public List<Hike> getHikes() {
-        return hikes;
+    @OneToMany(mappedBy = "month")
+    public List<Recommended> getRecommendedList() {
+        return recommendedList;
     }
-    public void setHikes(List<Hike> hikes) {
-        this.hikes = hikes;
+    public void setRecommendedList(List<Recommended> recommendedList) {
+        this.recommendedList = recommendedList;
     }
 }

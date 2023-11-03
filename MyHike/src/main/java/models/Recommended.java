@@ -1,22 +1,20 @@
-/*package models;
-
-import lombok.Getter;
+package models;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
 @Entity
-@IdClass(RecommendedInId.class)
-@Table(name = "recommended_in")
-public class RecommendedIn implements Serializable {
+@Table(name = "MyHike.recommended")
+public class Recommended implements Serializable {
 
     @Id
+    @Column(name = "recommended_id")
+    private int recommendedId;
+
     @ManyToOne
     @JoinColumn(name = "month_id")
     private Month month;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "hike_id")
     private Hike hike;
@@ -31,6 +29,6 @@ public class RecommendedIn implements Serializable {
         this.hike = hike;
     }
 }
-*/
+
 
 

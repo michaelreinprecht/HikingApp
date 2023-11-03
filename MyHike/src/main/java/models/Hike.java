@@ -24,7 +24,7 @@ public class Hike {
     private Integer hikeStrength;
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
-    private List<Month> recommendedMonths;
+    private List<Recommended> recommenedList;
     private Region hikeRegion;
 
     @Id
@@ -142,13 +142,12 @@ public class Hike {
 
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} ,fetch = FetchType.EAGER)
-    @JoinTable(name = "recommended_in", joinColumns = @JoinColumn(name="hike_id"), inverseJoinColumns = @JoinColumn(name="month_id"))
-    public List<Month> getRecommendedMonths() {
-        return recommendedMonths;
+    @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
+    public List<Recommended> getRecommendedList() {
+        return recommenedList;
     }
-    public void setRecommendedMonths(List<Month> recommendedMonths) {
-        this.recommendedMonths = recommendedMonths;
+    public void setRecommendedList(List<Recommended> recommenedList) {
+        this.recommenedList = recommenedList;
     }
 
     @ManyToOne
@@ -177,7 +176,7 @@ public class Hike {
                 ", hikeStrength=" + hikeStrength +
                 ", hikeDifficulty=" + hikeDifficulty +
                 ", hikeLandscape=" + hikeLandscape +
-                ", recommendedMonths=" + recommendedMonths +
+                ", recommendedMonths=" + recommenedList +
                 ", hikeRegion=" + hikeRegion +
                 '}';
     }
