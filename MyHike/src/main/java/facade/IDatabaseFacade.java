@@ -1,7 +1,6 @@
 package facade;
 
 import models.Hike;
-
 import java.util.List;
 
 public interface IDatabaseFacade {

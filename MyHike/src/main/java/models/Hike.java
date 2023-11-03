@@ -1,7 +1,5 @@
 package models;
 
-import lombok.Getter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
