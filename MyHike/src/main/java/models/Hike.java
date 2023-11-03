@@ -1,8 +1,11 @@
 package models;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name = "hike", schema = "MyHike")
@@ -21,7 +24,7 @@ public class Hike {
     private Integer hikeStrength;
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
-    private Month hikeMonths;
+    private List<Month> recommendedMonths;
     private Region hikeRegion;
 
     @Id
@@ -137,13 +140,15 @@ public class Hike {
         this.hikeLandscape = hikeLandscape;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "hike_months", referencedColumnName = "month_id")
-    public Month getHikeMonths() {
-        return hikeMonths;
+
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} ,fetch = FetchType.EAGER)
+    @JoinTable(name = "recommended_in", joinColumns = @JoinColumn(name="hike_id"), inverseJoinColumns = @JoinColumn(name="month_id"))
+    public List<Month> getRecommendedMonths() {
+        return recommendedMonths;
     }
-    public void setHikeMonths(Month hikeMonths) {
-        this.hikeMonths = hikeMonths;
+    public void setRecommendedMonths(List<Month> recommendedMonths) {
+        this.recommendedMonths = recommendedMonths;
     }
 
     @ManyToOne
@@ -172,7 +177,7 @@ public class Hike {
                 ", hikeStrength=" + hikeStrength +
                 ", hikeDifficulty=" + hikeDifficulty +
                 ", hikeLandscape=" + hikeLandscape +
-                ", hikeMonths=" + hikeMonths +
+                ", recommendedMonths=" + recommendedMonths +
                 ", hikeRegion=" + hikeRegion +
                 '}';
     }

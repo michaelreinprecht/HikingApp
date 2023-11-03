@@ -1,15 +1,14 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "MyHike.month")
 public class Month {
     private Integer monthId;
     private String monthName;
+    private List<Hike> hikes;
 
     @Id
     @Column(name = "month_id")
@@ -28,5 +27,11 @@ public class Month {
         this.monthName = monthName;
     }
 
-
+    @ManyToMany(mappedBy = "recommendedMonths")
+    public List<Hike> getHikes() {
+        return hikes;
+    }
+    public void setHikes(List<Hike> hikes) {
+        this.hikes = hikes;
+    }
 }
