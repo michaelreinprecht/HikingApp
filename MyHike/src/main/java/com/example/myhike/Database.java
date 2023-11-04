@@ -2,9 +2,6 @@ package com.example.myhike;
 
 import facade.JPAFacade;
 import models.Hike;
-
-import java.sql.*;
-import java.util.HashMap;
 import java.util.List;
 
 public class Database {
