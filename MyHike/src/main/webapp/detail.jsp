@@ -1,5 +1,6 @@
 <%@ page import="com.example.myhike.Database" %>
-<%@ page import="models.Hike" %><%--
+<%@ page import="models.Hike" %>
+<%@ page import="models.Recommended" %><%--
   Created by IntelliJ IDEA.
   User: cindy
   Date: 31.10.2023
@@ -48,17 +49,30 @@
                         String id = request.getParameter("Id");
                         Hike hike = Database.getHikeById(Integer.parseInt(id));
                     %><br>
-                    <label style="text-align: center; color: green; font-style: italic">Hike anzeigen</label><br>
-                    <label>Name: </label><br>
-                    <label><%=hike.getHikeName()%></label><br>
-                    <label>Description:</label><br>
-                    <label><%=hike.getHikeDescription()%></label><br>
-                    <label>Region: <%=hike.getHikeRegion().getRegionName()%></label><br>
-                    <label>GPS: <%=hike.getHikeStartLon()%> bis </label> <label><%=hike.getHikeEndLon()%></label><br>
-                    <label>Altitude: <%=hike.getHikeAltitude()%>m </label>
-                    <label>Distance: <%=hike.getHikeDistance()%>km</label><br>
-                    <label>Duration: <%=hike.getHikeDuration()%></label>
-                    <label>Landscape: <%=hike.getHikeLandscape()%></label>
+                    <h2 style="text-align: center; color: green; font-style: italic">Hike anzeigen</h2>
+
+                    <dl>
+                        <dt><b>Name:</b></dt>
+                        <dd><%=hike.getHikeName()%></dd>
+                        <dt><b>Description:</b></dt>
+                        <dd><%=hike.getHikeDescription()%></dd>
+
+                        <dt><b>Region:</b></dt>
+                        <dd><%=hike.getHikeRegion().getRegionName()%></dd>
+
+                        <dt><b>GPS:</b></dt>
+                        <dd>Start: <%=hike.getHikeStartLon()%></dd>
+                        <dd>Ende: <%=hike.getHikeEndLon()%></dd>
+
+                        <dt><b>Altitude:</b> <%=hike.getHikeAltitude()%>m</dt>
+                        <dt><b>Distance:</b> <%=hike.getHikeDistance()%>km</dt>
+                        <dt><b>Duration:</b> <%=hike.getHikeDuration()%></dt>
+                        <dt><b>Landscape:</b> <%=hike.getHikeLandscape()%></dt>
+                        <dt><b>Difficulty:</b> <%=hike.getHikeDifficulty()%></dt>
+                        <dt><b>Stamina:</b> <%=hike.getHikeStamina()%></dt>
+                        <dt><b>Strength: </b>  <%=hike.getHikeStrength()%> </dt
+
+                    </dl>
                 </div>
                 <div class="col-md" style="background-color: lightblue; padding: 0;">
                     <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
