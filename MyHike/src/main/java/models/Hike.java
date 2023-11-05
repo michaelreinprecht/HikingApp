@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name = "hike", schema = "MyHike")
@@ -21,7 +22,7 @@ public class Hike {
     private Integer hikeStrength;
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
-    private Month hikeMonths;
+    private List<Recommended> recommenedList;
     private Region hikeRegion;
 
     @Id
@@ -137,13 +138,14 @@ public class Hike {
         this.hikeLandscape = hikeLandscape;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "hike_months", referencedColumnName = "month_id")
-    public Month getHikeMonths() {
-        return hikeMonths;
+
+
+    @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
+    public List<Recommended> getRecommendedList() {
+        return recommenedList;
     }
-    public void setHikeMonths(Month hikeMonths) {
-        this.hikeMonths = hikeMonths;
+    public void setRecommendedList(List<Recommended> recommenedList) {
+        this.recommenedList = recommenedList;
     }
 
     @ManyToOne
@@ -172,7 +174,7 @@ public class Hike {
                 ", hikeStrength=" + hikeStrength +
                 ", hikeDifficulty=" + hikeDifficulty +
                 ", hikeLandscape=" + hikeLandscape +
-                ", hikeMonths=" + hikeMonths +
+                ", recommendedMonths=" + recommenedList +
                 ", hikeRegion=" + hikeRegion +
                 '}';
     }

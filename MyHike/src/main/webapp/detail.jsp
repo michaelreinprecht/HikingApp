@@ -1,4 +1,5 @@
-<%@ page import="com.example.myhike.Database" %><%--
+<%@ page import="com.example.myhike.Database" %>
+<%@ page import="models.Hike" %><%--
   Created by IntelliJ IDEA.
   User: cindy
   Date: 31.10.2023
@@ -44,19 +45,20 @@
             <div class="row" style="width: 100%; margin: 0; padding: 0">
                 <div class="col-md-auto" style="margin-left: 10px;">
                     <%
-                            String id = request.getParameter("Id");
-                            var Hike=Database.getHikeById(Integer.parseInt(id));%><br>
+                        String id = request.getParameter("Id");
+                        Hike hike = Database.getHikeById(Integer.parseInt(id));
+                    %><br>
                     <label style="text-align: center; color: green; font-style: italic">Hike anzeigen</label><br>
                     <label>Name: </label><br>
-                    <label><%=Hike.getHikeName()%></label><br>
+                    <label><%=hike.getHikeName()%></label><br>
                     <label>Description:</label><br>
-                    <label><%=Hike.getHikeDescription()%></label><br>
-                    <label>Region: <%=Hike.getHikeRegion().getRegionName()%></label><br>
-                    <label>GPS: <%=Hike.getHikeStartLon()%> bis </label> <label><%=Hike.getHikeEndLon()%></label><br>
-                    <label>Altitude: <%=Hike.getHikeAltitude()%>m </label>
-                    <label>Distance: <%=Hike.getHikeDistance()%>km</label><br>
-                    <label>Duration: <%=Hike.getHikeDuration()%></label><br>
-                    <label>Landscape: <%=Hike.getHikeLandscape()%> </label>
+                    <label><%=hike.getHikeDescription()%></label><br>
+                    <label>Region: <%=hike.getHikeRegion().getRegionName()%></label><br>
+                    <label>GPS: <%=hike.getHikeStartLon()%> bis </label> <label><%=hike.getHikeEndLon()%></label><br>
+                    <label>Altitude: <%=hike.getHikeAltitude()%>m </label>
+                    <label>Distance: <%=hike.getHikeDistance()%>km</label><br>
+                    <label>Duration: <%=hike.getHikeDuration()%></label>
+                    <label>Landscape: <%=hike.getHikeLandscape()%></label>
                 </div>
                 <div class="col-md" style="background-color: lightblue; padding: 0;">
                     <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
