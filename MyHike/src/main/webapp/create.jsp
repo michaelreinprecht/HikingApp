@@ -36,7 +36,7 @@
                 <a class="nav-link" href="index.jsp">Discover <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="create.jsp">Create Hike</a>
+                <a class="nav-link" href="#">Routes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
@@ -50,42 +50,45 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <div class="row" style="width: 100%; margin: 0; padding: 0">
-        <div class="col-md-4" style="margin-left: 10px;">
-            <%
-                String id = request.getParameter("Id");
-                Hike hike = Database.getHikeById(Integer.parseInt(id));
-            %><br>
-            <h3 style="text-align: center; color: green; font-style: italic"><%=hike.getHikeName()%></h3><br>
-            <label><b>Description:</b></label><br>
-            <label><%=hike.getHikeDescription()%>
-            </label><br>
-            <label><b>Region:</b> <%=hike.getHikeRegion().getRegionName()%>
-            </label><br>
-            <label><b>Start Location:</b> Lon: <%=hike.getHikeStartLon()%> Lat: </label>
-            <label><%=hike.getHikeStartLat()%>
-            </label><br>
-            <label><b>End Location:</b> Lon: <%=hike.getHikeEndLon()%> Lat: </label> <label><%=hike.getHikeEndLat()%>
-        </label><br>
-            <label><b>Altitude:</b> <%=hike.getHikeAltitude()%>m </label><br>
-            <label><b>Distance:</b> <%=hike.getHikeDistance()%>km</label><br>
-            <label><b>Duration:</b> <%=hike.getHikeDuration()%>
-            </label><br>
+    <form action="" method="post" style="margin-left: 10px">
+        <br>
+        <div style="clear:both;">
+            <label for="name" style="display: inline-block; width: 150px;">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div style="clear:both;">
+            <label for="region" style="display: inline-block; width: 150px;">Region:</label>
+            <input type="text" id="region" name="region">
+        </div>
+        <div style="clear:both;">
+            <label for="startLocation" style="display: inline-block; width: 150px;">Start Location:</label>
+            <input type="text" id="startLocation" name="startLocation">
+        </div>
+        <div style="clear:both;">
+            <label for="endLocation" style="display: inline-block; width: 150px;">End Location:</label>
+            <input type="text" id="endLocation" name="endLocation">
+        </div>
+        <div style="clear:both;">
+            <label for="description" style="display: inline-block; width: 150px;">Beschreibung:</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div style="clear:both;">
+            <label for="altitude" style="display: inline-block; width: 150px;">Altitude:</label>
+            <input type="text" id="altitude" name="altitude">
+        </div>
+        <div style="clear:both;">
+            <label for="distance" style="display: inline-block; width: 150px;">Distance:</label>
+            <input type="text" id="distance" name="distance">
+        </div>
+        <div style="clear:both;">
+            <label for="duration" style="display: inline-block; width: 150px;">Duration:</label>
+            <input type="text" id="duration" name="duration">
+        </div>
+        <div style="clear:both; margin-left: 280px;">
+            <input type="submit" value="create">
+        </div>
+    </form>
 
-            <!-- Star ratings using StarRatingGenerator.java -->
-            <label style="padding-right: 10px"><b>Landscape:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %><br>
-            <label style="padding-right: 10px"><b>Strength:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %><br>
-            <label style="padding-right: 10px"><b>Stamina:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %><br>
-            <label style="padding-right: 10px"><b>Overall Difficulty:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %><br>
-        </div>
-        <div class="col-md" style="background-color: lightblue; padding: 0;">
-            <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
-        </div>
-    </div>
 </div>
 </body>
 </html>
