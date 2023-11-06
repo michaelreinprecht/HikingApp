@@ -1,6 +1,9 @@
 <%@ page import="com.example.myhike.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="com.example.myhike.StarRatingGenerator" %><%--
+=======
+<%@ page import="models.Recommended" %><%--
+>>>>>>> 351a70748077c064a381a650655fb1accf1bbd59
   Created by IntelliJ IDEA.
   User: cindy
   Date: 31.10.2023
@@ -78,7 +81,6 @@
             <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %><br>
             <label style="padding-right: 10px"><b>Overall Difficulty:</b></label>
             <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %><br>
-
         </div>
         <div class="col-md" style="background-color: lightblue; padding: 0;">
             <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
