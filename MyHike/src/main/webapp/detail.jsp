@@ -39,7 +39,7 @@
                 <a class="nav-link" href="index.jsp">Discover <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Routes</a>
+                <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
