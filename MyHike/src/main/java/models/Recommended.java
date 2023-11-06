@@ -1,5 +1,7 @@
 package models;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ public class Recommended implements Serializable {
     @Column(name = "recommended_id")
     private int recommendedId;
 
+    @Getter
     @ManyToOne
     @JoinColumn(name = "month_id")
     private Month month;

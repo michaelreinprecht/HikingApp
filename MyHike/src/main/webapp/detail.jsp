@@ -1,6 +1,9 @@
 <%@ page import="com.example.myhike.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.StarRatingGenerator" %><%--
+<%@ page import="com.example.myhike.StarRatingGenerator" %>
+<%@ page import="models.Month" %>
+<%@ page import="models.Recommended" %>
+<%@ page import="java.util.List" %><%--
 =======
 <%@ page import="models.Recommended" %><%--
 >>>>>>> 351a70748077c064a381a650655fb1accf1bbd59
@@ -71,6 +74,18 @@
             <label><b>Distance:</b> <%=hike.getHikeDistance()%>km</label><br>
             <label><b>Duration:</b> <%=hike.getHikeDuration()%>
             </label><br>
+            <label><b>Recommended Months:</b> <%
+                List<Recommended> recommended = hike.getRecommendedList();
+                int i;
+                for (i=0; i < recommended.size() - 1;i++)  {
+
+                %>
+
+                <%= recommended.get(i).getMonth().getMonthName()%>,
+
+                <%} %>
+                <%= recommended.get(i).getMonth().getMonthName()%>
+            </label> <br>
 
             <!-- Star ratings using StarRatingGenerator.java -->
             <label style="padding-right: 10px"><b>Landscape:</b></label>
@@ -81,6 +96,7 @@
             <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %><br>
             <label style="padding-right: 10px"><b>Overall Difficulty:</b></label>
             <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %><br>
+
         </div>
         <div class="col-md" style="background-color: lightblue; padding: 0;">
             <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
