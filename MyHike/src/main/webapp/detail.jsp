@@ -1,35 +1,62 @@
 <%@ page import="com.example.myhike.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.StarRatingGenerator" %><%--
-=======
-<%@ page import="models.Recommended" %><%--
->>>>>>> 351a70748077c064a381a650655fb1accf1bbd59
-  Created by IntelliJ IDEA.
-  User: cindy
-  Date: 31.10.2023
-  Time: 13:36
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.myhike.Database" %>
+<%@ page import="models.Hike" %>
+<%@ page import="com.example.myhike.StarRatingGenerator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Detail</title>
-    <!-- Bootstrap link -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hike Details</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Font Awesome Icons link -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <!-- Link to detail.css -->
     <link rel="stylesheet" href="detail.css">
+    <style>
+        .content {
+            display: none;
+            background-color: white;
+            padding: 50px;
+            margin-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .col-md-6 {
+            flex: 0 0 48%; /* Anpassen der Breite für die Bilder */
+        }
+        .text-center {
+            text-align: left;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+
+
+        }
+    </style>
+    <script>
+        function toggleContent(buttonId) {
+            var content = document.getElementById(buttonId + "-content");
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
+<!-- Navbar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="images/icon3.png" width="90" height="80" alt="MyHike">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -49,43 +76,57 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="background-color: white; padding: 0">
-    <div class="row" style="width: 100%; margin: 0; padding: 0">
-        <div class="col-md-4" style="margin-left: 10px;">
-            <%
-                String id = request.getParameter("Id");
-                Hike hike = Database.getHikeById(Integer.parseInt(id));
-            %><br>
-            <h3 style="text-align: center; color: green; font-style: italic"><%=hike.getHikeName()%></h3><br>
-            <label><b>Description:</b></label><br>
-            <label><%=hike.getHikeDescription()%>
-            </label><br>
-            <label><b>Region:</b> <%=hike.getHikeRegion().getRegionName()%>
-            </label><br>
-            <label><b>Start Location:</b> Lon: <%=hike.getHikeStartLon()%> Lat: </label>
-            <label><%=hike.getHikeStartLat()%>
-            </label><br>
-            <label><b>End Location:</b> Lon: <%=hike.getHikeEndLon()%> Lat: </label> <label><%=hike.getHikeEndLat()%>
-        </label><br>
-            <label><b>Altitude:</b> <%=hike.getHikeAltitude()%>m </label><br>
-            <label><b>Distance:</b> <%=hike.getHikeDistance()%>km</label><br>
-            <label><b>Duration:</b> <%=hike.getHikeDuration()%>
-            </label><br>
+<!-- Hike Details -->
+<div class="container">
+    <div class="col-md-6">
+        <%
+            String id = request.getParameter("Id");
+            Hike hike = Database.getHikeById(Integer.parseInt(id));
+        %>
+        <h3 class="text-center" style="color: green; font-style: italic"><%= hike.getHikeName() %></h3>
 
-            <!-- Star ratings using StarRatingGenerator.java -->
-            <label style="padding-right: 10px"><b>Landscape:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %><br>
-            <label style="padding-right: 10px"><b>Strength:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %><br>
-            <label style="padding-right: 10px"><b>Stamina:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %><br>
-            <label style="padding-right: 10px"><b>Overall Difficulty:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %><br>
-        </div>
-        <div class="col-md" style="background-color: lightblue; padding: 0;">
-            <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
+        <!-- Rundgangsbild -->
+        <img src="images/beispiel_berge.jpg" alt="Rundgangsbild" style="width: 100%; height: 350px; margin-top: 20px; margin-bottom: 20px;">
+
+        <!-- Buttons -->
+        <div class="button-group" style=" width: 210%">
+
+            <!-- Beschreibung -->
+            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
+                <div id="beschreibung-content" class="content">
+                    <p>Hier ist die Beschreibung des Hikes.</p>
+                </div>
+
+            <!-- Streckeneigenschaften -->
+            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften</button>
+                <div id="streckeneigenschaften-content" class="content">
+                    <p><b>Landscape:</b> <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %></p>
+                    <p><b>Strength:</b> <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %></p>
+                    <p><b>Stamina:</b> <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %></p>
+                    <p><b>Overall Difficulty:</b> <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %></p>
+                </div>
+
+            <!-- Einkehrmöglichkeiten -->
+            <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten</button>
+                <div id="einkehrmoeglichkeiten-content" class="content">
+                    <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
+                </div>
+
+            <!-- Rezensionen -->
+            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+                <div id="rezensionen-content" class="content">
+                    <p>Hier sind Rezensionen zum Hike.</p>
+                </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <!-- Karte -->
+        <img src="images/map.png" alt="Karte" style="width: 100%; height: 350px; margin-top: 60px; margin-bottom: 20px;">
+    </div>
 </div>
+
+<!-- JavaScript-Bibliotheken -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
