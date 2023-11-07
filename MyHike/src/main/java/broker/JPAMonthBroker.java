@@ -1,25 +1,25 @@
 package broker;
 
-import models.Hike;
+import models.Month;
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JPAHikeBroker extends JPABrokerBase<Hike> {
+public class JPAMonthBroker extends JPABrokerBase<Month> {
     @SuppressWarnings("unchecked")
     @Override
-    public List<Hike> getAll() throws SQLException {
+    public List<Month> getAll() throws SQLException {
         EntityManager entityManager = getEntityManager();
-        List<Hike> hikes= (List<Hike>) entityManager.createQuery("from models.Hike").getResultList();
+        List<Month> months= (List<Month>) entityManager.createQuery("from models.Month").getResultList();
         entityManager.close();
-        return hikes;
+        return months;
     }
 
     @Override
-    public Hike getById(int id) throws SQLException {
+    public Month getById(int id) throws SQLException {
         EntityManager entityManager = getEntityManager();
         try {
-            return entityManager.find(Hike.class, id);
+            return entityManager.find(Month.class, id);
         } finally {
             entityManager.close();
         }

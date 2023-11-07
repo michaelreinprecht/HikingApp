@@ -1,6 +1,8 @@
-<%@ page import="com.example.myhike.Database" %>
+<%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.StarRatingGenerator" %><%--
+<%@ page import="facade.JPAFacade" %>
+<%@ page import="models.Month" %>
+<%@ page import="java.util.List" %><%--
 =======
 <%@ page import="models.Recommended" %><%--
 >>>>>>> 351a70748077c064a381a650655fb1accf1bbd59
@@ -20,7 +22,7 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <!-- Link to detail.css -->
-    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="css/detail.css">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -50,7 +52,7 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="" method="post" style="margin-left: 10px">
+    <form action="index.jsp" method="post" style="margin-left: 10px">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px;">Name:</label>
@@ -84,6 +86,28 @@
             <label for="duration" style="display: inline-block; width: 150px;">Duration:</label>
             <input type="text" id="duration" name="duration">
         </div>
+
+        <!-- Generate month input -->
+        <div id="months" style="clear:both;">
+            <label style="display: inline-block; width: 150px;">Recommended Months:</label>
+            <%
+                JPAFacade facade = new JPAFacade();
+                List<Month> months = facade.getAllMonths();
+
+                for(Month month: months) {
+            %>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="<%=month.getMonthName()%>">
+                    <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
+                </div>
+            <%
+                }
+            %>
+        </div>
+
+        <!-- Generate star rating input -->
+
+
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="create">
         </div>

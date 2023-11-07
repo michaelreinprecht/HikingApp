@@ -1,6 +1,5 @@
-<%@ page import="com.example.myhike.Database" %>
+<%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.StarRatingGenerator" %>
 <%@ page import="models.Month" %>
 <%@ page import="models.Recommended" %>
 <%@ page import="java.util.List" %><%--
@@ -23,7 +22,7 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <!-- Link to detail.css -->
-    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="css/detail.css">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -74,28 +73,97 @@
             <label><b>Distance:</b> <%=hike.getHikeDistance()%>km</label><br>
             <label><b>Duration:</b> <%=hike.getHikeDuration()%>
             </label><br>
-            <label><b>Recommended Months:</b> <%
+            <label><b>Recommended Months:</b>
+                <%
                 List<Recommended> recommended = hike.getRecommendedList();
                 int i;
                 for (i=0; i < recommended.size() - 1;i++)  {
-
                 %>
-
                 <%= recommended.get(i).getMonth().getMonthName()%>,
-
                 <%} %>
                 <%= recommended.get(i).getMonth().getMonthName()%>
             </label> <br>
 
-            <!-- Star ratings using StarRatingGenerator.java -->
+            <!-- Star ratings -->
             <label style="padding-right: 10px"><b>Landscape:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %><br>
+            <%
+                int landscapeRating = hike.getHikeLandscape();
+                for (i = 0; i < 5; i++) {
+                    if (i < landscapeRating) {
+            %>
+            <div class="star-rating">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+                    } else {
+            %>
+            <div class="inactive">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+                    }
+                }
+            %><br>
+
             <label style="padding-right: 10px"><b>Strength:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %><br>
+            <%
+                int strengthRating = hike.getHikeStrength();
+                for (i = 0; i < 5; i++) {
+                    if (i < strengthRating) {
+            %>
+            <div class="star-rating">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+            } else {
+            %>
+            <div class="inactive">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+                    }
+                }
+            %><br>
+
             <label style="padding-right: 10px"><b>Stamina:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %><br>
+            <%
+                int staminaRating = hike.getHikeStamina();
+                for (i = 0; i < 5; i++) {
+                    if (i < staminaRating) {
+            %>
+            <div class="star-rating">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+            } else {
+            %>
+            <div class="inactive">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+                    }
+                }
+            %><br>
+
             <label style="padding-right: 10px"><b>Overall Difficulty:</b></label>
-            <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %><br>
+            <%
+                int difficultyRating = hike.getHikeDifficulty();
+                for (i = 0; i < 5; i++) {
+                    if (i < difficultyRating) {
+            %>
+            <div class="star-rating">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+            } else {
+            %>
+            <div class="inactive">
+                <i class="fas fa-star d-inline-block"></i>
+            </div>
+            <%
+                    }
+                }
+            %><br>
 
         </div>
         <div class="col-md" style="background-color: lightblue; padding: 0;">

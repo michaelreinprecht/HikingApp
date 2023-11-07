@@ -1,4 +1,4 @@
-package com.example.myhike;
+package myHikeJava;
 
 import java.io.*;
 import jakarta.servlet.http.*;

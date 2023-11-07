@@ -35,12 +35,6 @@
 .rating-wrapper label:hover,
 .rating-wrapper label:hover ~ label,
 .rating-wrapper input:checked ~ label  {
-    color: #34AC9E;
-}
-
-.rating-wrapper label:hover,
-.rating-wrapper label:hover ~ label,
-.rating-wrapper input:checked ~ label  {
     color: gold;
 }
 
