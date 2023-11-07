@@ -44,10 +44,6 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
@@ -55,41 +51,41 @@
     <form action="createHikeServlet" method="get" style="margin-left: 10px">
         <br>
         <div style="clear:both;">
-            <label for="name" style="display: inline-block; width: 150px;">Name:</label>
+            <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
             <input type="text" id="name" name="name">
         </div>
         <div style="clear:both;">
-            <label for="region" style="display: inline-block; width: 150px;">Region:</label>
+            <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
             <input type="text" id="region" name="region">
         </div>
         <div style="clear:both;">
-            <label for="startLocation" style="display: inline-block; width: 150px;">Start Location:</label>
+            <label for="startLocation" style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label>
             <input type="text" id="startLocation" name="startLocation">
         </div>
         <div style="clear:both;">
-            <label for="endLocation" style="display: inline-block; width: 150px;">End Location:</label>
+            <label for="endLocation" style="display: inline-block; width: 150px; font-weight: bold">End Location:</label>
             <input type="text" id="endLocation" name="endLocation">
         </div>
         <div style="clear:both;">
-            <label for="description" style="display: inline-block; width: 150px;">Beschreibung:</label>
+            <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
             <input type="text" id="description" name="description">
         </div>
         <div style="clear:both;">
-            <label for="altitude" style="display: inline-block; width: 150px;">Altitude:</label>
+            <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude:</label>
             <input type="text" id="altitude" name="altitude">
         </div>
         <div style="clear:both;">
-            <label for="distance" style="display: inline-block; width: 150px;">Distance:</label>
+            <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance:</label>
             <input type="text" id="distance" name="distance">
         </div>
         <div style="clear:both;">
-            <label for="duration" style="display: inline-block; width: 150px;">Duration:</label>
+            <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration:</label>
             <input type="text" id="duration" name="duration">
         </div>
 
         <!-- Generate month input -->
         <div id="months" style="clear:both;">
-            <label style="display: inline-block; width: 150px;">Recommended Months:</label>
+            <label style="display: inline-block; width: 150px; font-weight: bold">Recommended Months:</label>
             <%
                 JPAFacade facade = new JPAFacade();
                 List<Month> months = facade.getAllMonths();
@@ -103,40 +99,65 @@
             <%
                 }
             %>
-        </div>
+        </div><br>
 
         <!-- Generate star rating input -->
+        <label style="display: inline-block; width: 150px; font-weight: bold">Landscape:</label>
         <div class="rating-wrapper">
-            <!-- star 5 -->
-            <input type="radio" id="5-star-rating" name="star-rating" value="5">
-            <label for="5-star-rating" class="star-rating">
+            <%
+                int maxRating = 5;
+                for(int i = 1; i <= maxRating; i++) {
+            %>
+            <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=i%>">
+            <label for="<%=i%>-landscape-rating" class="landscape-rating">
                 <i class="fas fa-star d-inline-block"></i>
             </label>
+            <%
+                }
+            %>
+        </div><br>
 
-            <!-- star 4 -->
-            <input type="radio" id="4-star-rating" name="star-rating" value="4">
-            <label for="4-star-rating" class="star-rating star">
+        <label style="display: inline-block; width: 150px; font-weight: bold">Strength:</label>
+        <div class="rating-wrapper">
+            <%
+                for(int i = 1; i <= maxRating; i++) {
+            %>
+            <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=i%>">
+            <label for="<%=i%>-strength-rating" class="strength-rating">
                 <i class="fas fa-star d-inline-block"></i>
             </label>
+            <%
+                }
+            %>
+        </div><br>
 
-            <!-- star 3 -->
-            <input type="radio" id="3-star-rating" name="star-rating" value="3">
-            <label for="3-star-rating" class="star-rating star">
+        <label style="display: inline-block; width: 150px; font-weight: bold">Stamina:</label>
+        <div class="rating-wrapper">
+            <%
+                for(int i = 1; i <= maxRating; i++) {
+            %>
+            <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=i%>">
+            <label for="<%=i%>-stamina-rating" class="stamina-rating">
                 <i class="fas fa-star d-inline-block"></i>
             </label>
+            <%
+                }
+            %>
+        </div><br>
 
-            <!-- star 2 -->
-            <input type="radio" id="2-star-rating" name="star-rating" value="2">
-            <label for="2-star-rating" class="star-rating star">
+        <label style="display: inline-block; width: 150px; font-weight: bold">Difficulty:</label>
+        <div class="rating-wrapper">
+            <%
+                for(int i = 1; i <= maxRating; i++) {
+            %>
+            <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=i%>">
+            <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
                 <i class="fas fa-star d-inline-block"></i>
             </label>
-
-            <!-- star 1 -->
-            <input type="radio" id="1-star-rating" name="star-rating" value="1">
-            <label for="1-star-rating" class="star-rating star">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-        </div>
+            <%
+                }
+            %>
+        </div><br>
 
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="create">

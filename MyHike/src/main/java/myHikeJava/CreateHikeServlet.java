@@ -15,9 +15,10 @@ public class CreateHikeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
+        // Get parameters from create.jsp like this:
+        request.getParameter("name"); //-> returns name entered in
 
 
-        // Hello
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
