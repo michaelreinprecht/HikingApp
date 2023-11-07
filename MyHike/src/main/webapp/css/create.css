@@ -1,0 +1,34 @@
+.rating-wrapper {
+    align-self: center;
+    display: inline-flex;
+    direction: rtl !important; /*Stars form left to right*/
+margin-left: auto;
+
+
+    & label {
+        color: grey; /*Inactive star color*/
+    cursor: pointer; /*Changes cursor to pointer on hover*/
+    display: inline-flex;
+        font-size: 15px; /*Adjust star size*/
+    padding: 3px; /*Adjust distance between stars*/
+    transition: color 0.5s; /*Animated transition fades star from grey to gold color*/
+    }
+
+    & svg { /*Add shadow to svg*/
+    -webkit-text-fill-color: transparent;
+        -webkit-filter: drop-shadow(4px 1px 6px       rgba(198, 206, 237, 1));
+        filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
+    }
+
+    & input {
+        height: 100%;
+        width: 100%;
+        display: none; /*"Hide" inputs*/
+    }
+
+    & label:hover,
+    & label:hover ~ label,
+    & input:checked ~ label {
+        color: gold; /*Color of hovered and "selected" stars*/
+    }
+}

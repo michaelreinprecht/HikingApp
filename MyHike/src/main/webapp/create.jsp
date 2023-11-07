@@ -21,8 +21,8 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <!-- Link to detail.css -->
-    <link rel="stylesheet" href="css/detail.css">
+    <!-- Link to create.css -->
+    <link rel="stylesheet" href="css/create.css">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -52,7 +52,7 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="index.jsp" method="post" style="margin-left: 10px">
+    <form action="createHikeServlet" method="get" style="margin-left: 10px">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px;">Name:</label>
@@ -97,7 +97,7 @@
                 for(Month month: months) {
             %>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="<%=month.getMonthName()%>">
+                    <input class="form-check-input" type="checkbox" value="<%=month.getMonthId()%>" name="months" id="<%=month.getMonthName()%>">
                     <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
                 </div>
             <%
@@ -106,7 +106,37 @@
         </div>
 
         <!-- Generate star rating input -->
+        <div class="rating-wrapper">
+            <!-- star 5 -->
+            <input type="radio" id="5-star-rating" name="star-rating" value="5">
+            <label for="5-star-rating" class="star-rating">
+                <i class="fas fa-star d-inline-block"></i>
+            </label>
 
+            <!-- star 4 -->
+            <input type="radio" id="4-star-rating" name="star-rating" value="4">
+            <label for="4-star-rating" class="star-rating star">
+                <i class="fas fa-star d-inline-block"></i>
+            </label>
+
+            <!-- star 3 -->
+            <input type="radio" id="3-star-rating" name="star-rating" value="3">
+            <label for="3-star-rating" class="star-rating star">
+                <i class="fas fa-star d-inline-block"></i>
+            </label>
+
+            <!-- star 2 -->
+            <input type="radio" id="2-star-rating" name="star-rating" value="2">
+            <label for="2-star-rating" class="star-rating star">
+                <i class="fas fa-star d-inline-block"></i>
+            </label>
+
+            <!-- star 1 -->
+            <input type="radio" id="1-star-rating" name="star-rating" value="1">
+            <label for="1-star-rating" class="star-rating star">
+                <i class="fas fa-star d-inline-block"></i>
+            </label>
+        </div>
 
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="create">
