@@ -19,6 +19,9 @@
 
     <link rel="stylesheet" href="detail.css">
     <style>
+        body {
+            margin-left: 20px;
+        }
         .content {
             display: none;
             background-color: white;
@@ -38,9 +41,10 @@
         .button-group {
             display: flex;
             flex-direction: column;
-
-
         }
+
+
+
     </style>
     <script>
         function toggleContent(buttonId) {
@@ -83,70 +87,78 @@
 </nav>
 
 <!-- Hike Details -->
-<div class="container">
-    <div class="col-md-6">
-        <%
-            String id = request.getParameter("Id");
-            Hike hike = Database.getHikeById(Integer.parseInt(id));
-        %>
-        <div style="display: flex; align-items: center; margin-top: 20px">
-            <h3 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeName() %></h3>
-            <img src="images/uhr_dauer.png" alt="uhr" style="width:40px ; height: 40px;margin-top: 15px ; margin-left: 150px">
-            <h5 class="text-center" style=" color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h5>
-            <img src="images/streckenlänge.png" alt="streckenlaenge" style="width:50px ; height: 40px;margin-top: 15px ; margin-left: 100px">
-            <h5 class="text-center" style=" color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDistance()%>km</h5>
-            <img src="images/region.png" alt="region" style="width:50px ; height: 40px;margin-top: 15px ; margin-left: 100px">
-            <h5 class="text-center" style=" color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion()%></h5>
+<div class="container" style="margin-left: 50px">
+    <div class="row">
+        <div class="col-md-6">
+            <%String id = request.getParameter("Id");
+                Hike hike = Database.getHikeById(Integer.parseInt(id));
+            %>
+            <div style="display: flex; width: 100%; align-items: center; margin-top: 20px">
+                <h3 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeName() %></h3>
+                <img src="images/uhr_dauer.png" alt="uhr" style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px">
+                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h6>
+                <img src="images/streckenlänge.png" alt="streckenlänge" style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px">
+                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDistance()%>km</h6>
+                <img src="images/region.png" alt="region" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
+                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion()%></h6> <!-- eigentlich hike.getRegionName(), gibt es aber noch nicht?? -->
+                <img src="images/months_icon.png" alt="monate" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
+                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getRecommendedList()%> Months</h6> <!-- sollte monate anzeigen-->
+            </div>
 
+            <div class="image-container" style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 20px">
+                <!-- Rundgangsbild -->
+                <img src="images/beispiel_berge.jpg" alt="Rundgangsbild" style="width: 100%; height: 400px; margin-left: 20px; margin-right: 20px">
+
+                <!-- Karte -->
+                <img src="images/map.png" alt="Karte" style="width: 100%; height: 400px; margin-left: 20px">
+            </div>
         </div>
-        <!-- Rundgangsbild -->
-        <img src="images/beispiel_berge.jpg" alt="Rundgangsbild" style="width: 100%; height: 350px; margin-top: 20px; margin-bottom: 20px;">
 
-        <!-- Buttons -->
-        <div class="button-group" style=" width: 210%; display: flex; flex-direction: column; justify-content: space-between">
 
-            <!-- Beschreibung -->
-            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
+            <!-- Buttons Container -->
+            <div class="button-group" style="width: 210%; display: flex; flex-direction: column; justify-content: space-between">
+                <!-- Beschreibung -->
+                <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
                 <div id="beschreibung-content" class="content">
                     <p>Hier ist die Beschreibung des Hikes.</p>
                 </div>
 
-            <!-- Streckeneigenschaften -->
-            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften</button>
-            <div id="streckeneigenschaften-content" class="content">
-                <div class="ratings-container">
-                    <div class="rating-label"><b>Landscape:</b></div>
-                    <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %>
+                <!-- Streckeneigenschaften -->
+                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften</button>
+                <div id="streckeneigenschaften-content" class="content">
+                    <div class="ratings-container">
+                        <div class="rating-label"><b>Landscape:</b></div>
+                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %>
 
-                    <div class="rating-label"><b>Strength:</b></div>
-                    <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %>
+                        <div class="rating-label"><b>Strength:</b></div>
+                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %>
 
-                    <div class="rating-label"><b>Stamina:</b></div>
-                    <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %>
+                        <div class="rating-label"><b>Stamina:</b></div>
+                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %>
 
-                    <div class="rating-label"><b>Overall Difficulty:</b></div>
-                    <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %>
+                        <div class="rating-label"><b>Overall Difficulty:</b></div>
+                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Einkehrmöglichkeiten -->
-            <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten</button>
+                <!-- Einkehrmöglichkeiten -->
+                <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten</button>
                 <div id="einkehrmoeglichkeiten-content" class="content">
                     <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
                 </div>
 
-            <!-- Rezensionen -->
-            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+                <!-- Rezensionen -->
+                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
                 <div id="rezensionen-content" class="content">
                     <p>Hier sind Rezensionen zum Hike.</p>
                 </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <!-- Karte -->
-        <img src="images/map.png" alt="Karte" style="width: 100%; height: 350px; margin-top: 135px; margin-bottom: 20px;">
-    </div>
 </div>
+
+
+
+
 
 <!-- JavaScript-Bibliotheken -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
