@@ -141,6 +141,7 @@ public class Hike {
 
 
     @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
+    @JoinColumn(name = "recommendend_month", referencedColumnName = "month_name")
     public List<Recommended> getRecommendedList() {
         return recommenedList;
     }

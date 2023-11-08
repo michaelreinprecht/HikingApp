@@ -34,4 +34,6 @@ public class Month {
     public void setRecommendedList(List<Recommended> recommendedList) {
         this.recommendedList = recommendedList;
     }
+
+
 }
