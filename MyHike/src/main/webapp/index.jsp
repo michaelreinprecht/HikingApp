@@ -42,8 +42,7 @@
         </form>
     </div>
 </nav>
-
-<div class="container-fluid" style="background-color: white; padding: 0">
+ <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
             <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->

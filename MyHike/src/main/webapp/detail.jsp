@@ -104,15 +104,19 @@
                 <img src="images/region.png" alt="region" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
                 <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion().getRegionName()%></h6>
                 <img src="images/months_icon.png" alt="monate" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
-                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"> <%
-                    List<Recommended> recommended = hike.getRecommendedList();
-                    int i;
-                    for (i=0; i < recommended.size() - 1;i++)  {
-                %>
-                    <%= recommended.get(i).getMonth().getMonthName()%>,
-                    <%} %>
-                    <%= recommended.get(i).getMonth().getMonthName()%> Months</h6> <!-- sollte monate anzeigen-->
+                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
+                    <%
+                        List<Recommended> recommended = hike.getRecommendedList();
+                        for (int i = 0; i < recommended.size(); i++) {
+                    %>
+                    <%= recommended.get(i).getMonth().getMonthName()%>
+                    <% if (i < recommended.size() - 1) { %>  <% } %>
+                    <%
+                        }
+                    %> Months
+                </h6>
             </div>
+
 
             <div class="image-container" style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 20px">
                 <!-- Rundgangsbild -->
