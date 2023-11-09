@@ -2,7 +2,10 @@ package facade;
 
 import broker.JPABrokerBase;
 import broker.JPAHikeBroker;
+import broker.JPAMonthBroker;
 import models.Hike;
+import models.Month;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -54,6 +57,31 @@ public class JPAFacade implements IDatabaseFacade {
 
     public Hike getHikeById(int id) {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
+        try {
+            return broker.getById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public List<Month> getAllMonths() {
+        JPABrokerBase<Month> broker = new JPAMonthBroker();
+        try {
+            return broker.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Month getMonthById(int id) {
+        JPABrokerBase<Month> broker = new JPAMonthBroker();
         try {
             return broker.getById(id);
         } catch (SQLException e) {

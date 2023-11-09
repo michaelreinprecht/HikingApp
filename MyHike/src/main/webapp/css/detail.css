@@ -1,0 +1,20 @@
+.input {
+    height: 100%;
+    width: 100%;
+    display: none; /*"Hide" inputs*/
+}
+
+
+.star-rating {
+    display: inline-block;
+    font-size: 15px; /* Adjust the size as needed */
+    color: gold; /* Change the color if necessary */
+    margin-right: 3px; /* Adjust spacing between stars */
+}
+
+.inactive {
+    display: inline-block;
+    font-size: 15px; /* Adjust the size as needed */
+    color: grey; /* Change the color if necessary */
+    margin-right: 3px; /* Adjust spacing between stars */
+}

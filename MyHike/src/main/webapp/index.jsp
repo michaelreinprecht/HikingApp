@@ -3,7 +3,7 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="org.postgresql.Driver" %>
-<%@ page import="com.example.myhike.Database" %>
+<%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -36,10 +36,6 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
  <div class="container-fluid" style="background-color: white; padding: 0">
