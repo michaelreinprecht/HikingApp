@@ -89,22 +89,22 @@
 </nav>
 
 <!-- Hike Details -->
-<div class="container" style="margin-left: 50px">
+<div class="container" style="margin-left: 100px">
     <div class="row">
         <div class="col-md-6">
             <%String id = request.getParameter("Id");
                 Hike hike = Database.getHikeById(Integer.parseInt(id));
             %>
-            <div style="display: flex; width: 100%; align-items: center; margin-top: 20px">
+            <div style="display: flex; width: 100%; align-items: center; margin-left: 100px; margin-top: 20px">
                 <h3 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeName() %></h3>
-                <img src="images/uhr_dauer.png" alt="uhr" style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px">
-                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h6>
-                <img src="images/streckenlänge.png" alt="streckenlänge" style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px">
-                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDistance()%>km</h6>
-                <img src="images/region.png" alt="region" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
-                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion().getRegionName()%></h6>
-                <img src="images/months_icon.png" alt="monate" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px">
-                <h6 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
+                <img src="images/uhr_dauer.png" alt="uhr" style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
+                <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h5>
+                <img src="images/streckenlänge.png" alt="streckenlänge" style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px; margin-right: 5px;">
+                <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDistance()%>km</h5>
+                <img src="images/region.png" alt="region" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px">
+                <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion().getRegionName()%></h5>
+                <img src="images/months_icon.png" alt="monate" style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px;">
+                <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
                     <%
                         List<Recommended> recommended = hike.getRecommendedList();
                         for (int i = 0; i < recommended.size(); i++) {
@@ -113,8 +113,8 @@
                     <% if (i < recommended.size() - 1) { %>  <% } %>
                     <%
                         }
-                    %> Months
-                </h6>
+                    %>
+                </h5>
             </div>
 
 
@@ -129,7 +129,7 @@
 
 
             <!-- Buttons Container -->
-            <div class="button-group" style="width: 210%; display: flex; flex-direction: column; justify-content: space-between">
+            <div class="button-group" style="width: 220%; margin-left: 50px; display: flex; flex-direction: column; justify-content: space-between">
                 <!-- Beschreibung -->
                 <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
                 <div id="beschreibung-content" class="content">
