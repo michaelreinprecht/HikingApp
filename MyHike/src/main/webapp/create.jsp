@@ -48,7 +48,7 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="createHikeServlet" method="get" style="margin-left: 10px">
+    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
@@ -158,6 +158,11 @@
                 }
             %>
         </div><br>
+
+        <div style="display: inline-block; width: 150px; font-weight: bold">
+            <label for="fileToUpload" class="form-label">File to upload:</label>
+            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload"/>
+        </div>
 
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="create">
