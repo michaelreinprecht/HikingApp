@@ -202,7 +202,7 @@
 
         let check = false;
 
-        const checkboxes = document.getElementsByName("form-check-input[]");
+        const checkboxes = document.getElementsByName("form-check-input");
             for (let i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked) {
                     if (!namePattern.test(name.value)){
