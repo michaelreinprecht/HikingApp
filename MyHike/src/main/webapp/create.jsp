@@ -23,6 +23,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <!-- Link to create.css -->
     <link rel="stylesheet" href="css/create.css">
+    <!-- Link to create.js -->
+    <script src="js/create.js"></script>
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -48,11 +50,11 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="createHikeServlet" method="get" onsubmit="return validateForm();" style="margin-left: 10px">
+    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data" onsubmit="return validateForm();">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
-            <input type="text" id="name" name="name" >
+            <input type="text" id="name" name="name">
         </div>
         <div style="clear:both;">
             <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
@@ -60,11 +62,11 @@
         </div>
         <div style="clear:both;">
             <label for="startLocation" style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label>
-            <input type="text" id="startLocation" name="startLocation" >
+            <input type="text" id="startLocation" name="startLocation">
         </div>
         <div style="clear:both;">
             <label for="endLocation" style="display: inline-block; width: 150px; font-weight: bold">End Location:</label>
-            <input type="text" id="endLocation" name="endLocation" >
+            <input type="text" id="endLocation" name="endLocation">
         </div>
         <div style="clear:both;">
             <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
@@ -76,11 +78,11 @@
         </div>
         <div style="clear:both;">
             <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance:</label>
-            <input type="text" id="distance" name="distance" >
+            <input type="text" id="distance" name="distance">
         </div>
         <div style="clear:both;">
             <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration:</label>
-            <input type="text" id="duration" name="duration" >
+            <input type="text" id="duration" name="duration">
         </div>
 
         <!-- Generate month input -->
@@ -93,7 +95,7 @@
                 for(Month month: months) {
             %>
                 <div class="form-check">
-                    <input class="form-check-input[]" type="checkbox" value="<%=month.getMonthId()%>" name="form-check-input[]" id="<%=month.getMonthName()%>">
+                    <input class="form-check-input" type="checkbox" value="<%=month.getMonthId()%>" name="months" id="<%=month.getMonthName()%>">
                     <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
                 </div>
             <%
@@ -143,7 +145,6 @@
             <%
                 }
             %>
-
         </div><br>
 
         <label style="display: inline-block; width: 150px; font-weight: bold">Difficulty:</label>
@@ -159,6 +160,15 @@
                 }
             %>
         </div><br>
+
+        <div>
+            <img id="uploadedImage" style="max-width: 100%; max-height: 200px; margin-top: 20px;" />
+        </div>
+
+        <div style="display: inline-block; width: 150px; font-weight: bold">
+            <label for="fileToUpload" class="form-label">File to upload:</label>
+            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
+        </div>
 
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="submit" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}">

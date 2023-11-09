@@ -18,6 +18,7 @@ public class Recommended implements Serializable {
     @JoinColumn(name = "month_id")
     private Month month;
 
+
     @ManyToOne
     @JoinColumn(name = "hike_id")
     private Hike hike;

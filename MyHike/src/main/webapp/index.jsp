@@ -6,6 +6,7 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,8 @@
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="images/icon3.png"alt ="MyHike" style="width: 90px; height: 70px; margin-bottom: 5px" ></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,14 +33,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Routes</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="create.jsp">Create Hike</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
+
         </ul>
     </div>
 </nav>
-
-<div class="container-fluid" style="background-color: white; padding: 0">
+ <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
             <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
@@ -48,9 +55,11 @@
                 // Assuming Database.getAllHikes() returns a list of Hike objects with id and name properties
                 List<Hike> hikes = Database.getAllHikes();
                 for (Hike hike : hikes) {
+                    String image = hike.getHikeImage();
             %>
             <div>
                 <a href="detail.jsp?Id=<%=hike.getHikeId()%>"><%=hike.getHikeName()%></a>
+                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=image%>" width="150">
             </div>
             <% } %>
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

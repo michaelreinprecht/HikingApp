@@ -1,5 +1,7 @@
 package models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -22,8 +24,31 @@ public class Hike {
     private Integer hikeStrength;
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
+    private String hikeImage;
     private List<Recommended> recommenedList;
     private Region hikeRegion;
+
+    public Hike() {}
+
+    public Hike(Integer hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, List<Recommended> recommenedList, Region hikeRegion) {
+        this.hikeId = hikeId;
+        this.hikeName = hikeName;
+        this.hikeDescription = hikeDescription;
+        this.hikeStartLon = hikeStartLon;
+        this.hikeStartLat = hikeStartLat;
+        this.hikeEndLon = hikeEndLon;
+        this.hikeEndLat = hikeEndLat;
+        this.hikeDuration = hikeDuration;
+        this.hikeAltitude = hikeAltitude;
+        this.hikeDistance = hikeDistance;
+        this.hikeStamina = hikeStamina;
+        this.hikeStrength = hikeStrength;
+        this.hikeDifficulty = hikeDifficulty;
+        this.hikeLandscape = hikeLandscape;
+        this.hikeImage = hikeImage;
+        this.recommenedList = recommenedList;
+        this.hikeRegion = hikeRegion;
+    }
 
     @Id
     @Column(name = "hike_id")
@@ -138,7 +163,13 @@ public class Hike {
         this.hikeLandscape = hikeLandscape;
     }
 
-
+    @Column(name = "hike_image")
+    public String getHikeImage() {
+        return hikeImage;
+    }
+    public void setHikeImage(String hikeImage) {
+        this.hikeImage = hikeImage;
+    }
 
     @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
     public List<Recommended> getRecommendedList() {
