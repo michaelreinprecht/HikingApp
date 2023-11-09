@@ -17,7 +17,8 @@
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="images/icon3.png"alt ="MyHike" style="width: 90px; height: 70px; margin-bottom: 5px" ></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,8 +38,7 @@
         </ul>
     </div>
 </nav>
-
-<div class="container-fluid" style="background-color: white; padding: 0">
+ <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
             <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
