@@ -181,9 +181,9 @@
         const description = document.getElementById("description");
         const altitudePattern = /^[1-9][0-9]*$/;
         const altitude = document.getElementById("altitude");
-        const distancePattern = /^[1-9][0-9]*$/;
+        const distancePattern = /^[1-9]+,[0-9]+$/;
         const distance = document.getElementById("distance");
-        const durationPattern = /^[1-9][0-9]*$/
+        const durationPattern = /^[1-9]+,[0-9]+$/
         const duration = document.getElementById("duration");
         const radioStrength = document.querySelector('input[name="strength-rating"]:checked');
         const radioStamina = document.querySelector('input[name="stamina-rating"]:checked');
