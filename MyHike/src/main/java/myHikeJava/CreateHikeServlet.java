@@ -43,7 +43,7 @@ public class CreateHikeServlet extends HttpServlet {
                 String base64Image = Base64.getEncoder().encodeToString(os.toByteArray());
                 request.getSession().setAttribute("last_image", base64Image);
                 JPAFacade facade = new JPAFacade();
-                facade.save(new Hike(10,"TestHike", "Exciting mountain hike", BigDecimal.valueOf(83.2332), BigDecimal.valueOf(75.3212), BigDecimal.valueOf(75.4212), BigDecimal.valueOf(75.8212), Time.valueOf("03:15:00"), 800, BigDecimal.valueOf(2.0), 9, 9, 4, 1, base64Image, null, null));
+                //facade.save(new Hike(10,"TestHike", "Exciting mountain hike", BigDecimal.valueOf(83.2332), BigDecimal.valueOf(75.3212), BigDecimal.valueOf(75.4212), BigDecimal.valueOf(75.8212), Time.valueOf("03:15:00"), 800, BigDecimal.valueOf(2.0), 9, 9, 4, 1, base64Image, null, null));
             }
         } catch (IOException | ServletException e) {
             error = e.getMessage();
