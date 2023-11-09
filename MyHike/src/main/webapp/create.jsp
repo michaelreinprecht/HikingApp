@@ -23,6 +23,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <!-- Link to create.css -->
     <link rel="stylesheet" href="css/create.css">
+    <!-- Link to create.js -->
+    <script src="js/create.js"></script>
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -48,7 +50,7 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="createHikeServlet" method="get" style="margin-left: 10px">
+    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
@@ -158,6 +160,15 @@
                 }
             %>
         </div><br>
+
+        <div>
+            <img id="uploadedImage" style="max-width: 100%; max-height: 200px; margin-top: 20px;" />
+        </div>
+
+        <div style="display: inline-block; width: 150px; font-weight: bold">
+            <label for="fileToUpload" class="form-label">File to upload:</label>
+            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
+        </div>
 
         <div style="clear:both; margin-left: 280px;">
             <input type="submit" value="create">
