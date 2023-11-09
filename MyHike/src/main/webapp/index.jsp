@@ -6,6 +6,7 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -48,9 +49,11 @@
                 // Assuming Database.getAllHikes() returns a list of Hike objects with id and name properties
                 List<Hike> hikes = Database.getAllHikes();
                 for (Hike hike : hikes) {
+                    String image = hike.getHikeImage();
             %>
             <div>
                 <a href="detail.jsp?Id=<%=hike.getHikeId()%>"><%=hike.getHikeName()%></a>
+                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=image%>" width="150">
             </div>
             <% } %>
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

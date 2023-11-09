@@ -23,6 +23,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <!-- Link to create.css -->
     <link rel="stylesheet" href="css/create.css">
+    <!-- Link to create.js -->
+    <script src="js/create.js"></script>
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -159,9 +161,13 @@
             %>
         </div><br>
 
+        <div>
+            <img id="uploadedImage" style="max-width: 100%; max-height: 200px; margin-top: 20px;" />
+        </div>
+
         <div style="display: inline-block; width: 150px; font-weight: bold">
             <label for="fileToUpload" class="form-label">File to upload:</label>
-            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload"/>
+            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
         </div>
 
         <div style="clear:both; margin-left: 280px;">
