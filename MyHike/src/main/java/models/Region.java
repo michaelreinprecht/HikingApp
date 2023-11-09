@@ -9,7 +9,7 @@ public class Region {
 
     @Id
     @Column(name = "region_name", length = 40)
-    public String getRegionName() {
+    public  String getRegionName() {
         return regionName;
     }
     public void setRegionName(String regionName) {
