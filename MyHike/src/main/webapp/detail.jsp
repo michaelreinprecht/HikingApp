@@ -33,16 +33,23 @@
         .container {
             display: flex;
             justify-content: space-between;
+
         }
         .col-md-6 {
           /*  flex: 0 0 48%;*/ /* Anpassen der Breite für die Bilder */
+            text-align: center;
         }
         .text-center {
-            text-align: left;
+            text-align: center;
+
         }
         .button-group {
             display: flex;
             flex-direction: column;
+        }
+
+        .row{
+            text-align: center;
         }
 
 
@@ -88,15 +95,21 @@
     </div>
 </nav>
 
+    <%String id = request.getParameter("Id");
+        Hike hike = Database.getHikeById(Integer.parseInt(id));
+    %>
+
+    <div class ="name" style="text-align: center" >
+
+            <h3 class="text-center" style="color: green; margin-top: 40px; font-style: italic"><%= hike.getHikeName() %></h3>
+    </div>
 <!-- Hike Details -->
 <div class="container" style="margin-left: 100px">
+
     <div class="row">
         <div class="col-md-6">
-            <%String id = request.getParameter("Id");
-                Hike hike = Database.getHikeById(Integer.parseInt(id));
-            %>
-            <div style="display: flex; width: 100%; align-items: center; margin-left: 100px; margin-top: 20px">
-                <h3 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeName() %></h3>
+
+            <div style="display: flex; width: 100%; align-items: center; margin-left: 50px; margin-top: 20px">
                 <img src="images/uhr_dauer.png" alt="uhr" style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
                 <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h5>
                 <img src="images/streckenlänge.png" alt="streckenlänge" style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px; margin-right: 5px;">
