@@ -11,13 +11,13 @@ import java.util.List;
 
 public abstract class JPABrokerBase<T> {
     public EntityManager getEntityManager() throws SQLException{
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("MyHike");
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");
         EntityManager entityManager = fact.createEntityManager();
         return entityManager;
     }
 
     public Session getSession() throws SQLException {
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("MyHike");
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");
         try (SessionFactory sessionFactory = fact.unwrap(SessionFactory.class)) {
             return sessionFactory.openSession();
         } catch (Exception e) {
