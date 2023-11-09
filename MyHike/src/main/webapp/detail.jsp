@@ -1,14 +1,10 @@
-<%@ page import="com.example.myhike.Database" %>
+<%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.Database" %>
-<%@ page import="models.Hike" %>
-<%@ page import="com.example.myhike.StarRatingGenerator" %>
 <%@ page import="models.Recommended" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Month" %>
-<%@ page import="models.Recommended" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -123,7 +119,8 @@
                 <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
                     <%
                         List<Recommended> recommended = hike.getRecommendedList();
-                        for (int i = 0; i < recommended.size(); i++) {
+                        int i;
+                        for (i = 0; i < recommended.size(); i++) {
                     %>
                     <%= recommended.get(i).getMonth().getMonthName()%>
                     <% if (i < recommended.size() - 1) { %>  <% } %>
@@ -157,16 +154,84 @@
                 <div id="streckeneigenschaften-content" class="content">
                     <div class="ratings-container">
                         <div class="rating-label"><b>Landscape:</b></div>
-                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeLandscape()) %>
+                        <%
+                            int landscapeRating = hike.getHikeLandscape();
+                            for (i = 0; i < 5; i++) {
+                                if (i < landscapeRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
 
                         <div class="rating-label"><b>Strength:</b></div>
-                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStrength()) %>
+                        <%
+                            int strengthRating = hike.getHikeStrength();
+                            for (i = 0; i < 5; i++) {
+                                if (i < strengthRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
 
                         <div class="rating-label"><b>Stamina:</b></div>
-                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeStamina()) %>
+                        <%
+                            int staminaRating = hike.getHikeStamina();
+                            for (i = 0; i < 5; i++) {
+                                if (i < staminaRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
 
                         <div class="rating-label"><b>Overall Difficulty:</b></div>
-                        <%= StarRatingGenerator.generateStarRating(5, hike.getHikeDifficulty()) %>
+                        <%
+                            int difficultyRating = hike.getHikeDifficulty();
+                            for (i = 0; i < 5; i++) {
+                                if (i < difficultyRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
                     </div>
                 </div>
 
