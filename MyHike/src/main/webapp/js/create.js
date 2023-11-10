@@ -1,3 +1,6 @@
+//JavaScript for the create.js page
+
+//This function displays the image uploaded in the create.jsp Page right after it has been selected.
 function displayImage() {
     var input = document.getElementById('fileToUpload');
     var image = document.getElementById('uploadedImage');

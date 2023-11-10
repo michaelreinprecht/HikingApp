@@ -1,24 +1,25 @@
 package broker;
 
 import models.Month;
+import models.Region;
 import myHikeJava.ResourceServlet;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JPAMonthBroker extends JPABrokerBase<Month> {
+public class JPARegionBroker extends JPABrokerBase<Region> {
     @SuppressWarnings("unchecked")
     @Override
-    public List<Month> getAll() throws SQLException {
+    public List<Region> getAll() throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        List<Month> months= (List<Month>) entityManager.createQuery("from models.Month").getResultList();
-        return months;
+        List<Region> regions= (List<Region>) entityManager.createQuery("from models.Region").getResultList();
+        return regions;
     }
 
     @Override
-    public Month getById(Object id) throws SQLException {
+    public Region getById(Object name) throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        return entityManager.find(Month.class, id);
+        return entityManager.find(Region.class, name);
     }
 }
