@@ -1,3 +1,6 @@
+/* CSS for the detail.jsp page */
+
+/* CSS for the star ratings */
 .input {
     height: 100%;
     width: 100%;
@@ -17,4 +20,36 @@
     font-size: 15px; /* Adjust the size as needed */
     color: grey; /* Change the color if necessary */
     margin-right: 3px; /* Adjust spacing between stars */
+}
+
+/* CSS for the general design of the page */
+body {
+    margin-left: 20px;
+}
+.content {
+    display: none;
+    background-color: white;
+    padding: 50px;
+    margin-bottom: 20px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+
+}
+.col-md-6 {
+    /*  flex: 0 0 48%;*/ /* Adjusting the width of the images */
+    text-align: center;
+}
+.text-center {
+    text-align: center;
+
+}
+.button-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    text-align: center;
 }

@@ -12,6 +12,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
     <a class="navbar-brand" href="#">
         <img src="images/icon3.png"alt ="MyHike" style="width: 90px; height: 70px; margin-bottom: 5px" ></a>
@@ -19,27 +20,19 @@
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" href="index.jsp">Discover <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Routes</a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-
         </ul>
     </div>
 </nav>
+
+
  <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
@@ -53,11 +46,11 @@
                     String image = hike.getHikeImage();
             %>
             <div>
+                <!-- Return a link to the detail page of every hike together with an Image -->
                 <a href="detail.jsp?Id=<%=hike.getHikeId()%>"><%=hike.getHikeName()%></a>
                 <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=image%>" width="150">
             </div>
             <% } %>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
         <div class="col-md" style="background-color: lightblue; padding: 0;">
             <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>

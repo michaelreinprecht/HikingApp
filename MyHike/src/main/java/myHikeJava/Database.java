@@ -14,6 +14,8 @@ public class Database {
     private static JPAMonthFacade monthFacade = new JPAMonthFacade();
     private static JPARegionFacade regionFacade = new JPARegionFacade();
     private static JPARecommendedFacade recommendedFacade = new JPARecommendedFacade();
+
+    //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) {
         facade.insert(databaseObject);
     }
@@ -24,6 +26,7 @@ public class Database {
         facade.delete(databaseObject);
     }
 
+    /* Model specific methods */
     public static List<Hike> getAllHikes(){
         return hikeFacade.getAllHikes();
     }

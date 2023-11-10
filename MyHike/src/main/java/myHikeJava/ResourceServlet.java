@@ -14,7 +14,7 @@ public class ResourceServlet implements ServletContextListener {
     private static EntityManager entityManager;
     // Called when the servlet context is initialized
     public void contextInitialized(ServletContextEvent sce) {
-        // Initialize your resource when the servlet context is initialized
+        // Create global entity manager
         try {
             entityManager = getEntityManager();
         } catch (SQLException e) {
@@ -24,11 +24,12 @@ public class ResourceServlet implements ServletContextListener {
 
     // Called when the servlet context is about to be destroyed
     public void contextDestroyed(ServletContextEvent sce) {
-        // Close your resource when the servlet context is destroyed
+        // Close entityManager when page is closed
         entityManager.close();
     }
 
     public static EntityManager getEntityManager() throws SQLException {
+        //Make sure only one entityManager exists at a time.
         if (entityManager == null) {
             EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");
             entityManager = fact.createEntityManager();
