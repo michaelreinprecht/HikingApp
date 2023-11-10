@@ -1,5 +1,6 @@
 package broker;
 
+import myHikeJava.ResourceServlet;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -10,27 +11,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class JPABrokerBase<T> {
-    public EntityManager getEntityManager() throws SQLException{
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");
-        EntityManager entityManager = fact.createEntityManager();
-        return entityManager;
-    }
-
-    public Session getSession() throws SQLException {
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");
-        try (SessionFactory sessionFactory = fact.unwrap(SessionFactory.class)) {
-            return sessionFactory.openSession();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public abstract List<T> getAll() throws SQLException;
-    public abstract T getById(int id) throws SQLException;
+    public abstract T getById(Object id) throws SQLException;
 
     public void insert(T value) throws SQLException {
-        EntityManager entityManager = getEntityManager();
+        EntityManager entityManager = ResourceServlet.getEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(value);
@@ -45,7 +31,7 @@ public abstract class JPABrokerBase<T> {
     }
 
     public void delete(T value) throws SQLException {
-        EntityManager entityManager = getEntityManager();
+        EntityManager entityManager = ResourceServlet.getEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(value);

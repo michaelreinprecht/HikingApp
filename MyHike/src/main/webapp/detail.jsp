@@ -2,7 +2,6 @@
 <%@ page import="models.Hike" %>
 <%@ page import="models.Recommended" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Month" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -10,6 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hike Details</title>
+
+    <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -17,8 +18,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
     <!-- Link to detail.css -->
+    <link rel="stylesheet" href="css/detail.css">
 
-    <link rel="stylesheet" href="detail.css">
+    <!-- Link to detail.js -->
+    <script src="js/detail.js"></script>
     <style>
         body {
             margin-left: 20px;
@@ -54,16 +57,6 @@
 
 
     </style>
-    <script>
-        function toggleContent(buttonId) {
-            var content = document.getElementById(buttonId + "-content");
-            if (content.style.display === "none" || content.style.display === "") {
-                content.style.display = "block";
-            } else {
-                content.style.display = "none";
-            }
-        }
-    </script>
 </head>
 <body>
 <!-- Navbar -->
@@ -146,7 +139,7 @@
                 <!-- Beschreibung -->
                 <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
                 <div id="beschreibung-content" class="content">
-                    <p>Hier ist die Beschreibung des Hikes.</p>
+                    <p><%=hike.getHikeDescription()%></p>
                 </div>
 
                 <!-- Streckeneigenschaften -->
@@ -250,12 +243,15 @@
         </div>
 </div>
 
-
-
-
-
-<!-- JavaScript-Bibliotheken -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap imports -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

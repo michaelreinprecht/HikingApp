@@ -1,19 +1,19 @@
 package facade;
 
-import broker.JPABrokerBase;
-import broker.JPAHikeBroker;
-import broker.JPAMonthBroker;
+import broker.*;
 import models.Hike;
 import models.Month;
+import models.Recommended;
+import models.Region;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class JPAFacade implements IDatabaseFacade {
-    public void save(Object value) {
-        JPABrokerBase broker = getBroker(value);
+    public void insert(Object databaseObject) {
+        JPABrokerBase broker = getBroker(databaseObject);
         try {
-            broker.insert(value);
+            broker.insert(databaseObject);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -21,10 +21,10 @@ public class JPAFacade implements IDatabaseFacade {
         }
     }
 
-    public void update(Object value) {
-        JPABrokerBase broker = getBroker(value);
+    public void update(Object databaseObject) {
+        JPABrokerBase broker = getBroker(databaseObject);
         try {
-            broker.update(value);
+            broker.update(databaseObject);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -32,10 +32,10 @@ public class JPAFacade implements IDatabaseFacade {
         }
     }
 
-    public void delete(Object value) {
-        JPABrokerBase broker = getBroker(value);
+    public void delete(Object databaseObject) {
+        JPABrokerBase broker = getBroker(databaseObject);
         try {
-            broker.delete(value);
+            broker.delete(databaseObject);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -43,58 +43,18 @@ public class JPAFacade implements IDatabaseFacade {
         }
     }
 
-    public List<Hike> getAllHikes() {
-        JPABrokerBase<Hike> broker = new JPAHikeBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Hike getHikeById(int id) {
-        JPABrokerBase<Hike> broker = new JPAHikeBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    public List<Month> getAllMonths() {
-        JPABrokerBase<Month> broker = new JPAMonthBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Month getMonthById(int id) {
-        JPABrokerBase<Month> broker = new JPAMonthBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public JPABrokerBase getBroker(Object value) {
-        if (value instanceof Hike) {
+    private JPABrokerBase getBroker(Object databaseObject) {
+        if (databaseObject instanceof Hike) {
             return new JPAHikeBroker();
+        }
+        if (databaseObject instanceof Month) {
+            return new JPAMonthBroker();
+        }
+        if (databaseObject instanceof Region) {
+            return new JPARegionBroker();
+        }
+        if (databaseObject instanceof Recommended) {
+            return new JPARecommendedBroker();
         }
         return null;
     }

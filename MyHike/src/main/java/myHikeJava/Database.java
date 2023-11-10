@@ -1,35 +1,54 @@
 package myHikeJava;
 
-import facade.JPAFacade;
+import facade.*;
 import models.Hike;
 import models.Month;
+import models.Recommended;
+import models.Region;
 
 import java.util.List;
 
 public class Database {
-    //TODO: maybe split up this OR facade for multiple objects
+    private static JPAFacade facade = new JPAFacade();
+    private static JPAHikeFacade hikeFacade = new JPAHikeFacade();
+    private static JPAMonthFacade monthFacade = new JPAMonthFacade();
+    private static JPARegionFacade regionFacade = new JPARegionFacade();
+    private static JPARecommendedFacade recommendedFacade = new JPARecommendedFacade();
+    public static void insert(Object databaseObject) {
+        facade.insert(databaseObject);
+    }
+    public static void update(Object databaseObject) {
+        facade.update(databaseObject);
+    }
+    public static void delete(Object databaseObject) {
+        facade.delete(databaseObject);
+    }
 
     public static List<Hike> getAllHikes(){
-        JPAFacade facade = new JPAFacade();
-        List<Hike> hikes = facade.getAllHikes();
-        return hikes;
+        return hikeFacade.getAllHikes();
     }
     public static Hike getHikeById(int id) {
-        JPAFacade facade = new JPAFacade();
-        Hike hike = facade.getHikeById(id);
-        return hike;
+        return hikeFacade.getHikeById(id);
     }
-
 
     public static List<Month> getAllMonths() {
-        JPAFacade facade = new JPAFacade();
-        List<Month> months = facade.getAllMonths();
-        return months;
+        return monthFacade.getAllMonths();
+    }
+    public static Month getMonthById(int id) {
+        return monthFacade.getMonthById(id);
     }
 
-    public static Month getMonthById(int id) {
-        JPAFacade facade = new JPAFacade();
-        Month month = facade.getMonthById(id);
-        return month;
+    public static List<Region> getAllRegions() {
+        return regionFacade.getAllRegions();
+    }
+    public static Region getRegionById(String id) {
+        return regionFacade.getRegionById(id);
+    }
+
+    public static List<Recommended> getAllRecommendeds() {
+        return recommendedFacade.getAllRecommendeds();
+    }
+    public static Recommended getRecommendedById(int id) {
+        return recommendedFacade.getRecommendedById(id);
     }
 }
