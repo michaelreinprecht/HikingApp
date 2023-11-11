@@ -2,13 +2,13 @@
 
 //Displays the image uploaded in the create.jsp Page right after it has been selected.
 function displayImage() {
-    var input = document.getElementById('fileToUpload');
-    var image = document.getElementById('uploadedImage');
+    let input = document.getElementById('fileToUpload');
+    let image = document.getElementById('uploadedImage');
 
-    var file = input.files[0];
+    let file = input.files[0];
 
     if (file) {
-        var reader = new FileReader();
+        let reader = new FileReader();
 
         reader.onload = function(e) {
             image.src = e.target.result;
@@ -20,100 +20,93 @@ function displayImage() {
 
 //Validates the information entered into the create.jsp pages form
 function validateForm() {
-    const namePattern = /^[A-Z0-9].*$/;
-    const name = document.getElementById("name");
-    const regionPattern = /^[a-zA-Z0-9 ,.'-]+$/;
-    const region = document.getElementById("region");
-    const startPattern = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
-    const start = document.getElementById("startLocation");
-    const endPattern = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
-    const end = document.getElementById("endLocation");
-    const descriptionPattern = /^[a-zA-Z0-9 ,.'-]+$/;
-    const description = document.getElementById("description");
+    //Pattern matching for lat and lon coordinates, checks if lat and lon are in a certain range, allows a maximum of 6 decimal points
+    const LatPattern = /^[-+]?([1-8]?\d(\.\d{1,6})?|90(\.0{1,6})?)$/;
+    const LonPattern = /^[-+]?(180(\.0{1,6})?|((1[0-7]\d|\d{1,2})(\.\d{1,6})?))$/;
+
+    //Start and end coordinates of the hike.
+    const startLat = document.getElementById("startLat");
+    const startLon = document.getElementById("startLon");
+    const endLat = document.getElementById("endLat");
+    const endLon = document.getElementById("endLon");
+
     const altitudePattern = /^[1-9][0-9]*$/;
     const altitude = document.getElementById("altitude");
-    const distancePattern = /^[0-9]+(?:,[0-9]?[0-9])?$/;
+
+    const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
     const distance = document.getElementById("distance");
-    const durationPattern = /^[0-9]+(?:,[0-9]?[0-9])?$/
-    const duration = document.getElementById("duration");
+
     const radioStrength = document.querySelector('input[name="strength-rating"]:checked');
     const radioStamina = document.querySelector('input[name="stamina-rating"]:checked');
     const radioDifficulty = document.querySelector('input[name="difficulty-rating"]:checked');
     const radioLandscape = document.querySelector('input[name="landscape-rating"]:checked');
 
     const checkboxes = document.getElementsByClassName("form-check-input");
+
+    const imageInput = document.getElementById('fileToUpload');
+    let image = imageInput.files[0];
+
     const validationAlert = document.getElementById("validationAlert");
 
-    let checked = false;
+    //This sets the alert to be displayed, if none of the below checks are triggered it will be set to none again and
+    //therefore be invisible.
+    validationAlert.style.display = "block";
+
+    let monthIsChecked = false;
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-            checked = true;
+            monthIsChecked = true;
         }
     }
-    if (!checked) {
+    if (!monthIsChecked) {
         validationAlert.innerHTML = "Please pick at least one recommended month.";
-        validationAlert.style.display = "block";
         return false;
     }
-    if (!namePattern.test(name.value)){
-        validationAlert.innerHTML = "Please select a name.";
-        validationAlert.display = "block";
+    if (!LonPattern.test(startLon.value)){
+        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
         return false;
     }
-    if (!regionPattern.test(region.value)){
-        validationAlert.innerHTML = "Please select a region.";
-        validationAlert.display = "block";
+    if (!LatPattern.test(startLat.value)){
+        validationAlert.innerHTML = "Please enter a valid starting lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
-    if (!startPattern.test(start.value)){
-        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate.";
-        validationAlert.display = "block";
+    if (!LonPattern.test(endLon.value)){
+        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
         return false;
     }
-    if (!endPattern.test(end.value)){
-        validationAlert.innerHTML = "Please enter a valid ending lon-coordinate.";
-        validationAlert.display = "block";
+    if (!LatPattern.test(endLat.value)){
+        validationAlert.innerHTML = "Please enter a valid ending lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
-    if (!descriptionPattern.test(description.value)){
-        validationAlert.innerHTML = "Please enter a valid description.";
-        validationAlert.display = "block";
-        return false;
-    }
-    if (!altitudePattern.test(altitude.value)){
+    if (altitude.value != null && altitude.value !== "" && !altitudePattern.test(altitude.value)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
-        validationAlert.display = "block";
         return false;
     }
-    if (!distancePattern.test(distance.value)){
+    if (distance.value != null && distance.value !== "" && !distancePattern.test(distance.value)){
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
-        validationAlert.display = "block";
-        return false;
-    }
-    if (!durationPattern.test(duration.value)){
-        validationAlert.innerHTML = "Please enter a valid distance in hours.";
-        validationAlert.display = "block";
         return false;
     }
     if (!radioLandscape) {
         validationAlert.innerHTML = "Please rate the landscape.";
-        validationAlert.display = "block";
         return false;
     }
     if (!radioStrength) {
         validationAlert.innerHTML = "Please rate the required strength for this hike.";
-        validationAlert.style.display = "block";
         return false;
     }
     if (!radioStamina) {
         validationAlert.innerHTML = "Please rate the required stamina for this hike.";
-        validationAlert.display = "block";
         return false;
     }
     if (!radioDifficulty) {
         validationAlert.innerHTML = "Please rate this hikes difficulty.";
-        validationAlert.display = "block";
         return false;
     }
+    if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
+        validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
+        return false;
+    }
+
+    validationAlert.style.display = "none";
     return true;
 }
