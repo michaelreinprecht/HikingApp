@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hike", schema = "MyHike")
 public class Hike {
-    private Integer hikeId;
+    private String hikeId;
     private String hikeName;
     private String hikeDescription;
     private BigDecimal hikeStartLon;
@@ -31,7 +32,7 @@ public class Hike {
 
     public Hike() {}
 
-    public Hike(Integer hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, List<Recommended> recommenedList, Region hikeRegion) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, List<Recommended> recommenedList, Region hikeRegion) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -53,10 +54,10 @@ public class Hike {
 
     @Id
     @Column(name = "hike_id")
-    public Integer getHikeId() {
+    public String getHikeId() {
         return hikeId;
     }
-    public void setHikeId(Integer hikeId) {
+    public void setHikeId(String hikeId) {
         this.hikeId = hikeId;
     }
 

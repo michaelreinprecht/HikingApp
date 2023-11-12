@@ -30,7 +30,7 @@ public class Database {
     public static List<Hike> getAllHikes(){
         return hikeFacade.getAllHikes();
     }
-    public static Hike getHikeById(int id) {
+    public static Hike getHikeById(String id) {
         return hikeFacade.getHikeById(id);
     }
 
@@ -51,7 +51,7 @@ public class Database {
     public static List<Recommended> getAllRecommendeds() {
         return recommendedFacade.getAllRecommendeds();
     }
-    public static Recommended getRecommendedById(int id) {
+    public static Recommended getRecommendedById(String id) {
         return recommendedFacade.getRecommendedById(id);
     }
 }

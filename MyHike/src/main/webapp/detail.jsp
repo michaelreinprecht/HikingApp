@@ -48,7 +48,7 @@
 <%
     //Get the hike which is going to be displayed in detail in this page.
     String id = request.getParameter("Id");
-    Hike hike = Database.getHikeById(Integer.parseInt(id));
+    Hike hike = Database.getHikeById(id);
 %>
 
 <!-- Hike name -->

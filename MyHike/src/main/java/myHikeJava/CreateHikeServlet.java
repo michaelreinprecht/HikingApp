@@ -4,14 +4,18 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.UUID;
 
-import facade.JPAHikeFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Hike;
+import models.Month;
+import models.Recommended;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
@@ -42,7 +46,11 @@ public class CreateHikeServlet extends HttpServlet {
 
     private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
         Hike hike = new Hike();
-        hike.setHikeId(101); //TODO replace with random UUID!
+
+        //Create random UUID for hike.
+        //UUID hikeId = UUID.randomUUID();
+        hike.setHikeId(UUID.randomUUID().toString()); //TODO replace with random UUID
+
         hike.setHikeName(request.getParameter("name"));
         hike.setHikeDescription(request.getParameter("description"));
         hike.setHikeStartLon(new BigDecimal(request.getParameter("startLon")));
@@ -62,7 +70,21 @@ public class CreateHikeServlet extends HttpServlet {
         hike.setHikeDuration(Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter)));
 
         //TODO save recommended months
-        hike.setRecommendedList(null);
+        List<Recommended> recommendedMonths = new ArrayList<>();
+        String[] months = request.getParameterValues("months");
+        for (String monthIdString: months) {
+            //Get month object from month table
+            int monthId = Integer.parseInt(monthIdString);
+            Month month = Database.getMonthById(monthId);
+
+            //Generate UUID for recommended table
+            String recommendedId = UUID.randomUUID().toString();
+
+
+            //Create new recommended tupel with month and hike.
+            recommendedMonths.add(new Recommended(recommendedId, month, hike));
+        }
+        hike.setRecommendedList(recommendedMonths);
 
         //Encode image to Base64 String and add it to hike
         Part fileToUpload = request.getPart("fileToUpload");
