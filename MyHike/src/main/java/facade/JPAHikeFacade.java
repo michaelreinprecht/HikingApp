@@ -20,7 +20,7 @@ public class JPAHikeFacade extends JPAFacade{
         return null;
     }
 
-    public Hike getHikeById(int id) {
+    public Hike getHikeById(Object id) {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
         try {
             return broker.getById(id);

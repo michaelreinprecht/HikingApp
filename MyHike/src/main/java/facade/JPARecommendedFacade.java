@@ -20,7 +20,7 @@ public class JPARecommendedFacade extends JPAFacade {
         return null;
     }
 
-    public Recommended getRecommendedById(int id) {
+    public Recommended getRecommendedById(Object id) {
         JPABrokerBase<Recommended> broker = new JPARecommendedBroker();
         try {
             return broker.getById(id);

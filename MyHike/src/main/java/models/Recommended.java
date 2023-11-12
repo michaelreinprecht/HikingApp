@@ -1,17 +1,21 @@
 package models;
 
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "MyHike.recommended")
 public class Recommended implements Serializable {
 
+    @Setter
     @Id
     @Column(name = "recommended_id")
-    private int recommendedId;
+    private String recommendedId;
 
     @Getter
     @ManyToOne
@@ -24,6 +28,13 @@ public class Recommended implements Serializable {
     private Hike hike;
 
     // Constructors, getters, and setters
+    public Recommended() {}
+
+    public Recommended(String recommendedId, Month month, Hike hike) {
+        this.recommendedId = recommendedId;
+        this.month = month;
+        this.hike = hike;
+    }
 
     public void setMonth(Month month) {
         this.month = month;
