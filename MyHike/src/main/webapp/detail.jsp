@@ -66,11 +66,37 @@
                 <img src="images/uhr_dauer.png" alt="uhr"
                      style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
                 <h5 class="text-center"
-                    style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDuration()%> hours</h5>
+                    style="color: green; margin-top: 20px; font-style: italic">
+                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
+                        // (TODO generate duration automatically if it has no value)
+                        if (hike.getHikeDuration() != null) {
+                    %>
+                    <%= hike.getHikeDuration()%> hours
+                    <%
+                    } else {
+                    %>
+                    ? hours
+                    <%
+                        }
+                    %>
+                </h5>
                 <img src="images/streckenlänge.png" alt="streckenlänge"
                      style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px; margin-right: 5px;">
                 <h5 class="text-center"
-                    style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeDistance()%>km</h5>
+                    style="color: green; margin-top: 20px; font-style: italic">
+                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                        // (TODO generate distance automatically if it has no value)
+                        if (hike.getHikeDistance() != null) {
+                    %>
+                    <%= hike.getHikeDistance()%>km
+                    <%
+                        } else {
+                    %>
+                    ?km
+                    <%
+                        }
+                    %>
+                </h5>
                 <img src="images/region.png" alt="region"
                      style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px">
                 <h5 class="text-center"
@@ -112,7 +138,8 @@
             <!-- Beschreibung -->
             <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
             <div id="beschreibung-content" class="content">
-                <p><%=hike.getHikeDescription()%>
+                <p>
+                    <%=hike.getHikeDescription()%>
                 </p>
             </div>
 

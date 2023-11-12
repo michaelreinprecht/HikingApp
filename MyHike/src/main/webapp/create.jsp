@@ -41,11 +41,15 @@
 </nav>
 
 <div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data">
+    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data" onsubmit="return validateForm();">
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+        </div>
+        <div style="clear:both;">
+            <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
+            <textarea id="description" name="description" placeholder="Your description ..."></textarea>
         </div>
         <div style="clear:both;">
             <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
@@ -63,29 +67,25 @@
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label><br>
-            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon"><br>
-            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat">
+            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456" required><br>
+            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456" required>
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">End Location:</label><br>
-            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon"><br>
-            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat">
+            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456" required><br>
+            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456" required>
         </div>
         <div style="clear:both;">
-            <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
-            <input type="text" id="description" name="description">
-        </div>
-        <div style="clear:both;">
-            <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude:</label>
+            <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude (in meters):</label>
             <input type="text" id="altitude" name="altitude">
         </div>
         <div style="clear:both;">
-            <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance:</label>
+            <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance (in kilometers):</label>
             <input type="text" id="distance" name="distance">
         </div>
         <div style="clear:both;">
-            <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration:</label>
-            <input type="time" id="duration" name="duration">
+            <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration (in hours:minutes):</label>
+            <input type="time" id="duration" name="duration" value="01:00">
         </div>
 
         <!-- Generate month input -->
@@ -166,13 +166,27 @@
             <img id="uploadedImage" style="max-width: 100%; max-height: 200px; margin-top: 20px;" />
         </div>
 
-        <div style="display: inline-block; width: 150px; font-weight: bold">
-            <label for="fileToUpload" class="form-label">File to upload:</label>
+        <div class="row-md" style="width: 150px; font-weight: bold">
+            <label for="fileToUpload" class="form-label">Image upload:</label>
             <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
         </div>
 
-        <div style="clear:both; margin-left: 280px;">
-            <input type="submit" value="create">
+        <!-- This alert will be displayed if (for example), validation is not passed -->
+        <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
+        <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
+        <%
+            String error = request.getParameter("error");
+            if (error != null && !error.isEmpty()) {
+        %>
+        <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
+            Database error: <%= error %>
+        </div>
+        <%
+            }
+        %>
+
+        <div class="row-md" style="clear:both; margin-left: 280px;">
+            <button type="submit" class="btn btn-success" style="width: 10%">Submit</button>
         </div>
     </form>
 

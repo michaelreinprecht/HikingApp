@@ -17,13 +17,10 @@ public abstract class JPABrokerBase<T> {
 
     public void insert(T value) throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(value);
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.close();
-        }
+        entityManager.getTransaction().begin();
+        entityManager.persist(value);
+        entityManager.getTransaction().commit();
+
     }
 
     public void update(T value) throws SQLException {
@@ -32,12 +29,8 @@ public abstract class JPABrokerBase<T> {
 
     public void delete(T value) throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.remove(value);
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.close();
-        }
+        entityManager.getTransaction().begin();
+        entityManager.remove(value);
+        entityManager.getTransaction().commit();
     }
 }
