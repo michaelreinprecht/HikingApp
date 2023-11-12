@@ -108,12 +108,19 @@
                     <%
                         List<Recommended> recommended = hike.getRecommendedList();
                         int i;
-                        //TODO explain what is being generated
-                        for (i = 0; i < recommended.size(); i++) {
+                        if (recommended != null) {
+                            //TODO explain what is being generated
+                            for (i = 0; i < recommended.size(); i++) {
                     %>
                     <%= recommended.get(i).getMonth().getMonthName()%>
-                    <% if (i < recommended.size() - 1) { %>  <% } %>
                     <%
+                            if (i < recommended.size() - 1) {
+                    %>
+                    <%
+                            }
+                    %>
+                    <%
+                            }
                         }
                     %>
                 </h5>
