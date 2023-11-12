@@ -179,14 +179,14 @@
             if (error != null && !error.isEmpty()) {
         %>
         <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
-            <%= error %>
+            Database error: <%= error %>
         </div>
         <%
             }
         %>
 
         <div class="row-md" style="clear:both; margin-left: 280px;">
-            <button type="submit" class="btn btn-success" style="width: 10%" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}">Submit</button>
+            <button type="submit" class="btn btn-success" style="width: 10%">Submit</button>
         </div>
     </form>
 
