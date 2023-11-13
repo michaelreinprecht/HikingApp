@@ -14,7 +14,8 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
-    <!-- Link to create.css -->
+    <!-- Link to css files -->
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
     <!-- Link to create.js -->
@@ -22,8 +23,10 @@
 </head>
 <body>
 <!-- Navigation bar -->
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="index.jsp">
+        <img src="images/icon3.png" alt="MyHike" class="icon">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

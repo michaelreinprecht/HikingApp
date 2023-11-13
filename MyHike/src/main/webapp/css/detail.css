@@ -7,7 +7,6 @@
     display: none; /*"Hide" inputs*/
 }
 
-
 .star-rating {
     display: inline-block;
     font-size: 15px; /* Adjust the size as needed */
@@ -23,9 +22,6 @@
 }
 
 /* CSS for the general design of the page */
-body {
-    margin-left: 20px;
-}
 .content {
     display: none;
     background-color: white;
@@ -35,21 +31,76 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
-
 }
 .col-md-6 {
     /*  flex: 0 0 48%;*/ /* Adjusting the width of the images */
     text-align: center;
 }
 .text-center {
-    text-align: center;
-
+    color: green;
+    font-style: italic;
+    margin: auto;
 }
 .button-group {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    justify-content: space-between
 }
 
 .row{
     text-align: center;
+}
+
+.map {
+    width: 100%;
+    height: 400px;
+}
+
+.hikeImage {
+    width: 100%;
+    height: 400px;
+}
+
+.characteristics {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.images {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.icons {
+    width:50px;
+    height: 40px;
+    margin: auto
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 48%;
+}
+
+.text-center-name {
+    color: green;
+    margin-top: 40px;
+    font-style: italic
+}
+
+.name {
+    text-align: center;
+}
+
+.group {
+    display: flex;
+    width: 20%;
 }
