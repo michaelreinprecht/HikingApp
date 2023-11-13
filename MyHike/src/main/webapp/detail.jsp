@@ -51,213 +51,219 @@
     Hike hike = Database.getHikeById(id);
 %>
 
-<!-- Hike name -->
-<div class="name" style="text-align: center">
-    <h3 class="text-center" style="color: green; margin-top: 40px; font-style: italic"><%= hike.getHikeName() %>
-    </h3>
-</div>
-
-<!-- Hike Details -->
-<div class="container" style="margin-left: 100px">
-
-    <div class="row">
-        <div class="col-md-6">
-            <div style="display: flex; width: 100%; align-items: center; margin-left: 50px; margin-top: 20px">
-                <img src="images/uhr_dauer.png" alt="uhr"
-                     style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
-                <h5 class="text-center"
-                    style="color: green; margin-top: 20px; font-style: italic">
-                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
-                        // (TODO generate duration automatically if it has no value)
-                        if (hike.getHikeDuration() != null) {
-                    %>
-                    <%= hike.getHikeDuration()%> hours
-                    <%
-                    } else {
-                    %>
-                    ? hours
-                    <%
-                        }
-                    %>
-                </h5>
-                <img src="images/streckenlänge.png" alt="streckenlänge"
-                     style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px; margin-right: 5px;">
-                <h5 class="text-center"
-                    style="color: green; margin-top: 20px; font-style: italic">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
-                        // (TODO generate distance automatically if it has no value)
-                        if (hike.getHikeDistance() != null) {
-                    %>
-                    <%= hike.getHikeDistance()%>km
-                    <%
-                        } else {
-                    %>
-                    ?km
-                    <%
-                        }
-                    %>
-                </h5>
-                <img src="images/region.png" alt="region"
-                     style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px">
-                <h5 class="text-center"
-                    style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion().getRegionName()%>
-                </h5>
-                <img src="images/months_icon.png" alt="monate"
-                     style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px;">
-                <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
-                    <%
-                        List<Recommended> recommended = hike.getRecommendedList();
-                        int i;
-                        if (recommended != null) {
-                            //TODO explain what is being generated
-                            for (i = 0; i < recommended.size(); i++) {
-                    %>
-                    <%= recommended.get(i).getMonth().getMonthName()%>
-                    <%
-                            if (i < recommended.size() - 1) {
-                    %>
-                    <%
-                            }
-                    %>
-                    <%
-                            }
-                        }
-                    %>
-                </h5>
-            </div>
-
-            <div class="image-container"
-                 style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 20px">
-                <!-- Rundgangsbild -->
-                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=hike.getHikeImage()%>"
-                     style="width: 100%; height: 400px; margin-left: 20px; margin-right: 20px">
-
-                <!-- Karte -->
-                <img src="images/map.png" alt="Karte" style="width: 100%; height: 400px; margin-left: 20px">
-            </div>
+<div class="container-fluid" style="width: 100%">
+    <div class="row" style="width: 100%; padding: 0; margin-top: 40px;">
+        <!-- Hike name -->
+        <div class="col-md-6 offset-md-3">
+            <h3 style="color: green; font-style: italic"><%= hike.getHikeName() %>
         </div>
+        <!-- Edit button -->
+        <div class="col-md-3 text-right">
+            <button type="button" class="btn btn-warning">Edit</button>
+        </div>
+    </div>
 
-
-        <!-- Buttons Container -->
-        <div class="button-group"
-             style="width: 220%; margin-left: 50px; display: flex; flex-direction: column; justify-content: space-between">
-
-            <!-- Beschreibung -->
-            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
-            <div id="beschreibung-content" class="content">
-                <p>
-                    <%=hike.getHikeDescription()%>
-                </p>
-            </div>
-
-            <!-- Streckeneigenschaften -->
-            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
-            </button>
-            <div id="streckeneigenschaften-content" class="content">
-                <div class="ratings-container">
-                    <div class="rating-label"><b>Landscape:</b></div>
-                    <%
-                        int landscapeRating = hike.getHikeLandscape();
-                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < landscapeRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+    <!-- Hike Details -->
+    <div class="container-fluid">
+        <div class="row" style="width: 100%">
+            <div class="col-md-6">
+                <div style="display: flex; width: 100%; align-items: center; margin-left: 50px; margin-top: 20px">
+                    <img src="images/uhr_dauer.png" alt="uhr"
+                         style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
+                    <h5 class="text-center"
+                        style="color: green; margin-top: 20px; font-style: italic">
+                        <% //Null-Value check, if there is no duration we will instead just display a question mark
+                            // (TODO generate duration automatically if it has no value)
+                            if (hike.getHikeDuration() != null) {
+                        %>
+                        <%= hike.getHikeDuration()%> hours
+                        <%
+                        } else {
+                        %>
+                        ? hours
+                        <%
                             }
-                        }
-                    %><br>
-
-                    <div class="rating-label"><b>Strength:</b></div>
-                    <%
-                        int strengthRating = hike.getHikeStrength();
-                        //Display a number of "active" and "inactive" stars, depending on the strengthRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < strengthRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        %>
+                    </h5>
+                    <img src="images/streckenlänge.png" alt="streckenlänge"
+                         style="width:50px; height: 40px; margin-top: 15px; margin-left: 100px; margin-right: 5px;">
+                    <h5 class="text-center"
+                        style="color: green; margin-top: 20px; font-style: italic">
+                        <% //Null-Value check, if there is no distance we will instead just display a question mark
+                            // (TODO generate distance automatically if it has no value)
+                            if (hike.getHikeDistance() != null) {
+                        %>
+                        <%= hike.getHikeDistance()%>km
+                        <%
+                        } else {
+                        %>
+                        ?km
+                        <%
                             }
-                        }
-                    %><br>
-
-                    <div class="rating-label"><b>Stamina:</b></div>
-                    <%
-                        int staminaRating = hike.getHikeStamina();
-                        //Display a number of "active" and "inactive" stars, depending on the staminaRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < staminaRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        %>
+                    </h5>
+                    <img src="images/region.png" alt="region"
+                         style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px">
+                    <h5 class="text-center"
+                        style="color: green; margin-top: 20px; font-style: italic"><%= hike.getHikeRegion().getRegionName()%>
+                    </h5>
+                    <img src="images/months_icon.png" alt="monate"
+                         style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px;">
+                    <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
+                        <%
+                            List<Recommended> recommended = hike.getRecommendedList();
+                            int i;
+                            if (recommended != null) {
+                                //TODO explain what is being generated
+                                for (i = 0; i < recommended.size(); i++) {
+                        %>
+                        <%= recommended.get(i).getMonth().getMonthName()%>
+                        <%
+                            if (i < recommended.size() - 1) {
+                        %>
+                        <%
                             }
-                        }
-                    %><br>
-
-                    <div class="rating-label"><b>Overall Difficulty:</b></div>
-                    <%
-                        int difficultyRating = hike.getHikeDifficulty();
-                        //Display a number of "active" and "inactive" stars, depending on the difficultyRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < difficultyRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        %>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %>
+                    </h5>
+                </div>
+
+                <div class="image-container"
+                     style="display: flex; align-items: center; margin-top: 20px; margin-bottom: 20px">
+                    <!-- Rundgangsbild -->
+                    <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=hike.getHikeImage()%>"
+                         style="width: 100%; height: 400px; margin-left: 20px; margin-right: 20px">
+
+                    <!-- Karte -->
+                    <img src="images/map.png" alt="Karte" style="width: 100%; height: 400px; margin-left: 20px">
                 </div>
             </div>
 
-            <!-- Einkehrmöglichkeiten -->
-            <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten</button>
-            <div id="einkehrmoeglichkeiten-content" class="content">
-                <!-- TODO Einkehrmöglichkeiten anzeigen -->
-                <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
-            </div>
 
-            <!-- Rezensionen -->
-            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
-            <div id="rezensionen-content" class="content">
-                <!-- TODO Rezensionen generieren -->
-                <p>Hier sind Rezensionen zum Hike.</p>
+            <!-- Buttons Container -->
+            <div class="button-group"
+                 style="width: 220%; margin-left: 50px; display: flex; flex-direction: column; justify-content: space-between">
+
+                <!-- Beschreibung -->
+                <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
+                <div id="beschreibung-content" class="content">
+                    <p>
+                        <%=hike.getHikeDescription()%>
+                    </p>
+                </div>
+
+                <!-- Streckeneigenschaften -->
+                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
+                </button>
+                <div id="streckeneigenschaften-content" class="content">
+                    <div class="ratings-container">
+                        <div class="rating-label"><b>Landscape:</b></div>
+                        <%
+                            int landscapeRating = hike.getHikeLandscape();
+                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < landscapeRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
+
+                        <div class="rating-label"><b>Strength:</b></div>
+                        <%
+                            int strengthRating = hike.getHikeStrength();
+                            //Display a number of "active" and "inactive" stars, depending on the strengthRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < strengthRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
+
+                        <div class="rating-label"><b>Stamina:</b></div>
+                        <%
+                            int staminaRating = hike.getHikeStamina();
+                            //Display a number of "active" and "inactive" stars, depending on the staminaRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < staminaRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
+
+                        <div class="rating-label"><b>Overall Difficulty:</b></div>
+                        <%
+                            int difficultyRating = hike.getHikeDifficulty();
+                            //Display a number of "active" and "inactive" stars, depending on the difficultyRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < difficultyRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
+                            }
+                        %><br>
+                    </div>
+                </div>
+
+                <!-- Einkehrmöglichkeiten -->
+                <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten
+                </button>
+                <div id="einkehrmoeglichkeiten-content" class="content">
+                    <!-- TODO Einkehrmöglichkeiten anzeigen -->
+                    <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
+                </div>
+
+                <!-- Rezensionen -->
+                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+                <div id="rezensionen-content" class="content">
+                    <!-- TODO Rezensionen generieren -->
+                    <p>Hier sind Rezensionen zum Hike.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Bootstrap imports -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

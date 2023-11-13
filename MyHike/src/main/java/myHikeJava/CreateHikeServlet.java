@@ -21,6 +21,8 @@ import models.Recommended;
 @MultipartConfig
 public class CreateHikeServlet extends HttpServlet {
     private String message;
+    //This list is added to the hike, later on it's contents also need to be uploaded to the database.
+    List<Recommended> recommendedMonths = new ArrayList<>();
 
     public void init() {
         message = "Loading ...";
@@ -30,7 +32,14 @@ public class CreateHikeServlet extends HttpServlet {
         String error = "";
         try {
             Hike hike = getHike(request);
+            //Create hike
             Database.insert(hike);
+
+            //Add recommendedMonths to recommended_in table.
+            for(Recommended recommended: recommendedMonths) {
+                Database.insert(recommended);
+            }
+
         } catch (IOException | ServletException e) {
             error = e.getMessage();
         }
@@ -48,8 +57,7 @@ public class CreateHikeServlet extends HttpServlet {
         Hike hike = new Hike();
 
         //Create random UUID for hike.
-        //UUID hikeId = UUID.randomUUID();
-        hike.setHikeId(UUID.randomUUID().toString()); //TODO replace with random UUID
+        hike.setHikeId(UUID.randomUUID().toString());
 
         hike.setHikeName(request.getParameter("name"));
         hike.setHikeDescription(request.getParameter("description"));
@@ -69,8 +77,8 @@ public class CreateHikeServlet extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         hike.setHikeDuration(Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter)));
 
-        //TODO save recommended months
-        List<Recommended> recommendedMonths = new ArrayList<>();
+
+        //Save recommended months for hike
         String[] months = request.getParameterValues("months");
         for (String monthIdString: months) {
             //Get month object from month table
@@ -80,10 +88,10 @@ public class CreateHikeServlet extends HttpServlet {
             //Generate UUID for recommended table
             String recommendedId = UUID.randomUUID().toString();
 
-
             //Create new recommended tupel with month and hike.
             recommendedMonths.add(new Recommended(recommendedId, month, hike));
         }
+        //Add recommendedMonths to the hike (they also need to be inserted into the database still)
         hike.setRecommendedList(recommendedMonths);
 
         //Encode image to Base64 String and add it to hike
