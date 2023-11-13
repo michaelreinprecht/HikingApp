@@ -3,6 +3,7 @@
 <%@ page import="models.Region" %>
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -52,11 +53,11 @@
         <br>
         <div style="clear:both;">
             <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+            <input type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" required>
         </div>
         <div style="clear:both;">
             <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
-            <textarea id="description" name="description" placeholder="Your description ..."></textarea>
+            <textarea id="description" name="description" placeholder="Your description ..."><%=hike.getHikeDescription()%></textarea>
         </div>
         <div style="clear:both;">
             <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
@@ -64,9 +65,15 @@
                 <%
                     List<Region> regions = Database.getAllRegions();
                     for(Region region: regions) {
+                        if (Objects.equals(hike.getHikeRegion().getRegionName(), region.getRegionName())) {
+                %>
+                <!-- If the Region of hike and current Region element match, set this as the selected option -->
+                <option value="<%=region.getRegionName()%>" selected><%=region.getRegionName()%></option>
+                <%       } else {
                 %>
                 <option value="<%=region.getRegionName()%>"><%=region.getRegionName()%></option>
                 <%
+                        }
                     }
                 %>
             </select>
@@ -74,25 +81,25 @@
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label><br>
-            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456" required><br>
-            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456" required>
+            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456" value="<%=hike.getHikeStartLon()%>" required><br>
+            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456" value="<%=hike.getHikeStartLat()%>" required>
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">End Location:</label><br>
-            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456" required><br>
-            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456" required>
+            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456" value="<%=hike.getHikeEndLon()%>" required><br>
+            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456" value="<%=hike.getHikeEndLat()%>" required>
         </div>
         <div style="clear:both;">
             <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude (in meters):</label>
-            <input type="text" id="altitude" name="altitude">
+            <input type="text" id="altitude" name="altitude" value="<%=hike.getHikeAltitude()%>">
         </div>
         <div style="clear:both;">
             <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance (in kilometers):</label>
-            <input type="text" id="distance" name="distance">
+            <input type="text" id="distance" name="distance" value="<%=hike.getHikeDistance()%>">
         </div>
         <div style="clear:both;">
             <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration (in hours:minutes):</label>
-            <input type="time" id="duration" name="duration" value="01:00">
+            <input type="time" id="duration" name="duration" value="<%=hike.getHikeDuration()%>">
         </div>
 
         <!-- Generate month input -->

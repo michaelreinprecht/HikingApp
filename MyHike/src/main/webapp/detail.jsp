@@ -59,7 +59,9 @@
         </div>
         <!-- Edit button -->
         <div class="col-md-3 text-right">
-            <button type="button" class="btn btn-warning">Edit</button>
+            <a href="edit.jsp?Id=<%=hike.getHikeId()%>">
+                <button type="button" class="btn btn-warning">Edit</button>
+            </a>
         </div>
     </div>
 
@@ -70,8 +72,7 @@
                 <div style="display: flex; width: 100%; align-items: center; margin-left: 50px; margin-top: 20px">
                     <img src="images/uhr_dauer.png" alt="uhr"
                          style="width:40px; height: 40px; margin-top: 15px; margin-left: 150px; margin-right: 5px;">
-                    <h5 class="text-center"
-                        style="color: green; margin-top: 20px; font-style: italic">
+                    <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
                         <% //Null-Value check, if there is no duration we will instead just display a question mark
                             // (TODO generate duration automatically if it has no value)
                             if (hike.getHikeDuration() != null) {
