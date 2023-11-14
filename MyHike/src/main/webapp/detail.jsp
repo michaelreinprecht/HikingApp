@@ -2,6 +2,7 @@
 <%@ page import="models.Hike" %>
 <%@ page import="models.Recommended" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -149,114 +150,115 @@
                 </p>
             </div>
 
-            <!-- Streckeneigenschaften -->
-            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
-            </button>
-            <div id="streckeneigenschaften-content" class="content">
-                <div class="ratings-container">
-                    <div class="rating-label"><b>Landscape:</b></div>
-                    <%
-                        int landscapeRating = hike.getHikeLandscape();
-                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < landscapeRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                <!-- Streckeneigenschaften -->
+                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
+                </button>
+                <div id="streckeneigenschaften-content" class="content">
+                    <div class="ratings-container">
+                        <div class="rating-label"><b>Landscape:</b></div>
+                        <%
+                            int landscapeRating = hike.getHikeLandscape();
+                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < landscapeRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %><br>
 
-                    <div class="rating-label"><b>Strength:</b></div>
-                    <%
-                        int strengthRating = hike.getHikeStrength();
-                        //Display a number of "active" and "inactive" stars, depending on the strengthRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < strengthRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        <div class="rating-label"><b>Strength:</b></div>
+                        <%
+                            int strengthRating = hike.getHikeStrength();
+                            //Display a number of "active" and "inactive" stars, depending on the strengthRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < strengthRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %><br>
 
-                    <div class="rating-label"><b>Stamina:</b></div>
-                    <%
-                        int staminaRating = hike.getHikeStamina();
-                        //Display a number of "active" and "inactive" stars, depending on the staminaRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < staminaRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        <div class="rating-label"><b>Stamina:</b></div>
+                        <%
+                            int staminaRating = hike.getHikeStamina();
+                            //Display a number of "active" and "inactive" stars, depending on the staminaRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < staminaRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %><br>
 
-                    <div class="rating-label"><b>Overall Difficulty:</b></div>
-                    <%
-                        int difficultyRating = hike.getHikeDifficulty();
-                        //Display a number of "active" and "inactive" stars, depending on the difficultyRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < difficultyRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                        <div class="rating-label"><b>Overall Difficulty:</b></div>
+                        <%
+                            int difficultyRating = hike.getHikeDifficulty();
+                            //Display a number of "active" and "inactive" stars, depending on the difficultyRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < difficultyRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %><br>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Einkehrmöglichkeiten -->
-            <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten</button>
-            <div id="einkehrmoeglichkeiten-content" class="content">
-                <!-- TODO Einkehrmöglichkeiten anzeigen -->
-                <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
-            </div>
+                <!-- Einkehrmöglichkeiten -->
+                <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten
+                </button>
+                <div id="einkehrmoeglichkeiten-content" class="content">
+                    <!-- TODO Einkehrmöglichkeiten anzeigen -->
+                    <p>Hier werden einige Einkehrmöglichkeiten aufgelistet.</p>
+                </div>
 
-            <!-- Rezensionen -->
-            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
-            <div id="rezensionen-content" class="content">
-                <!-- TODO Rezensionen generieren -->
-                <p>Hier sind Rezensionen zum Hike.</p>
+                <!-- Rezensionen -->
+                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+                <div id="rezensionen-content" class="content">
+                    <!-- TODO Rezensionen generieren -->
+                    <p>Hier sind Rezensionen zum Hike.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Bootstrap imports -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
