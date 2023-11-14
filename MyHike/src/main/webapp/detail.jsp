@@ -2,6 +2,7 @@
 <%@ page import="models.Hike" %>
 <%@ page import="models.Recommended" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
