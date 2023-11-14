@@ -1,4 +1,4 @@
-//JavaScript for the create.js page
+//JavaScript for the detail.js page
 
 //TODO explain method
 function toggleContent(buttonId) {
