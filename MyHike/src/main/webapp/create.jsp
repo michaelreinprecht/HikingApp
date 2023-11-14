@@ -43,155 +43,206 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="createHikeServlet" method="post" style="margin-left: 10px" enctype="multipart/form-data" onsubmit="return validateForm();">
-        <br>
-        <div style="clear:both;">
-            <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
-        </div>
-        <div style="clear:both;">
-            <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
-            <textarea id="description" name="description" placeholder="Your description ..."></textarea>
-        </div>
-        <div style="clear:both;">
-            <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
-            <select name="region" id="region">
-                <%
-                    List<Region> regions = Database.getAllRegions();
-                    for(Region region: regions) {
-                %>
-                <option value="<%=region.getRegionName()%>"><%=region.getRegionName()%></option>
-                <%
-                    }
-                %>
-            </select>
-            <!-- <input type="text" id="region" name="region"> -->
-        </div>
-        <div style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label><br>
-            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456" required><br>
-            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456" required>
-        </div>
-        <div style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">End Location:</label><br>
-            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456" required><br>
-            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456" required>
-        </div>
-        <div style="clear:both;">
-            <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude (in meters):</label>
-            <input type="text" id="altitude" name="altitude">
-        </div>
-        <div style="clear:both;">
-            <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance (in kilometers):</label>
-            <input type="text" id="distance" name="distance">
-        </div>
-        <div style="clear:both;">
-            <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration (in hours:minutes):</label>
-            <input type="time" id="duration" name="duration" value="01:00">
-        </div>
+<!-- Titel -->
+<div class="title">
+    <h3 class="text-center">
+        Create your Hike
+    </h3>
+</div>
 
-        <!-- Generate month input -->
-        <div id="months" style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">Recommended Months:</label>
-            <%
-                List<Month> months = Database.getAllMonths();
-                for(Month month: months) {
-            %>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<%=month.getMonthId()%>" name="months" id="<%=month.getMonthName()%>">
-                <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
+<form action="createHikeServlet" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="leftSide">
+                    <!-- Name -->
+                    <div class="clear">
+                        <label for="name" class="labels_withmargin">Name:</label>
+                        <input class="form-control w-100 "type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+                    </div>
+
+                    <!-- Region -->
+                    <div class="clear">
+                        <label for="region" class="labels_withmargin">Region:</label>
+                        <select class="form-control w-100" name="region" id="region">
+                            <%
+                                List<Region> regions = Database.getAllRegions();
+                                for(Region region: regions) {
+                            %>
+                            <option value="<%=region.getRegionName()%>"><%=region.getRegionName()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+
+                    <!-- Start Location-->
+                    <div class="clear">
+                        <label class="labels_withmargin">Start Location:</label><br>
+                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456" required><br>
+                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456" required>
+                    </div>
+
+                    <!-- End Location-->
+                    <div class="clear">
+                        <label class="labels_withmargin">End Location:</label><br>
+                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456" required><br>
+                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456" required>
+                    </div>
+
+                    <!-- Altitude-->
+                    <div class="clear">
+                        <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="814">
+                    </div>
+
+                    <!-- Distance-->
+                    <div class="clear">
+                        <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="8.14">
+                    </div>
+
+                    <!-- Duration-->
+
+                    <div class="clear">
+                        <label for="duration" class="labels_withmargin">Duration (in hours:minutes):</label>
+                        <input class="form-control w-100" type="time" id="duration" name="duration" value="01:00">
+                    </div>
+                </div>
             </div>
-            <%
-                }
-            %>
-        </div><br>
 
-        <!-- Generate star rating input -->
-        <label style="display: inline-block; width: 150px; font-weight: bold">Landscape:</label>
-        <div class="rating-wrapper">
-            <%
-                int maxRating = 5;
-                for(int i = 1; i <= maxRating; i++) {
-            %>
-            <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-landscape-rating" class="landscape-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                }
-            %>
-        </div><br>
 
-        <label style="display: inline-block; width: 150px; font-weight: bold">Strength:</label>
-        <div class="rating-wrapper">
-            <%
-                for(int i = 1; i <= maxRating; i++) {
-            %>
-            <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-strength-rating" class="strength-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                }
-            %>
-        </div><br>
+            <!-- rechte Hälfte -->
+            <div class="col-md-6">
+                <div class="rightSide">
 
-        <label style="display: inline-block; width: 150px; font-weight: bold">Stamina:</label>
-        <div class="rating-wrapper">
-            <%
-                for(int i = 1; i <= maxRating; i++) {
-            %>
-            <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-stamina-rating" class="stamina-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                }
-            %>
-        </div><br>
+                    <!-- Recommended months-->
+                    <div id="months" class="clear">
+                        <label class="labels_withmargin">Recommended Months:</label>
+                        <%
+                            List<Month> months = Database.getAllMonths();
+                            for(Month month: months) {
+                        %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<%=month.getMonthId()%>" name="months" id="<%=month.getMonthName()%>">
+                            <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
+                        </div>
+                        <%
+                            }
+                        %>
+                    </div><br>
 
-        <label style="display: inline-block; width: 150px; font-weight: bold">Difficulty:</label>
-        <div class="rating-wrapper">
-            <%
-                for(int i = 1; i <= maxRating; i++) {
-            %>
-            <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                }
-            %>
-        </div><br>
+                    <!-- Stars-->
+                    <label class="labels">Landscape:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int maxRating = 5;
+                            for(int i = 1; i <= maxRating; i++) {
+                        %>
+                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=i%>">
+                        <label for="<%=i%>-landscape-rating" class="landscape-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                            }
+                        %>
+                    </div><br>
 
-        <div>
-            <img id="uploadedImage" style="max-width: 100%; max-height: 200px; margin-top: 20px;" />
+                    <label class="labels">Strength:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            for(int i = 1; i <= maxRating; i++) {
+                        %>
+                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=i%>">
+                        <label for="<%=i%>-strength-rating" class="strength-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                            }
+                        %>
+                    </div><br>
+
+                    <label class="labels">Stamina:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            for(int i = 1; i <= maxRating; i++) {
+                        %>
+                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=i%>">
+                        <label for="<%=i%>-stamina-rating" class="stamina-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                            }
+                        %>
+                    </div><br>
+
+                    <label class="labels">Difficulty:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            for(int i = 1; i <= maxRating; i++) {
+                        %>
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=i%>">
+                        <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                            }
+                        %>
+
+
+                    </div>
+
+                    <!-- Description-->
+                    <div class="clear">
+                        <label for="description" class="labels_withmargin">Description:</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..."></textarea>
+                    </div>
+                    <!-- first Image Upload -->
+                    <div class="imageBox">
+                        <div>
+                            <img id="uploadedImage"/>
+                        </div>
+                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage('uploadImage')"/>
+
+                    </div>
+
+                    <!--
+                    <div class="image-container"
+                         style="display: flex; align-items: center; margin-top: 200px; margin-bottom: 30px">
+                         Rundgangsbild
+                        <img src="images/beispiel_berge.jpg" alt="bild" style="width: 200%; height: 400px; margin-left: 20px; margin-right: 20px">
+
+                    </div>
+                    //-->
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="row-md" style="width: 150px; font-weight: bold">
-            <label for="fileToUpload" class="form-label">Image upload:</label>
-            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
-        </div>
+    <div style="background-color: white; padding: 0">
+        <br>
 
         <!-- This alert will be displayed if (for example), validation is not passed -->
         <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
-        <%
+            <%
             String error = request.getParameter("error");
             if (error != null && !error.isEmpty()) {
         %>
         <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
             Database error: <%= error %>
         </div>
-        <%
+            <%
             }
         %>
 
-        <div class="row-md" style="clear:both; margin-left: 280px;">
-            <button type="submit" class="btn btn-success" style="width: 10%">Submit</button>
+        <div class="row" style="clear:both;">
+            <div class="col-md-5 offset-md-5 text-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
         </div>
-    </form>
+</form>
 
 </div>
 

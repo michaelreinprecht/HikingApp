@@ -1,24 +1,30 @@
 /* CSS for the create.jsp page */
 
+#container{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* background doesn't scroll*/
+}
+
 /* CSS for the star ratings */
 .rating-wrapper {
     align-self: center;
     display: inline-flex;
     direction: rtl !important; /*Stars form left to right*/
-margin-left: auto;
+    margin-left: auto;
 
 
     & label {
         color: grey; /*Inactive star color*/
-    cursor: pointer; /*Changes cursor to pointer on hover*/
-    display: inline-flex;
+        cursor: pointer; /*Changes cursor to pointer on hover*/
+        display: inline-flex;
         font-size: 15px; /*Adjust star size*/
-    padding: 3px; /*Adjust distance between stars*/
-    transition: color 0.5s; /*Animated transition fades star from grey to gold color*/
+        padding: 3px; /*Adjust distance between stars*/
+        transition: color 0.5s; /*Animated transition fades star from grey to gold color*/
     }
 
     & svg { /*Add shadow to svg*/
-    -webkit-text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
         -webkit-filter: drop-shadow(4px 1px 6px       rgba(198, 206, 237, 1));
         filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
     }
@@ -34,4 +40,68 @@ margin-left: auto;
     & input:checked ~ label {
         color: gold; /*Color of hovered and "selected" stars*/
     }
+}
+
+/* css for both Div-sides*/
+.leftSide{
+    float: left;
+    width: 50%;
+    height: auto;
+}
+
+.rightSide{
+    float: left;
+    width: 50%;
+    height: auto;
+}
+
+.leftSide, .rightSide {
+    background-color: rgba(255, 255, 255, 0); /* Beide Divs halbtransparent */
+}
+
+.imageBox{
+    align-content: center;
+}
+
+.row-md{
+    align-items: center;
+}
+
+.title {
+    text-align: left;
+}
+
+.text-center {
+    color: green;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-style: italic
+}
+
+.clear {
+    clear: both;
+}
+
+.labels {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold
+}
+
+.labels_withmargin {
+    display: inline-block;
+    width: 230px;
+    margin-top: 30px;
+    font-weight: bold
+}
+
+#description {
+    width: 200%;
+    margin-bottom: 40px
+}
+
+#uploadedImage {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 20px;
 }
