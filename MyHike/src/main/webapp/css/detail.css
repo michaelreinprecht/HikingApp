@@ -32,10 +32,7 @@
     display: flex;
     justify-content: space-between;
 }
-.col-md-6 {
-    /*  flex: 0 0 48%;*/ /* Adjusting the width of the images */
-    text-align: center;
-}
+
 .text-center {
     color: green;
     font-style: italic;

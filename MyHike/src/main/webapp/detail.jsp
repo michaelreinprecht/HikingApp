@@ -58,6 +58,12 @@
     <h3 class="text-center-name"><%= hike.getHikeName() %>
     </h3>
 </div>
+<!-- Edit button -->
+<div class="col-md-3 text-right">
+    <a href="edit.jsp?Id=<%=hike.getHikeId()%>">
+        <button type="button" class="btn btn-warning">Edit</button>
+    </a>
+</div>
 
 <!-- Hike Details -->
 <div class="container">
