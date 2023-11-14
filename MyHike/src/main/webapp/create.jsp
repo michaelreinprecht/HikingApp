@@ -49,7 +49,7 @@
         </div>
         <div style="clear:both;">
             <label for="description" style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
-            <textarea id="description" name="description" placeholder="Your description ..."></textarea>
+            <textarea id="description" name="description" placeholder="Your description ..." required></textarea>
         </div>
         <div style="clear:both;">
             <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
@@ -67,13 +67,13 @@
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label><br>
-            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456" required><br>
-            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456" required>
+            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="startLon" name="startLon" placeholder="12.3456"><br>
+            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="startLat" name="startLat" placeholder="12.3456">
         </div>
         <div style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">End Location:</label><br>
-            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456" required><br>
-            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456" required>
+            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label><input type="text" id="endLon" name="endLon" placeholder="12.3456"><br>
+            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label><input type="text" id="endLat" name="endLat" placeholder="12.3456">
         </div>
         <div style="clear:both;">
             <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude (in meters):</label>

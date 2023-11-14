@@ -30,9 +30,12 @@ function validateForm() {
     const endLat = document.getElementById("endLat");
     const endLon = document.getElementById("endLon");
 
+    //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
     const altitudePattern = /^[1-9][0-9]*$/;
     const altitude = document.getElementById("altitude");
 
+    //Pattern matching for distance, needs to be at least one number from 0-9, CAN OPTIONALLY be followed by a dot (.)
+    //and 2 decimals (lowest possible is 0.00km).
     const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
     const distance = document.getElementById("distance");
 
@@ -43,9 +46,11 @@ function validateForm() {
 
     const checkboxes = document.getElementsByClassName("form-check-input");
 
+    //Get the first selected file (we can only select one file)
     const imageInput = document.getElementById('fileToUpload');
     let image = imageInput.files[0];
 
+    //Alert to be displayed in create.jsp if validation fails
     const validationAlert = document.getElementById("validationAlert");
 
     //This sets the alert to be displayed, if none of the below checks are triggered it will be set to none again and
@@ -53,6 +58,7 @@ function validateForm() {
     validationAlert.style.display = "block";
 
     let monthIsChecked = false;
+    //Check if at least one month is checked
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             monthIsChecked = true;
@@ -78,10 +84,12 @@ function validateForm() {
         validationAlert.innerHTML = "Please enter a valid ending lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
+    //Altitude can be null or empty, if it's not it has to match the altitudePattern
     if (altitude.value != null && altitude.value !== "" && !altitudePattern.test(altitude.value)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
         return false;
     }
+    //Distance can be null or empty, if it's not it has to match the distancePattern
     if (distance.value != null && distance.value !== "" && !distancePattern.test(distance.value)){
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
         return false;
@@ -102,6 +110,7 @@ function validateForm() {
         validationAlert.innerHTML = "Please rate this hikes difficulty.";
         return false;
     }
+    //Check if image is either .png, .jpg or .jpeg
     if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
         validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
         return false;
