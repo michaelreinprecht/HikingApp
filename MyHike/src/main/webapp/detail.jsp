@@ -105,6 +105,23 @@
                 </h5>
             </div>
             <div class="group">
+                <img src="images/altitude_icon.png" alt="altitude" class="icons">
+                <h5 class="text-center">
+                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                        // (TODO generate distance automatically if it has no value)
+                        if (hike.getHikeAltitude() != null) {
+                    %>
+                    <%= hike.getHikeAltitude()%>m
+                    <%
+                    } else {
+                    %>
+                    ?m
+                    <%
+                        }
+                    %>
+                </h5>
+            </div>
+            <div class="group">
                 <img src="images/region.png" alt="region" class="icons">
                 <h5 class="text-center">
                     <%= hike.getHikeRegion().getRegionName()%>
