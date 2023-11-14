@@ -7,7 +7,6 @@
     display: none; /*"Hide" inputs*/
 }
 
-
 .star-rating {
     display: inline-block;
     font-size: 15px; /* Adjust the size as needed */
@@ -23,9 +22,6 @@
 }
 
 /* CSS for the general design of the page */
-body {
-    margin-left: 20px;
-}
 .content {
     display: none;
     background-color: white;
@@ -43,7 +39,6 @@ body {
 }
 .text-center {
     text-align: center;
-
 }
 .button-group {
     display: flex;

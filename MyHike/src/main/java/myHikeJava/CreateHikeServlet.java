@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.*;
 import models.Hike;
 import models.Month;
 import models.Recommended;
+import models.Region;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
@@ -29,65 +30,69 @@ public class CreateHikeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         try {
+            //Create new hike object based on the data entered in create.jsp
             Hike hike = getHike(request);
+            //Insert hike into database
             Database.insert(hike);
+
+            //Add recommendedMonths to recommended_in table.
+            for(Recommended recommended: hike.getRecommendedList()) {
+                Database.insert(recommended);
+            }
+
         } catch (IOException | ServletException e) {
             error = e.getMessage();
         }
         response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
-
-        response.setContentType("text/html");
-
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
     }
 
     private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
         Hike hike = new Hike();
 
-        //Create random UUID for hike.
-        //UUID hikeId = UUID.randomUUID();
-        hike.setHikeId(UUID.randomUUID().toString()); //TODO replace with random UUID
+        //Get values from parameters
+        String id = UUID.randomUUID().toString(); //Create random UUID for hike
+        hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        BigDecimal startLon = new BigDecimal(request.getParameter("startLon"));
+        BigDecimal startLat = new BigDecimal(request.getParameter("startLat"));
+        BigDecimal endLon = new BigDecimal(request.getParameter("endLon"));
+        BigDecimal endLat = new BigDecimal(request.getParameter("endLat"));
 
-        hike.setHikeName(request.getParameter("name"));
-        hike.setHikeDescription(request.getParameter("description"));
-        hike.setHikeStartLon(new BigDecimal(request.getParameter("startLon")));
-        hike.setHikeStartLat(new BigDecimal(request.getParameter("startLat")));
-        hike.setHikeEndLon(new BigDecimal(request.getParameter("endLon")));
-        hike.setHikeEndLat(new BigDecimal(request.getParameter("endLat")));
-        hike.setHikeDistance(new BigDecimal(request.getParameter("distance")));
-        hike.setHikeAltitude(Integer.parseInt(request.getParameter("altitude")));
-        hike.setHikeLandscape(Integer.parseInt(request.getParameter("landscape-rating")));
-        hike.setHikeStrength(Integer.parseInt(request.getParameter("strength-rating")));
-        hike.setHikeStamina(Integer.parseInt(request.getParameter("stamina-rating")));
-        hike.setHikeDifficulty(Integer.parseInt(request.getParameter("difficulty-rating")));
-        hike.setHikeRegion(Database.getRegionById(request.getParameter("region")));
+        //Distance and altitude can be empty or null, therefore we need to check for this, if they are null or empty
+        //we cannot cast the given String to BigDecimal or Integer.
+        BigDecimal distance = getDistance(request);
+        Integer altitude = getAltitude(request);
 
+        //Star ratings can just be parsed to Integer
+        int landscapeRating = Integer.parseInt(request.getParameter("landscape-rating"));
+        int strengthRating = Integer.parseInt(request.getParameter("strength-rating"));
+        int staminaRating = Integer.parseInt(request.getParameter("stamina-rating"));
+        int difficultyRating = Integer.parseInt(request.getParameter("difficulty-rating"));
 
+        //Get the proper region from the database based on the given regionId (primary key is name)
+        Region region = Database.getRegionById(request.getParameter("region"));
+
+        //Duration needs to be properly formatted with DateTimeFormatter
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        hike.setHikeDuration(Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter)));
+        Time duration = Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter));
 
-        //TODO save recommended months
-        List<Recommended> recommendedMonths = new ArrayList<>();
-        String[] months = request.getParameterValues("months");
-        for (String monthIdString: months) {
-            //Get month object from month table
-            int monthId = Integer.parseInt(monthIdString);
-            Month month = Database.getMonthById(monthId);
+        //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
+        //need to be inserted into the recommended_in table.
+        List<Recommended> recommendedMonths = getRecommendedMonths(request.getParameterValues("months"), hike);
 
-            //Generate UUID for recommended table
-            String recommendedId = UUID.randomUUID().toString();
+        //Encode image to Base64 String
+        String image = encodeToBase64(request.getPart("fileToUpload"));
 
+        //Populate hike object with formatted/adjusted parameter data.
+        hike = new Hike(id, name, description, startLon, startLat, endLon, endLat, duration, altitude, distance,
+                staminaRating, strengthRating, difficultyRating, landscapeRating, image, recommendedMonths, region);
+        return hike;
+    }
 
-            //Create new recommended tupel with month and hike.
-            recommendedMonths.add(new Recommended(recommendedId, month, hike));
-        }
-        hike.setRecommendedList(recommendedMonths);
-
-        //Encode image to Base64 String and add it to hike
-        Part fileToUpload = request.getPart("fileToUpload");
+    //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
+    //already validated in create.js -> function validateForm()
+    private String encodeToBase64(Part fileToUpload) throws IOException {
         try (InputStream is = fileToUpload.getInputStream();
              ByteArrayOutputStream os = new ByteArrayOutputStream()) {
 
@@ -97,9 +102,49 @@ public class CreateHikeServlet extends HttpServlet {
                 os.write(buffer, 0, bytesRead);
             }
 
-            String base64Image = Base64.getEncoder().encodeToString(os.toByteArray());
-            hike.setHikeImage(base64Image);
+            return Base64.getEncoder().encodeToString(os.toByteArray());
         }
-        return hike;
+    }
+
+    //Returns the hike's recommended months, this is generated from a String[] of months and the hike
+    private List<Recommended> getRecommendedMonths(String[] months, Hike hike) {
+        List<Recommended> recommendedMonths = new ArrayList<>();
+        for (String monthIdString: months) {
+            //Get month object from month table
+            int monthId = Integer.parseInt(monthIdString);
+            Month month = Database.getMonthById(monthId);
+
+            //Generate UUID for recommended table
+            String recommendedId = UUID.randomUUID().toString();
+
+            //Create new recommended tupel with month and hike.
+            recommendedMonths.add(new Recommended(recommendedId, month, hike));
+        }
+        return recommendedMonths;
+    }
+
+    //getAltitude(HttpServletRequest request) returns the altitude entered into our create.jsp inputs, if the value of
+    //this input field is empty or null it will return null -> TODO replace "return null" with calculation
+    private Integer getAltitude(HttpServletRequest request) {
+        String altitudeString = request.getParameter("altitude");
+
+        if (altitudeString != null && !altitudeString.isEmpty()) {
+            return Integer.parseInt(altitudeString);
+        }
+        else {
+            return null;
+        }
+    }
+
+    //getDistance(HttpServletRequest request) returns the distance entered into our create.jsp inputs, if the value of
+    //this input field is empty or null it will return null -> TODO replace "return null" with calculation
+    private BigDecimal getDistance(HttpServletRequest request) {
+        String distanceString = request.getParameter("distance");
+        if (distanceString != null && !distanceString.isEmpty()) {
+            return new BigDecimal(distanceString);
+        }
+        else {
+            return null; //TODO replace with calculation
+        }
     }
 }
