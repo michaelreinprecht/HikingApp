@@ -102,9 +102,12 @@ function validateForm() {
         validationAlert.innerHTML = "Please rate this hikes difficulty.";
         return false;
     }
-    if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
-        validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
-        return false;
+
+    if (image != null) {
+        if ((!image.name.toLowerCase().endsWith(".png") && !image.name.toLowerCase().endsWith(".jpg") && !image.name.toLowerCase().endsWith(".jpeg"))) {
+            validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
+            return false;
+        }
     }
 
     validationAlert.style.display = "none";
