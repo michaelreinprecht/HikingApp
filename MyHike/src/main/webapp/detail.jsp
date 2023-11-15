@@ -3,6 +3,7 @@
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="models.Month" %>
+<%@ page import="javax.xml.crypto.Data" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -59,11 +60,24 @@
     </h3>
 </div>
 <!-- Edit button -->
-<div class="col-md-3 text-right">
-    <a href="edit.jsp?Id=<%=hike.getHikeId()%>">
-        <button type="button" class="btn btn-warning">Edit</button>
-    </a>
+<!-- Buttons Container -->
+<div class="container">
+    <div class="row">
+        <!-- Edit Button -->
+        <div class="col-md-6 text-left">
+            <a href="edit.jsp?Id=<%=hike.getHikeId()%>" class="btn btn-warning">Edit</a>
+        </div>
+
+        <!-- Delete Button -->
+        <div class="col-md-6 text-right">
+            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
+                <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+
 
 <!-- Hike Details -->
 <div class="container">
