@@ -68,8 +68,10 @@
 
 <!-- Delete Button -->
 <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
-    <button type="submit" class="btn btn-danger" onclick="confirmDelete(event, <%=hike.getHikeId()%>)">Delete</button>
+    <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
 </form>
+
+
 <!-- Hike Details -->
 <div class="container">
 

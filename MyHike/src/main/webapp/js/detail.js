@@ -10,9 +10,29 @@ function toggleContent(buttonId) {
     }
 }
 
+
+//stellt sicher, dass der Code erst dann ausgeführt wird, wenn das gesamte Fenster geladen ist(Bilder z.B)
+window.onload = function() {
+    var deleteButton = document.getElementById('deleteButton'); // Holt den Delete Button durch seine ID(detail.jsp)
+    if (deleteButton) { // prüft ob er überhaupt existiert
+        // Binden eines 'click' Event-Handlers an den Button
+        // Wenn der Button geklickt wird, wird die 'confirmDelete' Funktion aufgerufen
+        deleteButton.onclick = function(event) {
+            confirmDelete(event, '<%= hike.getHikeId() %>');
+        };
+    }
+};
+
 function confirmDelete(event, hikeId) {
-    event.preventDefault(); // Verhindert die automatische Formularübermittlung
+    event.preventDefault();
     if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
-        document.getElementById('deleteForm').submit(); // Formular übermitteln, wenn bestätigt
+        document.getElementById('deleteForm').submit();
     }
 }
+
+
+
+
+
+
+
