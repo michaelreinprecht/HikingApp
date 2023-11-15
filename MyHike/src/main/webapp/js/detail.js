@@ -9,3 +9,10 @@ function toggleContent(buttonId) {
         content.style.display = "none";
     }
 }
+
+function confirmDelete(hikeId) {
+    if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
+        window.location.href = 'deleteHike.jsp?hikeId=' + hikeId;
+        this.form.submit();
+    }
+}

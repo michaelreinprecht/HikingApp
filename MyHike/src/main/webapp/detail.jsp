@@ -3,6 +3,7 @@
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="models.Month" %>
+<%@ page import="javax.xml.crypto.Data" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -64,6 +65,11 @@
         <button type="button" class="btn btn-warning">Edit</button>
     </a>
 </div>
+
+<!-- Delete Button -->
+<form action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
+    <button type="button" class="btn btn-danger" onclick="confirmDelete(<%=hike.getHikeId()%>)">Delete</button>
+</form>
 
 <!-- Hike Details -->
 <div class="container">
