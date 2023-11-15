@@ -20,11 +20,13 @@ public abstract class JPABrokerBase<T> {
         entityManager.getTransaction().begin();
         entityManager.persist(value);
         entityManager.getTransaction().commit();
-
     }
 
     public void update(T value) throws SQLException {
-        insert(value);
+        EntityManager entityManager = ResourceServlet.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(value);
+        entityManager.getTransaction().commit();
     }
 
     public void delete(T value) throws SQLException {

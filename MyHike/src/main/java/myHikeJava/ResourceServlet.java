@@ -14,13 +14,7 @@ public class ResourceServlet implements ServletContextListener {
     private static EntityManager entityManager;
     // Called when the servlet context is initialized
     public void contextInitialized(ServletContextEvent sce) {
-        //Create global entity manager
-        /*
-        try {
-            entityManager = getEntityManager();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
+
     }
 
     // Called when the servlet context is about to be destroyed

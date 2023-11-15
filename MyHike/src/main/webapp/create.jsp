@@ -92,12 +92,12 @@
         <div id="months" style="clear:both;">
             <label style="display: inline-block; width: 150px; font-weight: bold">Recommended Months:</label>
             <%
-                List<Month> months = Database.getAllMonths();
-                for(Month month: months) {
+                String[] months = Month.ALL_MONTHS;
+                for(String month: months) {
             %>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<%=month.getMonthId()%>" name="months" id="<%=month.getMonthName()%>">
-                <label class="form-check-label" for="<%=month.getMonthName()%>"><%=month.getMonthName()%></label>
+                <input class="form-check-input" type="checkbox" value="<%=month%>" name="months" id="<%=month%>">
+                <label class="form-check-label" for="<%=month%>"><%=month%></label>
             </div>
             <%
                 }

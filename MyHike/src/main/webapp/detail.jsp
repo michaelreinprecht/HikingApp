@@ -1,8 +1,8 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="models.Recommended" %>
-<%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalTime" %>
+<%@ page import="models.Month" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -77,8 +77,12 @@
                         <% //Null-Value check, if there is no duration we will instead just display a question mark
                             // (TODO generate duration automatically if it has no value)
                             if (hike.getHikeDuration() != null) {
+                                //Reformat time, since it automatically gets formatted to "hh:mm:ss" in database.
+                                LocalTime localTime = hike.getHikeDuration().toLocalTime();
+                                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                                String formattedTime = localTime.format(outputFormatter);
                         %>
-                        <%= hike.getHikeDuration()%> hours
+                        <%= formattedTime%> hours
                         <%
                         } else {
                         %>
@@ -113,20 +117,13 @@
                          style="width:50px; height: 40px; margin-top: 20px; margin-left: 100px; margin-right: 5px;">
                     <h5 class="text-center" style="color: green; margin-top: 20px; font-style: italic">
                         <%
-                            List<Recommended> recommended = hike.getRecommendedList();
-                            int i;
-                            if (recommended != null) {
-                                //TODO explain what is being generated
-                                for (i = 0; i < recommended.size(); i++) {
-                        %>
-                        <%= recommended.get(i).getMonth().getMonthName()%>
-                        <%
-                            if (i < recommended.size() - 1) {
-                        %>
-                        <%
-                            }
-                        %>
-                        <%
+                            String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
+                            //TODO explain what is being generated
+                            for (String rec: recommended) {
+                                if (rec != null) {
+                    %>
+                    <%=rec%>
+                    <%
                                 }
                             }
                         %>
@@ -164,6 +161,7 @@
                     <div class="ratings-container">
                         <div class="rating-label"><b>Landscape:</b></div>
                         <%
+                            int i; //Loop-variable, is reused by loops underneath as well.
                             int landscapeRating = hike.getHikeLandscape();
                             //Display a number of "active" and "inactive" stars, depending on the landscapeRating
                             for (i = 0; i < 5; i++) {

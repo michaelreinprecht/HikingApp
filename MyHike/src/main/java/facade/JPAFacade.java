@@ -2,8 +2,6 @@ package facade;
 
 import broker.*;
 import models.Hike;
-import models.Month;
-import models.Recommended;
 import models.Region;
 
 import java.sql.SQLException;
@@ -47,14 +45,8 @@ public class JPAFacade implements IDatabaseFacade {
         if (databaseObject instanceof Hike) {
             return new JPAHikeBroker();
         }
-        if (databaseObject instanceof Month) {
-            return new JPAMonthBroker();
-        }
         if (databaseObject instanceof Region) {
             return new JPARegionBroker();
-        }
-        if (databaseObject instanceof Recommended) {
-            return new JPARecommendedBroker();
         }
         return null;
     }
