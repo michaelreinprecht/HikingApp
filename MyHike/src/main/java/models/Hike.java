@@ -25,6 +25,7 @@ public class Hike {
     //private List<Recommended> recommenedList;
     private String hikeMonths;
     private Region hikeRegion;
+    private boolean isDeleted;
 
     public Hike() {}
 
@@ -46,6 +47,7 @@ public class Hike {
         this.hikeImage = hikeImage;
         this.hikeMonths = hikeMonths;
         this.hikeRegion = hikeRegion;
+        this.isDeleted = false;
     }
 
     @Id
@@ -175,6 +177,14 @@ public class Hike {
     }
     public void setHikeMonths(String hikeMonths) {
         this.hikeMonths = hikeMonths;
+    }
+
+    @Column(name = "is_deleted")
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+    public void setIsDeleted() {
+        isDeleted = true;
     }
 
     /*
