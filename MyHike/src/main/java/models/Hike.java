@@ -29,7 +29,7 @@ public class Hike {
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, boolean isDeleted) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -47,7 +47,7 @@ public class Hike {
         this.hikeImage = hikeImage;
         this.hikeMonths = hikeMonths;
         this.hikeRegion = hikeRegion;
-        this.isDeleted = false;
+        this.isDeleted = isDeleted;
     }
 
     @Id
@@ -183,8 +183,9 @@ public class Hike {
     public boolean getIsDeleted() {
         return isDeleted;
     }
-    public void setIsDeleted() {
-        isDeleted = true;
+
+    public void setIsDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     /*

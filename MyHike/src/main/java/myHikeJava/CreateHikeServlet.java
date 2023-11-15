@@ -74,7 +74,7 @@ public class CreateHikeServlet extends HttpServlet {
 
         //Populate hike object with formatted/adjusted parameter data.
         hike = new Hike(id, name, description, startLon, startLat, endLon, endLat, duration, altitude, distance,
-                staminaRating, strengthRating, difficultyRating, landscapeRating, image, recommendedMonths, region);
+                staminaRating, strengthRating, difficultyRating, landscapeRating, image, recommendedMonths, region, false);
         return hike;
     }
 
