@@ -10,9 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_11_2023_17_59_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_11_2023_18_01_[Changes]/shelved.patch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/create.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/detail.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +50,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="05f90f46-0813-41eb-9a7a-2d9189dbd6f9" />
+        <option name="accountId" value="509341cf-2125-4658-aef6-f7f607958a5f" />
         <option name="url" value="https://github.com/michaelreinprecht/HikingApp.git" />
       </UrlAndAccount>
     </option>
@@ -89,12 +95,12 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "CodeWithMe",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="Tomcat 10.1.5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.5" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.5" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="19" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="MyHike:war exploded">
@@ -205,10 +211,15 @@
       <workItem from="1699660978822" duration="1363000" />
       <workItem from="1699808601613" duration="3113000" />
       <workItem from="1699958082401" duration="7922000" />
+      <workItem from="1700068950257" duration="6286000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
