@@ -10,9 +10,9 @@ function toggleContent(buttonId) {
     }
 }
 
-function confirmDelete(hikeId) {
+function confirmDelete(event, hikeId) {
+    event.preventDefault(); // Verhindert die automatische Formularübermittlung
     if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
-        window.location.href = 'deleteHike.jsp?hikeId=' + hikeId;
-        this.form.submit();
+        document.getElementById('deleteForm').submit(); // Formular übermitteln, wenn bestätigt
     }
 }
