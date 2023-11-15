@@ -1,8 +1,8 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="models.Recommended" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="models.Month" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -76,8 +76,11 @@
                     <%  //Null-Value check, if there is no duration we will instead just display a question mark
                         // (TODO generate duration automatically if it has no value)
                         if (hike.getHikeDuration() != null) {
+                            LocalTime localTime = hike.getHikeDuration().toLocalTime();
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                            String formattedTime = localTime.format(outputFormatter);
                     %>
-                    <%= hike.getHikeDuration()%> hours
+                    <%= formattedTime%> hours
                     <%
                     } else {
                     %>
@@ -131,19 +134,12 @@
                 <img src="images/months_icon.png" alt="monate" class="icons">
                 <h5 class="text-center">
                     <%
-                        List<Recommended> recommended = hike.getRecommendedList();
-                        int i;
-                        if (recommended != null) {
-                            //TODO explain what is being generated
-                            for (i = 0; i < recommended.size(); i++) {
+                        String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
+                        //TODO explain what is being generated
+                        for (String rec: recommended) {
+                            if (rec != null) {
                     %>
-                    <%= recommended.get(i).getMonth().getMonthName()%>
-                    <%
-                        if (i < recommended.size() - 1) {
-                    %>
-                    <%
-                        }
-                    %>
+                    <%=rec%>
                     <%
                             }
                         }
@@ -180,6 +176,7 @@
                     <div class="ratings-container">
                         <div class="rating-label"><b>Landscape:</b></div>
                         <%
+                            int i; //Declare variable for loops -> also used in further loops.
                             int landscapeRating = hike.getHikeLandscape();
                             //Display a number of "active" and "inactive" stars, depending on the landscapeRating
                             for (i = 0; i < 5; i++) {
