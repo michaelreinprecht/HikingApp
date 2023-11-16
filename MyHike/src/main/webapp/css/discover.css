@@ -1,3 +1,20 @@
 #discover-searchbar {
     width: 600px;
 }
+
+.card {
+    width: 300px;
+    height: 250px;
+}
+
+.row.gutter {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.row.gutter>[class^="col-"],
+.row.gutter>[class^="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
