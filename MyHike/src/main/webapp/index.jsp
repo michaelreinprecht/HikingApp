@@ -37,6 +37,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="discover.jsp">Discover test</a>
+            </li>
         </ul>
     </div>
 </nav>

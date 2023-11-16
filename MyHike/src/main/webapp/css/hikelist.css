@@ -1,0 +1,98 @@
+.title{
+    text-align: center;
+}
+.text-center{
+    color: green;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.hikeTitle{
+    text-decoration: none;
+    color: #07773a;
+    font-size: 20px;
+    align-content: center ;
+}
+
+#uploadedImageHikeList {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 20px;
+}
+
+.imageBox{
+    align-content: center;
+}
+.icons {
+    width:50px;
+    height: 40px;
+    margin: auto
+}
+
+.group {
+    display: flex;
+    width: 20%;
+}
+
+.possibleHikes{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-evenly;
+}
+/* Anfang CSS für Searchbar und Searchbutton */
+#hikelist-searchbar {
+    margin-top: 40px;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.searchButton .form-control {
+    border-radius: 0; /* Entfernt die abgerundeten Ecken des Textfelds */
+}
+
+.searchButton {
+    background-color: transparent; /* Transparenter Hintergrund */
+    color: #07773a; /* Textfarbe */
+    border: none; /* Kein Rand */
+    padding: 0; /* Kein Innenabstand */
+    font-size: 16px; /* Schriftgröße */
+}
+
+.searchButton .input-group-append {
+    flex: 0 0 auto; /* Behält die Größe des Buttons bei */
+}
+
+.input-group-text {
+    background-color: transparent; /* Ändere die Hintergrundfarbe des Button-Containers */
+    border: 1px solid #07773a; /* Setze die Randfarbe auf grün (solid anstelle von #07773a) */
+}
+
+.searchButton:hover {
+    background-color: transparent; /* Hintergrundfarbe bei Hover */
+    color: #09ff28; /* Textfarbe bei Hover */
+    border: none; /* Kein Rand bei Hover */
+}
+/* Ende CSS für Searchbar und Searchbutton */
+
+/* CSS for the star ratings */
+
+
+.star-rating {
+    display: inline-block;
+    font-size: 15px; /* Adjust the size as needed */
+    color: gold; /* Change the color if necessary */
+    margin-right: 3px; /* Adjust spacing between stars */
+}
+
+.inactive {
+    display: inline-block;
+    font-size: 15px; /* Adjust the size as needed */
+    color: grey; /* Change the color if necessary */
+    margin-right: 3px; /* Adjust spacing between stars */
+}
+
+

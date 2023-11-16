@@ -1,5 +1,12 @@
+/* Anfang CSS für Searchbar und Searchbutton */
 #discover-searchbar {
     width: 600px;
+}
+.searchButton .input-group-append {
+    flex: 0 0 auto; /* Behält die Größe des Buttons bei */
+}
+.searchButton .form-control {
+    border-radius: 0; /* Entfernt die abgerundeten Ecken des Textfelds */
 }
 
 .card {

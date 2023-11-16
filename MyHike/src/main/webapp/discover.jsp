@@ -48,11 +48,19 @@
 <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" id="233" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
   <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
-  <div class="input-group mb-3 mx-auto" id="discover-searchbar">
-    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-    <span class="input-group-text">Search</span>
-  </div>
+  <form method="POST" action="hikelist.jsp">
+    <div class="input-group mb-3 mx-auto" id="discover-searchbar">
+      <input type="text" class="form-control" name="searchQuery"aria-label="Amount (to the nearest dollar)"
+           placeholder="Search by Region!">
+
+      <span class="input-group-text">
+        <button type="submit" class="searchButton">Search</button>
+      </span>
+    </div>
+  </form>
+
   <p> This is a test</p>
+
 </div>
 
 <div class="jumbotron jumbotron-fluid">
