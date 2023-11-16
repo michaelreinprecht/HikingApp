@@ -2,6 +2,7 @@ package myHikeJava;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -17,16 +18,18 @@ import models.Hike;
 import models.Month;
 import models.Region;
 
-@WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
+import javax.persistence.EntityManager;
+
+@WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
-public class CreateHikeServlet extends HttpServlet {
+public class EditHikeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         try {
             //Create new hike object based on the data entered in create.jsp
-            Hike hike = getHike(request);
+            Hike hike = getUpdatedHike(request);
             //Insert hike into database
-            Database.insert(hike);
+            Database.update(hike);
 
         } catch (IOException | ServletException e) {
             error = e.getMessage();
@@ -34,12 +37,10 @@ public class CreateHikeServlet extends HttpServlet {
         response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
     }
 
-    private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
-        Hike hike = new Hike();
+    private Hike getUpdatedHike(HttpServletRequest request) throws IOException, ServletException {
+        Hike hike = Database.getHikeById(request.getParameter("Id"));
 
         //Get values from parameters
-        String id = UUID.randomUUID().toString(); //Create random UUID for hike
-        hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         BigDecimal startLon = new BigDecimal(request.getParameter("startLon"));
@@ -65,32 +66,36 @@ public class CreateHikeServlet extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Time duration = Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter));
 
-        //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
-        //need to be inserted into the recommended_in table.
+        //Get recommended Months are String[] from html parameter and turn them into a Bitmap
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
 
         //Encode image to Base64 String
-        String image = encodeToBase64(request.getPart("fileToUpload"));
+        String image = encodeToBase64(request);
 
         //Populate hike object with formatted/adjusted parameter data.
-        hike = new Hike(id, name, description, startLon, startLat, endLon, endLat, duration, altitude, distance,
+        hike = new Hike(hike.getHikeId(), name, description, startLon, startLat, endLon, endLat, duration, altitude, distance,
                 staminaRating, strengthRating, difficultyRating, landscapeRating, image, recommendedMonths, region, false);
         return hike;
     }
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
     //already validated in create.js -> function validateForm()
-    private String encodeToBase64(Part fileToUpload) throws IOException {
-        try (InputStream is = fileToUpload.getInputStream();
-             ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+    private String encodeToBase64(HttpServletRequest request) throws IOException, ServletException {
+        Part fileToUpload = request.getPart("fileToUpload");
+        if (fileToUpload.getSize() != 0) {
+            try (InputStream is = fileToUpload.getInputStream();
+                 ByteArrayOutputStream os = new ByteArrayOutputStream()) {
 
-            int bytesRead;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = is.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
+                int bytesRead;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, bytesRead);
+                }
+
+                return Base64.getEncoder().encodeToString(os.toByteArray());
             }
-
-            return Base64.getEncoder().encodeToString(os.toByteArray());
+        } else {
+            return request.getParameter("oldImage");
         }
     }
 
@@ -115,7 +120,7 @@ public class CreateHikeServlet extends HttpServlet {
             return new BigDecimal(distanceString);
         }
         else {
-            return null; //TODO replace with calculation
+            return null;
         }
     }
 }

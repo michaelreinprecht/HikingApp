@@ -1,39 +1,35 @@
 package models;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-@Entity
-@Table(name = "MyHike.month")
 public class Month {
-    private Integer monthId;
-    private String monthName;
-    private List<Recommended> recommendedList;
 
-    @Id
-    @Column(name = "month_id")
-    public Integer getMonthId() {
-        return monthId;
-    }
-    public void setMonthId(Integer monthId) {
-        this.monthId = monthId;
-    }
+    public static final String[] ALL_MONTHS = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
 
-    @Column(name = "month_name", length = 20)
-    public String getMonthName() {
-        return monthName;
-    }
-    public void setMonthName(String monthName) {
-        this.monthName = monthName;
+    public static String[] getMonthsByBitmap(String bitmap) {
+        String[] result = new String[bitmap.length()];
+        for (int i = 0; i < bitmap.length(); i++) {
+            int index = i % ALL_MONTHS.length;
+            if (bitmap.charAt(i) == '1') {
+                result[i] = ALL_MONTHS[index];
+            }
+        }
+        return result;
     }
 
-    @OneToMany(mappedBy = "month")
-    public List<Recommended> getRecommendedList() {
-        return recommendedList;
+    public static String getBitmapFromMonths(String[] months) {
+        char[] result = new char[ALL_MONTHS.length];
+        Arrays.fill(result, '0');
+        for (String month : months) {
+            int index = Arrays.asList(ALL_MONTHS).indexOf(month);
+            if (index != -1) {
+                result[index] = '1';
+            }
+        }
+        return new String(result);
     }
-    public void setRecommendedList(List<Recommended> recommendedList) {
-        this.recommendedList = recommendedList;
-    }
-
-
 }

@@ -1,13 +1,8 @@
 package models;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "hike", schema = "MyHike")
@@ -27,12 +22,14 @@ public class Hike {
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
     private String hikeImage;
-    private List<Recommended> recommenedList;
+    //private List<Recommended> recommenedList;
+    private String hikeMonths;
     private Region hikeRegion;
+    private boolean isDeleted;
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, List<Recommended> recommenedList, Region hikeRegion) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, boolean isDeleted) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -48,8 +45,9 @@ public class Hike {
         this.hikeDifficulty = hikeDifficulty;
         this.hikeLandscape = hikeLandscape;
         this.hikeImage = hikeImage;
-        this.recommenedList = recommenedList;
+        this.hikeMonths = hikeMonths;
         this.hikeRegion = hikeRegion;
+        this.isDeleted = isDeleted;
     }
 
     @Id
@@ -173,13 +171,31 @@ public class Hike {
         this.hikeImage = hikeImage;
     }
 
+    @Column(name = "hike_months")
+    public String getHikeMonths() {
+        return hikeMonths;
+    }
+    public void setHikeMonths(String hikeMonths) {
+        this.hikeMonths = hikeMonths;
+    }
+
+    @Column(name = "is_deleted")
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    /*
     @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
     public List<Recommended> getRecommendedList() {
         return recommenedList;
     }
     public void setRecommendedList(List<Recommended> recommenedList) {
         this.recommenedList = recommenedList;
-    }
+    }*/
 
     @ManyToOne
     @JoinColumn(name = "hike_region", referencedColumnName = "region_name")
@@ -193,7 +209,7 @@ public class Hike {
     @Override
     public String toString() {
         return "Hike{" +
-                "hikeId=" + hikeId +
+                "hikeId='" + hikeId + '\'' +
                 ", hikeName='" + hikeName + '\'' +
                 ", hikeDescription='" + hikeDescription + '\'' +
                 ", hikeStartLon=" + hikeStartLon +
@@ -207,7 +223,8 @@ public class Hike {
                 ", hikeStrength=" + hikeStrength +
                 ", hikeDifficulty=" + hikeDifficulty +
                 ", hikeLandscape=" + hikeLandscape +
-                ", recommendedMonths=" + recommenedList +
+                ", hikeImage='" + hikeImage + '\'' +
+                ", hikeMonths=" + hikeMonths +
                 ", hikeRegion=" + hikeRegion +
                 '}';
     }
