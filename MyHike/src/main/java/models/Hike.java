@@ -188,15 +188,6 @@ public class Hike {
         isDeleted = deleted;
     }
 
-    /*
-    @OneToMany(mappedBy = "hike", fetch = FetchType.EAGER)
-    public List<Recommended> getRecommendedList() {
-        return recommenedList;
-    }
-    public void setRecommendedList(List<Recommended> recommenedList) {
-        this.recommenedList = recommenedList;
-    }*/
-
     @ManyToOne
     @JoinColumn(name = "hike_region", referencedColumnName = "region_name")
     public Region getHikeRegion() {
@@ -224,8 +215,9 @@ public class Hike {
                 ", hikeDifficulty=" + hikeDifficulty +
                 ", hikeLandscape=" + hikeLandscape +
                 ", hikeImage='" + hikeImage + '\'' +
-                ", hikeMonths=" + hikeMonths +
+                ", hikeMonths='" + hikeMonths + '\'' +
                 ", hikeRegion=" + hikeRegion +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }
