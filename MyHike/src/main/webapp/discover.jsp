@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Arrays" %><%--
   Created by IntelliJ IDEA.
   User: kenan
   Date: 14.11.2023
@@ -62,6 +62,99 @@
   <p> This is a test</p>
 
 </div>
+
+<div>
+  <!-- Filter - Platzhalter für die Eigenschaften -->
+
+  <style>
+    /* Benutzerdefiniertes CSS für die Hervorhebungsfarbe */
+    .form-control:focus,
+    .form-control:active,
+    select.form-control:focus,
+    select.form-control:active {
+      border-color: #28a745; /* Grüne Farbe für die Hervorhebung */
+      box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* Optionaler Schatten für die Hervorhebung */
+    }
+  </style>
+
+  <!-- Filter für Duration -->
+  <div class="row mx-auto text-center">
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="durationFilter">Duration</label>
+      <select class="form-control" id="durationFilter">
+        <option value="<1h"><1h</option>
+        <option value="1-2h">1-2h</option>
+        <option value="2-3h">2-3h</option>
+        <option value="3-4h">3-4h</option>
+        <option value="4-5h">4-5h</option>
+      </select>
+    </div>
+
+    <!-- Filter für Distance -->
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="distanceFilter">Distance</label>
+      <select class="form-control" id="distanceFilter">
+        <option value="short">Short</option>
+        <option value="medium">Medium</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+
+    <!-- Filter für Stamina -->
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="staminaFilter">Stamina</label>
+      <select class="form-control" id="staminaFilter" name="staminaFilter">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+
+    <!-- Filter für Strength -->
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="strengthFilter">Strength</label>
+      <select class="form-control" id="strengthFilter">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <!-- Filter für Experience -->
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="experienceFilter">Experience</label>
+      <select class="form-control" id="experienceFilter">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <!-- Filter für Monate -->
+    <div class="col-md-2 mb-3">
+      <label class="input-group-text" for="monateFilter">Select Months</label>
+      <select class="form-control" id="monateFilter" name="monateFilter">
+        <%
+          String selectedMonthsBitmap = "";
+          String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
+
+          for(String month: models.Month.ALL_MONTHS) { %>
+        <option value="<%=month%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
+          <%=month%>
+        </option>
+        <% } %>
+      </select>
+    </div>
+
+
+  </div>
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
