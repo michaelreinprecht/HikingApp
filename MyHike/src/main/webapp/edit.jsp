@@ -273,11 +273,11 @@
         </div>
         <br>
 
+        <!-- Display the old hike image and the new one once user updates it (function displayImage()) -->
         <div>
             <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;"/>
-            <label for="oldImage" style="display: none">
-            </label><input type="text" id="oldImage" name="oldImage" value="<%=hike.getHikeImage()%>" style="display: none">
         </div>
+
 
         <div class="row-md" style="width: 150px; font-weight: bold">
             <label for="fileToUpload" class="form-label">Image upload:</label>

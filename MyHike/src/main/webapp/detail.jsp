@@ -59,6 +59,19 @@
     <h3 class="text-center-name"><%= hike.getHikeName() %>
     </h3>
 </div>
+
+<!-- This alert will be displayed if the database delete fails -->
+<%
+    String error = request.getParameter("error");
+    if (!error.isEmpty()) {
+%>
+<div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
+    Database error: <%= error %>
+</div>
+<%
+    }
+%>
+
 <!-- Edit button -->
 <!-- Buttons Container -->
 <div class="container">

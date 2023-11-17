@@ -20,12 +20,14 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         try {
             Hike hike = softDeleteHike(request);
             Database.update(hike);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
         }
         catch (IOException | ServletException e) {
             error = e.getMessage();
+        }
+        if (error.isEmpty()) {
+            response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
+        } else {
+            response.sendRedirect("index.jsp?deleteSuccess=true");
         }
     }
     public Hike softDeleteHike(HttpServletRequest request) throws IOException, ServletException {
