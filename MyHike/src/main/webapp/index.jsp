@@ -1,6 +1,7 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
+<%@ page import="myHikeJava.IndexPageHelper" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -45,8 +46,21 @@
  <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
+
+            <%
+                //Try to get parameters "createSuccess" and "editSuccess" based on these parameters a success alert
+                //will be displayed as a follow up for either the create.jsp or the edit.jsp page.
+                String alertMessage = IndexPageHelper.tryGetSuccessMessage(request);
+                if (!alertMessage.isEmpty()) {
+            %>
+            <div class="alert alert-success" role="alert">
+                <%=alertMessage%>
+            </div>
+            <%
+                }
+            %>
+
             <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
-            Welcome to the hiking application!<br/>
             <!-- Assume Database.getAllHikes() returns a list of hikes with their IDs and names -->
             <%
                 // Assuming Database.getAllHikes() returns a list of Hike objects with id and name properties
@@ -60,9 +74,6 @@
                 <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=image%>" width="150">
             </div>
             <% } %>
-        </div>
-        <div class="col-md" style="background-color: lightblue; padding: 0;">
-            <img src="images/map.png" style="width: 100%; position: fixed" alt="Map Placeholder"/>
         </div>
     </div>
 </div>
