@@ -63,7 +63,7 @@
 <!-- This alert will be displayed if the database delete fails -->
 <%
     String error = request.getParameter("error");
-    if (!error.isEmpty()) {
+    if (error != null && !error.isEmpty()) {
 %>
 <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
     Database error: <%= error %>
