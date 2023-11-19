@@ -1,4 +1,7 @@
-<%@ page import="java.util.Arrays" %><%--
+<%@ page import="java.util.Arrays" %>
+<%@ page import="myHikeJava.Database" %>
+<%@ page import="models.Hike" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: kenan
   Date: 14.11.2023
@@ -85,44 +88,62 @@
     </div>
     -->
     <div class="row gutter">
+      <%
+        int i = 0;
+        List<Hike> hikes = Database.getAllHikes();
+        while (i != 3) {
+          Hike h1 = hikes.get(i);
+          String image = h1.getHikeImage();
+      %>
       <div class="col-sm-4">
-        <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
-          <div class="card-body text-white">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the
-              card's content.
-            </p>
-            <a href="#!" class="btn btn-outline-light">Button</a>
+        <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
+          <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+            <div class="card-body">
+              <h5 class="card-title"><%= h1.getHikeName()%></h5>
+              <p class="card-text">
+                <small class="text-muted">
+                  Strength: <%= h1.getHikeStrength()%>
+                  Stamina: <%= h1.getHikeStamina()%>
+                  Difficulty: <%= h1.getHikeDifficulty()%>
+                </small>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
-          <div class="card-body text-white">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the
-              card's content.
-            </p>
-            <a href="#!" class="btn btn-outline-light">Button</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
-          <div class="card-body text-white">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the
-              card's content.
-            </p>
-            <a href="#!" class="btn btn-outline-light">Button</a>
-          </div>
-        </div>
-      </div>
+      <%
+          i += 1;
+        }
+      %>
     </div>
-
+    <h1 class="display-8">Popular near you</h1>
+    <div class="row gutter">
+      <%
+        while (i != 6) {
+          Hike h1 = hikes.get(i);
+          String image = h1.getHikeImage();
+      %>
+      <div class="col-sm-4">
+        <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
+          <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+            <div class="card-body">
+              <h5 class="card-title"><%= h1.getHikeName()%></h5>
+              <p class="card-text">
+                <small class="text-muted">
+                  Strength: <%= h1.getHikeStrength()%>
+                  Stamina: <%= h1.getHikeStamina()%>
+                  Difficulty: <%= h1.getHikeDifficulty()%>
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%
+          i+= 1;
+        }
+      %>
+    </div>
 
   </div>
 
