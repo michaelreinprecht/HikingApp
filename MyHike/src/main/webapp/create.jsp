@@ -203,7 +203,7 @@
                             <img id="uploadedImage"/>
                         </div>
                         <label for="fileToUpload" class="form-label">image upload:</label>
-                        <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage('uploadImage')"/>
+                        <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
 
@@ -243,8 +243,6 @@
             </div>
         </div>
 </form>
-
-</div>
 
 <!-- Bootstrap imports -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

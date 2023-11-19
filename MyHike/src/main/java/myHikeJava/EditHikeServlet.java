@@ -34,7 +34,11 @@ public class EditHikeServlet extends HttpServlet {
         } catch (IOException | ServletException e) {
             error = e.getMessage();
         }
-        response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
+        if (!error.isEmpty()) {
+            response.sendRedirect("edit.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
+        } else {
+            response.sendRedirect("index.jsp?editSuccess=true");
+        }
     }
 
     private Hike getUpdatedHike(HttpServletRequest request) throws IOException, ServletException {
@@ -70,7 +74,7 @@ public class EditHikeServlet extends HttpServlet {
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
 
         //Encode image to Base64 String
-        String image = encodeToBase64(request);
+        String image = encodeToBase64(request, hike);
 
         //Populate hike object with formatted/adjusted parameter data.
         hike = new Hike(hike.getHikeId(), name, description, startLon, startLat, endLon, endLat, duration, altitude, distance,
@@ -80,7 +84,7 @@ public class EditHikeServlet extends HttpServlet {
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
     //already validated in create.js -> function validateForm()
-    private String encodeToBase64(HttpServletRequest request) throws IOException, ServletException {
+    private String encodeToBase64(HttpServletRequest request, Hike oldHike) throws IOException, ServletException {
         Part fileToUpload = request.getPart("fileToUpload");
         if (fileToUpload.getSize() != 0) {
             try (InputStream is = fileToUpload.getInputStream();
@@ -95,7 +99,7 @@ public class EditHikeServlet extends HttpServlet {
                 return Base64.getEncoder().encodeToString(os.toByteArray());
             }
         } else {
-            return request.getParameter("oldImage");
+            return oldHike.getHikeImage();
         }
     }
 
