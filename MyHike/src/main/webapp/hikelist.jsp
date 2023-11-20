@@ -82,15 +82,29 @@
 <div class="container">
     <%
         List<Hike> hikes = Database.getAllHikes();
+        boolean noMatchingHikesFound = false;
 
         String searchQuery = request.getParameter("searchQuery"); // Holen der Suchanfrage aus der Suchzeile
         if (searchQuery != null && !searchQuery.isEmpty()) {
             hikes = hikes.stream()
-                    .filter(hike -> hike.getHikeRegion().getRegionName().equalsIgnoreCase(searchQuery))
-                    .collect(Collectors.toList());
+                    .filter(hike ->
+                            hike.getHikeRegion().getRegionName().equalsIgnoreCase(searchQuery) ||   //Sucht Region
+                            hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
+                    .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
+
+            if (hikes.isEmpty()){
+                noMatchingHikesFound = true;
+            }
         }
 
-        for (Hike hike : hikes) {
+        if (noMatchingHikesFound) {
+    %>
+    <div class="alert alert-warning" role="alert">
+        Unfortunately, there are no matching hikes with your search :(     <!-- Fehlermeldung, falls keine Hikes zutreffen-->
+    </div>
+    <%
+        } else {
+            for (Hike hike : hikes) {
             String image = hike.getHikeImage();
     %>
     <div class="row">
@@ -182,7 +196,7 @@
     </div>
     <!-- Trennlinie -->
     <hr size="8" color="green">
-    <% } %>
+    <% } } %>
 </div>
 
 
