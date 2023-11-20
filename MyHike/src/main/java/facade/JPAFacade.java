@@ -5,7 +5,6 @@ import models.Hike;
 import models.Region;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class JPAFacade implements IDatabaseFacade {
     public void insert(Object databaseObject) {

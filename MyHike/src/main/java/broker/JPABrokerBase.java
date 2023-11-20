@@ -1,12 +1,8 @@
 package broker;
 
 import myHikeJava.ResourceServlet;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 

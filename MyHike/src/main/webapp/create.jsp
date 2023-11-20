@@ -139,7 +139,7 @@
                             int maxRating = 5;
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-landscape-rating" class="landscape-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -153,7 +153,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-strength-rating" class="strength-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -167,7 +167,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-stamina-rating" class="stamina-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -181,7 +181,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
