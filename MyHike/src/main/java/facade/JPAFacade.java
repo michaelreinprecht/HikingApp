@@ -6,7 +6,7 @@ import models.Region;
 
 import java.sql.SQLException;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class JPAFacade implements IDatabaseFacade {
     public void insert(Object databaseObject) {
         JPABrokerBase broker = getBroker(databaseObject);

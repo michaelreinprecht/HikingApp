@@ -7,7 +7,6 @@ import models.Region;
 import java.sql.SQLException;
 import java.util.List;
 
-@SuppressWarnings("")
 public class JPARegionFacade extends JPAFacade {
     public List<Region> getAllRegions() {
         JPABrokerBase<Region> broker = new JPARegionBroker();

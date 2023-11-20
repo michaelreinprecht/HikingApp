@@ -23,7 +23,6 @@ public class Hike {
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
     private String hikeImage;
-    //private List<Recommended> recommenedList;
     private String hikeMonths;
     private Region hikeRegion;
     private boolean isDeleted;

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class JPAHikeBroker extends JPABrokerBase<Hike> {
     @Override
-    public List<Hike> getAll() throws SQLException {
+    public List<Hike> getAll() {
         EntityManager entityManager = ResourceServlet.getEntityManager();
         List<Hike> hikes = entityManager.createQuery("from models.Hike", Hike.class).getResultList();
 
@@ -23,7 +23,7 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
     }
 
     @Override
-    public Hike getById(Object id) throws SQLException {
+    public Hike getById(Object id) {
         EntityManager entityManager = ResourceServlet.getEntityManager();
         return entityManager.find(Hike.class, id);
     }
