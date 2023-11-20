@@ -50,262 +50,249 @@
     Hike hike = Database.getHikeById(id);
 %>
 
-<div class="container-fluid" style="background-color: white; padding: 0">
-    <form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" style="margin-left: 10px" enctype="multipart/form-data"
-          onsubmit="return validateForm();">
-        <br>
-        <div style="clear:both;">
-            <label for="name" style="display: inline-block; width: 150px; font-weight: bold">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>"
-                   required>
-        </div>
-        <div style="clear:both;">
-            <label for="description"
-                   style="display: inline-block; width: 150px; font-weight: bold">Beschreibung:</label>
-            <textarea id="description" name="description"
-                      placeholder="Your description ..."><%=hike.getHikeDescription()%></textarea>
-        </div>
-        <div style="clear:both;">
-            <label for="region" style="display: inline-block; width: 150px; font-weight: bold">Region:</label>
-            <select name="region" id="region">
-                <%
-                    List<Region> regions = Database.getAllRegions();
-                    for (Region region : regions) {
-                        if (Objects.equals(hike.getHikeRegion().getRegionName(), region.getRegionName())) {
-                %>
-                <!-- If the Region of hike and current Region element match, set this as the selected option -->
-                <option value="<%=region.getRegionName()%>" selected><%=region.getRegionName()%>
-                </option>
-                <% } else {
-                %>
-                <option value="<%=region.getRegionName()%>"><%=region.getRegionName()%>
-                </option>
-                <%
-                        }
-                    }
-                %>
-            </select>
-            <!-- <input type="text" id="region" name="region"> -->
-        </div>
-        <div style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">Start Location:</label><br>
-            <label for="startLon" style="display: inline-block; width: 150px;">Lon: </label>
-            <input type="text" id="startLon" name="startLon" placeholder="12.3456" value="<%=hike.getHikeStartLon()%>"
-                   required><br>
-            <label for="startLat" style="display: inline-block; width: 150px;">Lat: </label>
-            <input type="text" id="startLat" name="startLat" placeholder="12.3456" value="<%=hike.getHikeStartLat()%>"
-                   required>
-        </div>
-        <div style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">End Location:</label><br>
-            <label for="endLon" style="display: inline-block; width: 150px;">Lon: </label>
-            <input type="text" id="endLon" name="endLon" placeholder="12.3456" value="<%=hike.getHikeEndLon()%>"
-                   required><br>
-            <label for="endLat" style="display: inline-block; width: 150px;">Lat: </label>
-            <input type="text" id="endLat" name="endLat" placeholder="12.3456" value="<%=hike.getHikeEndLat()%>"
-                   required>
-        </div>
-        <div style="clear:both;">
-            <label for="altitude" style="display: inline-block; width: 150px; font-weight: bold">Altitude (in
-                meters):</label>
-            <input type="text" id="altitude" name="altitude" value="<%=hike.getHikeAltitude()%>">
-        </div>
-        <div style="clear:both;">
-            <label for="distance" style="display: inline-block; width: 150px; font-weight: bold">Distance (in
-                kilometers):</label>
-            <input type="text" id="distance" name="distance" value="<%=hike.getHikeDistance()%>">
-        </div>
-        <div style="clear:both;">
-            <label for="duration" style="display: inline-block; width: 150px; font-weight: bold">Duration (in
-                hours:minutes):</label>
-            <%
-                //Reformat time, since it automatically gets formatted to "hh:mm:ss" in database.
-                LocalTime localTime = hike.getHikeDuration().toLocalTime();
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                String formattedTime = localTime.format(outputFormatter);
-            %>
-            <input type="time" id="duration" name="duration" value="<%=formattedTime%>">
-        </div>
+<!-- Titel -->
+<div class="title">
+    <h3 class="text-center">
+        Edit your Hike
+    </h3>
+</div>
 
-        <!-- Generate month input -->
-        <div id="months" style="clear:both;">
-            <label style="display: inline-block; width: 150px; font-weight: bold">Recommended Months:</label>
-            <%
-                //All 12 months of the year
-                String[] months = Month.ALL_MONTHS;
-                //The months that are recommended for this hike
-                String[] recommendedMonths = Month.getMonthsByBitmap(hike.getHikeMonths());
-                for(String month: months) {  //Iterate through every month
-                    boolean isChecked = false;
-                    //If this month is in the recommended List set isChecked to true -> display checkbox checked
-                    for (String rec : recommendedMonths) {
-                        if (Objects.equals(month, rec)) {
-                            isChecked = true;
-                            break;
-                        }
-                    }
-                    if (isChecked) { //Display checked checkbox
-            %>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<%=month%>" name="months"
-                       id="<%=month%>" checked>
-                <label class="form-check-label" for="<%=month%>"><%=month%>
-                </label>
+<form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="leftSide">
+                    <!-- Name -->
+                    <div class="clear">
+                        <label for="name" class="labels_withmargin">Name:</label>
+                        <input class="form-control w-100 "type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" required>
+                    </div>
+
+                    <!-- Region -->
+                    <div class="clear">
+                        <label for="region" class="labels_withmargin">Region:</label>
+                        <select class="form-control w-100" name="region" id="region">
+                            <%
+                                List<Region> regions = Database.getAllRegions();
+                                for (Region region : regions) {
+                                    if (Objects.equals(hike.getHikeRegion().getRegionName(), region.getRegionName())) {
+                            %>
+                            <!-- If the Region of hike and current Region element match, set this as the selected option -->
+                            <option value="<%=region.getRegionName()%>" selected><%=region.getRegionName()%>
+                            </option>
+                            <% } else {
+                            %>
+                            <option value="<%=region.getRegionName()%>"><%=region.getRegionName()%>
+                            </option>
+                            <%
+                                    }
+                                }
+                            %>
+                        </select>
+                    </div>
+
+                    <!-- Start Location-->
+                    <div class="clear">
+                        <label class="labels_withmargin">Start Location:</label><br>
+                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456" value="<%=hike.getHikeStartLon()%>"><br>
+                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456" value="<%=hike.getHikeStartLat()%>">
+                    </div>
+
+                    <!-- End Location-->
+                    <div class="clear">
+                        <label class="labels_withmargin">End Location:</label><br>
+                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456" value="<%=hike.getHikeEndLon()%>"><br>
+                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456" value="<%=hike.getHikeEndLat()%>">
+                    </div>
+
+                    <!-- Altitude-->
+                    <div class="clear">
+                        <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" value="<%=hike.getHikeAltitude()%>">
+                    </div>
+
+                    <!-- Distance-->
+                    <div class="clear">
+                        <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" value="<%=hike.getHikeDistance()%>">
+                    </div>
+
+                    <!-- Duration-->
+
+                    <div class="clear">
+                        <%
+                            //Reformat time, since it automatically gets formatted to "hh:mm:ss" in database.
+                            LocalTime localTime = hike.getHikeDuration().toLocalTime();
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                            String formattedTime = localTime.format(outputFormatter);
+                        %>
+                        <label for="duration" class="labels_withmargin">Duration (in hours:minutes):</label>
+                        <input class="form-control w-100" type="time" id="duration" name="duration" value="<%=formattedTime%>">
+                    </div>
+                </div>
             </div>
-            <%
-            } else { //Display unchecked checkbox
-            %>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="<%=month%>" name="months"
-                       id="<%=month%>">
-                <label class="form-check-label" for="<%=month%>"><%=month%>
-                </label>
+
+
+            <!-- rechte Hälfte -->
+            <div class="col-md-6">
+                <div class="rightSide">
+
+                    <!-- Recommended months-->
+                    <div id="months" class="clear">
+                        <label class="labels_withmargin">Recommended Months:</label>
+                        <%
+                            //All 12 months of the year
+                            String[] months = Month.ALL_MONTHS;
+                            //The months that are recommended for this hike
+                            String[] recommendedMonths = Month.getMonthsByBitmap(hike.getHikeMonths());
+                            for(String month: months) {  //Iterate through every month
+                                boolean isChecked = false;
+                                //If this month is in the recommended List set isChecked to true -> display checkbox checked
+                                for (String rec : recommendedMonths) {
+                                    if (Objects.equals(month, rec)) {
+                                        isChecked = true;
+                                        break;
+                                    }
+                                }
+                                if (isChecked) { //Display checked checkbox
+                        %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<%=month%>" name="months"
+                                   id="<%=month%>" checked>
+                            <label class="form-check-label" for="<%=month%>"><%=month%>
+                            </label>
+                        </div>
+                        <%
+                        } else { //Display unchecked checkbox
+                        %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<%=month%>" name="months"
+                                   id="<%=month%>">
+                            <label class="form-check-label" for="<%=month%>"><%=month%>
+                            </label>
+                        </div>
+                        <%
+                                }
+                            }
+                        %>
+                    </div><br>
+
+                    <!-- Stars-->
+                    <label class="labels">Landscape:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int maxRating = 5;
+                            int landscape = hike.getHikeLandscape();
+                            for (int i = 1; i <= maxRating; i++) {
+                                if ((maxRating - landscape + 1) == i) {
+                        %>
+                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>"
+                               checked>
+                        <label for="<%=i%>-landscape-rating" class="landscape-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                        } else {
+                        %>
+                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>">
+                        <label for="<%=i%>-landscape-rating" class="landscape-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                                }
+                            }
+                        %>
+                    </div><br>
+
+                    <label class="labels">Strength:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int strength = hike.getHikeStrength();
+                            for (int i = 1; i <= maxRating; i++) {
+                                if ((maxRating - strength + 1) == i) {
+                        %>
+                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>" checked>
+                        <label for="<%=i%>-strength-rating" class="strength-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                        } else {
+                        %>
+                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>">
+                        <label for="<%=i%>-strength-rating" class="strength-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                                }
+                            }
+                        %>
+                    </div><br>
+
+                    <label class="labels">Stamina:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int stamina = hike.getHikeStamina();
+                            for (int i = 1; i <= maxRating; i++) {
+                                if ((maxRating - stamina + 1) == i) {
+                        %>
+                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>" checked>
+                        <label for="<%=i%>-stamina-rating" class="stamina-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                        } else {
+                        %>
+                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>">
+                        <label for="<%=i%>-stamina-rating" class="stamina-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+
+                    <!-- Description-->
+                    <div class="clear">
+                        <label for="description" class="labels_withmargin">Description:</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." ><%=hike.getHikeDescription()%></textarea>
+                    </div>
+                    <!-- first Image Upload -->
+                    <div class="imageBox">
+                        <div>
+                            <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;"/>
+                        </div>
+                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
+                    </div>
+                </div>
             </div>
-            <%
-                    }
-                }
-            %>
-
         </div>
+    </div>
+
+    <div style="background-color: white; padding: 0">
         <br>
-
-        <!-- Generate star rating input -->
-        <label style="display: inline-block; width: 150px; font-weight: bold">Landscape:</label>
-        <div class="rating-wrapper">
-            <%
-                int maxRating = 5;
-                int landscape = hike.getHikeLandscape();
-                for (int i = 1; i <= maxRating; i++) {
-                    if ((maxRating - landscape + 1) == i) {
-            %>
-            <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>"
-                   checked>
-            <label for="<%=i%>-landscape-rating" class="landscape-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-            } else {
-            %>
-            <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-landscape-rating" class="landscape-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                    }
-                }
-            %>
-        </div>
-        <br>
-
-        <label style="display: inline-block; width: 150px; font-weight: bold">Strength:</label>
-        <div class="rating-wrapper">
-            <%
-                int strength = hike.getHikeStrength();
-                for (int i = 1; i <= maxRating; i++) {
-                    if ((maxRating - strength + 1) == i) {
-            %>
-            <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>" checked>
-            <label for="<%=i%>-strength-rating" class="strength-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-            } else {
-            %>
-            <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-strength-rating" class="strength-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                    }
-                }
-            %>
-        </div>
-        <br>
-
-        <label style="display: inline-block; width: 150px; font-weight: bold">Stamina:</label>
-        <div class="rating-wrapper">
-            <%
-                int stamina = hike.getHikeStamina();
-                for (int i = 1; i <= maxRating; i++) {
-                    if ((maxRating - stamina + 1) == i) {
-            %>
-            <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>" checked>
-            <label for="<%=i%>-stamina-rating" class="stamina-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-            } else {
-            %>
-            <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-stamina-rating" class="stamina-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                    }
-                }
-            %>
-        </div>
-        <br>
-
-        <label style="display: inline-block; width: 150px; font-weight: bold">Difficulty:</label>
-        <div class="rating-wrapper">
-            <%
-                int difficulty = hike.getHikeDifficulty();
-                for (int i = 1; i <= maxRating; i++) {
-                    if ((maxRating - difficulty + 1) == i) {
-            %>
-            <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>"
-                   checked>
-            <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-            } else {
-            %>
-            <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
-            <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
-                <i class="fas fa-star d-inline-block"></i>
-            </label>
-            <%
-                    }
-                }
-            %>
-        </div>
-        <br>
-
-        <div>
-            <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;"/>
-            <label for="oldImage" style="display: none">
-            </label><input type="text" id="oldImage" name="oldImage" value="<%=hike.getHikeImage()%>" style="display: none">
-        </div>
-
-        <div class="row-md" style="width: 150px; font-weight: bold">
-            <label for="fileToUpload" class="form-label">Image upload:</label>
-            <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
-        </div>
 
         <!-- This alert will be displayed if (for example), validation is not passed -->
-        <div id="validationAlert" class="alert alert-danger row-md" role="alert"
-             style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
+        <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
-        <%
+            <%
             String error = request.getParameter("error");
             if (error != null && !error.isEmpty()) {
         %>
-        <div id="databaseAlert" class="alert alert-danger row-md" role="alert"
-             style="clear:both; margin-bottom: 10px; margin-top: 10px;">
+        <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
             Database error: <%= error %>
         </div>
-        <%
+            <%
             }
         %>
 
-        <div class="row-md" style="clear:both; margin-left: 280px;">
-            <button type="submit" class="btn btn-success" style="width: 10%">Update</button>
+        <div class="row" style="clear:both;">
+            <div class="col-md-5 offset-md-5 text-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
         </div>
-    </form>
-
-</div>
+</form>
 
 <!-- Bootstrap imports -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -1,0 +1,157 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ArtifactsWorkspaceSettings\">\r\n    <artifacts-to-build>\r\n      <artifact name=\"MyHike:war exploded\" />\r\n    </artifacts-to-build>\r\n  </component>\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"dd89ac45-d056-4148-8019-305772fb27ff\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Jsp File\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;kenerg2000&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"05f90f46-0813-41eb-9a7a-2d9189dbd6f9\" />\r\n        <option name=\"url\" value=\"https://github.com/michaelreinprecht/HikingApp.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"LogFilters\">\r\n    <option name=\"FILTER_ERRORS\" value=\"false\" />\r\n    <option name=\"FILTER_WARNINGS\" value=\"false\" />\r\n    <option name=\"FILTER_INFO\" value=\"true\" />\r\n    <option name=\"FILTER_DEBUG\" value=\"true\" />\r\n    <option name=\"CUSTOM_FILTER\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2XWlFDoPhmRwNH8SQRtVww1A9B1\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"git-widget-placeholder\": \"discovertab\",\r\n    \"last_opened_file_path\": \"C:/Users/kenan/Desktop/FHV/3_Semester/Software_engineering/Hiking Project/HikingApp\",\r\n    \"list.type.of.created.stylesheet\": \"CSS\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"settings.editor.selected.configurable\": \"preferences.lookFeel\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Tomcat 10.1.5\" type=\"#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory\" factoryName=\"Local\" APPLICATION_SERVER_NAME=\"Tomcat 10.1.5\" ALTERNATIVE_JRE_ENABLED=\"false\" nameIsGenerated=\"true\">\r\n      <option name=\"UPDATING_POLICY\" value=\"restart-server\" />\r\n      <deployment>\r\n        <artifact name=\"MyHike:war exploded\">\r\n          <settings>\r\n            <option name=\"CONTEXT_PATH\" value=\"/MyHike_war_exploded\" />\r\n          </settings>\r\n        </artifact>\r\n      </deployment>\r\n      <server-settings>\r\n        <option name=\"BASE_DIRECTORY_NAME\" value=\"c6ee92f0-9d43-4e99-9a0f-cddd21ed1c13\" />\r\n      </server-settings>\r\n      <predefined_log_file enabled=\"true\" id=\"Tomcat\" />\r\n      <predefined_log_file enabled=\"true\" id=\"Tomcat Catalina\" />\r\n      <predefined_log_file id=\"Tomcat Manager\" />\r\n      <predefined_log_file id=\"Tomcat Host Manager\" />\r\n      <predefined_log_file id=\"Tomcat Localhost Access\" />\r\n      <RunnerSettings RunnerId=\"Debug\">\r\n        <option name=\"DEBUG_PORT\" value=\"52908\" />\r\n      </RunnerSettings>\r\n      <ConfigurationWrapper VM_VAR=\"JAVA_OPTS\" RunnerId=\"Cover\">\r\n        <option name=\"USE_ENV_VARIABLES\" value=\"true\" />\r\n        <STARTUP>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </STARTUP>\r\n        <SHUTDOWN>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </SHUTDOWN>\r\n      </ConfigurationWrapper>\r\n      <ConfigurationWrapper VM_VAR=\"JAVA_OPTS\" RunnerId=\"Debug\">\r\n        <option name=\"USE_ENV_VARIABLES\" value=\"true\" />\r\n        <STARTUP>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </STARTUP>\r\n        <SHUTDOWN>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </SHUTDOWN>\r\n      </ConfigurationWrapper>\r\n      <ConfigurationWrapper VM_VAR=\"JAVA_OPTS\" RunnerId=\"Profile\">\r\n        <option name=\"USE_ENV_VARIABLES\" value=\"true\" />\r\n        <STARTUP>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </STARTUP>\r\n        <SHUTDOWN>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </SHUTDOWN>\r\n      </ConfigurationWrapper>\r\n      <ConfigurationWrapper VM_VAR=\"JAVA_OPTS\" RunnerId=\"Run\">\r\n        <option name=\"USE_ENV_VARIABLES\" value=\"true\" />\r\n        <STARTUP>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </STARTUP>\r\n        <SHUTDOWN>\r\n          <option name=\"USE_DEFAULT\" value=\"true\" />\r\n          <option name=\"SCRIPT\" value=\"\" />\r\n          <option name=\"VM_PARAMETERS\" value=\"\" />\r\n          <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n        </SHUTDOWN>\r\n      </ConfigurationWrapper>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n        <option name=\"BuildArtifacts\" enabled=\"true\">\r\n          <artifact name=\"MyHike:war exploded\" />\r\n        </option>\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"dd89ac45-d056-4148-8019-305772fb27ff\" name=\"Changes\" comment=\"\" />\r\n      <created>1698752610846</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1698752610846</updated>\r\n      <workItem from=\"1698752611884\" duration=\"4196000\" />\r\n      <workItem from=\"1698757075490\" duration=\"42000\" />\r\n      <workItem from=\"1698876162737\" duration=\"4973000\" />\r\n      <workItem from=\"1698894863986\" duration=\"2762000\" />\r\n      <workItem from=\"1699035265085\" duration=\"1036000\" />\r\n      <workItem from=\"1699036322294\" duration=\"730000\" />\r\n      <workItem from=\"1699152481482\" duration=\"8205000\" />\r\n      <workItem from=\"1699161347392\" duration=\"61000\" />\r\n      <workItem from=\"1699225430135\" duration=\"3083000\" />\r\n      <workItem from=\"1699228699188\" duration=\"5126000\" />\r\n      <workItem from=\"1699466725014\" duration=\"1691000\" />\r\n      <workItem from=\"1699481351114\" duration=\"1966000\" />\r\n      <workItem from=\"1699660978822\" duration=\"1363000\" />\r\n      <workItem from=\"1699808601613\" duration=\"3113000\" />\r\n      <workItem from=\"1699958082401\" duration=\"7922000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -11,7 +11,7 @@
+   <component name="ChangeListManager">
+     <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/MyHike/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/pom.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -71,28 +71,28 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "git-widget-placeholder": "discovertab",
+-    "last_opened_file_path": "C:/Users/kenan/Desktop/FHV/3_Semester/Software_engineering/Hiking Project/HikingApp",
+-    "list.type.of.created.stylesheet": "CSS",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+-    "settings.editor.selected.configurable": "preferences.lookFeel",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;discovertab&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/kenan/Desktop/FHV/3_Semester/Software_engineering/Hiking Project/HikingApp&quot;,
++    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="Tomcat 10.1.5" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.5" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+       <option name="UPDATING_POLICY" value="restart-server" />
+@@ -205,6 +205,8 @@
+       <workItem from="1699660978822" duration="1363000" />
+       <workItem from="1699808601613" duration="3113000" />
+       <workItem from="1699958082401" duration="7922000" />
++      <workItem from="1699970981610" duration="175000" />
++      <workItem from="1699971170078" duration="1810000" />
+     </task>
+     <servers />
+   </component>
+Index: MyHike/src/main/webapp/discover.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%--\r\n  Created by IntelliJ IDEA.\r\n  User: kenan\r\n  Date: 14.11.2023\r\n  Time: 11:44\r\n  To change this template use File | Settings | File Templates.\r\n--%>\r\n<%@ page contentType=\"text/html;charset=UTF-8\" language=\"java\" %>\r\n<html>\r\n<head>\r\n  <title>Discover</title>\r\n  <meta charset=\"UTF-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title>Discover</title>\r\n\r\n  <!-- Bootstrap link -->\r\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css\"\r\n        integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\r\n\r\n  <!-- Font Awesome Icons link -->\r\n  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js\"></script>\r\n\r\n  <!-- Link to detail.css -->\r\n  <link rel=\"stylesheet\" href=\"css/discover.css\">\r\n</head>\r\n<body>\r\n<!-- Navigation bar -->\r\n<nav class=\"navbar sticky-top navbar-expand-lg navbar-dark\" style=\"background-color: #07773a; height: 80px\">\r\n  <a class=\"navbar-brand\" href=\"index.jsp\">\r\n    <img src=\"images/icon3.png\" alt=\"MyHike\" style=\" width: 90px; height: 70px; margin-bottom: 5px\">\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarTogglerDemo02\"\r\n          aria-controls=\"navbarTogglerDemo02\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\r\n    <ul class=\"navbar-nav mr-auto mt-2 mt-lg-0\">\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" href=\"discover.jsp\">Discover</a>\r\n      </li>\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" href=\"create.jsp\">Create Hike</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n\r\n<div class=\"bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white\" id=\"233\" style=\"background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');\">\r\n  <h1 class=\"mb-3 h2\">Discover a whole new adventure</h1>\r\n\r\n  <div class=\"input-group mb-3 mx-auto\" id=\"discover-searchbar\">\r\n    <input type=\"text\" class=\"form-control\" aria-label=\"Amount (to the nearest dollar)\">\r\n    <span class=\"input-group-text\">Search</span>\r\n  </div>\r\n  <p> This is a test</p>\r\n</div>\r\n\r\n<div class=\"jumbotron jumbotron-fluid\">\r\n  <div class=\"container\">\r\n    <h1 class=\"display-8\">Hikes in your Area</h1>\r\n    <div class=\"bg-image card shadow-1-strong\" style=\"background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');\">\r\n      <div class=\"card-body text-white\">\r\n        <h5 class=\"card-title\">Card title</h5>\r\n        <p class=\"card-text\">\r\n          Some quick example text to build on the card title and make up the bulk of the\r\n          card's content.\r\n        </p>\r\n        <a href=\"#!\" class=\"btn btn-outline-light\">Button</a>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"jumbotron jumbotron-fluid\">\r\n    <div class=\"container\">\r\n      <h1 class=\"display-8\">Hikes in your Area</h1>\r\n      <div class=\"container mt-5\">\r\n        <div class=\"row\">\r\n          <div class=\"bg-image card shadow-1-strong\" style=\"background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');\">\r\n            <div class=\"card-body text-white\">\r\n              <h5 class=\"card-title\">Card title</h5>\r\n              <p class=\"card-text\">\r\n                Some quick example text to build on the card title and make up the bulk of the\r\n                card's content.\r\n              </p>\r\n              <a href=\"#!\" class=\"btn btn-outline-light\">Button</a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n</body>\r\n</html>\r\n
+===================================================================
+diff --git a/MyHike/src/main/webapp/discover.jsp b/MyHike/src/main/webapp/discover.jsp
+--- a/MyHike/src/main/webapp/discover.jsp	
++++ b/MyHike/src/main/webapp/discover.jsp	
+@@ -59,38 +59,41 @@
+   <div class="container">
+     <h1 class="display-8">Hikes in your Area</h1>
+     <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
+-      <div class="card-body text-white">
+-        <h5 class="card-title">Card title</h5>
+-        <p class="card-text">
+-          Some quick example text to build on the card title and make up the bulk of the
+-          card's content.
+-        </p>
+-        <a href="#!" class="btn btn-outline-light">Button</a>
+-      </div>
+-    </div>
+-  </div>
+-
+-  <div class="jumbotron jumbotron-fluid">
+-    <div class="container">
+-      <h1 class="display-8">Hikes in your Area</h1>
+-      <div class="container mt-5">
+-        <div class="row">
+-          <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
+-            <div class="card-body text-white">
+-              <h5 class="card-title">Card title</h5>
+-              <p class="card-text">
+-                Some quick example text to build on the card title and make up the bulk of the
+-                card's content.
+-              </p>
+-              <a href="#!" class="btn btn-outline-light">Button</a>
+-            </div>
+-          </div>
+-        </div>
+-    </div>
++      <div class="row mt-3">
++        <div class="card-body text-white">
++          <h5 class="card-title">Card title</h5>
++          <p class="card-text">
++            Some quick example text to build on the card title and make up the bulk of the
++            card's content.
++          </p>
++          <a href="#!" class="btn btn-outline-light">Button</a>
++        </div>
++      </div>
++      <div class="card-body text-white">
++        <h5 class="card-title">Card title</h5>
++        <p class="card-text">
++          Some quick example text to build on the card title and make up the bulk of the
++          card's content.e
++        </p>
++        <a href="#!" class="btn btn-outline-light">Button</a>
++      </div>
++      <div class="card-body text-white">
++        <h5 class="card-title">Card title</h5>
++        <p class="card-text">
++          Some quick example text to build on the card title and make up the bulk of the
++          card's content.e
++        </p>
++        <a href="#!" class="btn btn-outline-light">Button</a>
++      </div>
++      </div>
++
++
++    </div>
++  </div>
++
+ </div>
+ 
+ 
+ 
+-
+ </body>
+ </html>

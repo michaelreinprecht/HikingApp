@@ -31,7 +31,11 @@ public class CreateHikeServlet extends HttpServlet {
         } catch (IOException | ServletException e) {
             error = e.getMessage();
         }
-        response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
+        if (!error.isEmpty()) {
+            response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
+        } else {
+            response.sendRedirect("index.jsp?createSuccess=true");
+        }
     }
 
     private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
