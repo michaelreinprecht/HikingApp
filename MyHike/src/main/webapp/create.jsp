@@ -93,13 +93,13 @@
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
-                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="814">
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100">
                     </div>
 
                     <!-- Distance-->
                     <div class="clear">
                         <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
-                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="8.14">
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00">
                     </div>
 
                     <!-- Duration-->
@@ -206,15 +206,6 @@
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
-
-                    <!--
-                    <div class="image-container"
-                         style="display: flex; align-items: center; margin-top: 200px; margin-bottom: 30px">
-                         Rundgangsbild
-                        <img src="images/beispiel_berge.jpg" alt="bild" style="width: 200%; height: 400px; margin-left: 20px; margin-right: 20px">
-
-                    </div>
-                    //-->
                 </div>
             </div>
         </div>
