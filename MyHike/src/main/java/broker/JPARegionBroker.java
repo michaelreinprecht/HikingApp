@@ -12,7 +12,8 @@ public class JPARegionBroker extends JPABrokerBase<Region> {
     @Override
     public List<Region> getAll() throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        List<Region> regions = (List<Region>) entityManager.createQuery("from models.Region").getResultList();
+        List<Region> regions;
+        regions = (List<Region>) entityManager.createQuery("from models.Region").getResultList();
         return regions;
     }
 

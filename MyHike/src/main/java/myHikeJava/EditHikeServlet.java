@@ -1,24 +1,24 @@
 package myHikeJava;
 
-import java.io.*;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.UUID;
-
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
 import models.Region;
 
-import javax.persistence.EntityManager;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig

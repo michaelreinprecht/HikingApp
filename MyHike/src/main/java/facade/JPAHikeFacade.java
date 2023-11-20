@@ -12,9 +12,7 @@ public class JPAHikeFacade extends JPAFacade{
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
         try {
             return broker.getAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return null;
@@ -24,9 +22,7 @@ public class JPAHikeFacade extends JPAFacade{
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
         try {
             return broker.getById(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return null;

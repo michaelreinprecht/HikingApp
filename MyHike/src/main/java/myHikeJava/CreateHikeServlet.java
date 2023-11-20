@@ -4,10 +4,8 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.UUID;
 
 import jakarta.servlet.ServletException;
@@ -70,7 +68,7 @@ public class CreateHikeServlet extends HttpServlet {
         Time duration = Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter));
 
         //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
-        //need to be inserted into the recommended_in table.
+        //need to be inserted into the recommended_in table).
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
 
         //Encode image to Base64 String

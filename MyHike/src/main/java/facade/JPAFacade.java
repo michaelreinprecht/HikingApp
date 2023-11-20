@@ -6,14 +6,13 @@ import models.Region;
 
 import java.sql.SQLException;
 
+@SuppressWarnings("unchecked")
 public class JPAFacade implements IDatabaseFacade {
     public void insert(Object databaseObject) {
         JPABrokerBase broker = getBroker(databaseObject);
         try {
             broker.insert(databaseObject);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -22,9 +21,7 @@ public class JPAFacade implements IDatabaseFacade {
         JPABrokerBase broker = getBroker(databaseObject);
         try {
             broker.update(databaseObject);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -33,9 +30,7 @@ public class JPAFacade implements IDatabaseFacade {
         JPABrokerBase broker = getBroker(databaseObject);
         try {
             broker.delete(databaseObject);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
     }

@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.sql.SQLException;
 
 @WebListener
 public class ResourceServlet implements ServletContextListener {
@@ -23,7 +22,7 @@ public class ResourceServlet implements ServletContextListener {
         entityManager.close();
     }
 
-    public static EntityManager getEntityManager() throws SQLException {
+    public static EntityManager getEntityManager() {
         //Make sure only one entityManager exists at a time.
         if (entityManager == null) {
             EntityManagerFactory fact = Persistence.createEntityManagerFactory("ftb_inv_2023_vz_3_d");

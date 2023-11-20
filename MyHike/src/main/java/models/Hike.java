@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "hike", schema = "MyHike")
 public class Hike {
@@ -71,6 +72,7 @@ public class Hike {
     public String getHikeDescription() {
         return hikeDescription;
     }
+
     public void setHikeDescription(String hikeDescription) {
         this.hikeDescription = hikeDescription;
     }

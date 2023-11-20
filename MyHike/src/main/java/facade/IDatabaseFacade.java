@@ -5,15 +5,15 @@ public interface IDatabaseFacade {
 	/**
 	 * INSERT - inserts the given objects into the database
      */
-	public void insert(Object value);
+	void insert(Object value);
 	
 	/**
-	 * UPDATE - attempts to update the given object in the database, if it doesn't yet exists, instead inserts a new object
+	 * UPDATE - attempts to update the given object in the database, if it doesn't yet exist, instead inserts a new object
      */
-	public void update(Object value);
+	void update(Object value);
 	
 	/**
 	 * DELETE - attempts to delete the given object from the database
      */
-	public void delete(Object value);
+	void delete(Object value);
 }
