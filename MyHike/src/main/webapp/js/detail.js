@@ -2,7 +2,7 @@
 
 //TODO explain method
 function toggleContent(buttonId) {
-    var content = document.getElementById(buttonId + "-content");
+    let content = document.getElementById(buttonId + "-content");
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
     } else {
@@ -13,7 +13,7 @@ function toggleContent(buttonId) {
 
 //stellt sicher, dass der Code erst dann ausgeführt wird, wenn das gesamte Fenster geladen ist(Bilder z.B)
 window.onload = function() {
-    var deleteButton = document.getElementById('deleteButton'); // Holt den Delete Button durch seine ID(detail.jsp)
+    let deleteButton = document.getElementById('deleteButton'); // Holt den Delete Button durch seine ID(detail.jsp)
     if (deleteButton) { // prüft ob er überhaupt existiert
         // Binden eines 'click' Event-Handlers an den Button
         // Wenn der Button geklickt wird, wird die 'confirmDelete' Funktion aufgerufen

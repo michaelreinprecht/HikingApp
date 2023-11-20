@@ -21,8 +21,8 @@
     <!-- Link to edit.css -->
     <link rel="stylesheet" href="css/edit.css">
 
-    <!-- Link to edit.js -->
-    <script src="js/edit.js"></script>
+    <!-- Link to .js -->
+    <script src="js/create_edit.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -250,7 +250,31 @@
                                 }
                             }
                         %>
-                    </div>
+                    </div><br>
+
+                    <label class="labels">Difficulty:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int difficulty = hike.getHikeDifficulty();
+                            for (int i = 1; i <= maxRating; i++) {
+                                if ((maxRating - difficulty + 1) == i) {
+                        %>
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>" checked>
+                        <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                        } else {
+                        %>
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
+                        <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                                }
+                            }
+                        %>
+                    </div><br>
 
                     <!-- Description-->
                     <div class="clear">

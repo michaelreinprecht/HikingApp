@@ -83,7 +83,7 @@ public class EditHikeServlet extends HttpServlet {
     }
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
-    //already validated in create.js -> function validateForm()
+    //already validated in create_edit.js -> function validateForm()
     private String encodeToBase64(HttpServletRequest request, Hike oldHike) throws IOException, ServletException {
         Part fileToUpload = request.getPart("fileToUpload");
         if (fileToUpload.getSize() != 0) {
