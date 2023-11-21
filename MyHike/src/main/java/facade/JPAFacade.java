@@ -14,8 +14,7 @@ public class JPAFacade implements IDatabaseFacade {
         try {
             broker.insert(databaseObject);
         } catch (SQLException | NullPointerException e) {
-            System.out.println(e.getMessage());
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            e.printStackTrace();
         }
     }
 
