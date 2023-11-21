@@ -4,7 +4,6 @@ import models.Region;
 import myHikeJava.ResourceServlet;
 
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
 import java.util.List;
 
 public class JPARegionBroker extends JPABrokerBase<Region> {

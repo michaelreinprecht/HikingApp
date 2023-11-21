@@ -4,7 +4,6 @@ import models.Hike;
 import myHikeJava.ResourceServlet;
 
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
