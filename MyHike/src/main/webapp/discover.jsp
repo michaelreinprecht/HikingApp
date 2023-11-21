@@ -25,6 +25,8 @@
 
   <!-- Link to detail.css -->
   <link rel="stylesheet" href="css/discover.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -50,6 +52,31 @@
 
 <div class="bg-image p-5 text-center shadow-1-strong rounded text-white" id="233" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
   <h1 class="mb-3 h2">Discover a whole new adventure</h1>
+
+  <!-- Remove this shit, just for testing -->
+  <form id="myForm">
+    <!-- Your input fields here -->
+    <input type="text" id="dataInput" />
+    <button type="button" onclick="sendData()">Submit</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    function sendData() {
+      let inputData = document.getElementById("dataInput").value;
+
+      $.ajax({
+        type: "POST",
+        url: "testingAjaxServlet", // Servlet URL
+        data: { data: inputData },
+        success: function(response) {
+          $("#result").html(inputData);
+        },
+        error: function () {
+          //Handle error
+        }
+      });
+    }
+  </script>
 
   <form method="POST" action="hikelist.jsp">
     <div class="input-group mb-3 mx-auto" id="discover-searchbar">
