@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @SuppressWarnings("unused")
 @Entity
@@ -25,6 +26,7 @@ public class Hike {
     private String hikeImage;
     private String hikeMonths;
     private Region hikeRegion;
+    private List<PointOfInterest> hikePointsOfInterest;
     private boolean isDeleted;
 
     public Hike() {}
@@ -187,6 +189,14 @@ public class Hike {
 
     public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    @OneToMany(mappedBy = "hike")
+    public List<PointOfInterest> getHikePointsOfInterest() {
+        return hikePointsOfInterest;
+    }
+    public void setHikePointsOfInterest(List<PointOfInterest> hikePointsOfInterest) {
+        this.hikePointsOfInterest = hikePointsOfInterest;
     }
 
     @ManyToOne
