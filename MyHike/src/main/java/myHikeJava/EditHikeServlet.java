@@ -33,18 +33,18 @@ public class EditHikeServlet extends ServletUtils {
     }
 
     private Hike getUpdatedHike(HttpServletRequest request) throws IOException, ServletException {
-        Hike hike = Database.getHikeById(request.getParameter("Id"));
-        hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
+        Hike oldHike = Database.getHikeById(request.getParameter("Id"));
+        Hike newHike = getHikeBase(request, oldHike); //Gets the basic hike data (works same for edit and create)
 
         //Get recommended Months are String[] from html parameter and turn them into a Bitmap
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
 
         //Encode image to Base64 String - if there is no image use old image instead
-        String image = encodeToBase64(request.getPart("fileToUpload"), hike);
+        String image = encodeToBase64(request.getPart("fileToUpload"), oldHike);
 
-        hike.setHikeMonths(recommendedMonths);
-        hike.setHikeImage(image);
-        return hike;
+        newHike.setHikeMonths(recommendedMonths);
+        newHike.setHikeImage(image);
+        return newHike;
     }
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
