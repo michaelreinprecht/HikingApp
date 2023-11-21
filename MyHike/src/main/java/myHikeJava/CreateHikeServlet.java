@@ -51,7 +51,7 @@ public class CreateHikeServlet extends ServletUtils {
     }
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
-    //already validated in create.js -> function validateForm()
+    //already validated in create_edit.js -> function validateForm()
     private String encodeToBase64(Part fileToUpload) throws IOException {
         return getBase64(fileToUpload);
     }

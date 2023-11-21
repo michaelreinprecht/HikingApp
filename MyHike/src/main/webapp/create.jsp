@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
-    <!-- Link to create.js -->
-    <script src="js/create.js"></script>
+    <!-- Link to create_edit.js -->
+    <script src="js/create_edit.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -58,7 +58,7 @@
                     <!-- Name -->
                     <div class="clear">
                         <label for="name" class="labels_withmargin">Name:</label>
-                        <input class="form-control w-100 "type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
                     </div>
 
                     <!-- Region -->
@@ -200,7 +200,7 @@
                     <!-- first Image Upload -->
                     <div class="imageBox">
                         <div>
-                            <img id="uploadedImage"/>
+                            <img id="uploadedImage" alt=""/>
                         </div>
                         <label for="fileToUpload" class="form-label">image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
