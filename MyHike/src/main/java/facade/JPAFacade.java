@@ -5,7 +5,6 @@ import models.Hike;
 import models.Region;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 
 @SuppressWarnings({"unchecked", "rawtypes", "CallToPrintStackTrace"})
 public class JPAFacade implements IDatabaseFacade {

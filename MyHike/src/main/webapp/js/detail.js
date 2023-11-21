@@ -18,12 +18,12 @@ window.onload = function() {
         // Binden eines 'click' Event-Handlers an den Button
         // Wenn der Button geklickt wird, wird die 'confirmDelete' Funktion aufgerufen
         deleteButton.onclick = function(event) {
-            confirmDelete(event, '<%= hike.getHikeId() %>');
+            confirmDelete(event);
         };
     }
 };
 
-function confirmDelete(event, hikeId) {
+function confirmDelete(event) {
     event.preventDefault();
     if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
         document.getElementById('deleteForm').submit();
