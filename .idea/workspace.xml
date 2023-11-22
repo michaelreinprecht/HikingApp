@@ -10,13 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_11_2023_20_30_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_11_2023_20_30_[Changes]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_11_2023_20_30__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_19_11_2023_20_30__Changes_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_11_2023_20_35_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_11_2023_20_35__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
@@ -213,6 +206,7 @@
       <workItem from="1699808601613" duration="3113000" />
       <workItem from="1699958082401" duration="7922000" />
       <workItem from="1700068950257" duration="6286000" />
+      <workItem from="1700662189359" duration="2690000" />
     </task>
     <servers />
   </component>

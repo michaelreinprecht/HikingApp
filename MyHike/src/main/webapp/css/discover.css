@@ -1,7 +1,4 @@
 /* Anfang CSS für Searchbar und Searchbutton */
-#discover-searchbar {
-    width: 600px;
-}
 .searchButton .input-group-append {
     flex: 0 0 auto; /* Behält die Größe des Buttons bei */
 }
@@ -25,4 +22,18 @@
     padding-left: 15px;
 }
 
+/* Adjust the length and size of the search bar and button */
+#discover-searchbar {
+    max-width: 300px; /* Set the maximum width of the search bar */
+    margin: auto; /* Center the search bar */
+}
 
+#discover-searchbar .form-control {
+    width: 100%; /* Set the width of the search bar to 100% */
+    border-radius: 5px; /* Add some border-radius for rounded corners */
+}
+
+#discover-searchbar .searchButton {
+    width: 100%; /* Set the width of the button to 100% */
+    border-radius: 5px; /* Match the border-radius of the search bar */
+}

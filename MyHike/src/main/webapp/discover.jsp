@@ -51,7 +51,7 @@
 <div class="bg-image p-5 text-center shadow-1-strong rounded text-white" id="233" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
   <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
-  <form method="POST" action="hikelist.jsp">
+  <form method="POST" action="hikelist.jsp" class="custom-form">
     <div class="input-group mb-3 mx-auto" id="discover-searchbar">
       <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
            placeholder="Search by Region!">
@@ -66,27 +66,10 @@
 
 </div>
 
-<div>
-
-  </div>
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-8">Popular this Season</h1>
-    <!--
-    Sample card
-
-    <div class="bg-image card shadow-1-strong" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
-      <div class="card-body text-white">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the
-          card's content.
-        </p>
-        <a href="#!" class="btn btn-outline-light">Button</a>
-      </div>
-    </div>
-    -->
     <div class="row gutter">
       <%
         int i = 0;
@@ -96,6 +79,7 @@
           String image = h1.getHikeImage();
       %>
       <div class="col-sm-4">
+        <a href="detail.jsp?Id=<%=h1.getHikeId()%>">
         <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
@@ -110,6 +94,7 @@
             </div>
           </div>
         </div>
+        </a>
       </div>
       <%
           i += 1;
