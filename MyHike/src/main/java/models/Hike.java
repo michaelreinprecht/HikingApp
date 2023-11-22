@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "hike", schema = "MyHike")
 public class Hike {
@@ -22,7 +23,6 @@ public class Hike {
     private Integer hikeDifficulty;
     private Integer hikeLandscape;
     private String hikeImage;
-    //private List<Recommended> recommenedList;
     private String hikeMonths;
     private Region hikeRegion;
     private boolean isDeleted;
@@ -71,6 +71,7 @@ public class Hike {
     public String getHikeDescription() {
         return hikeDescription;
     }
+
     public void setHikeDescription(String hikeDescription) {
         this.hikeDescription = hikeDescription;
     }

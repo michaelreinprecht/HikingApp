@@ -6,10 +6,11 @@ import models.Region;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Database {
-    private static JPAFacade facade = new JPAFacade();
-    private static JPAHikeFacade hikeFacade = new JPAHikeFacade();
-    private static JPARegionFacade regionFacade = new JPARegionFacade();
+    private static final JPAFacade facade = new JPAFacade();
+    private static final JPAHikeFacade hikeFacade = new JPAHikeFacade();
+    private static final JPARegionFacade regionFacade = new JPARegionFacade();
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) {

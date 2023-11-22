@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
-    <!-- Link to create.js -->
-    <script src="js/create.js"></script>
+    <!-- Link to create_edit.js -->
+    <script src="js/create_edit.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -58,7 +58,7 @@
                     <!-- Name -->
                     <div class="clear">
                         <label for="name" class="labels_withmargin">Name:</label>
-                        <input class="form-control w-100 "type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." maxlength="100" required>
                     </div>
 
                     <!-- Region -->
@@ -93,13 +93,13 @@
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
-                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="814">
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100">
                     </div>
 
                     <!-- Distance-->
                     <div class="clear">
                         <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
-                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="8.14">
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00">
                     </div>
 
                     <!-- Duration-->
@@ -139,7 +139,7 @@
                             int maxRating = 5;
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-landscape-rating" name="landscape-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-landscape-rating" class="landscape-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -153,7 +153,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-strength-rating" name="strength-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-strength-rating" class="strength-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -167,7 +167,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-stamina-rating" name="stamina-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-stamina-rating" class="stamina-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -181,7 +181,7 @@
                         <%
                             for(int i = 1; i <= maxRating; i++) {
                         %>
-                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=i%>">
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
                         <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
                             <i class="fas fa-star d-inline-block"></i>
                         </label>
@@ -195,26 +195,17 @@
                     <!-- Description-->
                     <div class="clear">
                         <label for="description" class="labels_withmargin">Description:</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..."></textarea>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." maxlength="1000"></textarea>
                     </div>
                     <!-- first Image Upload -->
                     <div class="imageBox">
                         <div>
-                            <img id="uploadedImage"/>
+                            <img id="uploadedImage" alt=""/>
                         </div>
                         <label for="fileToUpload" class="form-label">image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
-
-                    <!--
-                    <div class="image-container"
-                         style="display: flex; align-items: center; margin-top: 200px; margin-bottom: 30px">
-                         Rundgangsbild
-                        <img src="images/beispiel_berge.jpg" alt="bild" style="width: 200%; height: 400px; margin-left: 20px; margin-right: 20px">
-
-                    </div>
-                    //-->
                 </div>
             </div>
         </div>

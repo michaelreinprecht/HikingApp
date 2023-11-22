@@ -21,8 +21,8 @@
     <!-- Link to edit.css -->
     <link rel="stylesheet" href="css/edit.css">
 
-    <!-- Link to edit.js -->
-    <script src="js/edit.js"></script>
+    <!-- Link to .js -->
+    <script src="js/create_edit.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -65,7 +65,7 @@
                     <!-- Name -->
                     <div class="clear">
                         <label for="name" class="labels_withmargin">Name:</label>
-                        <input class="form-control w-100 "type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" required>
+                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" maxlength="100" required>
                     </div>
 
                     <!-- Region -->
@@ -250,17 +250,41 @@
                                 }
                             }
                         %>
-                    </div>
+                    </div><br>
+
+                    <label class="labels">Difficulty:</label>
+                    <div class="rating-wrapper">
+                        <%
+                            int difficulty = hike.getHikeDifficulty();
+                            for (int i = 1; i <= maxRating; i++) {
+                                if ((maxRating - difficulty + 1) == i) {
+                        %>
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>" checked>
+                        <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                        } else {
+                        %>
+                        <input type="radio" id="<%=i%>-difficulty-rating" name="difficulty-rating" value="<%=maxRating-(i-1)%>">
+                        <label for="<%=i%>-difficulty-rating" class="difficulty-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </label>
+                        <%
+                                }
+                            }
+                        %>
+                    </div><br>
 
                     <!-- Description-->
                     <div class="clear">
                         <label for="description" class="labels_withmargin">Description:</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." ><%=hike.getHikeDescription()%></textarea>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." maxlength="1000"><%=hike.getHikeDescription()%></textarea>
                     </div>
                     <!-- first Image Upload -->
                     <div class="imageBox">
                         <div>
-                            <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;"/>
+                            <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;" alt=<%=hike.getHikeName()%>/>
                         </div>
                         <label for="fileToUpload" class="form-label">image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
