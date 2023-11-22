@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="" />
+    <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -209,6 +213,7 @@
       <workItem from="1699958082401" duration="7922000" />
       <workItem from="1700068950257" duration="6286000" />
       <workItem from="1700662189359" duration="3131000" />
+      <workItem from="1700687302731" duration="7315000" />
     </task>
     <servers />
   </component>

@@ -9,8 +9,27 @@
 .card {
     width: 320px;
     height: 250px;
+    transition: transform 0.3s ease;
+    overflow: hidden; /* Ensure overflow is hidden to prevent content overflow during zoom */
 }
 
+.card:hover {
+    transform: scale(1.1);
+}
+
+/* Add styles for the overlay text */
+.overlay-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 1, 0.7);
+    height: 50%;
+}
+
+.overlay-text .card-body {
+    padding: 10px; /* Adjust padding as needed */
+}
 .row.gutter {
     margin-right: -15px;
     margin-left: -15px;
@@ -21,19 +40,7 @@
     padding-right: 15px;
     padding-left: 15px;
 }
+.button {
+    background-color: #07773a;
 
-/* Adjust the length and size of the search bar and button */
-#discover-searchbar {
-    max-width: 300px; /* Set the maximum width of the search bar */
-    margin: auto; /* Center the search bar */
-}
-
-#discover-searchbar .form-control {
-    width: 100%; /* Set the width of the search bar to 100% */
-    border-radius: 5px; /* Add some border-radius for rounded corners */
-}
-
-#discover-searchbar .searchButton {
-    width: 100%; /* Set the width of the button to 100% */
-    border-radius: 5px; /* Match the border-radius of the search bar */
 }

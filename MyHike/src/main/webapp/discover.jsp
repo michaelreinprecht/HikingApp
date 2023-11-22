@@ -24,7 +24,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
   <!-- Link to detail.css -->
-  <link rel="stylesheet" href="css/discover.css">
+  <link rel="stylesheet" type="text/css" href="css/discover.css">
 </head>
 <body>
 <!-- Navigation bar -->
@@ -48,17 +48,21 @@
   </div>
 </nav>
 
-<div class="bg-image p-5 text-center shadow-1-strong rounded text-white" id="233" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');">
-  <h1 class="mb-3 h2">Discover a whole new adventure</h1>
+<div class="bg-image p-5 text-center shadow-1-strong text-white flex-column align-items-center"
+     style="background-image: url(images/nature.jpg);
+     background-size: cover;
+     background-position: center center;
+     height: 60%">
+  <h1 class="mb-3 h2" style="margin-top: 100px">Discover a whole new adventure</h1>
 
-  <form method="POST" action="hikelist.jsp" class="custom-form">
-    <div class="input-group mb-3 mx-auto" id="discover-searchbar">
+  <form method="POST" action="hikelist.jsp">
+    <div class="input-group mb-3 mx-auto" style="width: 500px">
       <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-           placeholder="Search by Region!">
+             placeholder="Search by Region!">
 
-      <span class="input-group-text">
-        <button type="submit" class="searchButton">Search</button>
-      </span>
+          <button type="submit" class="btn btn-primary" data-mdb-ripple-init style="background-color: #07773a; border-color: #07773a;">
+            <i class="fas fa-search"></i>
+          </button>
     </div>
   </form>
 
@@ -109,6 +113,7 @@
           String image = h1.getHikeImage();
       %>
       <div class="col-sm-4">
+        <a href="detail.jsp?Id=<%=h1.getHikeId()%>">
         <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
@@ -123,6 +128,7 @@
             </div>
           </div>
         </div>
+        </a>
       </div>
       <%
           i+= 1;
