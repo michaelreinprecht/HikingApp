@@ -6,11 +6,17 @@
 <%@ page import="javax.xml.crypto.Data" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    //Get the hike which is going to be displayed in detail in this page.
+    String id = request.getParameter("Id");
+    Hike hike = Database.getHikeById(id);
+%>
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hike Details</title>
+    <title><%=hike.getHikeName()%></title>
 
     <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -47,12 +53,6 @@
         </ul>
     </div>
 </nav>
-
-<%
-    //Get the hike which is going to be displayed in detail in this page.
-    String id = request.getParameter("Id");
-    Hike hike = Database.getHikeById(id);
-%>
 
 <!-- Hike name -->
 <div class="name">

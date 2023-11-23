@@ -1,5 +1,6 @@
 import models.Month;
 import org.junit.*;
+import org.junit.Assert;
 
 public class MonthConvertionTest {
     @Test
@@ -7,7 +8,7 @@ public class MonthConvertionTest {
         String bitmap = "101010101010"; //Equal to January, March, May, Juli, September, November
         String[] months = Month.getMonthsByBitmap(bitmap);
         String[] expectedResult = new String[] { "January",  null ,"March", null, "May", null, "July", null, "September", null,"November", null};
-        Assert.assertEquals(months, expectedResult);
+        Assert.assertArrayEquals(months, expectedResult);
     }
 
     @Test

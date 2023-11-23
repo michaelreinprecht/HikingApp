@@ -1,6 +1,6 @@
-//JavaScript for the edit.js page
+//JavaScript for the create.jsp and edit.jsp page
 
-//Displays the image uploaded in the edit.jsp Page right after it has been selected.
+//Displays the image uploaded in the create.jsp or edit.jsp page right after it has been selected.
 function displayImage() {
     let input = document.getElementById('fileToUpload');
     let image = document.getElementById('uploadedImage');
@@ -18,9 +18,10 @@ function displayImage() {
     }
 }
 
-//Validates the information entered into the edit.jsp pages form
+//Validates the information entered into the create.jsp or edit.jsp pages form
 function validateForm() {
-    //Pattern matching for lat and lon coordinates, checks if lat and lon are in a certain range, allows a maximum of 6 decimal points
+    //Pattern matching for lat and lon coordinates, checks if lat and lon are in a certain range (lat -90 to 90, lon
+    // -180 to 180), allows a maximum of 6 decimal points
     const LatPattern = /^[-+]?([1-8]?\d(\.\d{1,6})?|90(\.0{1,6})?)$/;
     const LonPattern = /^[-+]?(180(\.0{1,6})?|((1[0-7]\d|\d{1,2})(\.\d{1,6})?))$/;
 
@@ -30,9 +31,12 @@ function validateForm() {
     const endLat = document.getElementById("endLat");
     const endLon = document.getElementById("endLon");
 
+    //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
     const altitudePattern = /^[1-9][0-9]*$/;
     const altitude = document.getElementById("altitude");
 
+    //Pattern matching for distance, needs to be at least one number from 0-9, CAN OPTIONALLY be followed by a dot (.)
+    //and 2 decimals (lowest possible is 0.00km).
     const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
     const distance = document.getElementById("distance");
 
@@ -43,6 +47,7 @@ function validateForm() {
 
     const checkboxes = document.getElementsByClassName("form-check-input");
 
+    //Get the first selected file (we can only select one file)
     const imageInput = document.getElementById('fileToUpload');
     let image = imageInput.files[0];
 
@@ -53,6 +58,7 @@ function validateForm() {
     validationAlert.style.display = "block";
 
     let monthIsChecked = false;
+    //Check if at least one month is checked
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             monthIsChecked = true;
@@ -78,6 +84,8 @@ function validateForm() {
         validationAlert.innerHTML = "Please enter a valid ending lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
+
+    //Altitude/Distance can be null or empty, if they are not they have to match their respective patterns.
     if (altitude.value != null && altitude.value !== "" && !altitudePattern.test(altitude.value)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
         return false;
@@ -86,6 +94,7 @@ function validateForm() {
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
         return false;
     }
+
     if (!radioLandscape) {
         validationAlert.innerHTML = "Please rate the landscape.";
         return false;
@@ -103,10 +112,20 @@ function validateForm() {
         return false;
     }
 
-    if (image != null) {
-        if ((!image.name.toLowerCase().endsWith(".png") && !image.name.toLowerCase().endsWith(".jpg") && !image.name.toLowerCase().endsWith(".jpeg"))) {
+    //Check if image is either .png, .jpg or .jpeg
+    if (document.referrer.includes("create.js")) {
+        //If called from create.jsp the image must not be null -> this should cause an alert.
+        if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
             validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
             return false;
+        }
+    } else if (document.referrer.includes("edit.js")) {
+        //If called from edit.jsp the image is allowed to be null (since the old image can be used instead)
+        if (image != null) {
+            if ((!image.name.toLowerCase().endsWith(".png") && !image.name.toLowerCase().endsWith(".jpg") && !image.name.toLowerCase().endsWith(".jpeg"))) {
+                validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
+                return false;
+            }
         }
     }
 

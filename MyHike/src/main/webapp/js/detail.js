@@ -2,7 +2,7 @@
 
 //TODO explain method
 function toggleContent(buttonId) {
-    var content = document.getElementById(buttonId + "-content");
+    let content = document.getElementById(buttonId + "-content");
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
     } else {
@@ -10,20 +10,19 @@ function toggleContent(buttonId) {
     }
 }
 
-
-//stellt sicher, dass der Code erst dann ausgeführt wird, wenn das gesamte Fenster geladen ist(Bilder z.B)
+//Makes sure that the code is only executed one the entire windows is loaded (for example images)
 window.onload = function() {
-    var deleteButton = document.getElementById('deleteButton'); // Holt den Delete Button durch seine ID(detail.jsp)
-    if (deleteButton) { // prüft ob er überhaupt existiert
-        // Binden eines 'click' Event-Handlers an den Button
-        // Wenn der Button geklickt wird, wird die 'confirmDelete' Funktion aufgerufen
+    let deleteButton = document.getElementById('deleteButton');
+    if (deleteButton) {
+        //Call confirm delete on button press
         deleteButton.onclick = function(event) {
-            confirmDelete(event, '<%= hike.getHikeId() %>');
+            confirmDelete(event);
         };
     }
 };
 
-function confirmDelete(event, hikeId) {
+//Second confirmation, making sure that the user really wants to delete the hike.
+function confirmDelete(event) {
     event.preventDefault();
     if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
         document.getElementById('deleteForm').submit();

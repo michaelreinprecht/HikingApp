@@ -96,7 +96,8 @@
           String image = h1.getHikeImage();
       %>
       <div class="col-sm-4">
-        <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
+
+        <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover; ">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
               <h5 class="card-title"><%= h1.getHikeName()%></h5>
@@ -124,6 +125,7 @@
           String image = h1.getHikeImage();
       %>
       <div class="col-sm-4">
+
         <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
@@ -148,9 +150,5 @@
   </div>
 
 </div>
-
-
-
-
 </body>
 </html>
