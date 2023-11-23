@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Hike;
+import myHikeJava.Database;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         catch (IOException | ServletException e) {
             error = e.getMessage();
         }
-        if (error.isEmpty()) {
+        if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
         } else {
             response.sendRedirect("index.jsp?deleteSuccess=true");

@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import java.io.*;
 import java.util.UUID;
@@ -8,6 +8,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Hike;
 import models.Month;
+import myHikeJava.Database;
+import myHikeJava.ServletUtils;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig

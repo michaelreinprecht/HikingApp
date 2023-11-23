@@ -1,6 +1,6 @@
 package broker;
 
-import myHikeJava.ResourceServlet;
+import servlets.ResourceServlet;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;

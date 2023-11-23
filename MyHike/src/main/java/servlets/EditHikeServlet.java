@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
+import myHikeJava.Database;
+import myHikeJava.ServletUtils;
 
 import java.io.IOException;
 

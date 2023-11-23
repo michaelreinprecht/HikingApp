@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import myHikeJava.ServletUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 @WebServlet(name = "testingAjaxServlet", value = "/testingAjaxServlet")
 //@MultipartConfig
@@ -17,13 +20,15 @@ public class TestingAjaxServlet extends ServletUtils {
         // Perform database operation (e.g., insert into database)
         // Replace this with your actual database logic
 
-        // Assume a success message for demonstration purposes
-        String resultMessage = "Data successfully inserted into the database.";
-
-        // Send the response back to the Ajax request
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.print(resultMessage);
+        JSONObject obj = new JSONObject();
+        obj.put("message", "hello from server");
+        obj.put("title", "mytitle");
+        out.print(obj.toString());
+
+        // Assume a success message for demonstration purposes
+        String resultMessage = "<tags:card title='Testing'/>" ;
         out.close();
     }
 }

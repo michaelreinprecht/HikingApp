@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
