@@ -189,7 +189,7 @@
         <!-- Buttons Container -->
         <div class="button-group">
             <!-- Beschreibung -->
-            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
+            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Description</button>
             <div id="beschreibung-content" class="content">
                 <p>
                     <%=hike.getHikeDescription()%>
@@ -197,7 +197,7 @@
             </div>
 
                 <!-- Streckeneigenschaften -->
-                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
+                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">hike properties
                 </button>
                 <div id="streckeneigenschaften-content" class="content">
                     <div class="ratings-container">
@@ -289,7 +289,7 @@
                 </div>
 
                 <!-- Einkehrmöglichkeiten -->
-                <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Einkehrmöglichkeiten
+                <button class="btn btn-light" onclick="toggleContent('einkehrmoeglichkeiten')">Points of interests
                 </button>
                 <div id="einkehrmoeglichkeiten-content" class="content">
                     <!-- TODO Einkehrmöglichkeiten anzeigen -->
@@ -297,10 +297,10 @@
                 </div>
 
                 <!-- Rezensionen -->
-                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Reviews</button>
                 <div id="rezensionen-content" class="content">
                     <!-- TODO Rezensionen generieren -->
-                    <p>Hier sind Rezensionen zum Hike.</p>
+                    <p>Here are some reviews of this hike.</p>
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@
   <form method="POST" action="hikelist.jsp">
     <div class="input-group mb-3 mx-auto" id="discover-searchbar">
       <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-           placeholder="Search by Region!">
+           placeholder="Search by name or region!">
 
       <span class="input-group-text">
         <button type="submit" class="searchButton">Search</button>
