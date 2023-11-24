@@ -12,14 +12,16 @@ public class PointOfInterest {
     private String pointOfInterestName;
     private Double pointOfInterestLon;
     private Double pointOfInterestLat;
+    private String pointOfInterestImage;
 
     public PointOfInterest() {}
 
-    public PointOfInterest(String pointOfInterestId, String pointOfInterestName, Double pointOfInterestLon, Double pointOfInterestLat) {
+    public PointOfInterest(String pointOfInterestId, String pointOfInterestName, Double pointOfInterestLon, Double pointOfInterestLat, String pointOfInterestImage) {
         this.pointOfInterestId = pointOfInterestId;
         this.pointOfInterestName = pointOfInterestName;
         this.pointOfInterestLon = pointOfInterestLon;
         this.pointOfInterestLat = pointOfInterestLat;
+        this.pointOfInterestImage = pointOfInterestImage;
     }
 
     @Id
@@ -55,6 +57,14 @@ public class PointOfInterest {
         this.pointOfInterestLat = pointOfInterestLat;
     }
 
+    @Column(name = "pointOfInterest_image", nullable = false)
+    public String getPointOfInterestImage() {
+        return pointOfInterestImage;
+    }
+    public void setPointOfInterestImage(String pointOfInterestImage) {
+        this.pointOfInterestImage = pointOfInterestImage;
+    }
+
     @Override
     public String toString() {
         return "PointOfInterest{" +
@@ -62,6 +72,7 @@ public class PointOfInterest {
                 ", pointOfInterestName='" + pointOfInterestName + '\'' +
                 ", pointOfInterestLon=" + pointOfInterestLon +
                 ", pointOfInterestLat=" + pointOfInterestLat +
+                ", pointOfInterestImage=" + pointOfInterestImage +
                 '}';
     }
 }

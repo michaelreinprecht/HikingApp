@@ -208,6 +208,16 @@
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
+
+                    <!--
+                    <input type="text" id="poiTitle"/>
+                    <input type="text" id="poiDescription"/>
+                    <input type="text" id="poiLon"/>
+                    <input type="text" id="poiLan"/>
+                    <label for="poiImage" class="form-label">poiImage upload:</label>
+                    <input class="form-control" type="file" id="poiImage" name="poiImage"/>
+                    <button type="button" onclick="addPOI()">Add</button>
+                    <input type="hidden" id="poiData" name="poiData" />-->
                 </div>
             </div>
         </div>

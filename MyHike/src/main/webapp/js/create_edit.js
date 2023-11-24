@@ -132,3 +132,62 @@ function validateForm() {
     validationAlert.style.display = "none";
     return true;
 }
+
+/*
+function addPOI() {
+    // Collect data from POI inputs
+    var poiTitle = document.getElementById("poiTitle").value;
+    var poiDescription = document.getElementById("poiDescription").value;
+    var poiLon = document.getElementById("poiLon").value;
+    var poiLan = document.getElementById("poiLan").value;
+
+    // Get the file input element
+    var fileInput = document.getElementById("poiImage");
+    // Get the selected file
+    var file = fileInput.files[0];
+
+    // Create a FormData object to store both POI data and file data
+    var formData = new FormData();
+
+    // Add POI data to FormData
+    formData.append("poiTitle", poiTitle);
+    formData.append("poiDescription", poiDescription);
+    formData.append("poiLon", poiLon);
+    formData.append("poiLan", poiLan);
+
+    // Add file data to FormData
+    formData.append("fileToUpload", file);
+
+    let poiData = document.getElementById("poiData").value;
+    console.log(poiData);
+    // Retrieve existing POI data or initialize an empty array
+    let existingPoiData;
+    if (poiData === "" ) {
+        existingPoiData = [];
+    } else {
+        existingPoiData = JSON.parse(poiData) || [];
+    }
+
+
+    // Add the new POI to the array
+    existingPoiData.push({
+        title: poiTitle,
+        description: poiDescription,
+        lon: poiLon,
+        lan: poiLan,
+        // Add file data if needed
+        file: file
+    });
+
+    // Update the hidden input field with the updated POI data
+    document.getElementById("poiData").value = JSON.stringify(existingPoiData);
+
+    // Update the unordered list display (assuming you have a function for this)
+    //displayPoiList(existingPoiData);
+}
+
+function displayPoiList(poiData) {
+    // Display the POI data in an unordered list
+    // You can implement this function based on how you want to display the data
+    // For example, create <li> elements for each POI and append them to a <ul>
+}*/
