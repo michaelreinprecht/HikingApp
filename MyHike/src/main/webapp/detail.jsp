@@ -19,16 +19,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=hike.getHikeName()%>
-    </title>
-    <!-- Bootstrap CSS -->
+    <title><%=hike.getHikeName()%></title>
+
+    <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
-    <!-- Bootstrap JS and Popper.js -->
+    <!-- Bootstrap imports -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
@@ -36,12 +36,14 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
-    <!-- jQuery (again) - added for clarity, in case it was somehow overridden -->
+    <!-- jQuery import -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <!-- Your custom stylesheets and scripts -->
+    <!-- Link to css files -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
+
+    <!-- Link to detail.js -->
     <script src="js/detail.js"></script>
 </head>
 <body>
@@ -96,13 +98,13 @@
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
-            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
-                  enctype="multipart/form-data">
+            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </div>
 </div>
+
 
 
 <!-- Hike Details -->
@@ -113,7 +115,7 @@
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
                 <h5 class="text-center">
-                    <% //Null-Value check, if there is no duration we will instead just display a question mark
+                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
                         // (TODO generate duration automatically if it has no value)
                         if (hike.getHikeDuration() != null) {
                             LocalTime localTime = hike.getHikeDuration().toLocalTime();
@@ -133,7 +135,7 @@
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
                 <h5 class="text-center">
-                    <% //Null-Value check, if there is no distance we will instead just display a question mark
+                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeDistance() != null) {
                     %>
@@ -150,7 +152,7 @@
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">
                 <h5 class="text-center">
-                    <% //Null-Value check, if there is no distance we will instead just display a question mark
+                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeAltitude() != null) {
                     %>
@@ -176,7 +178,7 @@
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
                         //TODO explain what is being generated
-                        for (String rec : recommended) {
+                        for (String rec: recommended) {
                             if (rec != null) {
                     %>
                     <%=rec%>
@@ -203,39 +205,39 @@
         <!-- Buttons Container -->
         <div class="button-group">
             <!-- Beschreibung -->
-            <button class="btn btn-light" onclick="toggleContent('beschreibung')">Beschreibung</button>
-            <div id="beschreibung-content" class="content">
+            <button class="btn btn-light" onclick="toggleContent('description')">Description</button>
+            <div id="description-content" class="content">
                 <p>
                     <%=hike.getHikeDescription()%>
                 </p>
             </div>
 
-            <!-- Streckeneigenschaften -->
-            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
-            </button>
-            <div id="streckeneigenschaften-content" class="content">
-                <div class="ratings-container">
-                    <div class="rating-label"><b>Landscape:</b></div>
-                    <%
-                        int i; //Declare variable for loops -> also used in further loops.
-                        int landscapeRating = hike.getHikeLandscape();
-                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                        for (i = 0; i < 5; i++) {
-                            if (i < landscapeRating) {
-                    %>
-                    <div class="star-rating">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="inactive">
-                        <i class="fas fa-star d-inline-block"></i>
-                    </div>
-                    <%
+                <!-- Streckeneigenschaften -->
+                <button class="btn btn-light" onclick="toggleContent('hikeProperty')">Hike properties
+                </button>
+                <div id="hikeProperty-content" class="content">
+                    <div class="ratings-container">
+                        <div class="rating-label"><b>Landscape:</b></div>
+                        <%
+                            int i; //Declare variable for loops -> also used in further loops.
+                            int landscapeRating = hike.getHikeLandscape();
+                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                            for (i = 0; i < 5; i++) {
+                                if (i < landscapeRating) {
+                        %>
+                        <div class="star-rating">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                        } else {
+                        %>
+                        <div class="inactive">
+                            <i class="fas fa-star d-inline-block"></i>
+                        </div>
+                        <%
+                                }
                             }
-                        }
-                    %><br>
+                        %><br>
 
                     <div class="rating-label"><b>Strength:</b></div>
                     <%
@@ -367,20 +369,17 @@
                         }
                     %>
                 </div>
-                <script>
-
-                </script>
             </div>
 
-            <!-- Rezensionen -->
-            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
-            <div id="rezensionen-content" class="content">
-                <!-- TODO Rezensionen generieren -->
-                <p>Hier sind Rezensionen zum Hike.</p>
+                <!-- Rezensionen -->
+                <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
+                <div id="review-content" class="content">
+                    <!-- TODO Rezensionen generieren -->
+                    <p>Here are some reviews of this hike.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"

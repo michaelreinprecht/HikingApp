@@ -60,7 +60,7 @@
                     <!-- Name -->
                     <div class="clear">
                         <label for="name" class="labels_withmargin">Name:</label>
-                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." required>
+                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." maxlength="100" required>
                     </div>
 
                     <!-- Region -->
@@ -197,7 +197,7 @@
                     <!-- Description-->
                     <div class="clear">
                         <label for="description" class="labels_withmargin">Description:</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..."></textarea>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." maxlength="1000"></textarea>
                     </div>
                     <!-- first Image Upload -->
                     <div class="imageBox">

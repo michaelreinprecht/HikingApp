@@ -69,7 +69,7 @@
                     <!-- Name -->
                     <div class="clear">
                         <label for="name" class="labels_withmargin">Name:</label>
-                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" required>
+                        <input class="form-control w-100" type="text" id="name" name="name" placeholder="Your Hike's name ..." value="<%=hike.getHikeName()%>" maxlength="100" required>
                     </div>
 
                     <!-- Region -->
@@ -283,7 +283,7 @@
                     <!-- Description-->
                     <div class="clear">
                         <label for="description" class="labels_withmargin">Description:</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." ><%=hike.getHikeDescription()%></textarea>
+                        <textarea class="form-control" id="description" name="description" placeholder="Your description ..." maxlength="1000"><%=hike.getHikeDescription()%></textarea>
                     </div>
                     <!-- first Image Upload -->
                     <div class="imageBox">
