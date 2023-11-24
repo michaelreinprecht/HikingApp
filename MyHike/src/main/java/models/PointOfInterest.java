@@ -10,15 +10,17 @@ import javax.persistence.Table;
 public class PointOfInterest {
     private String pointOfInterestId;
     private String pointOfInterestName;
+    private String pointOfInterestDescription;
     private Double pointOfInterestLon;
     private Double pointOfInterestLat;
     private String pointOfInterestImage;
 
     public PointOfInterest() {}
 
-    public PointOfInterest(String pointOfInterestId, String pointOfInterestName, Double pointOfInterestLon, Double pointOfInterestLat, String pointOfInterestImage) {
+    public PointOfInterest(String pointOfInterestId, String pointOfInterestName, String pointOfInterestDescription, Double pointOfInterestLon, Double pointOfInterestLat, String pointOfInterestImage) {
         this.pointOfInterestId = pointOfInterestId;
         this.pointOfInterestName = pointOfInterestName;
+        this.pointOfInterestDescription = pointOfInterestDescription;
         this.pointOfInterestLon = pointOfInterestLon;
         this.pointOfInterestLat = pointOfInterestLat;
         this.pointOfInterestImage = pointOfInterestImage;
@@ -39,6 +41,14 @@ public class PointOfInterest {
     }
     public void setPointOfInterestName(String pointOfInterestName) {
         this.pointOfInterestName = pointOfInterestName;
+    }
+
+    @Column(name = "pointOfInterest_description", nullable = false, length = 200)
+    public String getPointOfInterestDescription() {
+        return pointOfInterestName;
+    }
+    public void setPointOfInterestDescription(String pointOfInterestDescription) {
+        this.pointOfInterestDescription = pointOfInterestDescription;
     }
 
     @Column(name = "pointOfInterest_lon", nullable = false)

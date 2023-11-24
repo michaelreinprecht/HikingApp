@@ -78,6 +78,7 @@ public class CreateHikeServlet extends ServletUtils {
         return getBase64(fileToUpload);
     }
 
+    /*
     private List<PointOfInterest> parsePoiDataJson(String poiDataJson) {
         List<PointOfInterest> poiList = new ArrayList<>();
         // Implement JSON parsing logic to convert the JSON string to a list of POI objects
@@ -88,5 +89,5 @@ public class CreateHikeServlet extends ServletUtils {
         // return gson.fromJson(poiDataJson, listType);
         // For simplicity, you can use a placeholder here:
         return List.of(new PointOfInterest("Placeholder Title", "Placeholder Description", Double.valueOf("0.0"), Double.valueOf("0.0"), ""));
-    }
+    }*/
 }
