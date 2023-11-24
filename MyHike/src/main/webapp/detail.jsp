@@ -4,6 +4,8 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="models.Month" %>
 <%@ page import="javax.xml.crypto.Data" %>
+<%@ page import="models.PointOfInterest" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
@@ -17,7 +19,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=hike.getHikeName()%></title>
+    <title><%=hike.getHikeName()%>
+    </title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -33,13 +36,13 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
+    <!-- jQuery (again) - added for clarity, in case it was somehow overridden -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <!-- Your custom stylesheets and scripts -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
     <script src="js/detail.js"></script>
-
-    <!-- jQuery (again) - added for clarity, in case it was somehow overridden -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -74,7 +77,8 @@
     String error = request.getParameter("error");
     if (error != null && !error.isEmpty()) {
 %>
-<div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
+<div id="databaseAlert" class="alert alert-danger row-md" role="alert"
+     style="clear:both; margin-bottom: 10px; margin-top: 10px;">
     Database error: <%= error %>
 </div>
 <%
@@ -92,13 +96,13 @@
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
-            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
+            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
+                  enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </div>
 </div>
-
 
 
 <!-- Hike Details -->
@@ -109,7 +113,7 @@
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
+                    <% //Null-Value check, if there is no duration we will instead just display a question mark
                         // (TODO generate duration automatically if it has no value)
                         if (hike.getHikeDuration() != null) {
                             LocalTime localTime = hike.getHikeDuration().toLocalTime();
@@ -129,7 +133,7 @@
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeDistance() != null) {
                     %>
@@ -146,7 +150,7 @@
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeAltitude() != null) {
                     %>
@@ -172,7 +176,7 @@
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
                         //TODO explain what is being generated
-                        for (String rec: recommended) {
+                        for (String rec : recommended) {
                             if (rec != null) {
                     %>
                     <%=rec%>
@@ -186,7 +190,8 @@
         <div class="images">
             <div class="image-container">
                 <!-- Rundgangsbild -->
-                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=hike.getHikeImage()%>" class="hikeImage">
+                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=hike.getHikeImage()%>"
+                     class="hikeImage">
             </div>
             <div class="image-container">
                 <!-- Karte -->
@@ -205,184 +210,177 @@
                 </p>
             </div>
 
-                <!-- Streckeneigenschaften -->
-                <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
-                </button>
-                <div id="streckeneigenschaften-content" class="content">
-                    <div class="ratings-container">
-                        <div class="rating-label"><b>Landscape:</b></div>
-                        <%
-                            int i; //Declare variable for loops -> also used in further loops.
-                            int landscapeRating = hike.getHikeLandscape();
-                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < landscapeRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
-                            }
-                        %><br>
-
-                        <div class="rating-label"><b>Strength:</b></div>
-                        <%
-                            int strengthRating = hike.getHikeStrength();
-                            //Display a number of "active" and "inactive" stars, depending on the strengthRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < strengthRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
-                            }
-                        %><br>
-
-                        <div class="rating-label"><b>Stamina:</b></div>
-                        <%
-                            int staminaRating = hike.getHikeStamina();
-                            //Display a number of "active" and "inactive" stars, depending on the staminaRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < staminaRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
-                            }
-                        %><br>
-
-                        <div class="rating-label"><b>Overall Difficulty:</b></div>
-                        <%
-                            int difficultyRating = hike.getHikeDifficulty();
-                            //Display a number of "active" and "inactive" stars, depending on the difficultyRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < difficultyRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
-                            }
-                        %><br>
+            <!-- Streckeneigenschaften -->
+            <button class="btn btn-light" onclick="toggleContent('streckeneigenschaften')">Streckeneigenschaften
+            </button>
+            <div id="streckeneigenschaften-content" class="content">
+                <div class="ratings-container">
+                    <div class="rating-label"><b>Landscape:</b></div>
+                    <%
+                        int i; //Declare variable for loops -> also used in further loops.
+                        int landscapeRating = hike.getHikeLandscape();
+                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < landscapeRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
                     </div>
-                </div>
-
-                <!-- Points of Interest -->
-                <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
-                <div id="pointsOfInterest-content" class="content">
-                    <!-- Remove this shit, just for testing -->
-                    <form id="myForm" onsubmit="sendData()">
-                        <!-- Your input fields here -->
-                        <input type="text" id="poiTitle"/>
-                        <input type="text" id="poiDescription"/>
-                        <input type="text" id="poiLon"/>
-                        <input type="text" id="poiLan"/>
-                        <button type="button" onclick="sendData()">Submit</button>
-                    </form>
-                    <div id="result" style="display: flex; flex-wrap: wrap">
-                        <tags:card id="clone-id" deleteLink="#" description="Testing" title="Testing" display="none"/>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
                     </div>
-                    <script>
-                        function sendData() {
-                            let poiTitle = document.getElementById("poiTitle").value;
-                            let poiDescription = document.getElementById("poiDescription").value;
-                            let poiLon = document.getElementById("poiLon").value;
-                            let poiLan = document.getElementById("poiLan").value;
-                            //let cloned = document.getElementById("clone-id-card").cloneNode(true);
-
-                            let result = document.getElementById("result");
-                            jQuery.ajax({
-                                type: "POST",
-                                url: "testingAjaxServlet", // Servlet URL
-                                data: { data: inputData },
-                                success: function(response) {
-                                    // Create a new div element
-                                    let card = document.createElement("div");
-
-                                    // Set attributes for the div
-                                    card.id = "id-card";
-                                    card.style.width = "20%";
-                                    card.style.height = "350px";
-
-                                    // Create an image element
-                                    let imgElement = document.createElement("img");
-                                    imgElement.style.height = "50%";
-                                    imgElement.className = "card-img-top";
-                                    imgElement.src = "images/beispiel_berge.jpg";
-                                    imgElement.alt = "don't care";
-
-                                    // Create a title element
-                                    let titleElement = document.createElement("h5");
-                                    titleElement.className = "card-title";
-                                    titleElement.textContent = poiTitle;
-
-                                    // Create a paragraph element
-                                    let paragraphElement = document.createElement("p");
-                                    paragraphElement.className = "card-text";
-                                    paragraphElement.textContent = poiDescription + " " + poiLon + " " + poiLan;
-
-                                    // Create a link element (a) for the button
-                                    let linkElement = document.createElement("a");
-                                    linkElement.href = "#";
-                                    linkElement.className = "btn btn-primary";
-                                    linkElement.style.margin = "20px";
-                                    linkElement.textContent = "Delete";
-
-                                    // Append the child elements to the idCardDiv
-                                    card.appendChild(imgElement);
-                                    card.appendChild(titleElement);
-                                    card.appendChild(paragraphElement);
-                                    card.appendChild(linkElement);
-
-                                    result.appendChild(card);
-                                },
-                                error: function () {
-                                    //Handle error
-                                }
-                            });
+                    <%
+                            }
                         }
-                    </script>
-                </div>
+                    %><br>
 
-                <!-- Rezensionen -->
-                <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
-                <div id="rezensionen-content" class="content">
-                    <!-- TODO Rezensionen generieren -->
-                    <p>Hier sind Rezensionen zum Hike.</p>
+                    <div class="rating-label"><b>Strength:</b></div>
+                    <%
+                        int strengthRating = hike.getHikeStrength();
+                        //Display a number of "active" and "inactive" stars, depending on the strengthRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < strengthRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                            }
+                        }
+                    %><br>
+
+                    <div class="rating-label"><b>Stamina:</b></div>
+                    <%
+                        int staminaRating = hike.getHikeStamina();
+                        //Display a number of "active" and "inactive" stars, depending on the staminaRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < staminaRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                            }
+                        }
+                    %><br>
+
+                    <div class="rating-label"><b>Overall Difficulty:</b></div>
+                    <%
+                        int difficultyRating = hike.getHikeDifficulty();
+                        //Display a number of "active" and "inactive" stars, depending on the difficultyRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < difficultyRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                            }
+                        }
+                    %><br>
                 </div>
+            </div>
+
+            <!-- Points of Interest -->
+            <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
+            <div id="pointsOfInterest-content" class="content">
+                <!-- This shit took me way to long to get to work -->
+
+                <h4>Add new Points of Interest:</h4>
+                <form id="myForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4" style="margin: 0">
+                            <!-- Your input fields here -->
+                            <div class="form-group">
+                                <label style="text-align: start; width: 100%;" class="labels"
+                                       for="poiTitle">Title:</label>
+                                <input class="form-control" type="text" id="poiTitle"
+                                       placeholder="Your point of interests title ..."/>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align: start; width: 100%;" class="labels" for="poiDescription">Description:</label>
+                                <input class="form-control w-100" type="text" id="poiDescription"
+                                       placeholder="Your point of interests description ..."/>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align: start; width: 100%;" class="labels"
+                                       for="poiLon">Longitude:</label>
+                                <input class="form-control w-100" type="text" id="poiLon" placeholder="12.3456"/>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align: start; width: 100%;" class="labels"
+                                       for="poiLat">Latitude:</label>
+                                <input class="form-control w-100" type="text" id="poiLat" placeholder="12.3456"/>
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex flex-column">
+                            <div style="max-height: 100%;">
+                                <img id="imgDisplay" alt="" src="" style="object-fit: contain;">
+                            </div>
+                            <div style="margin-bottom: 1rem; margin-top: auto">
+                                <input class="form-control" type="file" id="poiImage" name="poiImage" onchange="displayImage()"/>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px">
+                        <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;" data-hike-id="<%=hike.getHikeId()%>">Add
+                        </button>
+                    </div>
+                </form>
+                <div id="result" style="display: flex; flex-wrap: wrap">
+                    <%
+                        List<PointOfInterest> pointsOfInterest = hike.getHikePointsOfInterest();
+                        for (PointOfInterest poi : pointsOfInterest) {
+                            String image = poi.getPointOfInterestImage();
+                    %>
+                    <tags:card
+                            id="<%=poi.getPointOfInterestId()%>"
+                            title="<%=poi.getPointOfInterestName()%>"
+                            description="<%=poi.getPointOfInterestDescription()%>"
+                            lon="<%=poi.getPointOfInterestLon().toString()%>"
+                            lat="<%=poi.getPointOfInterestLat().toString()%>"
+                            src="<%=image%>"
+                            poiId="<%=poi.getPointOfInterestId()%>"/>
+                    <%
+                        }
+                    %>
+                </div>
+                <script>
+
+                </script>
+            </div>
+
+            <!-- Rezensionen -->
+            <button class="btn btn-light" onclick="toggleContent('rezensionen')">Rezensionen</button>
+            <div id="rezensionen-content" class="content">
+                <!-- TODO Rezensionen generieren -->
+                <p>Hier sind Rezensionen zum Hike.</p>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"

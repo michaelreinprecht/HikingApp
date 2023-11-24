@@ -101,3 +101,16 @@
     display: flex;
     width: 15%;
 }
+
+.labels {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold
+}
+
+.labels_withmargin {
+    display: inline-block;
+    width: 230px;
+    margin-top: 30px;
+    font-weight: bold
+}

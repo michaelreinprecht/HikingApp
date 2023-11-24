@@ -6,6 +6,7 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="models.PointOfInterest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
@@ -292,82 +293,6 @@
                         <label for="fileToUpload" class="form-label">image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
                     </div>
-
-                    <!-- Testing -->
-                    <form id="myForm" onsubmit="sendData()">
-                        <!-- Your input fields here -->
-                        <input type="text" id="poiTitle"/>
-                        <input type="text" id="poiDescription"/>
-                        <input type="text" id="poiLon"/>
-                        <input type="text" id="poiLan"/>
-                        <input class="form-control" type="file" id="poiImage" name="poiImage"/>
-                        <button id="addPOIButton" type="button">Add</button>
-                    </form>
-                    <div id="result" style="display: flex; flex-wrap: wrap">
-                        <tags:card id="clone-id" deleteLink="#" description="Testing" title="Testing" display="none"/>
-                    </div>
-                    <script>
-                        $(document).ready(function() {
-                            $('#addPOIButton').click(function() {
-                                let poiTitle = document.getElementById("poiTitle").value;
-                                let poiDescription = document.getElementById("poiDescription").value;
-                                let poiLon = document.getElementById("poiLon").value;
-                                let poiLan = document.getElementById("poiLan").value;
-
-
-                                let result = document.getElementById("result");
-                                $.ajax({
-                                    type: "POST",
-                                    url: "testingAjaxServlet", // Servlet URL
-                                    data: { data: poiTitle },
-                                    success: function(response) {
-                                        console.log(response);
-
-                                        // Create a new div element
-                                        let card = document.createElement("div");
-
-                                        // Set attributes for the div
-                                        card.id = "id-card";
-                                        card.style.width = "20%";
-                                        card.style.height = "350px";
-
-                                        // Create an image element
-                                        let imgElement = document.createElement("img");
-                                        imgElement.style.height = "50%";
-                                        imgElement.className = "card-img-top";
-                                        imgElement.src = "images/beispiel_berge.jpg";
-                                        imgElement.alt = "Unable to display image";
-
-
-                                        // Create a title element
-                                        let titleElement = document.createElement("h5");
-                                        titleElement.className = "card-title";
-                                        titleElement.textContent = poiTitle;
-
-                                        // Create a paragraph element
-                                        let paragraphElement = document.createElement("p");
-                                        paragraphElement.className = "card-text";
-                                        paragraphElement.textContent = "";
-
-                                        // Create a link element (a) for the button
-                                        let linkElement = document.createElement("a");
-                                        linkElement.href = "#";
-                                        linkElement.className = "btn btn-primary";
-                                        linkElement.style.margin = "20px";
-                                        linkElement.textContent = "Delete";
-
-                                        // Append the child elements to the idCardDiv
-                                        card.appendChild(imgElement);
-                                        card.appendChild(titleElement);
-                                        card.appendChild(paragraphElement);
-                                        card.appendChild(linkElement);
-
-                                        result.appendChild(card);
-                                    },
-                                });
-                            })
-                        })
-                    </script>
                 </div>
             </div>
         </div>

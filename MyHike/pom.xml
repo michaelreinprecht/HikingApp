@@ -104,6 +104,11 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>RELEASE</version> <!-- Use the latest version available -->
+        </dependency>
     </dependencies>
 
     <build>

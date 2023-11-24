@@ -2,6 +2,7 @@ package myHikeJava;
 
 import facade.*;
 import models.Hike;
+import models.PointOfInterest;
 import models.Region;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class Database {
     private static final JPAFacade facade = new JPAFacade();
     private static final JPAHikeFacade hikeFacade = new JPAHikeFacade();
     private static final JPARegionFacade regionFacade = new JPARegionFacade();
+    private static final JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) {
@@ -36,5 +38,12 @@ public class Database {
     }
     public static Region getRegionById(String id) {
         return regionFacade.getRegionById(id);
+    }
+
+    public static List<PointOfInterest> getAllPointsOfInterest(){
+        return pointOfInterestFacade.getAllPointsOfInterest();
+    }
+    public static PointOfInterest getPointOfInterestById(String id) {
+        return pointOfInterestFacade.getPointOfInterestById(id);
     }
 }

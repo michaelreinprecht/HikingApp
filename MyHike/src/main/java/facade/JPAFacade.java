@@ -2,6 +2,7 @@ package facade;
 
 import broker.*;
 import models.Hike;
+import models.PointOfInterest;
 import models.Region;
 
 import java.sql.SQLException;
@@ -41,6 +42,9 @@ public class JPAFacade implements IDatabaseFacade {
         }
         if (databaseObject instanceof Region) {
             return new JPARegionBroker();
+        }
+        if (databaseObject instanceof PointOfInterest) {
+            return new JPAPointOfInterestBroker();
         }
         return null;
     }
