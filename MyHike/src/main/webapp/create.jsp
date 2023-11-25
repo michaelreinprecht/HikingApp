@@ -208,16 +208,6 @@
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
-
-                    <!--
-                    <input type="text" id="poiTitle"/>
-                    <input type="text" id="poiDescription"/>
-                    <input type="text" id="poiLon"/>
-                    <input type="text" id="poiLan"/>
-                    <label for="poiImage" class="form-label">poiImage upload:</label>
-                    <input class="form-control" type="file" id="poiImage" name="poiImage"/>
-                    <button type="button" onclick="addPOI()">Add</button>
-                    <input type="hidden" id="poiData" name="poiData" />-->
                 </div>
             </div>
         </div>
@@ -225,7 +215,6 @@
 
     <div style="background-color: white; padding: 0">
         <br>
-
         <!-- This alert will be displayed if (for example), validation is not passed -->
         <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->

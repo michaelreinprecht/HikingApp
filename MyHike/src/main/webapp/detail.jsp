@@ -306,24 +306,26 @@
 
             <!-- Points of Interest -->
             <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
-            <div id="pointsOfInterest-content" class="content">
-                <!-- This shit took me way to long to get to work -->
-
+            <div id="pointsOfInterest-content" class="content" style="padding: 10px">
                 <h4>Add new Points of Interest:</h4>
                 <form id="myForm" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-4" style="margin: 0">
+                    <div>
+                        <div class="col-md-4" style="margin: 0; padding: 0">
                             <!-- Your input fields here -->
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels"
                                        for="poiTitle">Title:</label>
                                 <input class="form-control" type="text" id="poiTitle"
-                                       placeholder="Your point of interests title ..."/>
+                                       placeholder="Your point of interests title ..."
+                                       maxlength="40"
+                                required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels" for="poiDescription">Description:</label>
                                 <input class="form-control w-100" type="text" id="poiDescription"
-                                       placeholder="Your point of interests description ..."/>
+                                       placeholder="Your point of interests description ..."
+                                       maxlength="150"
+                                required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels"
@@ -336,22 +338,24 @@
                                 <input class="form-control w-100" type="text" id="poiLat" placeholder="12.3456"/>
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex flex-column">
+                        <div class="col-md-8 d-flex flex-column" style="padding: 0;">
                             <div style="max-height: 100%;">
                                 <img id="imgDisplay" alt="" src="" style="object-fit: contain;">
                             </div>
                             <div style="margin-bottom: 1rem; margin-top: auto">
                                 <input class="form-control" type="file" id="poiImage" name="poiImage" onchange="displayImage()"/>
                             </div>
-
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 30px">
+                    <div style="margin-top: 30px">
                         <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;" data-hike-id="<%=hike.getHikeId()%>">Add
                         </button>
+                        <br>
+                        <!-- This alert will be displayed if (for example), validation is not passed -->
+                        <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
                     </div>
                 </form>
-                <div id="result" style="display: flex; flex-wrap: wrap">
+                <div id="result" style="display: flex; flex-wrap: wrap; gap: 1%;">
                     <%
                         List<PointOfInterest> pointsOfInterest = hike.getHikePointsOfInterest();
                         for (PointOfInterest poi : pointsOfInterest) {

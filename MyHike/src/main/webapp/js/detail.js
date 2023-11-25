@@ -48,6 +48,10 @@ function displayImage() {
 
 $(document).ready(function () {
     $('#addPOIButton').click(function () {
+        //This is where the created cards will be appended.
+        let result = document.getElementById("result");
+
+        //Id of the hike the POI is related to.
         let hikeId = $(this).data('hike-id');
 
         //Get values from parameters
@@ -58,6 +62,12 @@ $(document).ready(function () {
         let poiLat = document.getElementById("poiLat").value;
         let poiImageInput = document.getElementById('poiImage');
         let poiFile = poiImageInput.files[0];
+
+        if (!validatePOI()) {
+            return false;
+        }
+
+        //Get imageSource from File to display the new Card with the image
         let poiImageSource;
         if (poiFile) {
             let reader = new FileReader();
@@ -69,9 +79,8 @@ $(document).ready(function () {
             reader.readAsDataURL(poiFile);
         }
 
+        //Create formData to send to our addPOIServlet
         let formData = new FormData();
-
-        // Append text data
         formData.append('hikeId', hikeId);
         formData.append('poiTitle', poiTitle);
         formData.append('poiDescription', poiDescription);
@@ -79,7 +88,7 @@ $(document).ready(function () {
         formData.append('poiLat', poiLat);
         formData.append('poiImage', poiFile);
 
-        let result = document.getElementById("result");
+        //Using an ajax call to call our addPOIServlet asynchronously
         $.ajax({
             type: "POST",
             url: "addPOIServlet", // Servlet URL
@@ -88,12 +97,7 @@ $(document).ready(function () {
             enctype: "multipart/form-data",
             data: formData,
             success: function (response) {
-                console.log(response);
-
-                /*
-
-                 */
-
+                // Generate a new -POICard element!
                 // Create a new div element
                 let card = document.createElement("div");
 
@@ -141,16 +145,24 @@ $(document).ready(function () {
                 cardBottom.appendChild(titleElement);
                 cardBottom.appendChild(paragraphElement);
                 cardBottom.appendChild(buttonElement);
-
                 card.appendChild(imgElement);
                 card.appendChild(cardBottom);
-
                 result.appendChild(card);
             },
         });
     })
 })
 
+//Delete POI
+//If called from an already existing poi-card, the poiId cannot be passed and needs to be gotten from data-poi-id attribute.
+$(document).ready(function () {
+    $('[name="deletePOIButton"]').click(function () {
+        let poiId = $(this).data('poi-id');
+        deletePOI(poiId);
+    })
+})
+//If called directly from a newly created poiId, the name attribute does not take effect until the page is refreshed,
+//therefore the poiId is passed in this case (when creating the deletePOIButtoh).
 function deletePOI(poiId) {
     let formData = new FormData();
 
@@ -175,12 +187,38 @@ function deletePOI(poiId) {
     });
 }
 
-$(document).ready(function () {
-    $('[name="deletePOIButton"]').click(function () {
-        let poiId = $(this).data('poi-id');
-        deletePOI(poiId);
-    })
-})
+//Returns false and displays a validation alert if validation fails, if validation is passed returns true
+function validatePOI() {
+    //The alert which will be displayed if validation fails.
+    const validationAlert = document.getElementById("validationAlert");
+
+    //Pattern matching for lat and lon coordinates, checks if lat and lon are in a certain range (lat -90 to 90, lon
+    // -180 to 180), allows a maximum of 6 decimal points
+    const LatPattern = /^[-+]?([1-8]?\d(\.\d{1,6})?|90(\.0{1,6})?)$/;
+    const LonPattern = /^[-+]?(180(\.0{1,6})?|((1[0-7]\d|\d{1,2})(\.\d{1,6})?))$/;
+
+    //Get the values to validate
+    const lon = document.getElementById("poiLon").value;
+    const lat = document.getElementById("poiLat").value;
+    const imageInput = document.getElementById('poiImage');
+    let image = imageInput.files[0];
+
+    validationAlert.style.display = "block"; //Display validation alert, disables this again if no validation error occurs.
+    if (!LonPattern.test(lon)){
+        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
+        return false;
+    }
+    if (!LatPattern.test(lat)){
+        validationAlert.innerHTML = "Please enter a valid starting lat-coordinate (ranges from -90.00000 to 90.000000).";
+        return false;
+    }
+    if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
+        validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
+        return false;
+    }
+    validationAlert.style.display = "none";
+    return true;
+}
 
 
 
