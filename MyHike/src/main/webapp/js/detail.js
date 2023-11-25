@@ -103,18 +103,22 @@ $(document).ready(function () {
 
                 // Set attributes for the div
                 card.id = response + "-POICard";
-                card.className = "card"
-                card.style.width = "45%";
-                card.style.margin = "2.5%";
+                card.className = "card bg-light"
+                card.style.width = "24.25%";
+                card.style.marginTop = "20px";
 
                 // Create an image element
                 let imgElement = document.createElement("img");
                 imgElement.className = "card-img-top";
                 imgElement.src = poiImageSource;
                 imgElement.alt = "";
+                imgElement.style.maxHeight = "150px";
+                imgElement.style.objectFit = "cover";
 
                 let cardBottom = document.createElement("div");
+                cardBottom.className = "d-flex flex-column";
                 cardBottom.style.margin = "2%";
+                cardBottom.style.height = "100%";
 
                 // Create a title element
                 let titleElement = document.createElement("h5");
@@ -124,14 +128,16 @@ $(document).ready(function () {
                 // Create a paragraph element
                 let paragraphElement = document.createElement("p");
                 paragraphElement.className = "card-text";
-                paragraphElement.textContent = poiDescription;
+                paragraphElement.innerHTML = poiDescription + "<br>" + "Lon: " + poiLon + "  Lat: " + poiLat;
+                paragraphElement.style.fontSize = "12px";
 
                 // Create a link element (a) for the button
                 let buttonElement = document.createElement("button");
                 buttonElement.name = "deletePOIButton";
                 buttonElement.className = "btn btn-danger";
                 buttonElement.style.width = "90%";
-                buttonElement.style.alignSelf = "end";
+                buttonElement.style.alignSelf = "center";
+                buttonElement.style.marginTop = "auto";
                 buttonElement.textContent = "Delete";
                 //Allow button to delete
                 buttonElement.onclick = function () {

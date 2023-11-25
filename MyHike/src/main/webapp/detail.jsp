@@ -307,9 +307,9 @@
             <!-- Points of Interest -->
             <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
             <div id="pointsOfInterest-content" class="content" style="padding: 10px">
-                <h4>Add new Points of Interest:</h4>
+                <h4 style="margin-top: 10px">Add new Points of Interest:</h4>
                 <form id="myForm" enctype="multipart/form-data">
-                    <div>
+                    <div class="row" style="padding: 10px">
                         <div class="col-md-4" style="margin: 0; padding: 0">
                             <!-- Your input fields here -->
                             <div class="form-group">
@@ -338,13 +338,15 @@
                                 <input class="form-control w-100" type="text" id="poiLat" placeholder="12.3456"/>
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex flex-column" style="padding: 0;">
-                            <div style="max-height: 100%;">
-                                <img id="imgDisplay" alt="" src="" style="object-fit: contain;">
+                        <div class="col-md-8 d-flex flex-column">
+
+                            <div style="max-height: 100%; margin: 1rem">
+                                <img id="imgDisplay" alt="" src="" style="max-width: 100%; max-height: 250px; object-fit: contain;">
                             </div>
                             <div style="margin-bottom: 1rem; margin-top: auto">
                                 <input class="form-control" type="file" id="poiImage" name="poiImage" onchange="displayImage()"/>
                             </div>
+
                         </div>
                     </div>
                     <div style="margin-top: 30px">
