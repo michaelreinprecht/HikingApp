@@ -1,5 +1,3 @@
-<%@ tag import="java.math.BigDecimal" %>
-<%@ tag import="java.text.DecimalFormat" %>
 <%@ tag pageEncoding="utf-8" %>
 <%@ attribute name="id"%>
 <%@ attribute name="title"%>

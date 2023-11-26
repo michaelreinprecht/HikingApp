@@ -1,8 +1,8 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
-<%@ page import="myHikeJava.IndexPageHelper" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,19 +49,11 @@
  <div class="container-fluid" style="background-color: white; padding: 0">
     <div class="row" style="width: 100%; margin: 0; padding: 0">
         <div class="col-md-auto" style="margin-left: 10px;">
-
+            <!-- Display successAlert based on successAlert parameter. -->
             <%
-                //Try to get parameters "createSuccess" and "editSuccess" based on these parameters a success alert
-                //will be displayed as a follow up for either the create.jsp or the edit.jsp page.
-                String alertMessage = IndexPageHelper.tryGetSuccessMessage(request);
-                if (!alertMessage.isEmpty()) {
+                String successAlert = request.getParameter("successAlert");
             %>
-            <div class="alert alert-success" role="alert">
-                <%=alertMessage%>
-            </div>
-            <%
-                }
-            %>
+            <tags:successAlert alert='<%=successAlert%>'/>
 
             <!-- Description of the Hike, HINT: create multiple div elements with class="row" instead of only using <br/> -->
             <!-- Assume Database.getAllHikes() returns a list of hikes with their IDs and names -->
