@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "MyHike.pointOfInterest")
 public class PointOfInterest {
