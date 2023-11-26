@@ -353,8 +353,15 @@
                         <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;" data-hike-id="<%=hike.getHikeId()%>">Add
                         </button>
                         <br>
-                        <!-- This alert will be displayed if (for example), validation is not passed -->
+                        <!-- This alert will be displayed if (for example), validation is not passed. -->
                         <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
+                        <div id="loadingDiv" style="display: none; margin-top: 10px; margin-bottom: 10px">
+                            <img src="images/loading.gif" style="height: 40px; width: 40px" alt="Loading..." />
+                        </div>
+                        <!-- This alert will be displayed once a POI has been successfully added. -->
+                        <div id="successAlert" class="alert alert-success row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;">
+                            Your point of interest has been successfully added.
+                        </div>
                     </div>
                 </form>
                 <div id="result" style="display: flex; flex-wrap: wrap; gap: 1%;">

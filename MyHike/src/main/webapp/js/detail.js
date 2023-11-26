@@ -48,10 +48,13 @@ function displayImage() {
 
 $(document).ready(function () {
     $('#addPOIButton').click(function () {
+        hideSuccess();
+        displayLoading();
+
         //This is where the created cards will be appended.
         let result = document.getElementById("result");
 
-        //Id of the hike the POI is related to.
+        //ID of the hike the POI is related to.
         let hikeId = $(this).data('hike-id');
 
         //Get values from parameters
@@ -63,6 +66,7 @@ $(document).ready(function () {
         let poiImageInput = document.getElementById('poiImage');
         let poiFile = poiImageInput.files[0];
 
+        //Regex validation of inputs.
         if (!validatePOI()) {
             return false;
         }
@@ -146,7 +150,6 @@ $(document).ready(function () {
                 //The buttons poi-id has to be set like this since the hike id is a non-standard attribute.
                 buttonElement.setAttribute("data-poi-id", response);
 
-
                 // Append the child elements to the card and to result div
                 cardBottom.appendChild(titleElement);
                 cardBottom.appendChild(paragraphElement);
@@ -154,7 +157,16 @@ $(document).ready(function () {
                 card.appendChild(imgElement);
                 card.appendChild(cardBottom);
                 result.appendChild(card);
+                hideLoading();
+                displaySuccess();
             },
+            error: function(response) {
+                hideLoading();
+                const validationAlert = document.getElementById("validationAlert");
+                validationAlert.innerHTML = "An unexpected error has occurred creating your point of interest. Please make " +
+                    "sure you are connected to the internet or try again later. Error: " + response;
+                validationAlert.style.display = "block";
+            }
         });
     })
 })
@@ -170,15 +182,13 @@ $(document).ready(function () {
 //If called directly from a newly created poiId, the name attribute does not take effect until the page is refreshed,
 //therefore the poiId is passed in this case (when creating the deletePOIButtoh).
 function deletePOI(poiId) {
+    hideSuccess();
+    displayLoading();
+
+    //Append the poiId to the formData, which will be sent to the servlet via the ajax call.
     let formData = new FormData();
-
     let poiCard = document.getElementById(poiId + "-POICard");
-
-    // Append text data
     formData.append('poiId', poiId);
-
-    let result = document.getElementById("result");
-
     $.ajax({
         type: "POST",
         url: "deletePOIServlet", // Servlet URL
@@ -189,7 +199,16 @@ function deletePOI(poiId) {
         success: function (response) {
             console.log(response);
             poiCard.remove();
+            hideLoading();
+            displaySuccess();
         },
+        error: function(response) {
+            hideLoading();
+            const validationAlert = document.getElementById("validationAlert");
+            validationAlert.innerHTML = "An unexpected error has occurred deleting your point of interest. Please make " +
+                "sure you are connected to the internet or try again later. Error: " + response;
+            validationAlert.style.display = "block";
+        }
     });
 }
 
@@ -209,7 +228,9 @@ function validatePOI() {
     const imageInput = document.getElementById('poiImage');
     let image = imageInput.files[0];
 
-    validationAlert.style.display = "block"; //Display validation alert, disables this again if no validation error occurs.
+    validationAlert.style.display = "block";
+
+    //Validate Lon and Lat based on regex.
     if (!LonPattern.test(lon)){
         validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
         return false;
@@ -218,6 +239,7 @@ function validatePOI() {
         validationAlert.innerHTML = "Please enter a valid starting lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
+    //Check if image is given and of proper type.
     if (image == null || (!image.name.toLowerCase().endsWith(".png")  && !image.name.toLowerCase().endsWith(".jpg")  && !image.name.toLowerCase().endsWith(".jpeg"))) {
         validationAlert.innerHTML = "Please upload a valid image of type png or jpg.";
         return false;
@@ -226,5 +248,28 @@ function validatePOI() {
     return true;
 }
 
+//Displays successAlert
+function displaySuccess() {
+    const successAlert = document.getElementById("successAlert");
+    successAlert.style.display = "block";
+}
+
+//Hides successAlert
+function hideSuccess() {
+    const successAlert = document.getElementById("successAlert");
+    successAlert.style.display = "none";
+}
+
+//Displays loading gif for POI adding.
+function displayLoading() {
+    const loadingDiv = document.getElementById("loadingDiv");
+    loadingDiv.style.display = 'block';
+}
+
+//Hides loading gif for POI adding.
+function hideLoading() {
+    const loadingDiv = document.getElementById("loadingDiv");
+    loadingDiv.style.display = 'none';
+}
 
 
