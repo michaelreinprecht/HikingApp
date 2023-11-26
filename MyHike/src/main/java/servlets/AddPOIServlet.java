@@ -50,9 +50,9 @@ public class AddPOIServlet extends ServletUtils {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
-            response.getWriter().write(poiId);
-        } else {
             response.getWriter().write(error);
+        } else {
+            response.getWriter().write(poiId);
         }
     }
 }

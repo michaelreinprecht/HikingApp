@@ -68,6 +68,7 @@ $(document).ready(function () {
 
         //Regex validation of inputs.
         if (!validatePOI()) {
+            hideLoading();
             return false;
         }
 
@@ -200,7 +201,6 @@ function deletePOI(poiId) {
             console.log(response);
             poiCard.remove();
             hideLoading();
-            displaySuccess();
         },
         error: function(response) {
             hideLoading();
