@@ -158,8 +158,6 @@
         </div>
     </div>
 
-
-
 <div class="container">
     <!-- Header -->
     <div class="title">
@@ -180,48 +178,15 @@
                             hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
                     .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
 
-            if (hikes.isEmpty()){
-                noMatchingHikesFound = true;
-            }
+
+        }
+        List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
+        if (filteredHikes != null && !filteredHikes.isEmpty()){
+            hikes = filteredHikes;
         }
 
-        String durationFilter = request.getParameter("durationFilter");
-        String distanceFilter = request.getParameter("distanceFilter");
-        String staminaFilter = request.getParameter("staminaFilter");
-        String strengthFilter = request.getParameter("strengthFilter");
-        String experienceFilter = request.getParameter("experienceFilter");
-
-        if (durationFilter != null) {
-            Time duration = Time.valueOf(durationFilter);
-            hikes = hikes.stream().filter(hike ->
-                            hike.getHikeDuration().compareTo(duration) < Integer.parseInt(durationFilter) ||
-                                    hike.getHikeDuration().compareTo(duration) > Integer.parseInt(durationFilter)-1
-                    )
-                    .collect(Collectors.toList());
-        }
-
-        if (distanceFilter != null){
-            BigDecimal distance = new BigDecimal(distanceFilter);
-            hikes = hikes.stream().filter(hike ->
-                            hike.getHikeDistance().compareTo(distance) < Integer.parseInt(distanceFilter) ||
-                                    hike.getHikeDistance().compareTo(distance) > Integer.parseInt(distanceFilter)-10)
-                    .collect(Collectors.toList());
-        }
-
-
-        if (staminaFilter != null){
-            hikes = hikes.stream().filter(hike -> hike.getHikeStamina() == Integer.parseInt(staminaFilter))
-                    .collect(Collectors.toList());
-        }
-
-        if (strengthFilter != null){
-            hikes = hikes.stream().filter(hike -> hike.getHikeStrength() == Integer.parseInt(strengthFilter))
-                    .collect(Collectors.toList());
-        }
-
-        if (experienceFilter != null){
-            hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == Integer.parseInt(experienceFilter))
-                    .collect(Collectors.toList());
+        if (hikes.isEmpty()){
+            noMatchingHikesFound = true;
         }
 
         if (noMatchingHikesFound) {
@@ -326,6 +291,51 @@
     <hr size="8" color="green">
     <% } } %>
 </div>
+        <%
+
+            if (request.getMethod().equalsIgnoreCase("post")) {
+                String durationFilter = request.getParameter("durationFilter");
+                String distanceFilter = request.getParameter("distanceFilter");
+                String staminaFilter = request.getParameter("staminaFilter");
+                String strengthFilter = request.getParameter("strengthFilter");
+                String experienceFilter = request.getParameter("experienceFilter");
+
+                if (durationFilter != null) {
+                    Time duration = Time.valueOf(durationFilter);
+                    hikes = hikes.stream().filter(hike ->
+                                    hike.getHikeDuration().compareTo(duration) < Integer.parseInt(durationFilter) ||
+                                            hike.getHikeDuration().compareTo(duration) > Integer.parseInt(durationFilter)-1
+                            )
+                            .collect(Collectors.toList());
+                }
+
+                if (distanceFilter != null){
+                    BigDecimal distance = new BigDecimal(distanceFilter);
+                    hikes = hikes.stream().filter(hike ->
+                                    hike.getHikeDistance().compareTo(distance) < Integer.parseInt(distanceFilter) ||
+                                            hike.getHikeDistance().compareTo(distance) > Integer.parseInt(distanceFilter)-10)
+                            .collect(Collectors.toList());
+                }
+
+
+                if (staminaFilter != null){
+                    hikes = hikes.stream().filter(hike -> hike.getHikeStamina() == Integer.parseInt(staminaFilter))
+                            .collect(Collectors.toList());
+                }
+
+                if (strengthFilter != null){
+                    hikes = hikes.stream().filter(hike -> hike.getHikeStrength() == Integer.parseInt(strengthFilter))
+                            .collect(Collectors.toList());
+                }
+
+                if (experienceFilter != null){
+                    hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == Integer.parseInt(experienceFilter))
+                            .collect(Collectors.toList());
+                }
+
+                request.setAttribute("filteredHikes", hikes);
+            }
+        %>
 
 
 
