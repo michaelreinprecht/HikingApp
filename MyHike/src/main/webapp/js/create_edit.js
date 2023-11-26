@@ -26,19 +26,19 @@ function validateForm() {
     const LonPattern = /^[-+]?(180(\.0{1,6})?|((1[0-7]\d|\d{1,2})(\.\d{1,6})?))$/;
 
     //Start and end coordinates of the hike.
-    const startLat = document.getElementById("startLat");
-    const startLon = document.getElementById("startLon");
-    const endLat = document.getElementById("endLat");
-    const endLon = document.getElementById("endLon");
+    const startLat = document.getElementById("startLat").value;
+    const startLon = document.getElementById("startLon").value;
+    const endLat = document.getElementById("endLat").value;
+    const endLon = document.getElementById("endLon").value;
 
     //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
     const altitudePattern = /^[1-9][0-9]*$/;
-    const altitude = document.getElementById("altitude");
+    const altitude = document.getElementById("altitude").value;
 
     //Pattern matching for distance, needs to be at least one number from 0-9, CAN OPTIONALLY be followed by a dot (.)
     //and 2 decimals (lowest possible is 0.00km).
     const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
-    const distance = document.getElementById("distance");
+    const distance = document.getElementById("distance").value;
 
     const radioStrength = document.querySelector('input[name="strength-rating"]:checked');
     const radioStamina = document.querySelector('input[name="stamina-rating"]:checked');
@@ -51,6 +51,7 @@ function validateForm() {
     const imageInput = document.getElementById('fileToUpload');
     let image = imageInput.files[0];
 
+    //The alert which will be displayed if validation fails.
     const validationAlert = document.getElementById("validationAlert");
 
     //This sets the alert to be displayed, if none of the below checks are triggered it will be set to none again and
@@ -68,29 +69,29 @@ function validateForm() {
         validationAlert.innerHTML = "Please pick at least one recommended month.";
         return false;
     }
-    if (!LonPattern.test(startLon.value)){
+    if (!LonPattern.test(startLon)){
         validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
         return false;
     }
-    if (!LatPattern.test(startLat.value)){
+    if (!LatPattern.test(startLat)){
         validationAlert.innerHTML = "Please enter a valid starting lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
-    if (!LonPattern.test(endLon.value)){
+    if (!LonPattern.test(endLon)){
         validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
         return false;
     }
-    if (!LatPattern.test(endLat.value)){
+    if (!LatPattern.test(endLat)){
         validationAlert.innerHTML = "Please enter a valid ending lat-coordinate (ranges from -90.00000 to 90.000000).";
         return false;
     }
 
     //Altitude/Distance can be null or empty, if they are not they have to match their respective patterns.
-    if (altitude.value != null && altitude.value !== "" && !altitudePattern.test(altitude.value)){
+    if (altitude != null && altitude !== "" && !altitudePattern.test(altitude)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
         return false;
     }
-    if (distance.value != null && distance.value !== "" && !distancePattern.test(distance.value)){
+    if (distance != null && distance !== "" && !distancePattern.test(distance)){
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
         return false;
     }
@@ -132,3 +133,62 @@ function validateForm() {
     validationAlert.style.display = "none";
     return true;
 }
+
+/*
+function addPOI() {
+    // Collect data from POI inputs
+    var poiTitle = document.getElementById("poiTitle").value;
+    var poiDescription = document.getElementById("poiDescription").value;
+    var poiLon = document.getElementById("poiLon").value;
+    var poiLan = document.getElementById("poiLan").value;
+
+    // Get the file input element
+    var fileInput = document.getElementById("poiImage");
+    // Get the selected file
+    var file = fileInput.files[0];
+
+    // Create a FormData object to store both POI data and file data
+    var formData = new FormData();
+
+    // Add POI data to FormData
+    formData.append("poiTitle", poiTitle);
+    formData.append("poiDescription", poiDescription);
+    formData.append("poiLon", poiLon);
+    formData.append("poiLan", poiLan);
+
+    // Add file data to FormData
+    formData.append("fileToUpload", file);
+
+    let poiData = document.getElementById("poiData").value;
+    console.log(poiData);
+    // Retrieve existing POI data or initialize an empty array
+    let existingPoiData;
+    if (poiData === "" ) {
+        existingPoiData = [];
+    } else {
+        existingPoiData = JSON.parse(poiData) || [];
+    }
+
+
+    // Add the new POI to the array
+    existingPoiData.push({
+        title: poiTitle,
+        description: poiDescription,
+        lon: poiLon,
+        lan: poiLan,
+        // Add file data if needed
+        file: file
+    });
+
+    // Update the hidden input field with the updated POI data
+    document.getElementById("poiData").value = JSON.stringify(existingPoiData);
+
+    // Update the unordered list display (assuming you have a function for this)
+    //displayPoiList(existingPoiData);
+}
+
+function displayPoiList(poiData) {
+    // Display the POI data in an unordered list
+    // You can implement this function based on how you want to display the data
+    // For example, create <li> elements for each POI and append them to a <ul>
+}*/

@@ -64,7 +64,7 @@
 <form method="POST" action="hikelist.jsp">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-               placeholder="Search by Region!">
+               placeholder="Search by name or region!">
         <span class="input-group-text">
             <button type="submit" class="searchButton">Search</button>
         </span>
@@ -146,16 +146,17 @@
             <% } %>
         </select>
     </div>
-<!-- Header -->
 
-<div class="title">
-  <h3 class="text-center">
-    These Hikes are based on your search!
-  </h3>
-</div>
-<hr size="8" color="green">
+
+
 
 <div class="container">
+    <!-- Header -->
+    <div class="title">
+        <h3 class="text-center">
+            These Hikes are based on your search!
+        </h3>
+    </div>
     <%
         List<Hike> hikes = Database.getAllHikes();
         boolean noMatchingHikesFound = false;
@@ -164,7 +165,7 @@
         if (searchQuery != null && !searchQuery.isEmpty()) {
             hikes = hikes.stream()
                     .filter(hike ->
-                            hike.getHikeRegion().getRegionName().equalsIgnoreCase(searchQuery) ||   //Sucht Region
+                            hike.getHikeRegion().getRegionName().toLowerCase().contains(searchQuery.toLowerCase()) ||   //Sucht Region
                             hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
                     .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
 

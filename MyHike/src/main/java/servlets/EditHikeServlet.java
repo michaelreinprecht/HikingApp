@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
+import myHikeJava.Database;
+import myHikeJava.ServletUtils;
 
 import java.io.IOException;
 
@@ -28,7 +30,7 @@ public class EditHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("edit.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("index.jsp?editSuccess=true");
+            response.sendRedirect("index.jsp?successAlert=editSuccess");
         }
     }
 

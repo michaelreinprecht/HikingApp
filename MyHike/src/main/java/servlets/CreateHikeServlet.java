@@ -1,4 +1,4 @@
-package myHikeJava;
+package servlets;
 
 import java.io.*;
 import java.util.UUID;
@@ -8,6 +8,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Hike;
 import models.Month;
+import myHikeJava.Database;
+import myHikeJava.ServletUtils;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
@@ -26,7 +28,7 @@ public class CreateHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("index.jsp?createSuccess=true");
+            response.sendRedirect("index.jsp?successAlert=createSuccess");
         }
     }
 
@@ -55,5 +57,4 @@ public class CreateHikeServlet extends ServletUtils {
     private String encodeToBase64(Part fileToUpload) throws IOException {
         return getBase64(fileToUpload);
     }
-
 }

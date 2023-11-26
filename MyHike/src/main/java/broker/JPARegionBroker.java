@@ -1,7 +1,7 @@
 package broker;
 
 import models.Region;
-import myHikeJava.ResourceServlet;
+import servlets.ResourceServlet;
 
 import javax.persistence.EntityManager;
 import java.util.List;

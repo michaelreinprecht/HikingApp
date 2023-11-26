@@ -1,8 +1,11 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @SuppressWarnings("unused")
 @Entity
@@ -25,11 +28,12 @@ public class Hike {
     private String hikeImage;
     private String hikeMonths;
     private Region hikeRegion;
+    private List<PointOfInterest> hikePointsOfInterest;
     private boolean isDeleted;
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, boolean isDeleted) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -47,6 +51,7 @@ public class Hike {
         this.hikeImage = hikeImage;
         this.hikeMonths = hikeMonths;
         this.hikeRegion = hikeRegion;
+        this.hikePointsOfInterest = hikePointsOfInterest;
         this.isDeleted = isDeleted;
     }
 
@@ -178,6 +183,15 @@ public class Hike {
     }
     public void setHikeMonths(String hikeMonths) {
         this.hikeMonths = hikeMonths;
+    }
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pointOfInterestHike", cascade = CascadeType.ALL)
+    public List<PointOfInterest> getHikePointsOfInterest() {
+        return hikePointsOfInterest;
+    }
+    public void setHikePointsOfInterest(List<PointOfInterest> hikePointsOfInterest) {
+        this.hikePointsOfInterest = hikePointsOfInterest;
     }
 
     @Column(name = "is_deleted")

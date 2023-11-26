@@ -27,6 +27,7 @@
     background-color: white;
     padding: 50px;
     margin-bottom: 20px;
+    border: 1px solid #f8f9fa;
 }
 .container {
     display: flex;
@@ -100,4 +101,17 @@
 .group {
     display: flex;
     width: 15%;
+}
+
+.labels {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold
+}
+
+.labels_withmargin {
+    display: inline-block;
+    width: 230px;
+    margin-top: 30px;
+    font-weight: bold
 }
