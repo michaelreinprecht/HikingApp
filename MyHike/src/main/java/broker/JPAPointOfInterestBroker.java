@@ -1,7 +1,6 @@
 package broker;
 
 import models.PointOfInterest;
-import models.Region;
 import servlets.ResourceServlet;
 
 import javax.persistence.EntityManager;

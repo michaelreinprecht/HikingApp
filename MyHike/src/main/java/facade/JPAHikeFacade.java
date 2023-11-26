@@ -7,7 +7,7 @@ import models.Hike;
 import java.sql.SQLException;
 import java.util.List;
 
-@SuppressWarnings("ALL")
+
 public class JPAHikeFacade extends JPAFacade{
     public List<Hike> getAllHikes() {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();

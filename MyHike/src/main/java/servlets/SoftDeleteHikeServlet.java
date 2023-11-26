@@ -26,7 +26,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("index.jsp?deleteSuccess=true");
+            response.sendRedirect("index.jsp?successAlert=deleteSuccess");
         }
     }
     public Hike softDeleteHike(HttpServletRequest request) throws IOException, ServletException {
