@@ -15,6 +15,8 @@
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="java.sql.Time" %>
+<%@ page import="java.math.BigDecimal" %>
 
 
 <html>
@@ -61,7 +63,7 @@
 
 
 <!-- Searchbar -->
-<form method="POST" action="hikelist.jsp">
+<form method="post">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
                placeholder="Search by name or region!">
@@ -71,26 +73,29 @@
     </div>
 </form>
 
+
 <!-- Filter für Duration -->
 <div class="row mx-auto text-center">
     <div class="col-md-2 mb-3">
         <label class="input-group-text" for="durationFilter">Duration</label>
-        <select class="form-control" id="durationFilter">
-            <option value="<1h"><1h</option>
-            <option value="1-2h">1-2h</option>
-            <option value="2-3h">2-3h</option>
-            <option value="3-4h">3-4h</option>
-            <option value="4-5h">4-5h</option>
+        <select class="form-control" name="durationFilter" id="durationFilter">
+            <option value="00:00:00">No Filter</option>
+            <option value="01:00:00"><1h</option>
+            <option value="02:00:00">1-2h</option>
+            <option value="03:00:00">2-3h</option>
+            <option value="04:00:00">3-4h</option>
+            <option value="05:00:00">4-5h</option>
         </select>
     </div>
 
     <!-- Filter für Distance -->
     <div class="col-md-2 mb-3">
         <label class="input-group-text" for="distanceFilter">Distance</label>
-        <select class="form-control" id="distanceFilter">
-            <option value="short">Short</option>
-            <option value="medium">Medium</option>
-            <option value="long">Long</option>
+        <select class="form-control" name="distanceFilter" id="distanceFilter">
+            <option value="null">No Filter</option>
+            <option value="10">0-10km</option> // 10 km
+            <option value="20">10-20km</option> // 20 km
+            <option value="30">20-30km</option> // 20-30 km
         </select>
     </div>
 
@@ -98,6 +103,7 @@
     <div class="col-md-2 mb-3">
         <label class="input-group-text" for="staminaFilter">Stamina</label>
         <select class="form-control" id="staminaFilter" name="staminaFilter">
+            <option value="null">No Filter</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -110,7 +116,8 @@
     <!-- Filter für Strength -->
     <div class="col-md-2 mb-3">
         <label class="input-group-text" for="strengthFilter">Strength</label>
-        <select class="form-control" id="strengthFilter">
+        <select class="form-control" name="strengthFilter" id="strengthFilter">
+            <option value="null">No Filter</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -122,7 +129,8 @@
     <!-- Filter für Experience -->
     <div class="col-md-2 mb-3">
         <label class="input-group-text" for="experienceFilter">Experience</label>
-        <select class="form-control" id="experienceFilter">
+        <select class="form-control" name="experienceFilter" id="experienceFilter">
+            <option value="null">No Filter</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -145,8 +153,10 @@
             </option>
             <% } %>
         </select>
+        <div class="col-md-6.5 offset-md-6.5 text-right col-md-14 mt-5">
+            <button type="submit" formmethod="post" class="btn btn-success">Filter</button>
+        </div>
     </div>
-
 
 
 
@@ -157,6 +167,7 @@
             These Hikes are based on your search!
         </h3>
     </div>
+    <div id="hikes">
     <%
         List<Hike> hikes = Database.getAllHikes();
         boolean noMatchingHikesFound = false;
@@ -174,8 +185,48 @@
             }
         }
 
+        String durationFilter = request.getParameter("durationFilter");
+        String distanceFilter = request.getParameter("distanceFilter");
+        String staminaFilter = request.getParameter("staminaFilter");
+        String strengthFilter = request.getParameter("strengthFilter");
+        String experienceFilter = request.getParameter("experienceFilter");
+
+        if (durationFilter != null) {
+            Time duration = Time.valueOf(durationFilter);
+            hikes = hikes.stream().filter(hike ->
+                            hike.getHikeDuration().compareTo(duration) < Integer.parseInt(durationFilter) ||
+                                    hike.getHikeDuration().compareTo(duration) > Integer.parseInt(durationFilter)-1
+                    )
+                    .collect(Collectors.toList());
+        }
+
+        if (distanceFilter != null){
+            BigDecimal distance = new BigDecimal(distanceFilter);
+            hikes = hikes.stream().filter(hike ->
+                            hike.getHikeDistance().compareTo(distance) < Integer.parseInt(distanceFilter) ||
+                                    hike.getHikeDistance().compareTo(distance) > Integer.parseInt(distanceFilter)-10)
+                    .collect(Collectors.toList());
+        }
+
+
+        if (staminaFilter != null){
+            hikes = hikes.stream().filter(hike -> hike.getHikeStamina() == Integer.parseInt(staminaFilter))
+                    .collect(Collectors.toList());
+        }
+
+        if (strengthFilter != null){
+            hikes = hikes.stream().filter(hike -> hike.getHikeStrength() == Integer.parseInt(strengthFilter))
+                    .collect(Collectors.toList());
+        }
+
+        if (experienceFilter != null){
+            hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == Integer.parseInt(experienceFilter))
+                    .collect(Collectors.toList());
+        }
+
         if (noMatchingHikesFound) {
     %>
+    </div>
     <div class="alert alert-warning" role="alert">
         Unfortunately, there are no matching hikes with your search :(     <!-- Fehlermeldung, falls keine Hikes zutreffen-->
     </div>
