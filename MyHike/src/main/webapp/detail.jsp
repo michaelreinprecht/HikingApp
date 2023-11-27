@@ -19,7 +19,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=hike.getHikeName()%></title>
+    <title><%=hike.getHikeName()%>
+    </title>
 
     <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -45,6 +46,14 @@
 
     <!-- Link to detail.js -->
     <script src="js/detail.js"></script>
+
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -98,13 +107,13 @@
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
-            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
+            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
+                  enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </div>
 </div>
-
 
 
 <!-- Hike Details -->
@@ -115,7 +124,7 @@
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
+                    <% //Null-Value check, if there is no duration we will instead just display a question mark
                         // (TODO generate duration automatically if it has no value)
                         if (hike.getHikeDuration() != null) {
                             LocalTime localTime = hike.getHikeDuration().toLocalTime();
@@ -135,7 +144,7 @@
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeDistance() != null) {
                     %>
@@ -152,7 +161,7 @@
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeAltitude() != null) {
                     %>
@@ -178,7 +187,7 @@
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
                         //TODO explain what is being generated
-                        for (String rec: recommended) {
+                        for (String rec : recommended) {
                             if (rec != null) {
                     %>
                     <%=rec%>
@@ -197,7 +206,99 @@
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <img src="images/map.png" alt="Karte" class="map">
+                <div id="map" style="height: 100%; width: 100%;"></div>
+                <script>
+                    // Create a new Leaflet map object
+                    //Start coordinates are focused on Vorarlberg
+                    let myMap = L.map('map').setView([47.21329, 9.95118], 9);
+                    // Add a tile layer from OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(myMap);
+
+                    // Use the Geolocation API to center the map on the user's location
+                    myMap.locate({setView: true, maxZoom: 16});
+
+                    // Array to store markers
+                    let markers = [];
+
+                    // Define a function to handle location found event
+                    function onLocationFound(e) {
+                        L.marker(e.latlng).addTo(myMap).bindPopup("You are here!");
+                    }
+
+                    // Listen for the location found event
+                    // If user allows us to, we will set the location to his current location.
+                    myMap.on('locationfound', onLocationFound);
+
+                    function onMapClick(e) {
+                        // Check if there are already two markers
+
+                        // Determine the popup content based on the marker count
+                        let popupContent = (markers.length === 0) ? "The start of your hike" : "The end of your hike";
+
+                        // Add a marker at the clicked location with the popup
+                        let marker = L.marker(e.latlng).addTo(myMap).on('dblclick', onMarkerClick);
+                        marker.bindPopup(popupContent).openPopup();
+
+                        // Store the marker in the array
+                        markers.push(marker);
+
+                        // If two markers are added, do something (e.g., calculate distance)
+                        if (markers.length === 2) {
+                            // Example: Calculate distance between two markers
+                            let latlng1 = markers[0].getLatLng();
+                            let latlng2 = markers[1].getLatLng();
+                            let distance = myMap.distance(latlng1, latlng2);
+                            console.log('Distance between markers: ' + distance.toFixed(2) + ' meters');
+                        }
+
+                        // Create a custom icon
+                        let startIcon = L.icon({
+                            iconUrl: 'images/start-icon.png',  // Replace with the path to your custom icon
+                            iconSize: [32, 32],  // Adjust the size of your icon
+                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
+                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                        });
+                        // Create a custom icon
+                        let finishIcon = L.icon({
+                            iconUrl: 'images/finish-icon.png',  // Replace with the path to your custom icon
+                            iconSize: [32, 32],  // Adjust the size of your icon
+                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
+                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                        });
+                        // Create a custom icon
+                        let waypointIcon = L.icon({
+                            iconUrl: 'images/waypoint-icon.png',  // Replace with the path to your custom icon
+                            iconSize: [32, 32],  // Adjust the size of your icon
+                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
+                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                        });
+
+                        markers.forEach((x) => x.setIcon(waypointIcon));
+                        if (markers[0] != null) {
+                            markers[0].setIcon(startIcon);
+                        }
+                        if (markers.length > 1) {
+                            markers[markers.length-1].setIcon(finishIcon);
+                        }
+                    }
+
+                    // Listen for the 'click' event for general map clicks
+                    myMap.on('click', onMapClick);
+
+                    // Define a function to handle marker click event
+                    function onMarkerClick(e) {
+                        // Remove the clicked marker from the map
+                        myMap.removeLayer(e.target);
+
+                        // Remove the marker from the array
+                        markers = markers.filter(marker => marker !== e.target);
+                    }
+
+                    // Listen for the 'click' event for marker clicks
+                    myMap.on('click', onMarkerClick);
+                </script>
             </div>
         </div>
 
@@ -212,32 +313,32 @@
                 </p>
             </div>
 
-                <!-- Streckeneigenschaften -->
-                <button class="btn btn-light" onclick="toggleContent('hikeProperty')">Hike properties
-                </button>
-                <div id="hikeProperty-content" class="content">
-                    <div class="ratings-container">
-                        <div class="rating-label"><b>Landscape:</b></div>
-                        <%
-                            int i; //Declare variable for loops -> also used in further loops.
-                            int landscapeRating = hike.getHikeLandscape();
-                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < landscapeRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
+            <!-- Streckeneigenschaften -->
+            <button class="btn btn-light" onclick="toggleContent('hikeProperty')">Hike properties
+            </button>
+            <div id="hikeProperty-content" class="content">
+                <div class="ratings-container">
+                    <div class="rating-label"><b>Landscape:</b></div>
+                    <%
+                        int i; //Declare variable for loops -> also used in further loops.
+                        int landscapeRating = hike.getHikeLandscape();
+                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < landscapeRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
                             }
-                        %><br>
+                        }
+                    %><br>
 
                     <div class="rating-label"><b>Strength:</b></div>
                     <%
@@ -318,14 +419,14 @@
                                 <input class="form-control" type="text" id="poiTitle"
                                        placeholder="Your point of interests title ..."
                                        maxlength="40"
-                                required/>
+                                       required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels" for="poiDescription">Description:</label>
                                 <input class="form-control w-100" type="text" id="poiDescription"
                                        placeholder="Your point of interests description ..."
                                        maxlength="150"
-                                required/>
+                                       required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels"
@@ -341,25 +442,30 @@
                         <div class="col-md-8 d-flex flex-column">
 
                             <div style="max-height: 100%; margin: 1rem">
-                                <img id="imgDisplay" alt="" src="" style="max-width: 100%; max-height: 250px; object-fit: contain;">
+                                <img id="imgDisplay" alt="" src=""
+                                     style="max-width: 100%; max-height: 250px; object-fit: contain;">
                             </div>
                             <div style="margin-bottom: 1rem; margin-top: auto">
-                                <input class="form-control" type="file" id="poiImage" name="poiImage" onchange="displayImage()"/>
+                                <input class="form-control" type="file" id="poiImage" name="poiImage"
+                                       onchange="displayImage()"/>
                             </div>
 
                         </div>
                     </div>
                     <div style="margin-top: 30px">
-                        <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;" data-hike-id="<%=hike.getHikeId()%>">Add
+                        <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;"
+                                data-hike-id="<%=hike.getHikeId()%>">Add
                         </button>
                         <br>
                         <!-- This alert will be displayed if (for example), validation is not passed. -->
-                        <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
+                        <div id="validationAlert" class="alert alert-danger row-md" role="alert"
+                             style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
                         <div id="loadingDiv" style="display: none; margin-top: 10px; margin-bottom: 10px">
-                            <img src="images/loading.gif" style="height: 40px; width: 40px" alt="Loading..." />
+                            <img src="images/loading.gif" style="height: 40px; width: 40px" alt="Loading..."/>
                         </div>
                         <!-- This alert will be displayed once a POI has been successfully added. -->
-                        <div id="successAlert" class="alert alert-success row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;">
+                        <div id="successAlert" class="alert alert-success row-md" role="alert"
+                             style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;">
                             Your point of interest has been successfully added.
                         </div>
                     </div>
@@ -384,15 +490,15 @@
                 </div>
             </div>
 
-                <!-- Rezensionen -->
-                <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
-                <div id="review-content" class="content">
-                    <!-- TODO Rezensionen generieren -->
-                    <p>Here are some reviews of this hike.</p>
-                </div>
+            <!-- Rezensionen -->
+            <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
+            <div id="review-content" class="content">
+                <!-- TODO Rezensionen generieren -->
+                <p>Here are some reviews of this hike.</p>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
