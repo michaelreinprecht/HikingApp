@@ -95,17 +95,12 @@
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="OverallDifficultyFilter">Overall Difficulty (1-5):</label>
-            <input class="form-control" type="number" name="OverallDifficultyFilter" id="OverallDifficultyFilter" min="1" max="5" placeholder="No Filter">
-        </div>
-
-        <div class="col-md-2 mb-3">
             <label class="input-group-text" for="landscapeFilter">Landscape (1-5):</label>
             <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5" placeholder="No Filter">
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="strengthFilter">Min. Strength (1-5):</label>
+            <label class="input-group-text" for="strengthFilter">Max. Strength (1-5):</label>
             <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5" placeholder="No Filter">
         </div>
 
@@ -230,16 +225,6 @@
             }
         }
 
-        if (OverallDifficultyFilter != null && !OverallDifficultyFilter.isEmpty() && !OverallDifficultyFilter.equals("null")) {
-            try {
-                int difficulty = Integer.parseInt(OverallDifficultyFilter);
-                hikes = hikes.stream()
-                        .filter(hike -> hike.getHikeDifficulty() == difficulty)
-                        .collect(Collectors.toList());
-            } catch (NumberFormatException e) {
-                System.err.println("Fehler: overallDifficultyFilter ist keine gültige Zahl");
-            }
-        }
 
 
 

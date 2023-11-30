@@ -76,16 +76,6 @@ public class FilterHikesServlet extends HttpServlet {
             hikes = hikes.stream().filter(hike -> hike.getHikeStrength() == strength).collect(Collectors.toList());
         }
 
-
-        if (difficultyFilter != null && !difficultyFilter.isEmpty()) {
-            try {
-                int difficulty = Integer.parseInt(difficultyFilter);
-                hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == difficulty).collect(Collectors.toList());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-
         if (landscapeFilter != null && !landscapeFilter.isEmpty()) {
             try {
                 int landscape = Integer.parseInt(landscapeFilter);
