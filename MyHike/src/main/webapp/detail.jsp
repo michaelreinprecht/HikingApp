@@ -348,7 +348,7 @@
                                     if (route != null) {
                                         myMap.removeLayer(route);
                                     }
-                                    route = L.polyline(inverted, {color: 'blue'}).addTo(myMap);
+                                    route = L.polyline(inverted, {color: 'black'}).addTo(myMap);
                                 })
                                 .catch(error => {
                                     console.error('Error:', error);
