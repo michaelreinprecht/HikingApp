@@ -109,6 +109,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>RELEASE</version> <!-- Use the latest version available -->
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -10,7 +10,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Database {
     private static final JPAFacade facade = new JPAFacade();
-    private static final JPAHikeFacade hikeFacade = new JPAHikeFacade();
+    public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     private static final JPARegionFacade regionFacade = new JPARegionFacade();
     private static final JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
 
