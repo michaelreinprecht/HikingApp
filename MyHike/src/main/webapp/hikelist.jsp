@@ -19,6 +19,7 @@
 <%@ page import="java.math.BigDecimal" %>
 
 
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -74,89 +75,66 @@
 </form>
 
 
-<!-- Filter für Duration -->
-<div class="row mx-auto text-center">
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="durationFilter">Duration</label>
-        <select class="form-control" name="durationFilter" id="durationFilter">
-            <option value="00:00:00">No Filter</option>
-            <option value="01:00:00"><1h</option>
-            <option value="02:00:00">1-2h</option>
-            <option value="03:00:00">2-3h</option>
-            <option value="04:00:00">3-4h</option>
-            <option value="05:00:00">4-5h</option>
-        </select>
-    </div>
+<form method="post" action="hikelist.jsp">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
+            <div class="input-group">
+                <input class="form-control" name="durationFilter" id="durationFilter" type="time" required>
+            </div>
+        </div>
 
-    <!-- Filter für Distance -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="distanceFilter">Distance</label>
-        <select class="form-control" name="distanceFilter" id="distanceFilter">
-            <option value="null">No Filter</option>
-            <option value="10">0-10km</option> // 10 km
-            <option value="20">10-20km</option> // 20 km
-            <option value="30">20-30km</option> // 20-30 km
-        </select>
-    </div>
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="distanceFilter">Max. Distance (in km):</label>
+            <input class="form-control" type="number" name="distanceFilter" id="distanceFilter" placeholder="No Filter">
+        </div>
 
-    <!-- Filter für Stamina -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="staminaFilter">Stamina</label>
-        <select class="form-control" id="staminaFilter" name="staminaFilter">
-            <option value="null">No Filter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
+            <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5" placeholder="No Filter">
+        </div>
 
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="OverallDifficultyFilter">Overall Difficulty (1-5):</label>
+            <input class="form-control" type="number" name="OverallDifficultyFilter" id="OverallDifficultyFilter" min="1" max="5" placeholder="No Filter">
+        </div>
 
-    <!-- Filter für Strength -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="strengthFilter">Strength</label>
-        <select class="form-control" name="strengthFilter" id="strengthFilter">
-            <option value="null">No Filter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="landscapeFilter">Landscape (1-5):</label>
+            <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5" placeholder="No Filter">
+        </div>
 
-    <!-- Filter für Experience -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="experienceFilter">Experience</label>
-        <select class="form-control" name="experienceFilter" id="experienceFilter">
-            <option value="null">No Filter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="strengthFilter">Min. Strength (1-5):</label>
+            <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5" placeholder="No Filter">
+        </div>
 
-    <!-- Filter für Monate -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="monateFilter">Select Months</label>
-        <select class="form-control" id="monateFilter" name="monateFilter">
-            <%
-                String selectedMonthsBitmap = "";
-                String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="monateFilter">Select Months</label>
+            <select class="form-control" id="monateFilter" name="monateFilter">
+                   <%
+                    String selectedMonthsBitmap = "";
+                    String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
 
-                for(String month: models.Month.ALL_MONTHS) { %>
-            <option value="<%=month%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
-                <%=month%>
-            </option>
-            <% } %>
-        </select>
-        <div class="col-md-6.5 offset-md-6.5 text-right col-md-14 mt-5">
-            <button type="submit" formmethod="post" class="btn btn-success">Filter</button>
+                  for(String month: models.Month.ALL_MONTHS) { %>
+                <option value="<%=month%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
+                    <%=month%>
+                </option>
+                <% } %>
+            </select>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6 offset-md-6 text-right">
+            <button type="submit" class="btn btn-success">Apply Filters</button>
+        </div>
+    </div>
+</form>
+
+
+
+
 
 <div class="container">
     <!-- Header -->
@@ -181,6 +159,92 @@
 
         }
         List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
+
+        // TODO
+        String durationFilter = request.getParameter("durationFilter");
+        String distanceFilter = request.getParameter("distanceFilter");
+        String staminaFilter = request.getParameter("staminaFilter");
+        String strengthFilter = request.getParameter("strengthFilter");
+        String landscapeFilter = request.getParameter("landscapeFilter");
+        String monateFilter = request.getParameter("monateFilter");
+        String OverallDifficultyFilter = request.getParameter("OverallDifficultyFilter");
+
+        //Apply filters
+        if (durationFilter != null && !durationFilter.isEmpty()) {
+            try {
+                String formattedDuration = durationFilter + ":00";
+                Time duration = Time.valueOf(formattedDuration);
+
+                hikes = hikes.stream()
+                        .filter(hike ->
+                                hike.getHikeDuration() != null &&
+                                        hike.getHikeDuration().toLocalTime().compareTo(duration.toLocalTime()) <= 0
+                        )
+                        .collect(Collectors.toList());
+            } catch (IllegalArgumentException e) {
+                System.err.println("Fehler: durationFilter ist kein gültiges Zeitformat");
+            }
+        }
+
+        if (distanceFilter != null && !distanceFilter.isEmpty()) {
+            try {
+                BigDecimal distance = new BigDecimal(distanceFilter);
+                BigDecimal upperBound = distance.add(new BigDecimal("10"));
+
+                hikes = hikes.stream()
+                        .filter(hike -> {
+                            BigDecimal hikeDistance = hike.getHikeDistance();
+                            return hikeDistance != null &&
+                                    hikeDistance.compareTo(distance) >= 0 &&
+                                    hikeDistance.compareTo(upperBound) <= 0;
+                        })
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                System.err.println("Fehler: distanceFilter ist keine gültige Zahl");
+            }
+        }
+
+
+        if (staminaFilter != null && !staminaFilter.isEmpty() && !staminaFilter.equals("null")) {
+            int stamina = Integer.parseInt(staminaFilter);
+            hikes = hikes.stream()
+                    .filter(hike -> hike.getHikeStamina() == stamina)
+                    .collect(Collectors.toList());
+        }
+
+        if (strengthFilter != null && !strengthFilter.isEmpty() && !strengthFilter.equals("null")) {
+            int strength = Integer.parseInt(strengthFilter);
+            hikes = hikes.stream()
+                    .filter(hike -> hike.getHikeStrength() == strength)
+                    .collect(Collectors.toList());
+        }
+
+        if (landscapeFilter != null && !landscapeFilter.isEmpty() && !landscapeFilter.equals("null")) {
+            try {
+                int landscape = Integer.parseInt(landscapeFilter);
+                hikes = hikes.stream()
+                        .filter(hike -> hike.getHikeLandscape() == landscape)
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                System.err.println("Fehler: landscapeFilter ist keine gültige Zahl");
+            }
+        }
+
+        if (OverallDifficultyFilter != null && !OverallDifficultyFilter.isEmpty() && !OverallDifficultyFilter.equals("null")) {
+            try {
+                int difficulty = Integer.parseInt(OverallDifficultyFilter);
+                hikes = hikes.stream()
+                        .filter(hike -> hike.getHikeDifficulty() == difficulty)
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                System.err.println("Fehler: overallDifficultyFilter ist keine gültige Zahl");
+            }
+        }
+
+
+
+        // TODO
+
         if (filteredHikes != null && !filteredHikes.isEmpty()){
             hikes = filteredHikes;
         }
@@ -189,7 +253,7 @@
             noMatchingHikesFound = true;
         }
 
-        if (noMatchingHikesFound) {
+        if(hikes == null || hikes.isEmpty()){
     %>
     </div>
     <div class="alert alert-warning" role="alert">
@@ -281,63 +345,16 @@
                         }
                     %><br>
                 </div>
-
                 <!-- Beschreibung -->
                 <p><%= hike.getHikeDescription() %></p>
             </div>
         </div>
     </div>
+    <% } %>
     <!-- Trennlinie -->
     <hr size="8" color="green">
-    <% } } %>
+    <% } %>
 </div>
-        <%
-
-            if (request.getMethod().equalsIgnoreCase("post")) {
-                String durationFilter = request.getParameter("durationFilter");
-                String distanceFilter = request.getParameter("distanceFilter");
-                String staminaFilter = request.getParameter("staminaFilter");
-                String strengthFilter = request.getParameter("strengthFilter");
-                String experienceFilter = request.getParameter("experienceFilter");
-
-                if (durationFilter != null) {
-                    Time duration = Time.valueOf(durationFilter);
-                    hikes = hikes.stream().filter(hike ->
-                                    hike.getHikeDuration().compareTo(duration) < Integer.parseInt(durationFilter) ||
-                                            hike.getHikeDuration().compareTo(duration) > Integer.parseInt(durationFilter)-1
-                            )
-                            .collect(Collectors.toList());
-                }
-
-                if (distanceFilter != null){
-                    BigDecimal distance = new BigDecimal(distanceFilter);
-                    hikes = hikes.stream().filter(hike ->
-                                    hike.getHikeDistance().compareTo(distance) < Integer.parseInt(distanceFilter) ||
-                                            hike.getHikeDistance().compareTo(distance) > Integer.parseInt(distanceFilter)-10)
-                            .collect(Collectors.toList());
-                }
-
-
-                if (staminaFilter != null){
-                    hikes = hikes.stream().filter(hike -> hike.getHikeStamina() == Integer.parseInt(staminaFilter))
-                            .collect(Collectors.toList());
-                }
-
-                if (strengthFilter != null){
-                    hikes = hikes.stream().filter(hike -> hike.getHikeStrength() == Integer.parseInt(strengthFilter))
-                            .collect(Collectors.toList());
-                }
-
-                if (experienceFilter != null){
-                    hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == Integer.parseInt(experienceFilter))
-                            .collect(Collectors.toList());
-                }
-
-                request.setAttribute("filteredHikes", hikes);
-            }
-        %>
-
-
 
 
 
