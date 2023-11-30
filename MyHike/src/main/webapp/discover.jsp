@@ -45,6 +45,11 @@
         <a class="nav-link" href="create.jsp">Create Hike</a>
       </li>
     </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="login.jsp">Login</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -138,9 +143,6 @@
   </div>
 
 </div>
-
-
-
 
 </body>
 </html>

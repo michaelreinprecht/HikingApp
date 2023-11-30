@@ -3,7 +3,6 @@
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="models.Month" %>
-<%@ page import="javax.xml.crypto.Data" %>
 <%@ page import="models.PointOfInterest" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
