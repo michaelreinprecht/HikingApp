@@ -54,6 +54,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+    <script src="jetbrains://idea/navigate/reference?project=Database.java&path=node_modules/polyline-encoded/Polyline.encoded.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -222,9 +223,19 @@
                     // Array to store markers
                     let markers = [];
 
+                    //Holds the last drawn hiking route.
+                    let route;
+
+                    let yourLocationIcon = L.icon({
+                        iconUrl: 'images/your-location-icon.png',
+                        iconSize: [50, 50],
+                        iconAnchor: [25, 50],
+                        popupAnchor: [0, -50]
+                    });
+
                     // Define a function to handle location found event
                     function onLocationFound(e) {
-                        L.marker(e.latlng).addTo(myMap).bindPopup("You are here!");
+                        L.marker(e.latlng).setIcon(yourLocationIcon).addTo(myMap).bindPopup("You are here!");
                     }
 
                     // Listen for the location found event
@@ -232,47 +243,58 @@
                     myMap.on('locationfound', onLocationFound);
 
                     function onMapClick(e) {
-                        // Check if there are already two markers
-
-                        // Determine the popup content based on the marker count
-                        let popupContent = (markers.length === 0) ? "The start of your hike" : "The end of your hike";
-
                         // Add a marker at the clicked location with the popup
-                        let marker = L.marker(e.latlng).addTo(myMap).on('dblclick', onMarkerClick);
-                        marker.bindPopup(popupContent).openPopup();
+                        let marker = L.marker(e.latlng, { draggable: true }).addTo(myMap).on('click', onMarkerClick);
 
                         // Store the marker in the array
                         markers.push(marker);
+                        displayHikingRoute(markers);
+                        setMarkerIcons(markers);
 
-                        // If two markers are added, do something (e.g., calculate distance)
-                        if (markers.length === 2) {
-                            // Example: Calculate distance between two markers
-                            let latlng1 = markers[0].getLatLng();
-                            let latlng2 = markers[1].getLatLng();
-                            let distance = myMap.distance(latlng1, latlng2);
-                            console.log('Distance between markers: ' + distance.toFixed(2) + ' meters');
-                        }
+                        // Listen for dragend event to update route when the marker is dragged
+                        marker.on('dragend', function () {
+                            displayHikingRoute(markers);
+                        });
+                    }
 
-                        // Create a custom icon
+
+                    // Listen for the 'click' event for general map clicks
+                    myMap.on('click', onMapClick);
+
+                    // Define a function to handle marker click event
+                    function onMarkerClick(e) {
+                        // Remove the clicked marker from the map
+                        myMap.removeLayer(e.target);
+                        // Remove the marker from the array
+                        markers = markers.filter(marker => marker !== e.target);
+                        displayHikingRoute(markers);
+                        setMarkerIcons(markers);
+                    }
+
+                    // Listen for the 'click' event for marker clicks
+                    myMap.on('click', onMarkerClick);
+
+
+
+                    //Sets first marker icon to start-icon, last to finish-icon and all other to waypoint-icon.
+                    function setMarkerIcons(markers) {
                         let startIcon = L.icon({
-                            iconUrl: 'images/start-icon.png',  // Replace with the path to your custom icon
-                            iconSize: [32, 32],  // Adjust the size of your icon
-                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
-                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                            iconUrl: 'images/start-icon.png',
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 32],
+                            popupAnchor: [0, -32]
                         });
-                        // Create a custom icon
                         let finishIcon = L.icon({
-                            iconUrl: 'images/finish-icon.png',  // Replace with the path to your custom icon
-                            iconSize: [32, 32],  // Adjust the size of your icon
-                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
-                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                            iconUrl: 'images/finish-icon.png',
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 32],
+                            popupAnchor: [0, -32]
                         });
-                        // Create a custom icon
                         let waypointIcon = L.icon({
-                            iconUrl: 'images/waypoint-icon.png',  // Replace with the path to your custom icon
-                            iconSize: [32, 32],  // Adjust the size of your icon
-                            iconAnchor: [16, 32],  // Adjust the anchor point if needed
-                            popupAnchor: [0, -32]  // Adjust the popup anchor if needed
+                            iconUrl: 'images/waypoint-icon.png',
+                            iconSize: [32, 32],
+                            iconAnchor: [16, 32],
+                            popupAnchor: [0, -32]
                         });
 
                         markers.forEach((x) => x.setIcon(waypointIcon));
@@ -284,20 +306,55 @@
                         }
                     }
 
-                    // Listen for the 'click' event for general map clicks
-                    myMap.on('click', onMapClick);
+                    //Displays the hiking route for the given markers. Based on routing by openroute service API.
+                    function displayHikingRoute(markers) {
+                        // OpenRouteService API request
+                        let url = "https://api.openrouteservice.org/v2/directions/foot-hiking/geojson";
+                        let apiKey = "5b3ce3597851110001cf624862d0477273784a3cb757ffdea96c0fff";
 
-                    // Define a function to handle marker click event
-                    function onMarkerClick(e) {
-                        // Remove the clicked marker from the map
-                        myMap.removeLayer(e.target);
 
-                        // Remove the marker from the array
-                        markers = markers.filter(marker => marker !== e.target);
+                        let coordinates = [];
+                        markers.forEach((marker) => {
+                            coordinates.push([marker._latlng.lng, marker._latlng.lat]);
+                        });
+
+                        let body = {
+                            coordinates: coordinates,
+                            continue_straight: true
+                        };
+
+                        if (coordinates.length >= 2) {
+                            fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+                                    'Content-Type': 'application/json',
+                                    'Authorization': apiKey,
+                                },
+                                body: JSON.stringify(body)
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Response:', data);
+
+                                    // Extract the route geometry
+                                    let routeCoordinates = data.features[0].geometry.coordinates;
+                                    let inverted = [];
+                                    routeCoordinates.forEach((coordinate) => {
+                                        inverted.push([coordinate[1], coordinate[0]]);
+                                    });
+
+                                    // Display the route on the map
+                                    if (route != null) {
+                                        myMap.removeLayer(route);
+                                    }
+                                    route = L.polyline(inverted, {color: 'blue'}).addTo(myMap);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
                     }
-
-                    // Listen for the 'click' event for marker clicks
-                    myMap.on('click', onMarkerClick);
                 </script>
             </div>
         </div>
