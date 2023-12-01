@@ -14,10 +14,7 @@ public class Hike {
     private String hikeId;
     private String hikeName;
     private String hikeDescription;
-    private BigDecimal hikeStartLon;
-    private BigDecimal hikeStartLat;
-    private BigDecimal hikeEndLon;
-    private BigDecimal hikeEndLat;
+    private String hikeMarkerCoordinates;
     private Time hikeDuration;
     private Integer hikeAltitude;
     private BigDecimal hikeDistance;
@@ -33,14 +30,11 @@ public class Hike {
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, BigDecimal hikeStartLon, BigDecimal hikeStartLat, BigDecimal hikeEndLon, BigDecimal hikeEndLat, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeMarkerCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
-        this.hikeStartLon = hikeStartLon;
-        this.hikeStartLat = hikeStartLat;
-        this.hikeEndLon = hikeEndLon;
-        this.hikeEndLat = hikeEndLat;
+        this.hikeMarkerCoordinates = hikeMarkerCoordinates;
         this.hikeDuration = hikeDuration;
         this.hikeAltitude = hikeAltitude;
         this.hikeDistance = hikeDistance;
@@ -81,36 +75,12 @@ public class Hike {
         this.hikeDescription = hikeDescription;
     }
 
-    @Column(name = "hike_start_lon", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeStartLon() {
-        return hikeStartLon;
+    @Column(name = "hike_marker_coordinates", nullable = false)
+    public String getHikeMarkerCoordinates() {
+        return hikeMarkerCoordinates;
     }
-    public void setHikeStartLon(BigDecimal hikeStartLon) {
-        this.hikeStartLon = hikeStartLon;
-    }
-
-    @Column(name = "hike_start_lat", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeStartLat() {
-        return hikeStartLat;
-    }
-    public void setHikeStartLat(BigDecimal hikeStartLat) {
-        this.hikeStartLat = hikeStartLat;
-    }
-
-    @Column(name = "hike_end_lon", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeEndLon() {
-        return hikeEndLon;
-    }
-    public void setHikeEndLon(BigDecimal hikeEndLon) {
-        this.hikeEndLon = hikeEndLon;
-    }
-
-    @Column(name = "hike_end_lat", precision = 9, scale = 6, nullable = false)
-    public BigDecimal getHikeEndLat() {
-        return hikeEndLat;
-    }
-    public void setHikeEndLat(BigDecimal hikeEndLat) {
-        this.hikeEndLat = hikeEndLat;
+    public void setHikeMarkerCoordinates(String hikeMarkerCoordinates) {
+        this.hikeMarkerCoordinates = hikeMarkerCoordinates;
     }
 
     @Column(name = "hike_duration")
@@ -218,10 +188,7 @@ public class Hike {
                 "hikeId='" + hikeId + '\'' +
                 ", hikeName='" + hikeName + '\'' +
                 ", hikeDescription='" + hikeDescription + '\'' +
-                ", hikeStartLon=" + hikeStartLon +
-                ", hikeStartLat=" + hikeStartLat +
-                ", hikeEndLon=" + hikeEndLon +
-                ", hikeEndLat=" + hikeEndLat +
+                ", hikeMarkerCoordinates=" + hikeMarkerCoordinates +
                 ", hikeDuration=" + hikeDuration +
                 ", hikeAltitude=" + hikeAltitude +
                 ", hikeDistance=" + hikeDistance +

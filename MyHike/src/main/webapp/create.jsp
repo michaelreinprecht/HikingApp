@@ -92,20 +92,6 @@
                         </select>
                     </div>
 
-                    <!-- Start Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">Start Location:</label><br>
-                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456"><br>
-                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456">
-                    </div>
-
-                    <!-- End Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">End Location:</label><br>
-                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456"><br>
-                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456">
-                    </div>
-
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>

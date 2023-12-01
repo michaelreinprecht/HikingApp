@@ -6,7 +6,6 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="models.PointOfInterest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
@@ -73,7 +72,7 @@
 <form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
         <div class="row">
-            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates="[[49.41461,8.681495],[49.41943,8.686507],[49.420318,8.687872]]"></div> <!-- TODO replace with data from db -->
+            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates="<%=hike.getHikeMarkerCoordinates()%>"></div> <!-- TODO replace with data from db -->
             <input id="marker-coordinates" name="marker-coordinates" hidden="hidden">
         </div>
         <div class="row">
@@ -106,20 +105,6 @@
                                 }
                             %>
                         </select>
-                    </div>
-
-                    <!-- Start Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">Start Location:</label><br>
-                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456" value="<%=hike.getHikeStartLon()%>"><br>
-                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456" value="<%=hike.getHikeStartLat()%>">
-                    </div>
-
-                    <!-- End Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">End Location:</label><br>
-                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456" value="<%=hike.getHikeEndLon()%>"><br>
-                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456" value="<%=hike.getHikeEndLat()%>">
                     </div>
 
                     <!-- Altitude-->

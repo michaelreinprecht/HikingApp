@@ -207,7 +207,7 @@
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <div id="map" style="height: 100%; width: 100%;" data-marker-coordinates="[[49.41461,8.681495],[49.41943,8.686507],[49.420318,8.687872]]"></div> <!-- TODO replace with data from db -->
+                <div id="map" style="height: 100%; width: 100%;" data-marker-coordinates="<%=hike.getHikeMarkerCoordinates()%>"></div> <!-- TODO replace with data from db -->
             </div>
         </div>
 
@@ -407,7 +407,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
