@@ -44,11 +44,6 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
 
-    <!-- Link to detail.js -->
-    <script src="js/detail.js"></script>
-    <script src="js/createMap.js"></script>
-
-
     <!-- Leaflet import -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -56,7 +51,10 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
-    <script src="jetbrains://idea/navigate/reference?project=Database.java&path=node_modules/polyline-encoded/Polyline.encoded.js"></script>
+
+    <!-- Link to detail.js -->
+    <script src="js/detail.js"></script>
+    <script src="js/detailMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -209,7 +207,7 @@
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <div id="map" style="height: 100%; width: 100%;"></div>
+                <div id="map" style="height: 100%; width: 100%;" data-marker-coordinates="[[49.41461,8.681495],[49.41943,8.686507],[49.420318,8.687872]]"></div> <!-- TODO replace with data from db -->
             </div>
         </div>
 

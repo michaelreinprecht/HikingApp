@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Your existing JavaScript code goes here
-
-
     // Create a new Leaflet map object
     //Start coordinates are focused on Vorarlberg
     let myMap = L.map('map').setView([47.21329, 9.95118], 9);

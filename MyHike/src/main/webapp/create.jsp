@@ -18,10 +18,20 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
+    <!-- JQuery import -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Link to create_edit.js -->
     <script src="js/create_edit.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/editMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
