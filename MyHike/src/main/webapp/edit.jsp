@@ -23,10 +23,19 @@
     <!-- Link to edit.css -->
     <link rel="stylesheet" href="css/edit.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Link to .js -->
     <script src="js/create_edit.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/editMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -63,6 +72,10 @@
 
 <form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
+        <div class="row">
+            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates="[[49.41461,8.681495],[49.41943,8.686507],[49.420318,8.687872]]"></div> <!-- TODO replace with data from db -->
+            <input id="marker-coordinates" name="marker-coordinates" hidden="hidden">
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="leftSide">

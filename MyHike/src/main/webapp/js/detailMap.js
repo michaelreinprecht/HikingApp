@@ -4,16 +4,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const markerCoordinatesString = mapElement.getAttribute('data-marker-coordinates');
     let markerCoordinates = JSON.parse(markerCoordinatesString)
 
+    //Holds the leaflet map
+    let myMap;
+    //Array to store markers
+    let markers = [];
+
     //Focus on coordinates of start marker
-    let myMap = L.map('map').setView([markerCoordinates[0][0],markerCoordinates[0][1]], 15);
+    myMap = L.map('map').setView([markerCoordinates[0][0],markerCoordinates[0][1]], 15);
 
     //Copyright of Leaflet
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(myMap);
-
-    // Array to store markers
-    let markers = [];
 
     //Generate markers from the coordinates and add them to markers array.
     markerCoordinates.forEach((markerCoordinate) => {
