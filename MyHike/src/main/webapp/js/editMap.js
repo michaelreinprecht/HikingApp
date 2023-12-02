@@ -32,9 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '© OpenStreetMap contributors'
     }).addTo(myMap);
 
-    updateMarkerUsingCoordinates();
-    displayHikingRoute(markers);
-    updateMarkers(markers);
+    updateMarkersUsingCoordinates();
+    updateMap(markers);
 
     //Handle locationfound event. If user allows us to, we will set the location to his current location.
     function onLocationFound(e) {
@@ -55,19 +54,13 @@ document.addEventListener('DOMContentLoaded', function () {
     //Add a marker and redo routing (and marker icons) if marker is added or dragged
     function onMapClick(e) {
         // Add a marker at the clicked location with the popup
-        let marker = L.marker(e.latlng, { draggable: true }).addTo(myMap).on('click', onMarkerClick);
+        let marker = L.marker(e.latlng, { draggable: true }).addTo(myMap);
 
         // Store the marker and coordinates in their respective array
         markers.push(marker);
         markerCoordinates.push([e.latlng.lat, e.latlng.lng]);
 
-        displayHikingRoute(markers);
-        updateMarkers(markers);
-
-        // Listen for dragend event to update route when the marker is dragged
-        marker.on('dragend', function () {
-            displayHikingRoute(markers);
-        });
+        updateMap(markers);
     }
 
     // Listen for the 'click' event for general map clicks
@@ -80,12 +73,21 @@ document.addEventListener('DOMContentLoaded', function () {
         // Remove the marker from the array
         markers = markers.filter(marker => marker !== e.target);
 
-        displayHikingRoute(markers);
-        updateMarkers(markers);
+        updateMap(markers);
     }
 
     // Listen for the 'click' event for marker clicks
     myMap.on('click', onMarkerClick);
+
+    function onMarkerDragged() {
+        displayHikingRoute(markers);
+    }
+
+    //Updates the Map with a new route and new markers, based on the given markers array.
+    function updateMap(markers) {
+        displayHikingRoute(markers);
+        updateMarkers(markers);
+    }
 
     //Sets first marker icon to start-icon, last to finish-icon and all other to waypoint-icon.
     function updateMarkers(markers) {
@@ -108,12 +110,17 @@ document.addEventListener('DOMContentLoaded', function () {
             popupAnchor: [0, -32]
         });
 
-        markers.forEach((x) => x.addTo(myMap).setIcon(waypointIcon));
+        markers.forEach((marker) => {
+            marker.addTo(myMap).setIcon(waypointIcon); //Set all markers to waypoint icon.
+            marker.on('click', onMarkerClick) //Listen vor 'click' event on marker.
+            marker.on('dragend', onMarkerDragged); //Listen vor 'dragend' event on marker.
+            marker.dragging.enable(); //Enable dragging the marker -> default is disabled.
+        });
         if (markers[0] != null) {
-            markers[0].setIcon(startIcon);
+            markers[0].setIcon(startIcon); //Set Icon for start marker
         }
         if (markers.length > 1) {
-            markers[markers.length-1].setIcon(finishIcon);
+            markers[markers.length-1].setIcon(finishIcon); //Set Icon for finish marker
         }
     }
 
@@ -159,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     route = L.polyline(inverted, {color: 'black'}).addTo(myMap);
 
-                    updateCoordinatesUsingMarker();
+                    updateCoordinatesUsingMarkers();
                     updateFormValues();
                 })
                 .catch(error => {
@@ -168,14 +175,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function updateMarkerUsingCoordinates() {
+    //Updates the markers array using the markerCoordinates array. (opposite is updateCoordinatesUsingMarkers)
+    function updateMarkersUsingCoordinates() {
         //Generate markers from the coordinates and add them to markers array.
         markerCoordinates.forEach((markerCoordinate) => {
             markers.push(L.marker([markerCoordinate[0], markerCoordinate[1]]));
         });
     }
 
-    function updateCoordinatesUsingMarker() {
+    //Updates the markerCoordinates array using the markers array. (opposite is updateMarkersUsingCoordinates)
+    function updateCoordinatesUsingMarkers() {
         markerCoordinates = [];
         markers.forEach((marker) => {
             markerCoordinates.push([marker._latlng.lat, marker._latlng.lng]);
