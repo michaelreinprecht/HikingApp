@@ -6,7 +6,6 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="models.PointOfInterest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
@@ -23,10 +22,19 @@
     <!-- Link to edit.css -->
     <link rel="stylesheet" href="css/edit.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Link to .js -->
     <script src="js/create_edit.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/editMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -64,6 +72,10 @@
 <form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
         <div class="row">
+            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates="<%=hike.getHikeMarkerCoordinates()%>"></div> <!-- TODO replace with data from db -->
+            <input id="marker-coordinates" name="marker-coordinates" hidden="hidden">
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="leftSide">
                     <!-- Name -->
@@ -93,20 +105,6 @@
                                 }
                             %>
                         </select>
-                    </div>
-
-                    <!-- Start Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">Start Location:</label><br>
-                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456" value="<%=hike.getHikeStartLon()%>"><br>
-                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456" value="<%=hike.getHikeStartLat()%>">
-                    </div>
-
-                    <!-- End Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">End Location:</label><br>
-                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456" value="<%=hike.getHikeEndLon()%>"><br>
-                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456" value="<%=hike.getHikeEndLat()%>">
                     </div>
 
                     <!-- Altitude-->

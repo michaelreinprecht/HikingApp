@@ -19,7 +19,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=hike.getHikeName()%></title>
+    <title><%=hike.getHikeName()%>
+    </title>
 
     <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -43,8 +44,17 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
 
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Link to detail.js -->
     <script src="js/detail.js"></script>
+    <script src="js/detailMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -98,13 +108,13 @@
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
-            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data">
+            <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
+                  enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </div>
 </div>
-
 
 
 <!-- Hike Details -->
@@ -115,7 +125,7 @@
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no duration we will instead just display a question mark
+                    <% //Null-Value check, if there is no duration we will instead just display a question mark
                         // (TODO generate duration automatically if it has no value)
                         if (hike.getHikeDuration() != null) {
                             LocalTime localTime = hike.getHikeDuration().toLocalTime();
@@ -135,7 +145,7 @@
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeDistance() != null) {
                     %>
@@ -152,7 +162,7 @@
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">
                 <h5 class="text-center">
-                    <%  //Null-Value check, if there is no distance we will instead just display a question mark
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
                         // (TODO generate distance automatically if it has no value)
                         if (hike.getHikeAltitude() != null) {
                     %>
@@ -178,7 +188,7 @@
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
                         //TODO explain what is being generated
-                        for (String rec: recommended) {
+                        for (String rec : recommended) {
                             if (rec != null) {
                     %>
                     <%=rec%>
@@ -197,7 +207,7 @@
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <img src="images/map.png" alt="Karte" class="map">
+                <div id="map" style="height: 100%; width: 100%;" data-marker-coordinates="<%=hike.getHikeMarkerCoordinates()%>"></div> <!-- TODO replace with data from db -->
             </div>
         </div>
 
@@ -212,32 +222,32 @@
                 </p>
             </div>
 
-                <!-- Streckeneigenschaften -->
-                <button class="btn btn-light" onclick="toggleContent('hikeProperty')">Hike properties
-                </button>
-                <div id="hikeProperty-content" class="content">
-                    <div class="ratings-container">
-                        <div class="rating-label"><b>Landscape:</b></div>
-                        <%
-                            int i; //Declare variable for loops -> also used in further loops.
-                            int landscapeRating = hike.getHikeLandscape();
-                            //Display a number of "active" and "inactive" stars, depending on the landscapeRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < landscapeRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
+            <!-- Streckeneigenschaften -->
+            <button class="btn btn-light" onclick="toggleContent('hikeProperty')">Hike properties
+            </button>
+            <div id="hikeProperty-content" class="content">
+                <div class="ratings-container">
+                    <div class="rating-label"><b>Landscape:</b></div>
+                    <%
+                        int i; //Declare variable for loops -> also used in further loops.
+                        int landscapeRating = hike.getHikeLandscape();
+                        //Display a number of "active" and "inactive" stars, depending on the landscapeRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < landscapeRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
                             }
-                        %><br>
+                        }
+                    %><br>
 
                     <div class="rating-label"><b>Strength:</b></div>
                     <%
@@ -318,14 +328,14 @@
                                 <input class="form-control" type="text" id="poiTitle"
                                        placeholder="Your point of interests title ..."
                                        maxlength="40"
-                                required/>
+                                       required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels" for="poiDescription">Description:</label>
                                 <input class="form-control w-100" type="text" id="poiDescription"
                                        placeholder="Your point of interests description ..."
                                        maxlength="150"
-                                required/>
+                                       required/>
                             </div>
                             <div class="form-group">
                                 <label style="text-align: start; width: 100%;" class="labels"
@@ -341,25 +351,30 @@
                         <div class="col-md-8 d-flex flex-column">
 
                             <div style="max-height: 100%; margin: 1rem">
-                                <img id="imgDisplay" alt="" src="" style="max-width: 100%; max-height: 250px; object-fit: contain;">
+                                <img id="imgDisplay" alt="" src=""
+                                     style="max-width: 100%; max-height: 250px; object-fit: contain;">
                             </div>
                             <div style="margin-bottom: 1rem; margin-top: auto">
-                                <input class="form-control" type="file" id="poiImage" name="poiImage" onchange="displayImage()"/>
+                                <input class="form-control" type="file" id="poiImage" name="poiImage"
+                                       onchange="displayImage()"/>
                             </div>
 
                         </div>
                     </div>
                     <div style="margin-top: 30px">
-                        <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;" data-hike-id="<%=hike.getHikeId()%>">Add
+                        <button id="addPOIButton" type="button" class="btn btn-success" style="width: 100%;"
+                                data-hike-id="<%=hike.getHikeId()%>">Add
                         </button>
                         <br>
                         <!-- This alert will be displayed if (for example), validation is not passed. -->
-                        <div id="validationAlert" class="alert alert-danger row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
+                        <div id="validationAlert" class="alert alert-danger row-md" role="alert"
+                             style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;"></div>
                         <div id="loadingDiv" style="display: none; margin-top: 10px; margin-bottom: 10px">
-                            <img src="images/loading.gif" style="height: 40px; width: 40px" alt="Loading..." />
+                            <img src="images/loading.gif" style="height: 40px; width: 40px" alt="Loading..."/>
                         </div>
                         <!-- This alert will be displayed once a POI has been successfully added. -->
-                        <div id="successAlert" class="alert alert-success row-md" role="alert" style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;">
+                        <div id="successAlert" class="alert alert-success row-md" role="alert"
+                             style="clear:both; display: none; margin-bottom: 10px; margin-top: 10px;">
                             Your point of interest has been successfully added.
                         </div>
                     </div>
@@ -384,12 +399,11 @@
                 </div>
             </div>
 
-                <!-- Rezensionen -->
-                <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
-                <div id="review-content" class="content">
-                    <!-- TODO Rezensionen generieren -->
-                    <p>Here are some reviews of this hike.</p>
-                </div>
+            <!-- Rezensionen -->
+            <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
+            <div id="review-content" class="content">
+                <!-- TODO Rezensionen generieren -->
+                <p>Here are some reviews of this hike.</p>
             </div>
         </div>
     </div>

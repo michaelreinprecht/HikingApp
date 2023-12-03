@@ -1,6 +1,12 @@
+import facade.JPAHikeFacade;
 import models.Month;
+import myHikeJava.Database;
 import org.junit.*;
 import org.junit.Assert;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MonthConvertionTest {
     @Test
@@ -17,5 +23,13 @@ public class MonthConvertionTest {
         String expectedResult = "101010101010";
         String bitmap = Month.getBitmapFromMonths(months);
         Assert.assertEquals(bitmap, expectedResult);
+    }
+
+    @Test
+    public void ExampleDBTestWithMocking() {
+        //Database.hikeFacade = mock(JPAHikeFacade.class);
+        //when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(new Hike());
+
+        //Assert.assertTrue();
     }
 }
