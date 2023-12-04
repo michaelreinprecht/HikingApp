@@ -275,17 +275,7 @@
     <hr size="8" color="green">
     <% } } %>
 </div>
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 

@@ -9,10 +9,10 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Database {
-    private static final JPAFacade facade = new JPAFacade();
-    private static final JPAHikeFacade hikeFacade = new JPAHikeFacade();
-    private static final JPARegionFacade regionFacade = new JPARegionFacade();
-    private static final JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
+    private static JPAFacade facade = new JPAFacade();
+    public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
+    private static JPARegionFacade regionFacade = new JPARegionFacade();
+    private static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) {
