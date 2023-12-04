@@ -1,6 +1,9 @@
 package myHikeJava;
 
-import facade.*;
+import facade.JPAFacade;
+import facade.JPAHikeFacade;
+import facade.JPAPointOfInterestFacade;
+import facade.JPARegionFacade;
 import models.Hike;
 import models.PointOfInterest;
 import models.Region;
