@@ -7,17 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="models.Month" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="models.Region" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.LocalTime" %>
-<%@ page import="java.util.stream.Collectors" %>
 <%@ page import="java.util.Arrays" %>
-<%@ page import="java.sql.Time" %>
-<%@ page import="java.math.BigDecimal" %>
-
+<%@ page import="models.Month" %>
 
 
 <html>
@@ -80,7 +75,7 @@
         <div class="col-md-2 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
             <div class="input-group">
-                <input class="form-control" name="durationFilter" id="durationFilter" type="time" required>
+                <input class="form-control" name="durationFilter" id="durationFilter" type="time">
             </div>
         </div>
 
@@ -111,8 +106,9 @@
                     String selectedMonthsBitmap = "";
                     String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
 
-                  for(String month: models.Month.ALL_MONTHS) { %>
-                <option value="<%=month%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
+                  for(int monthIndex = 0; monthIndex < Month.ALL_MONTHS.length; monthIndex++) {
+                   String month = models.Month.ALL_MONTHS[monthIndex];%>
+                <option value="<%=monthIndex%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
                     <%=month%>
                 </option>
                 <% } %>
