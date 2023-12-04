@@ -58,22 +58,25 @@
      style="background-image: url(images/nature.jpg);
      background-size: cover;
      background-position: center center;
-     height: 60%">
-  <h1 class="mb-3 h2" style="margin-top: 100px">Discover a whole new adventure</h1>
+     height: 60%;">
+  <div style="background-color: rgba(0, 0, 0, 0.5); margin-left: 20%; margin-right: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
-  <form method="POST" action="hikelist.jsp">
-    <div class="input-group mb-3 mx-auto" style="width: 500px">
-      <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-             placeholder="Search a hike by name or region!" style="background-color: rgba(255, 255, 255, 0.8)">
+    <form method="POST" action="hikelist.jsp">
+      <div class="input-group mb-3" style="width: 500px">
+        <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
+               placeholder="Search a hike by name or region!" style="background-color: rgba(255, 255, 255, 0.8)">
 
-          <button type="submit" class="btn btn-primary" data-mdb-ripple-init style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
-            <i class="fas fa-search"></i>
-          </button>
-    </div>
-  </form>
+        <button type="submit" class="btn btn-primary" data-mdb-ripple-init style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
 
-  <p> This is a test</p>
+    <p>This is a test</p>
   </div>
+
+</div>
 
 
 <div class="jumbotron jumbotron-fluid">
