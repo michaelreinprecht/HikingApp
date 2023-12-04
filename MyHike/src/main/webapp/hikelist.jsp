@@ -75,7 +75,7 @@
 </form>
 
 
-<form method="post" action="hikelist.jsp">
+<form method="post" action="filterHikesServlet">
     <div class="row">
         <div class="col-md-2 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
@@ -140,105 +140,9 @@
     </div>
     <div id="hikes">
     <%
-        List<Hike> hikes = Database.getAllHikes();
-        boolean noMatchingHikesFound = false;
-
-        String searchQuery = request.getParameter("searchQuery"); // Holen der Suchanfrage aus der Suchzeile
-        if (searchQuery != null && !searchQuery.isEmpty()) {
-            hikes = hikes.stream()
-                    .filter(hike ->
-                            hike.getHikeRegion().getRegionName().toLowerCase().contains(searchQuery.toLowerCase()) ||   //Sucht Region
-                            hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
-                    .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
-
-
-        }
         List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
 
-        // TODO
-        String durationFilter = request.getParameter("durationFilter");
-        String distanceFilter = request.getParameter("distanceFilter");
-        String staminaFilter = request.getParameter("staminaFilter");
-        String strengthFilter = request.getParameter("strengthFilter");
-        String landscapeFilter = request.getParameter("landscapeFilter");
-        String monateFilter = request.getParameter("monateFilter");
-        String OverallDifficultyFilter = request.getParameter("OverallDifficultyFilter");
-
-        //Apply filters
-        if (durationFilter != null && !durationFilter.isEmpty()) {
-            try {
-                String formattedDuration = durationFilter + ":00";
-                Time duration = Time.valueOf(formattedDuration);
-
-                hikes = hikes.stream()
-                        .filter(hike ->
-                                hike.getHikeDuration() != null &&
-                                        hike.getHikeDuration().toLocalTime().compareTo(duration.toLocalTime()) <= 0
-                        )
-                        .collect(Collectors.toList());
-            } catch (IllegalArgumentException e) {
-                System.err.println("Fehler: durationFilter ist kein gültiges Zeitformat");
-            }
-        }
-
-        if (distanceFilter != null && !distanceFilter.isEmpty()) {
-            try {
-                BigDecimal distance = new BigDecimal(distanceFilter);
-                BigDecimal upperBound = distance.add(new BigDecimal("10"));
-
-                hikes = hikes.stream()
-                        .filter(hike -> {
-                            BigDecimal hikeDistance = hike.getHikeDistance();
-                            return hikeDistance != null &&
-                                    hikeDistance.compareTo(distance) >= 0 &&
-                                    hikeDistance.compareTo(upperBound) <= 0;
-                        })
-                        .collect(Collectors.toList());
-            } catch (NumberFormatException e) {
-                System.err.println("Fehler: distanceFilter ist keine gültige Zahl");
-            }
-        }
-
-
-        if (staminaFilter != null && !staminaFilter.isEmpty() && !staminaFilter.equals("null")) {
-            int stamina = Integer.parseInt(staminaFilter);
-            hikes = hikes.stream()
-                    .filter(hike -> hike.getHikeStamina() == stamina)
-                    .collect(Collectors.toList());
-        }
-
-        if (strengthFilter != null && !strengthFilter.isEmpty() && !strengthFilter.equals("null")) {
-            int strength = Integer.parseInt(strengthFilter);
-            hikes = hikes.stream()
-                    .filter(hike -> hike.getHikeStrength() == strength)
-                    .collect(Collectors.toList());
-        }
-
-        if (landscapeFilter != null && !landscapeFilter.isEmpty() && !landscapeFilter.equals("null")) {
-            try {
-                int landscape = Integer.parseInt(landscapeFilter);
-                hikes = hikes.stream()
-                        .filter(hike -> hike.getHikeLandscape() == landscape)
-                        .collect(Collectors.toList());
-            } catch (NumberFormatException e) {
-                System.err.println("Fehler: landscapeFilter ist keine gültige Zahl");
-            }
-        }
-
-
-
-
-        // TODO
-
-        if (filteredHikes != null && !filteredHikes.isEmpty()){
-            hikes = filteredHikes;
-        }
-
-        if (hikes.isEmpty()){
-            noMatchingHikesFound = true;
-        }
-
-        if(hikes == null || hikes.isEmpty()){
+        if(filteredHikes == null || filteredHikes.isEmpty()){
     %>
     </div>
     <div class="alert alert-warning" role="alert">
@@ -246,7 +150,7 @@
     </div>
     <%
         } else {
-            for (Hike hike : hikes) {
+            for (Hike hike : filteredHikes) {
             String image = hike.getHikeImage();
     %>
     <div class="row">
