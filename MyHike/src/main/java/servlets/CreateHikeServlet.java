@@ -28,7 +28,7 @@ public class CreateHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("index.jsp?successAlert=createSuccess");
+            response.sendRedirect("discover.jsp?successAlert=createSuccess");
         }
     }
 

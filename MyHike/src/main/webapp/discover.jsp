@@ -9,6 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
   <title>Discover</title>
@@ -29,7 +30,7 @@
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-  <a class="navbar-brand" href="index.jsp">
+  <a class="navbar-brand" href="discover.jsp">
     <img src="images/icon3.png" alt="MyHike" style=" width: 90px; height: 70px; margin-bottom: 5px">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -38,7 +39,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="discover.jsp">Discover</a>
       </li>
       <li class="nav-item">
@@ -72,6 +73,11 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
+    <!-- Display successAlert based on successAlert parameter. -->
+    <%
+      String successAlert = request.getParameter("successAlert");
+    %>
+    <tags:successAlert alert='<%=successAlert%>'/>
     <h1 class="display-8">Popular this Season</h1>
     <div class="row gutter">
       <%

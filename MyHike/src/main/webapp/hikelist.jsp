@@ -40,7 +40,7 @@
 
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-  <a class="navbar-brand" href="index.jsp">
+  <a class="navbar-brand" href="discover.jsp">
     <img src="images/icon3.png" alt="MyHike" style=" width: 90px; height: 70px; margin-bottom: 5px">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
