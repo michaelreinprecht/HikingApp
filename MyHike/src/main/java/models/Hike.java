@@ -14,7 +14,7 @@ public class Hike {
     private String hikeId;
     private String hikeName;
     private String hikeDescription;
-    private String hikeMarkerCoordinates;
+    private String hikeRouteCoordinates;
     private Time hikeDuration;
     private Integer hikeAltitude;
     private BigDecimal hikeDistance;
@@ -30,11 +30,11 @@ public class Hike {
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeMarkerCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeRouteCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
-        this.hikeMarkerCoordinates = hikeMarkerCoordinates;
+        this.hikeRouteCoordinates = hikeRouteCoordinates;
         this.hikeDuration = hikeDuration;
         this.hikeAltitude = hikeAltitude;
         this.hikeDistance = hikeDistance;
@@ -75,12 +75,12 @@ public class Hike {
         this.hikeDescription = hikeDescription;
     }
 
-    @Column(name = "hike_marker_coordinates", nullable = false)
-    public String getHikeMarkerCoordinates() {
-        return hikeMarkerCoordinates;
+    @Column(name = "hike_route_coordinates", nullable = false)
+    public String getHikeRouteCoordinates() {
+        return hikeRouteCoordinates;
     }
-    public void setHikeMarkerCoordinates(String hikeMarkerCoordinates) {
-        this.hikeMarkerCoordinates = hikeMarkerCoordinates;
+    public void setHikeRouteCoordinates(String hikeRouteCoordinates) {
+        this.hikeRouteCoordinates = hikeRouteCoordinates;
     }
 
     @Column(name = "hike_duration")
@@ -188,7 +188,7 @@ public class Hike {
                 "hikeId='" + hikeId + '\'' +
                 ", hikeName='" + hikeName + '\'' +
                 ", hikeDescription='" + hikeDescription + '\'' +
-                ", hikeMarkerCoordinates=" + hikeMarkerCoordinates +
+                ", hikeRouteCoordinates=" + hikeRouteCoordinates +
                 ", hikeDuration=" + hikeDuration +
                 ", hikeAltitude=" + hikeAltitude +
                 ", hikeDistance=" + hikeDistance +

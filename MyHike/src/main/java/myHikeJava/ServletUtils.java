@@ -60,7 +60,7 @@ public class ServletUtils extends HttpServlet {
         //Get values from parameters
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String markerCoordinates = request.getParameter("marker-coordinates");
+        String markerCoordinates = request.getParameter("route-coordinates");
 
         //Distance and altitude can be empty or null, therefore we need to check for this, if they are null or empty
         //we cannot cast the given String to BigDecimal or Integer.
