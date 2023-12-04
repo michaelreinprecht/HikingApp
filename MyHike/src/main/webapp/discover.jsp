@@ -55,7 +55,7 @@
      height: 60%">
   <h1 class="mb-3 h2" style="margin-top: 100px">Discover a whole new adventure</h1>
 
-  <form method="POST" action="hikelist.jsp">
+  <form method="POST" action="filterHikesServlet">
     <div class="input-group mb-3 mx-auto" style="width: 500px">
       <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
              placeholder="Search a hike by name or region!" style="background-color: rgba(255, 255, 255, 0.8)">
