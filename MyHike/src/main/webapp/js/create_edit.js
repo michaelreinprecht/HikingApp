@@ -20,17 +20,6 @@ function displayImage() {
 
 //Validates the information entered into the create.jsp or edit.jsp pages form
 function validateForm() {
-    //Pattern matching for lat and lon coordinates, checks if lat and lon are in a certain range (lat -90 to 90, lon
-    // -180 to 180), allows a maximum of 6 decimal points
-    const LatPattern = /^[-+]?([1-8]?\d(\.\d{1,6})?|90(\.0{1,6})?)$/;
-    const LonPattern = /^[-+]?(180(\.0{1,6})?|((1[0-7]\d|\d{1,2})(\.\d{1,6})?))$/;
-
-    //Start and end coordinates of the hike.
-    const startLat = document.getElementById("startLat").value;
-    const startLon = document.getElementById("startLon").value;
-    const endLat = document.getElementById("endLat").value;
-    const endLon = document.getElementById("endLon").value;
-
     //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
     const altitudePattern = /^[1-9][0-9]*$/;
     const altitude = document.getElementById("altitude").value;
@@ -69,23 +58,6 @@ function validateForm() {
         validationAlert.innerHTML = "Please pick at least one recommended month.";
         return false;
     }
-    if (!LonPattern.test(startLon)){
-        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
-        return false;
-    }
-    if (!LatPattern.test(startLat)){
-        validationAlert.innerHTML = "Please enter a valid starting lat-coordinate (ranges from -90.00000 to 90.000000).";
-        return false;
-    }
-    if (!LonPattern.test(endLon)){
-        validationAlert.innerHTML = "Please enter a valid starting lon-coordinate (ranges from -180.00000 to 180.000000).";
-        return false;
-    }
-    if (!LatPattern.test(endLat)){
-        validationAlert.innerHTML = "Please enter a valid ending lat-coordinate (ranges from -90.00000 to 90.000000).";
-        return false;
-    }
-
     //Altitude/Distance can be null or empty, if they are not they have to match their respective patterns.
     if (altitude != null && altitude !== "" && !altitudePattern.test(altitude)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
@@ -133,62 +105,3 @@ function validateForm() {
     validationAlert.style.display = "none";
     return true;
 }
-
-/*
-function addPOI() {
-    // Collect data from POI inputs
-    var poiTitle = document.getElementById("poiTitle").value;
-    var poiDescription = document.getElementById("poiDescription").value;
-    var poiLon = document.getElementById("poiLon").value;
-    var poiLan = document.getElementById("poiLan").value;
-
-    // Get the file input element
-    var fileInput = document.getElementById("poiImage");
-    // Get the selected file
-    var file = fileInput.files[0];
-
-    // Create a FormData object to store both POI data and file data
-    var formData = new FormData();
-
-    // Add POI data to FormData
-    formData.append("poiTitle", poiTitle);
-    formData.append("poiDescription", poiDescription);
-    formData.append("poiLon", poiLon);
-    formData.append("poiLan", poiLan);
-
-    // Add file data to FormData
-    formData.append("fileToUpload", file);
-
-    let poiData = document.getElementById("poiData").value;
-    console.log(poiData);
-    // Retrieve existing POI data or initialize an empty array
-    let existingPoiData;
-    if (poiData === "" ) {
-        existingPoiData = [];
-    } else {
-        existingPoiData = JSON.parse(poiData) || [];
-    }
-
-
-    // Add the new POI to the array
-    existingPoiData.push({
-        title: poiTitle,
-        description: poiDescription,
-        lon: poiLon,
-        lan: poiLan,
-        // Add file data if needed
-        file: file
-    });
-
-    // Update the hidden input field with the updated POI data
-    document.getElementById("poiData").value = JSON.stringify(existingPoiData);
-
-    // Update the unordered list display (assuming you have a function for this)
-    //displayPoiList(existingPoiData);
-}
-
-function displayPoiList(poiData) {
-    // Display the POI data in an unordered list
-    // You can implement this function based on how you want to display the data
-    // For example, create <li> elements for each POI and append them to a <ul>
-}*/

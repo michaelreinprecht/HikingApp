@@ -18,10 +18,20 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
+    <!-- JQuery import -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Leaflet import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Link to create_edit.js -->
     <script src="js/create_edit.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/editMap.js"></script>
 </head>
 <body>
 <!-- Navigation bar -->
@@ -42,6 +52,11 @@
                 <a class="nav-link" href="create.jsp">Create Hike <span class="sr-only">(current)</span></a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="login.jsp">Login</a>
+            </li>
+        </ul>
     </div>
 </nav>
 
@@ -54,6 +69,10 @@
 
 <form action="createHikeServlet" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
+        <div class="row">
+            <div id="map" style="height: 400px; width: 100%;" data-route-coordinates=""></div>
+            <input id="route-coordinates" name="route-coordinates" hidden="hidden">
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="leftSide">
@@ -76,20 +95,6 @@
                                 }
                             %>
                         </select>
-                    </div>
-
-                    <!-- Start Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">Start Location:</label><br>
-                        <input class="form-control w-100" type="text" id="startLon" name="startLon" placeholder="Start Lon: 12.3456"><br>
-                        <input class="form-control w-100" type="text" id="startLat" name="startLat" placeholder="Start Lat: 12.3456">
-                    </div>
-
-                    <!-- End Location-->
-                    <div class="clear">
-                        <label class="labels_withmargin">End Location:</label><br>
-                        <input class="form-control w-100" type="text" id="endLon" name="endLon" placeholder="End Lon: 12.3456"><br>
-                        <input class="form-control w-100" type="text" id="endLat" name="endLat" placeholder="End Lat: 12.3456">
                     </div>
 
                     <!-- Altitude-->
@@ -212,6 +217,7 @@
             </div>
         </div>
     </div>
+
 
     <div style="background-color: white; padding: 0">
         <br>
