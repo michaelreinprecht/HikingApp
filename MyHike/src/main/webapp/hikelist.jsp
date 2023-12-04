@@ -5,7 +5,8 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ page import="myHikeJava.Database" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -17,44 +18,48 @@
 
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>hikes</title>
+    <title>hikes</title>
 
-  <!-- Bootstrap link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <!-- Font Awesome Icons link -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <!-- Font Awesome Icons link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
-  <!-- Link to hikelist.css -->
-  <link rel="stylesheet" href="css/hikelist.css">
+    <!-- Google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
-
+    <!-- Link to css files -->
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link rel="stylesheet" href="css/hikelist.css">
 </head>
 <body>
 
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-  <a class="navbar-brand" href="index.jsp">
-    <img src="images/icon3.png" alt="MyHike" style=" width: 90px; height: 70px; margin-bottom: 5px">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="discover.jsp">Discover</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="create.jsp">Create Hike</a>
-      </li>
-    </ul>
-  </div>
+    <a class="navbar-brand" href="discover.jsp">
+        <img src="images/icon3.png" alt="MyHike" style=" width: 90px; height: 70px; margin-bottom: 5px">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="discover.jsp">Discover</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="create.jsp">Create Hike</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 
@@ -177,34 +182,34 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <!-- Distance -->
+                    <div class="col-md-4">
+                        <!-- Distance -->
 
-                    <div class="group">
-                        <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
-                        <h5 class="text-center">
-                            <% if (hike.getHikeDistance() != null) { %>
-                            <%= hike.getHikeDistance() %>km
-                            <% } else { %>
-                            ?km
-                            <% } %>
-                        </h5>
+                        <div class="group">
+                            <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
+                            <h5 class="text-center">
+                                <% if (hike.getHikeDistance() != null) { %>
+                                <%= hike.getHikeDistance() %>km
+                                <% } else { %>
+                                ?km
+                                <% } %>
+                            </h5>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <!-- Altitude -->
-                    <div class="group">
-                        <img src="images/altitude_icon.png" alt="altitude" class="icons">
-                        <h5 class="text-center">
-                            <% if (hike.getHikeAltitude() != null) { %>
-                            <%= hike.getHikeAltitude() %>m
-                            <% } else { %>
-                            ?m
-                            <% } %>
-                        </h5>
+                    <div class="col-md-4">
+                        <!-- Altitude -->
+                        <div class="group">
+                            <img src="images/altitude_icon.png" alt="altitude" class="icons">
+                            <h5 class="text-center">
+                                <% if (hike.getHikeAltitude() != null) { %>
+                                <%= hike.getHikeAltitude() %>m
+                                <% } else { %>
+                                ?m
+                                <% } %>
+                            </h5>
+                        </div>
                     </div>
-                </div>
 
                 <div class="col-md-4">
                     <!-- Overall Difficulty Rating -->
@@ -240,7 +245,7 @@
     <hr size="8" color="green">
     <% } %>
 </div>
-</div>
+
 
 
 

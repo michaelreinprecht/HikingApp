@@ -1,12 +1,6 @@
-import facade.JPAHikeFacade;
 import models.Month;
-import myHikeJava.Database;
-import org.junit.*;
 import org.junit.Assert;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.Test;
 
 public class MonthConvertionTest {
     @Test
