@@ -72,8 +72,8 @@
 <form action="editHikeServlet?Id=<%=hike.getHikeId()%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
         <div class="row">
-            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates="<%=hike.getHikeMarkerCoordinates()%>"></div> <!-- TODO replace with data from db -->
-            <input id="marker-coordinates" name="marker-coordinates" hidden="hidden">
+            <div id="map" style="height: 400px; width: 100%;" data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
+            <input id="route-coordinates" name="route-coordinates" hidden="hidden">
         </div>
         <div class="row">
             <div class="col-md-6">

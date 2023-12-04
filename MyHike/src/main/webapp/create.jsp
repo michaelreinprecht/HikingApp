@@ -65,8 +65,8 @@
 <form action="createHikeServlet" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     <div class="container">
         <div class="row">
-            <div id="map" style="height: 400px; width: 100%;" data-marker-coordinates=""></div>
-            <input id="marker-coordinates" name="marker-coordinates" hidden="hidden">
+            <div id="map" style="height: 400px; width: 100%;" data-route-coordinates=""></div>
+            <input id="route-coordinates" name="route-coordinates" hidden="hidden">
         </div>
         <div class="row">
             <div class="col-md-6">
