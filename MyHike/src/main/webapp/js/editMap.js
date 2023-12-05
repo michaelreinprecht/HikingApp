@@ -178,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        } else {
+            //Empty the routeCoordinatesInput if there are not at least 2 valid points selected.
+            routeCoordinatesInput.value = "";
         }
     }
 

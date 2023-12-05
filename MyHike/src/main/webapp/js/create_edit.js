@@ -20,6 +20,9 @@ function displayImage() {
 
 //Validates the information entered into the create.jsp or edit.jsp pages form
 function validateForm() {
+    //This input is empty if there are not at least 2 valid points selected.
+    const routeCoordinatesString = document.getElementById("route-coordinates").value;
+
     //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
     const altitudePattern = /^[1-9][0-9]*$/;
     const altitude = document.getElementById("altitude").value;
@@ -47,6 +50,11 @@ function validateForm() {
     //therefore be invisible.
     validationAlert.style.display = "block";
 
+    if (routeCoordinatesString === null || routeCoordinatesString === "") {
+        validationAlert.innerHTML = "Please select at least a starting and ending point for your hike."
+        return false;
+    }
+
     let monthIsChecked = false;
     //Check if at least one month is checked
     for (let i = 0; i < checkboxes.length; i++) {
@@ -67,7 +75,6 @@ function validateForm() {
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
         return false;
     }
-
     if (!radioLandscape) {
         validationAlert.innerHTML = "Please rate the landscape.";
         return false;
