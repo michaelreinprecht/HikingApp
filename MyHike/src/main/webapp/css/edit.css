@@ -1,6 +1,11 @@
 @import url('global.css');
 
 /* CSS for the edit.jsp page */
+.text-center {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 /* CSS for the star ratings */
 .rating-wrapper {
     align-self: center;

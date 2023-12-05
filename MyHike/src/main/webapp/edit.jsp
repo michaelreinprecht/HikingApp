@@ -293,7 +293,7 @@
                         <div>
                             <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;" alt=<%=hike.getHikeName()%>/>
                         </div>
-                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <label for="fileToUpload" class="form-label">Image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
                     </div>
                 </div>

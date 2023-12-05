@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kilic
-  Date: 14.11.2023
-  Time: 14:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
@@ -178,7 +171,6 @@
         %>
         <div class="alert alert-warning" role="alert">
             Unfortunately, there are no matching hikes with your search :(
-            <!-- Fehlermeldung, falls keine Hikes zutreffen-->
         </div>
         <%
         } else {
@@ -188,10 +180,14 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Bild und Name -->
-                <img class="imageBoxHikeList" id="uploadedImageHikeList" alt="<%=hike.getHikeName()%>"
-                     src="data:image/png;base64,<%=image%>">
-                <br>
-                <a class="hikeTitle" href="detail.jsp?Id=<%=hike.getHikeId()%>"><%=hike.getHikeName()%>
+                <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
+                    <div class="bg-image card shadow-1-strong" style="height:100%; background-image: url('data:image/png;base64,<%=hike.getHikeImage()%>'); background-size: cover;">
+                        <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+                            <div class="card-body" style="padding: 0;">
+                                <h5 class="card-title"><%= hike.getHikeName()%></h5>
+                            </div>
+                        </div>
+                    </div>
                 </a>
             </div>
             <div class="col-md-6">
@@ -243,35 +239,35 @@
                             </h5>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <!-- Overall Difficulty Rating -->
-                        <div class="rating-label"><b>Overall Difficulty:</b></div>
-                        <%
-                            int i;
-                            int difficultyRating = hike.getHikeDifficulty();
-                            //Display a number of "active" and "inactive" stars, depending on the difficultyRating
-                            for (i = 0; i < 5; i++) {
-                                if (i < difficultyRating) {
-                        %>
-                        <div class="star-rating">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                        } else {
-                        %>
-                        <div class="inactive">
-                            <i class="fas fa-star d-inline-block"></i>
-                        </div>
-                        <%
-                                }
-                            }
-                        %><br>
+                </div>
+                <div class="row" style="display: flex; justify-content: center; align-items: center;">
+                    <!-- Overall Difficulty Rating -->
+                    <div class="rating-label" style="padding-right: 10px;"><b>Overall Difficulty:</b></div>
+                    <%
+                        int i;
+                        int difficultyRating = hike.getHikeDifficulty();
+                        // Display a number of "active" and "inactive" stars, depending on the difficultyRating
+                        for (i = 0; i < 5; i++) {
+                            if (i < difficultyRating) {
+                    %>
+                    <div class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
                     </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="inactive">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </div>
+                    <%
+                            }
+                        }
+                    %><br>
+                </div>
 
-                    <!-- Beschreibung -->
-                    <p><%= hike.getHikeDescription() %>
-                    </p>
+                <div class="row" style="padding-top: 5%; display: flex; justify-content: center; align-items: center;">
+                    <!-- Description -->
+                    <p><%= hike.getHikeDescription() %></p>
                 </div>
             </div>
         </div>

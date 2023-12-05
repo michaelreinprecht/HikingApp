@@ -37,13 +37,6 @@
     text-align: left;
 }
 
-.text-center {
-    color: green;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    font-style: italic
-}
-
 .clear {
     clear: both;
 }
