@@ -14,6 +14,11 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
+    <!-- Google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
     <!-- Link to css files -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
@@ -36,7 +41,7 @@
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="index.jsp">
+    <a class="navbar-brand" href="discover.jsp">
         <img src="images/icon3.png" alt="MyHike" class="icon">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -46,7 +51,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="index.jsp">Discover</a>
+                <a class="nav-link" href="discover.jsp">Discover</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="create.jsp">Create Hike <span class="sr-only">(current)</span></a>

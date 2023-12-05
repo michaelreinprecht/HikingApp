@@ -19,7 +19,13 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
-    <!-- Link to edit.css -->
+    <!-- Google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
+    <!-- Link to css files -->
+    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" href="css/edit.css">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

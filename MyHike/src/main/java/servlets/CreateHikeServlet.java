@@ -1,15 +1,18 @@
 package servlets;
 
-import java.io.*;
-import java.util.UUID;
-
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
 import myHikeJava.Database;
 import myHikeJava.ServletUtils;
+
+import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
@@ -28,7 +31,7 @@ public class CreateHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("index.jsp?successAlert=createSuccess");
+            response.sendRedirect("discover.jsp?successAlert=createSuccess");
         }
     }
 

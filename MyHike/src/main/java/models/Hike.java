@@ -27,10 +27,11 @@ public class Hike {
     private Region hikeRegion;
     private List<PointOfInterest> hikePointsOfInterest;
     private boolean isDeleted;
+    private User hikeOfUser;
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeRouteCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeRouteCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted, User hikeOfUser) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -47,6 +48,7 @@ public class Hike {
         this.hikeRegion = hikeRegion;
         this.hikePointsOfInterest = hikePointsOfInterest;
         this.isDeleted = isDeleted;
+        this.hikeOfUser = hikeOfUser;
     }
 
     @Id
@@ -180,6 +182,16 @@ public class Hike {
     }
     public void setHikeRegion(Region hikeRegion) {
         this.hikeRegion = hikeRegion;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "hike_of_user", referencedColumnName = "user_id")
+    public User getHikeOfUser() {
+        return hikeOfUser;
+    }
+
+    public void setHikeOfUser(User hikeOfUser) {
+        this.hikeOfUser = hikeOfUser;
     }
 
     @Override

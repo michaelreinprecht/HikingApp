@@ -2,7 +2,7 @@ package servlets;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebListener;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

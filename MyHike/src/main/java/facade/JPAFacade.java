@@ -1,6 +1,9 @@
 package facade;
 
-import broker.*;
+import broker.JPABrokerBase;
+import broker.JPAHikeBroker;
+import broker.JPAPointOfInterestBroker;
+import broker.JPARegionBroker;
 import models.Hike;
 import models.PointOfInterest;
 import models.Region;
