@@ -51,6 +51,12 @@
      background-size: cover;
      background-position: center center;
      height: 60%">
+    <%-- Display error message if available by login--%>
+    <% if (request.getAttribute("error") != null) { %>
+    <p style="color: black;"><%= request.getAttribute("error") %></p>
+    <% } %>
+
+    <%-- Other content of your JSP page goes here --%>
     <h1 class="mb-3 h2" style="margin-top: 100px">Login to your Account</h1>
 
     <form method="POST" action="loginServlet">

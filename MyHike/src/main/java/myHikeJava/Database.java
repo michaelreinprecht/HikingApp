@@ -1,12 +1,10 @@
 package myHikeJava;
 
-import facade.JPAFacade;
-import facade.JPAHikeFacade;
-import facade.JPAPointOfInterestFacade;
-import facade.JPARegionFacade;
+import facade.*;
 import models.Hike;
 import models.PointOfInterest;
 import models.Region;
+import models.User;
 
 import java.util.List;
 
@@ -16,6 +14,7 @@ public class Database {
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     private static JPARegionFacade regionFacade = new JPARegionFacade();
     private static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
+    private static JPAUserFacade userFacade = new JPAUserFacade();
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) {
@@ -48,5 +47,9 @@ public class Database {
     }
     public static PointOfInterest getPointOfInterestById(String id) {
         return pointOfInterestFacade.getPointOfInterestById(id);
+    }
+
+    public static User getUserLogin(User user) {
+        return userFacade.getUserByLogin(user);
     }
 }
