@@ -25,7 +25,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <!-- Link to css files -->
-    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" href="css/edit.css">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -294,7 +293,7 @@
                         <div>
                             <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;" alt=<%=hike.getHikeName()%>/>
                         </div>
-                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <label for="fileToUpload" class="form-label">Image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
                     </div>
                 </div>
