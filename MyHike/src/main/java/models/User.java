@@ -14,6 +14,7 @@ public class User {
     private boolean isAdmin;
     private List<Hike> userHikes;
 
+    public User() {}
     public User(String userId, String userName, String userPassword, boolean isAdmin, List<Hike> userHikes) {
         this.userId = userId;
         this.userName = userName;

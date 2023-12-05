@@ -53,7 +53,7 @@
      height: 60%">
     <h1 class="mb-3 h2" style="margin-top: 100px">Login to your Account</h1>
 
-    <form method="POST" action="login_process.jsp">
+    <form method="POST" action="loginServlet">
         <div class="input-group mb-3 mx-auto" style="width: 500px">
             <input type="text" class="form-control" name="username" aria-label="Username"
                    placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)">

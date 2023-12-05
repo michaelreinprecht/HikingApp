@@ -1,12 +1,10 @@
 package facade;
 
-import broker.JPABrokerBase;
-import broker.JPAHikeBroker;
-import broker.JPAPointOfInterestBroker;
-import broker.JPARegionBroker;
+import broker.*;
 import models.Hike;
 import models.PointOfInterest;
 import models.Region;
+import models.User;
 
 import java.sql.SQLException;
 
@@ -48,6 +46,9 @@ public class JPAFacade implements IDatabaseFacade {
         }
         if (databaseObject instanceof PointOfInterest) {
             return new JPAPointOfInterestBroker();
+        }
+        if (databaseObject instanceof User) {
+            return new JPAUserBroker();
         }
         return null;
     }
