@@ -5,8 +5,8 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.LocalTime" %>
-<%@ page import="java.util.stream.Collectors" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="models.Month" %>
 
 
 <html>
@@ -56,7 +56,7 @@
 
 
 <!-- Searchbar -->
-<form method="POST" action="hikelist.jsp">
+<form method="post">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
                placeholder="Search by name or region!">
@@ -66,150 +66,119 @@
     </div>
 </form>
 
-<!-- Filter für Duration -->
-<div class="row mx-auto text-center">
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="durationFilter">Duration</label>
-        <select class="form-control" id="durationFilter">
-            <option value="<1h"><1h</option>
-            <option value="1-2h">1-2h</option>
-            <option value="2-3h">2-3h</option>
-            <option value="3-4h">3-4h</option>
-            <option value="4-5h">4-5h</option>
-        </select>
-    </div>
 
-    <!-- Filter für Distance -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="distanceFilter">Distance</label>
-        <select class="form-control" id="distanceFilter">
-            <option value="short">Short</option>
-            <option value="medium">Medium</option>
-            <option value="long">Long</option>
-        </select>
-    </div>
-
-    <!-- Filter für Stamina -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="staminaFilter">Stamina</label>
-        <select class="form-control" id="staminaFilter" name="staminaFilter">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
-
-
-    <!-- Filter für Strength -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="strengthFilter">Strength</label>
-        <select class="form-control" id="strengthFilter">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
-
-    <!-- Filter für Experience -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="experienceFilter">Experience</label>
-        <select class="form-control" id="experienceFilter">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
-
-    <!-- Filter für Monate -->
-    <div class="col-md-2 mb-3">
-        <label class="input-group-text" for="monateFilter">Select Months</label>
-        <select class="form-control" id="monateFilter" name="monateFilter">
-            <%
-                String selectedMonthsBitmap = "";
-                String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
-
-                for (String month : models.Month.ALL_MONTHS) { %>
-            <option value="<%=month%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
-                <%=month%>
-            </option>
-            <% } %>
-        </select>
-    </div>
-
-
-    <div class="container">
-        <!-- Header -->
-        <div class="title">
-            <h3 class="text-center">
-                These Hikes are based on your search!
-            </h3>
-        </div>
-        <%
-            List<Hike> hikes = Database.getAllHikes();
-            boolean noMatchingHikesFound = false;
-
-            String searchQuery = request.getParameter("searchQuery"); // Holen der Suchanfrage aus der Suchzeile
-            if (searchQuery != null && !searchQuery.isEmpty()) {
-                hikes = hikes.stream()
-                        .filter(hike ->
-                                hike.getHikeRegion().getRegionName().toLowerCase().contains(searchQuery.toLowerCase()) ||   //Sucht Region
-                                        hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
-                        .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
-
-                if (hikes.isEmpty()) {
-                    noMatchingHikesFound = true;
-                }
-            }
-
-            if (noMatchingHikesFound) {
-        %>
-        <div class="alert alert-warning" role="alert">
-            Unfortunately, there are no matching hikes with your search :(
-        </div>
-        <%
-        } else {
-            for (Hike hike : hikes) {
-                String image = hike.getHikeImage();
-        %>
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Bild und Name -->
-                <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
-                    <div class="bg-image card shadow-1-strong" style="height:100%; background-image: url('data:image/png;base64,<%=hike.getHikeImage()%>'); background-size: cover;">
-                        <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
-                            <div class="card-body" style="padding: 0;">
-                                <h5 class="card-title"><%= hike.getHikeName()%></h5>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+<form method="post" action="filterHikesServlet">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
+            <div class="input-group">
+                <input class="form-control" name="durationFilter" id="durationFilter" type="time">
             </div>
-            <div class="col-md-6">
-                <!-- Daten der Wanderung -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <!-- Dauer -->
-                        <div class="group">
-                            <img src="images/uhr_dauer.png" alt="uhr" class="icons">
-                            <h5 class="text-center">
-                                <% if (hike.getHikeDuration() != null) {
-                                    LocalTime localTime = hike.getHikeDuration().toLocalTime();
-                                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                                    String formattedTime = localTime.format(outputFormatter);
-                                %>
-                                <%= formattedTime %> hours
-                                <% } else { %>
-                                ? hours
-                                <% } %>
-                            </h5>
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="distanceFilter">Max. Distance (in km):</label>
+            <input class="form-control" type="number" name="distanceFilter" id="distanceFilter" placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
+            <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5" placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="landscapeFilter">Landscape (1-5):</label>
+            <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5" placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="strengthFilter">Max. Strength (1-5):</label>
+            <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5" placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="monateFilter">Select Months</label>
+            <select class="form-control" id="monateFilter" name="monateFilter">
+                   <%
+                    String selectedMonthsBitmap = "";
+                    String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
+
+                  for(int monthIndex = 0; monthIndex < Month.ALL_MONTHS.length; monthIndex++) {
+                   String month = models.Month.ALL_MONTHS[monthIndex];%>
+                <option value="<%=monthIndex%>" <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
+                    <%=month%>
+                </option>
+                <% } %>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6 offset-md-6 text-right">
+            <button type="submit" class="btn btn-success">Apply Filters</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+<div class="container">
+    <!-- Header -->
+    <div class="title">
+        <h3 class="text-center">
+            These Hikes are based on your search!
+        </h3>
+    </div>
+    <div id="hikes">
+    <%
+        List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
+
+        if(filteredHikes == null || filteredHikes.isEmpty()){
+    %>
+    </div>
+    <div class="alert alert-warning" role="alert">
+        Unfortunately, there are no matching hikes with your search :(     <!-- Fehlermeldung, falls keine Hikes zutreffen-->
+    </div>
+    <%
+        } else {
+            for (Hike hike : filteredHikes) {
+            String image = hike.getHikeImage();
+    %>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Bild und Name -->
+            <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
+                <div class="bg-image card shadow-1-strong" style="height:100%; background-image: url('data:image/png;base64,<%=hike.getHikeImage()%>'); background-size: cover;">
+                    <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+                        <div class="card-body" style="padding: 0;">
+                            <h5 class="card-title"><%= hike.getHikeName()%></h5>
                         </div>
                     </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <!-- Daten der Wanderung -->
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Dauer -->
+                    <div class="group">
+                        <img src="images/uhr_dauer.png" alt="uhr" class="icons">
+                        <h5 class="text-center">
+                            <% if (hike.getHikeDuration() != null) {
+                                LocalTime localTime = hike.getHikeDuration().toLocalTime();
+                                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                                String formattedTime = localTime.format(outputFormatter);
+                            %>
+                            <%= formattedTime %> hours
+                            <% } else { %>
+                            ? hours
+                            <% } %>
+                        </h5>
+                    </div>
+                </div>
 
                     <div class="col-md-4">
                         <!-- Distance -->
