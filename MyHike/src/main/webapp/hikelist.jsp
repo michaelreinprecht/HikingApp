@@ -111,8 +111,8 @@
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="monateFilter">Select Months</label>
-            <select class="form-control" id="monateFilter" name="monateFilter">
+            <label class="input-group-text" for="monthFilter">Select Months</label>
+            <select class="form-control" id="monthFilter" name="monthFilter">
                 <%
                     String selectedMonthsBitmap = "";
                     String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
