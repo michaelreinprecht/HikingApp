@@ -117,7 +117,7 @@
         </div>
     </div>
 
-    <div class="row mt-3" style="margin: 0">
+    <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
         <div class="col-md-6 offset-md-6 text-right">
             <button type="submit" class="btn btn-success">Apply Filters</button>
         </div>
