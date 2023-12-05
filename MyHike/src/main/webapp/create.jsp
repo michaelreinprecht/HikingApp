@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <!-- Link to css files -->
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
     <!-- JQuery import -->

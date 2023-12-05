@@ -45,7 +45,6 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Link to css files -->
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
 
     <!-- Leaflet import -->

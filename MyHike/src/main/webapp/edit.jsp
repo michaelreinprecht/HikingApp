@@ -25,7 +25,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <!-- Link to css files -->
-    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" href="css/edit.css">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

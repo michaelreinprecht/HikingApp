@@ -36,7 +36,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <!-- Link to css files -->
-    <link rel="stylesheet" type="text/css" href="css/global.css">
     <link rel="stylesheet" href="css/hikelist.css">
 </head>
 <body>
