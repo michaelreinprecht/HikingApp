@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>hikes</title>
+    <title>Hikes</title>
 
     <!-- Bootstrap link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -157,7 +157,7 @@
                     <div class="card-body text-white"
                          style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
                         <div class="card-body" style="padding: 0;">
-                            <h5 class="card-title"><%= hike.getHikeName()%>
+                            <h5 class="card-title" style="text-align: center"><%= hike.getHikeName()%>
                             </h5>
                         </div>
                     </div>
