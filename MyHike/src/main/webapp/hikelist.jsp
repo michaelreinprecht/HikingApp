@@ -68,7 +68,7 @@
 
 
 <form method="post" action="filterHikesServlet">
-    <div class="row">
+    <div class="row" style="margin: 0">
         <div class="col-md-2 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
             <div class="input-group">
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
         <div class="col-md-6 offset-md-6 text-right">
             <button type="submit" class="btn btn-success">Apply Filters</button>
         </div>
@@ -164,7 +164,7 @@
             <!-- Bild und Name -->
             <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
                 <div class="bg-image card shadow-1-strong"
-                     style="height:100%; background-image: url('data:image/png;base64,<%=hike.getHikeImage()%>'); background-size: cover;">
+                     style="height:100%; background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
                     <div class="card-body text-white"
                          style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
                         <div class="card-body" style="padding: 0;">
@@ -252,8 +252,7 @@
 
             <div class="row" style="padding-top: 5%; display: flex; justify-content: center; align-items: center;">
                 <!-- Description -->
-                <p><%= hike.getHikeDescription() %>
-                </p>
+                <p><%= hike.getHikeDescription()%></p>
             </div>
         </div>
     </div>

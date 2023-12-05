@@ -38,6 +38,7 @@
 .text-center {
     margin: auto;
 }
+
 .button-group {
     display: flex;
     flex-direction: column;
