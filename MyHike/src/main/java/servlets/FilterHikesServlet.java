@@ -26,6 +26,8 @@ public class FilterHikesServlet extends HttpServlet {
         String strengthFilter = request.getParameter("strengthFilter");
         String landscapeFilter = request.getParameter("landscapeFilter");
         String monateFilter = request.getParameter("monateFilter");
+        String altitudeFilter = request.getParameter("altitudeFilter");
+        String difficultyFilter = request.getParameter("difficultyFilter");
 
         String searchQuery = request.getParameter("searchQuery"); // Holen der Suchanfrage aus der Suchzeile
         if (searchQuery != null && !searchQuery.isEmpty()) {
@@ -70,6 +72,22 @@ public class FilterHikesServlet extends HttpServlet {
             }
         }
 
+        if (altitudeFilter != null && !altitudeFilter.isEmpty() && !altitudeFilter.equals("0")) {
+            try {
+                int altitude = Integer.parseInt(altitudeFilter);
+
+                hikes = hikes.stream()
+                        .filter(hike -> {
+                            int hikeAltitude = hike.getHikeAltitude();
+                            return hikeAltitude >= 0 &&
+                                    hikeAltitude <= altitude;
+                        })
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                System.err.println("Fehler: difficultyFilter ist keine gültige Zahl");
+            }
+        }
+
 
         if (staminaFilter != null && !staminaFilter.isEmpty() && !staminaFilter.equals("0")) {
             int stamina = Integer.parseInt(staminaFilter);
@@ -85,6 +103,15 @@ public class FilterHikesServlet extends HttpServlet {
             try {
                 int landscape = Integer.parseInt(landscapeFilter);
                 hikes = hikes.stream().filter(hike -> hike.getHikeLandscape() == landscape).collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (difficultyFilter != null && !difficultyFilter.isEmpty() && !difficultyFilter.equals("0")) {
+            try {
+                int difficulty = Integer.parseInt(difficultyFilter);
+                hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == difficulty).collect(Collectors.toList());
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }

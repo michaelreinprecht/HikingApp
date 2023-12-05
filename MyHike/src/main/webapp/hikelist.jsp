@@ -82,6 +82,11 @@
         </div>
 
         <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="altitudeFilter">Max. Altitude:</label>
+            <input class="form-control" type="number" name="altitudeFilter" id="altitudeFilter" placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
             <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
             <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5"
                    placeholder="No Filter">
@@ -96,6 +101,12 @@
         <div class="col-md-2 mb-3">
             <label class="input-group-text" for="strengthFilter">Max. Strength (1-5):</label>
             <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5"
+                   placeholder="No Filter">
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label class="input-group-text" for="difficultyFilter">Max. Difficulty (1-5):</label>
+            <input class="form-control" type="number" name="difficultyFilter" id="difficultyFilter" min="1" max="5"
                    placeholder="No Filter">
         </div>
 
