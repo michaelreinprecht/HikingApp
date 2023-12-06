@@ -7,9 +7,9 @@ import models.User;
 
 public class JPAUserFacade extends JPAFacade{
 
-    public User getUserByLogin(User user) {
+    public User getUserByName(String name) {
         JPABrokerBase<User> broker = new JPAUserBroker();
-        return ((JPAUserBroker) broker).getUserByLogin(user);
+        return ((JPAUserBroker) broker).getUserByName(name);
 
     }
 }

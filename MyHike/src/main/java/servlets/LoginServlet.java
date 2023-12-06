@@ -22,17 +22,19 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if (username != null && password != null) {
-            User user = new User();
-            user.setUserName(username);
-            user.setUserPassword(password);
-            User dUser = Database.getUserLogin(user);
+            //Database should return one user
+            User dUser = Database.getUserByName(username);
             String destination;
-            if (dUser != null && dUser.getUserPassword().equals(password) && dUser.getUserName().equals(username)){
+            String message;
+            if (dUser != null && BCrypt.checkpw(password, dUser.getUserPassword()) && dUser.getUserName().equals(username)){
                     session.setAttribute("username", username);
+                    session.setAttribute("isAdmin", dUser.isAdmin());
+                    message = "Welcome " + username + "!";
+                    request.setAttribute("message", message);
                     destination = "discover.jsp";
                 } else {
                     destination = "login.jsp";
-                String message = "Invalid username or password";
+                message = "Invalid username or password";
                 request.setAttribute("error", message);
                 }
 

@@ -24,25 +24,16 @@ public class JPAUserBroker extends JPABrokerBase<User>{
         return entityManager.find(User.class, id);
     }
 
-    public User getUserByLogin(User user) {
+    public User getUserByName(String name) {
         User userUser = null;
 
         EntityManager entityManager = ResourceServlet.getEntityManager();
-        EntityTransaction transaction = null;
         try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-            Query query = entityManager.createQuery("SELECT u FROM User u where u.userName = ?1 and u.userPassword = ?2");
-            query.setParameter(1, user.getUserName()).setParameter(2, user.getUserPassword());
+            Query query = entityManager.createQuery("SELECT u FROM User u where u.userName = ?1");
+            query.setParameter(1, name);
             userUser = (User) query.getSingleResult();
-            transaction.commit();
         } catch (Exception e){
-            if (transaction != null)
-                transaction.rollback();
             e.printStackTrace();
-        } finally {
-            if (entityManager != null)
-                entityManager.close();
         }
         return userUser;
     }

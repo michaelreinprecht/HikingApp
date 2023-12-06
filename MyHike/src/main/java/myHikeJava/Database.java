@@ -49,7 +49,7 @@ public class Database {
         return pointOfInterestFacade.getPointOfInterestById(id);
     }
 
-    public static User getUserLogin(User user) {
-        return userFacade.getUserByLogin(user);
+    public static User getUserByName(String name) {
+        return userFacade.getUserByName(name);
     }
 }

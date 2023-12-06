@@ -65,6 +65,10 @@
      background-position: center center;
      height: 60%;">
   <div style="background-color: rgba(0, 0, 0, 0.5); margin-left: 20%; margin-right: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <%-- Display welcome message if available by login--%>
+    <% if (request.getAttribute("message") != null) { %>
+    <p style="color: white;"><%= request.getAttribute("message") %></p>
+    <% } %>
     <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
   <form method="POST" action="filterHikesServlet">
