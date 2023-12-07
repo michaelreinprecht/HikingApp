@@ -51,7 +51,6 @@ public class LoginServlet extends HttpServlet {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User user = new User();
         String id = UUID.randomUUID().toString();
-        user.setUserId(id);
         user.setUserName(username);
         user.setUserPassword(hashedPassword);
         user.setAdmin(true);

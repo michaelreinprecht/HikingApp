@@ -185,7 +185,7 @@ public class Hike {
     }
 
     @ManyToOne
-    @JoinColumn(name = "hike_of_user", referencedColumnName = "user_id")
+    @JoinColumn(name = "hike_of_user", referencedColumnName = "user_name")
     public User getHikeOfUser() {
         return hikeOfUser;
     }
