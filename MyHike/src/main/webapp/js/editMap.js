@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let finishMarker = L.marker([routeCoordinates[routeCoordinates.length-1][0], routeCoordinates[routeCoordinates.length-1][1]]);
         markers.push(startMarker);
         markers.push(finishMarker);
+        updateFormValues();
     } else {
         //Start coordinates are focused on Vorarlberg if there are no coordinates -> create page
         myMap = L.map('map').setView([47.21329, 9.95118], 9);

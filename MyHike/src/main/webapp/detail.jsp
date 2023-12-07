@@ -82,6 +82,12 @@
 </nav>
 
 <!-- Hike name -->
+<!-- Display successAlert based on successAlert parameter. -->
+<%
+    String successAlert = request.getParameter("successAlert");
+%>
+<tags:successAlert alert='<%=successAlert%>'/>
+
 <div class="name">
     <h3 class="text-center-name"><%= hike.getHikeName() %>
     </h3>

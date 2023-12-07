@@ -318,7 +318,7 @@
             }
         %>
 
-        <div class="row" style="clear:both;">
+        <div class="row-md" style="clear:both;">
             <div class="col-md-5 offset-md-5 text-right">
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
