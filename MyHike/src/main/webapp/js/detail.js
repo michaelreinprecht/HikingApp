@@ -272,5 +272,3 @@ function hideLoading() {
     loadingDiv.style.display = 'none';
 }
 
-
-

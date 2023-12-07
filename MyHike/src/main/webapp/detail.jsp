@@ -5,6 +5,7 @@
 <%@ page import="models.Month" %>
 <%@ page import="models.PointOfInterest" %>
 <%@ page import="java.util.List" %>
+<%@ page import="models.Comment" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
@@ -216,7 +217,8 @@
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <div id="map" style="height: 100%; width: 100%;" data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
+                <div id="map" style="height: 100%; width: 100%;"
+                     data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
             </div>
         </div>
 
@@ -323,6 +325,51 @@
                 </div>
             </div>
 
+            <!-- Rezensionen -->
+            <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
+            <div id="review-content" class="content">
+                <form action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
+                    <div class="row">
+                        <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md ml-auto" style="text-align: right; margin-top: 10px; margin-bottom:10px;">
+                            <button type="submit" class="btn btn-success">Add comment</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <%
+                        List<Comment> comments = hike.getHikeComments();
+                        if (comments == null || comments.isEmpty()) {
+                    %>
+                    <p>Here are some reviews of this hike.</p>
+                    <%
+                    } else {
+                        for (Comment comment : comments) {
+                    %>
+                    <div id="commentDiv">
+                        <div class="comment-card">
+                            <div class="row">
+                                <div class="col-md-10" style="text-align: left">
+                                    <label class="labels"><%=comment.getCommentUser().getUserName()%>
+                                    </label><br>
+                                    <label><%=comment.getCommentDescription()%>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 ml-auto d-flex align-items-center">
+                                    <a href="deleteCommentServlet?commentId=<%=comment.getCommentId()%>" type="button" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%
+                            }
+                        }
+                    %>
+                </div>
+            </div>
+
             <!-- Points of Interest -->
             <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
             <div id="pointsOfInterest-content" class="content" style="padding: 10px">
@@ -406,13 +453,6 @@
                         }
                     %>
                 </div>
-            </div>
-
-            <!-- Rezensionen -->
-            <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
-            <div id="review-content" class="content">
-                <!-- TODO Rezensionen generieren -->
-                <p>Here are some reviews of this hike.</p>
             </div>
         </div>
     </div>
