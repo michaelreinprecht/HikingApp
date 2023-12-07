@@ -1,5 +1,6 @@
-/* CSS for the detail.jsp page */
+@import url('global.css');
 
+/* CSS for the detail.jsp page */
 /* CSS for the star ratings */
 .input {
     height: 100%;
@@ -35,10 +36,9 @@
 }
 
 .text-center {
-    color: green;
-    font-style: italic;
     margin: auto;
 }
+
 .button-group {
     display: flex;
     flex-direction: column;
@@ -89,9 +89,7 @@
 }
 
 .text-center-name {
-    color: green;
     margin-top: 40px;
-    font-style: italic
 }
 
 .name {

@@ -1,12 +1,6 @@
 <%@ page import="myHikeJava.Database" %>
 <%@ page import="models.Hike" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: kenan
-  Date: 14.11.2023
-  Time: 11:44
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
@@ -29,7 +23,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
   <!-- Link to css files -->
-  <link rel="stylesheet" type="text/css" href="css/global.css">
   <link rel="stylesheet" type="text/css" href="css/discover.css">
 </head>
 <body>
@@ -101,20 +94,20 @@
         int i = 0;
         List<Hike> hikes = Database.getAllHikes();
         while (i != 3) {
-          Hike h1 = hikes.get(i);
-          String image = h1.getHikeImage();
+          Hike hike = hikes.get(i);
+          String image = hike.getHikeImage();
       %>
       <div class="col-sm-4">
-        <a href="detail.jsp?Id=<%=h1.getHikeId()%>">
+        <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
         <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
-              <h5 class="card-title"><%= h1.getHikeName()%></h5>
+              <h5 class="card-title"><%= hike.getHikeName()%></h5>
               <p class="card-text">
                 <small class="text-muted">
-                  Strength: <%= h1.getHikeStrength()%>
-                  Stamina: <%= h1.getHikeStamina()%>
-                  Difficulty: <%= h1.getHikeDifficulty()%>
+                  Strength: <%= hike.getHikeStrength()%>
+                  Stamina: <%= hike.getHikeStamina()%>
+                  Difficulty: <%= hike.getHikeDifficulty()%>
                 </small>
               </p>
             </div>
@@ -131,20 +124,20 @@
     <div class="row gutter">
       <%
         while (i != 6) {
-          Hike h1 = hikes.get(i);
-          String image = h1.getHikeImage();
+          Hike hike = hikes.get(i);
+          String image = hike.getHikeImage();
       %>
       <div class="col-sm-4">
-        <a href="detail.jsp?Id=<%=h1.getHikeId()%>">
+        <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
         <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
           <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
             <div class="card-body">
-              <h5 class="card-title"><%= h1.getHikeName()%></h5>
+              <h5 class="card-title"><%= hike.getHikeName()%></h5>
               <p class="card-text">
                 <small class="text-muted">
-                  Strength: <%= h1.getHikeStrength()%>
-                  Stamina: <%= h1.getHikeStamina()%>
-                  Difficulty: <%= h1.getHikeDifficulty()%>
+                  Strength: <%= hike.getHikeStrength()%>
+                  Stamina: <%= hike.getHikeStamina()%>
+                  Difficulty: <%= hike.getHikeDifficulty()%>
                 </small>
               </p>
             </div>

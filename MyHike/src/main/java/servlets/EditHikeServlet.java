@@ -30,7 +30,7 @@ public class EditHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("edit.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("discover.jsp?successAlert=editSuccess");
+            response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&successAlert=editSuccess");
         }
     }
 

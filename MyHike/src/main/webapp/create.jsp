@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
     <!-- Link to css files -->
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
     <!-- JQuery import -->
@@ -214,7 +213,7 @@
                         <div>
                             <img id="uploadedImage" alt=""/>
                         </div>
-                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <label for="fileToUpload" class="form-label">Image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
@@ -240,7 +239,7 @@
             }
         %>
 
-        <div class="row" style="clear:both;">
+        <div class="row-md" style="clear:both;">
             <div class="col-md-5 offset-md-5 text-right">
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

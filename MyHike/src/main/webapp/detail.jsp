@@ -45,7 +45,6 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Link to css files -->
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/detail.css">
 
     <!-- Leaflet import -->
@@ -88,6 +87,12 @@
 </nav>
 
 <!-- Hike name -->
+<!-- Display successAlert based on successAlert parameter. -->
+<%
+    String successAlert = request.getParameter("successAlert");
+%>
+<tags:successAlert alert='<%=successAlert%>'/>
+
 <div class="name">
     <h3 class="text-center-name"><%= hike.getHikeName() %>
     </h3>
