@@ -26,6 +26,7 @@ public class Hike {
     private String hikeMonths;
     private Region hikeRegion;
     private List<PointOfInterest> hikePointsOfInterest;
+    private List<Comment> hikeComments;
     private boolean isDeleted;
     private User hikeOfUser;
 
@@ -192,6 +193,14 @@ public class Hike {
 
     public void setHikeOfUser(User hikeOfUser) {
         this.hikeOfUser = hikeOfUser;
+    }
+
+    @OneToMany(mappedBy = "commentHike", fetch = FetchType.EAGER)
+    public List<Comment> getHikeComments() {
+        return hikeComments;
+    }
+    public void setHikeComments(List<Comment> hikeComments) {
+        this.hikeComments = hikeComments;
     }
 
     @Override

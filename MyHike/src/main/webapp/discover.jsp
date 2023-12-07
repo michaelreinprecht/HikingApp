@@ -84,9 +84,9 @@
       <%
         int i = 0;
         List<Hike> hikes = Database.getAllHikes();
-        while (i != 3) {
+        while (i != 3 && hikes.size() > i) {
           Hike hike = hikes.get(i);
-          String image = hike.getHikeImage();
+          String image = hike.getHikeImage() != null ? hike.getHikeImage() : "";
       %>
       <div class="col-sm-4">
         <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
@@ -114,9 +114,9 @@
     <h1 class="display-8">Popular near you</h1>
     <div class="row gutter">
       <%
-        while (i != 6) {
+        while (i != 6  && hikes.size() > i) {
           Hike hike = hikes.get(i);
-          String image = hike.getHikeImage();
+          String image = hike.getHikeImage() != null ? hike.getHikeImage() : "";
       %>
       <div class="col-sm-4">
         <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
@@ -145,9 +145,5 @@
   </div>
 
 </div>
-
-
-
-
 </body>
 </html>
