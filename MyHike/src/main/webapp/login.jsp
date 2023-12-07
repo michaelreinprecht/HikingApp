@@ -43,7 +43,7 @@
      background-size: cover;
      background-position: center center;
      height: 60%">
-    <%-- Display error message if available by login--%>
+    <%-- Display error if available by login--%>
     <% if (request.getAttribute("error") != null) { %>
     <p style="color: black;"><%= request.getAttribute("error") %></p>
     <% } %>

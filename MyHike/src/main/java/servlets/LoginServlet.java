@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("username", username);
                     session.setAttribute("isAdmin", dUser.isAdmin());
                     message = "Welcome " + username + "!";
-                    request.setAttribute("message", message);
+                    request.setAttribute("welcome", message);
                     destination = "discover.jsp";
                 } else {
                     destination = "login.jsp";
