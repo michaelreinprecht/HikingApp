@@ -37,6 +37,13 @@
     <script src="js/create_edit.js"></script>
     <script src="js/editMap.js"></script>
 </head>
+<%
+    if ((request.getSession(false).getAttribute("username") == null)){
+        %>
+<jsp:forward page="login.jsp"></jsp:forward>
+<%
+    }
+%>
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
@@ -58,7 +65,11 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
+                <%if (session.getAttribute("username") == null) { %>
                 <a class="nav-link" href="login.jsp">Login</a>
+                <% } else { %>
+                <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+                <% } %>
             </li>
         </ul>
     </div>

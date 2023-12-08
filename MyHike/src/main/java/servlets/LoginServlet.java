@@ -12,7 +12,6 @@ import myHikeJava.Database;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.UUID;
 
 @WebServlet("/loginServlet")

@@ -41,10 +41,26 @@
     <script src="js/create_edit.js"></script>
     <script src="js/editMap.js"></script>
 </head>
+<%
+    //Get the hike which is going to be displayed in for editing in this page.
+    String id = request.getParameter("Id");
+    Hike hike = Database.getHikeById(id);
+%>
+<% // if not authenticated user try reach the page via a Uri, will be redirected to detail.jsp
+    if (session.getAttribute("username") == null || (!(boolean) session.getAttribute("isAdmin") ||
+        (session.getAttribute("username") != null
+                && hike.getHikeOfUser() !=null
+                && !session.getAttribute("username").equals(hike.getHikeOfUser().getUserName()))))
+{
+%>
+<jsp:forward page="detail.jsp?Id=<%=hike.getHikeId()%>"></jsp:forward>
+<%
+    }
+%>
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <img src="images/icon3.png" alt="MyHike" class="icon">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -60,17 +76,17 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
+                <%if (session.getAttribute("username") == null) { %>
                 <a class="nav-link" href="login.jsp">Login</a>
+                <% } else { %>
+                <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+                <% } %>
             </li>
         </ul>
     </div>
 </nav>
 
-<%
-    //Get the hike which is going to be displayed in for editing in this page.
-    String id = request.getParameter("Id");
-    Hike hike = Database.getHikeById(id);
-%>
+
 
 <!-- Titel -->
 <div class="title">
