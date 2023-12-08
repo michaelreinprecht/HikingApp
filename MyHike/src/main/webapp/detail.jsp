@@ -90,22 +90,31 @@
 %>
 <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
 
-<div class="name">
-    <h3 class="text-center-name"><%= hike.getHikeName() %>
-    </h3>
-</div>
+
 
 <!-- Edit button -->
 <!-- Buttons Container -->
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top: 40px; width: 100%">
         <!-- Edit Button -->
-        <div class="col-md-6 text-left">
+        <div class="col-md-2">
             <a href="edit.jsp?Id=<%=hike.getHikeId()%>" class="btn btn-warning">Edit</a>
         </div>
 
+        <div class="col-md-8">
+            <h3><%=hike.getHikeName() %>
+            </h3>
+        </div>
+
+        <!-- Print Button -->
+        <div class="col-md-1">
+            <button type="button" id="printButton" class="btn btn-info" onclick="printPage()">
+                <img src="images/print-icon.png" height="24px" alt="Print">
+            </button>
+        </div>
+
         <!-- Delete Button -->
-        <div class="col-md-6 text-right">
+        <div class="col-md-1">
             <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
                   enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
