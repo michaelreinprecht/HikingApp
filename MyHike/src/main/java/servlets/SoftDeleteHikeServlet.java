@@ -10,6 +10,7 @@ import models.Hike;
 import myHikeJava.Database;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "softDeleteHikeServlet", value = "/softDeleteHikeServlet")
 @MultipartConfig
@@ -20,7 +21,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
             Hike hike = softDeleteHike(request);
             Database.update(hike);
         }
-        catch (IOException | ServletException e) {
+        catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {

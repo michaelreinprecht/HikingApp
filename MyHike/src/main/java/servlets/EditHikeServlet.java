@@ -12,6 +12,7 @@ import myHikeJava.Database;
 import myHikeJava.ServletUtils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
@@ -24,7 +25,7 @@ public class EditHikeServlet extends ServletUtils {
             //Insert hike into database
             Database.update(hike);
 
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {

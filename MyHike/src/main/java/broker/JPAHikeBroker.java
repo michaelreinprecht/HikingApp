@@ -4,12 +4,13 @@ import models.Hike;
 import servlets.ResourceServlet;
 
 import javax.persistence.EntityManager;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class JPAHikeBroker extends JPABrokerBase<Hike> {
     @Override
-    public List<Hike> getAll() {
+    public List<Hike> getAll() throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
         List<Hike> hikes = entityManager.createQuery("from models.Hike", Hike.class).getResultList();
 
@@ -20,7 +21,7 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
     }
 
     @Override
-    public Hike getById(Object id) {
+    public Hike getById(Object id) throws SQLException {
         EntityManager entityManager = ResourceServlet.getEntityManager();
         return entityManager.find(Hike.class, id);
     }

@@ -13,6 +13,7 @@ import myHikeJava.ServletUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +48,7 @@ public class AddPOIServlet extends ServletUtils {
             hike.setHikePointsOfInterest(pointsOfInterest);
             Database.update(hike);
 
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {

@@ -12,6 +12,7 @@ import myHikeJava.Database;
 import myHikeJava.ServletUtils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
@@ -24,8 +25,7 @@ public class CreateHikeServlet extends ServletUtils {
             Hike hike = getHike(request);
             //Insert hike into database
             Database.insert(hike);
-
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
