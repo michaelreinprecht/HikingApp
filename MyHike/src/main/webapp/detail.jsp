@@ -1,4 +1,4 @@
-<%@ page import="myHikeJava.Database" %>
+<%@ page import="database.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.time.LocalTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>

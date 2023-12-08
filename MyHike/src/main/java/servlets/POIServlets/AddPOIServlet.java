@@ -1,4 +1,4 @@
-package servlets;
+package servlets.POIServlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.PointOfInterest;
-import myHikeJava.Database;
-import myHikeJava.ServletUtils;
+import database.Database;
+import servlets.ServletUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;

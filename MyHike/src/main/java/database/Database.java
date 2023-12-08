@@ -1,4 +1,4 @@
-package myHikeJava;
+package database;
 
 import facade.*;
 import models.*;

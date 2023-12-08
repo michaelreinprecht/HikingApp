@@ -1,4 +1,4 @@
-package servlets;
+package servlets.hikeServlets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static myHikeJava.Database.getAllHikes;
+import static database.Database.getAllHikes;
 
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {

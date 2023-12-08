@@ -1,4 +1,4 @@
-package servlets;
+package servlets.commentServlets;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Comment;
 import models.Hike;
-import myHikeJava.Database;
+import database.Database;
 
 import java.io.IOException;
 import java.util.List;

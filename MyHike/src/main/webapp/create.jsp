@@ -1,7 +1,7 @@
 <%@ page import="models.Month" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Region" %>
-<%@ page import="myHikeJava.Database" %>
+<%@ page import="database.Database" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
