@@ -34,6 +34,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
 
+    <!-- jQuery import -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <!-- Bootstrap imports -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -41,12 +44,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <!-- Bootstrap import for icons -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- jQuery import -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Link to css files -->
     <link rel="stylesheet" href="css/detail.css">
@@ -363,7 +360,7 @@
                             </div>
                             <div class="col-md-1 ml-auto d-flex align-items-center">
                                 <a href="deleteCommentServlet?hikeId=<%=hike.getHikeId()%>&commentId=<%=comments.get(i).getCommentId()%>">
-                                    <span class="glyphicon glyphicon-trash" style="color: red; font-size: 20px"></span>
+                                    <img src="images/trash-icon.png" alt="Delete" style="height: 25px;">
                                 </a>
                             </div>
                         </div>
