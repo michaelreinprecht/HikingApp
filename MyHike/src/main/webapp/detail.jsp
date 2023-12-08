@@ -41,6 +41,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <!-- Bootstrap import for icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- jQuery import -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -328,9 +331,10 @@
             <!-- Rezensionen -->
             <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
             <div id="review-content" class="content">
-                <form action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
+                <form method="POST" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
                     <div class="row">
-                        <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"></textarea>
+                        <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"
+                                  placeholder="Enter your comment here ..."></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md ml-auto" style="text-align: right; margin-top: 10px; margin-bottom:10px;">
@@ -346,20 +350,21 @@
                     <p>Here are some reviews of this hike.</p>
                     <%
                     } else {
-                        for (Comment comment : comments) {
+                            //Iterate through comments list backwards, this way newest comments show up first
+                            for (i = comments.size()-1; i >= 0; i--) {
                     %>
-                    <div id="commentDiv">
-                        <div class="comment-card">
-                            <div class="row">
-                                <div class="col-md-10" style="text-align: left">
-                                    <label class="labels"><%=comment.getCommentUser().getUserName()%>
-                                    </label><br>
-                                    <label><%=comment.getCommentDescription()%>
-                                    </label>
-                                </div>
-                                <div class="col-md-2 ml-auto d-flex align-items-center">
-                                    <a href="deleteCommentServlet?commentId=<%=comment.getCommentId()%>" type="button" class="btn btn-danger">Delete</a>
-                                </div>
+                    <div class="comment-card">
+                        <div class="row" style="width: 100%">
+                            <div class="col-md-11" style="text-align: left">
+                                <label class="labels"><%=comments.get(i).getCommentUser().getUserName()%>
+                                </label><br>
+                                <label><%=comments.get(i).getCommentDescription()%>
+                                </label>
+                            </div>
+                            <div class="col-md-1 ml-auto d-flex align-items-center">
+                                <a href="deleteCommentServlet?commentId=<%=comments.get(i).getCommentId()%>">
+                                    <span class="glyphicon glyphicon-trash" style="color: red; font-size: 20px"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
