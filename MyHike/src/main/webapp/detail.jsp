@@ -331,7 +331,7 @@
             <!-- Rezensionen -->
             <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
             <div id="review-content" class="content">
-                <form method="POST" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
+                <form method="post" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
                     <div class="row">
                         <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"
                                   placeholder="Enter your comment here ..."></textarea>
@@ -362,7 +362,7 @@
                                 </label>
                             </div>
                             <div class="col-md-1 ml-auto d-flex align-items-center">
-                                <a href="deleteCommentServlet?commentId=<%=comments.get(i).getCommentId()%>">
+                                <a href="deleteCommentServlet?hikeId=<%=hike.getHikeId()%>&commentId=<%=comments.get(i).getCommentId()%>">
                                     <span class="glyphicon glyphicon-trash" style="color: red; font-size: 20px"></span>
                                 </a>
                             </div>

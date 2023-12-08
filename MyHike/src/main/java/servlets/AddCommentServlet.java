@@ -6,12 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Comment;
 import models.Hike;
-import models.PointOfInterest;
 import models.User;
 import myHikeJava.Database;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
