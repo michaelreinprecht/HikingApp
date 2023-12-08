@@ -31,7 +31,8 @@ public class CreateHikeServlet extends ServletUtils {
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("discover.jsp?successAlert=createSuccess");
+            response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully created your new " +
+                    "hike - you should now be able to view it in 'Your Hikes' or find it using the search function."));
         }
     }
 

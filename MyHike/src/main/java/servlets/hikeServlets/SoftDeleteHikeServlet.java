@@ -17,6 +17,7 @@ import java.sql.SQLException;
 public class SoftDeleteHikeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         String error = "";
+        String hikeId = request.getParameter("Id");
         try {
             Hike hike = softDeleteHike(request);
             Database.update(hike);
@@ -25,9 +26,9 @@ public class SoftDeleteHikeServlet extends HttpServlet {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
-            response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("discover.jsp?successAlert=deleteSuccess");
+            response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully deleted your hike!"));
         }
     }
     public Hike softDeleteHike(HttpServletRequest request) throws IOException, ServletException {

@@ -45,7 +45,8 @@ public class AddCommentServlet extends HttpServlet {
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) +  "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=addCommentSuccess"); //TODO handle success properly
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" +
+                    response.encodeURL("Successfully added your comment!"));
         }
     }
 }

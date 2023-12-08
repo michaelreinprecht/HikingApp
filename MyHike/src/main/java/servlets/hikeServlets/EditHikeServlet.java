@@ -19,6 +19,7 @@ import java.sql.SQLException;
 public class EditHikeServlet extends ServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
+        String hikeId = request.getParameter("Id");
         try {
             //Create new hike object based on the data entered in create.jsp
             Hike hike = getUpdatedHike(request);
@@ -29,9 +30,9 @@ public class EditHikeServlet extends ServletUtils {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
-            response.sendRedirect("edit.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
+            response.sendRedirect("edit.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&successAlert=editSuccess");
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" + response.encodeURL("Successfully edited your hike!"));
         }
     }
 

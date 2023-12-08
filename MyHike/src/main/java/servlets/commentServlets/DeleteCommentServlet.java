@@ -38,7 +38,7 @@ public class DeleteCommentServlet  extends HttpServlet {
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) +  "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=deleteCommentSuccess");
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" + response.encodeURL("Successfully deleted your comment!"));
         }
     }
 }

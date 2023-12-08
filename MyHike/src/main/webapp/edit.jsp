@@ -309,14 +309,9 @@
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
             <%
             String error = request.getParameter("error");
-            if (error != null && !error.isEmpty()) {
-        %>
-        <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
-            Database error: <%= error %>
-        </div>
-            <%
-            }
-        %>
+            %>
+            <tags:multiAlert error="<%=error%>"/>
+
 
         <div class="row-md" style="clear:both;">
             <div class="col-md-5 offset-md-5 text-right">

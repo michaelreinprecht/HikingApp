@@ -86,26 +86,14 @@
 <!-- Display successAlert based on successAlert parameter. -->
 <%
     String successAlert = request.getParameter("successAlert");
+    String error = request.getParameter("error");
 %>
-<tags:successAlert alert='<%=successAlert%>'/>
+<tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
 
 <div class="name">
     <h3 class="text-center-name"><%= hike.getHikeName() %>
     </h3>
 </div>
-
-<!-- This alert will be displayed if the database delete fails -->
-<%
-    String error = request.getParameter("error");
-    if (error != null && !error.isEmpty()) {
-%>
-<div id="databaseAlert" class="alert alert-danger row-md" role="alert"
-     style="clear:both; margin-bottom: 10px; margin-top: 10px;">
-    Database error: <%= error %>
-</div>
-<%
-    }
-%>
 
 <!-- Edit button -->
 <!-- Buttons Container -->
