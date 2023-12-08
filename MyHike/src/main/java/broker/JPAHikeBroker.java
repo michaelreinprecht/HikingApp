@@ -16,8 +16,6 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
         List<Hike> filteredHikes;
         filteredHikes = hikes.stream().filter(hike -> !hike.getIsDeleted()).collect(Collectors.toList());
 
-        //List<Hike> hikes = entityManager.createQuery("select h from models.Hike h where h.isDeleted = false", Hike.class).getResultList();
-
         return filteredHikes;
     }
 
