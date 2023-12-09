@@ -2,9 +2,12 @@ package myHikeJava;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Region;
+import models.User;
+import org.hibernate.Session;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -79,10 +82,12 @@ public class ServletUtils extends HttpServlet {
         //Duration needs to be properly formatted with DateTimeFormatter
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Time duration = Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter));
-
+        HttpSession session = (HttpSession) request.getSession(false);
+        String hikeOfUser = (String) session.getAttribute("username");
+        User user = Database.getUserByName(hikeOfUser);
         //Populate hike object with formatted/adjusted parameter data.
         hike = new Hike(hike.getHikeId(), name, description, markerCoordinates, duration, altitude, distance,
-                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null,false, null);
+                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null,false, user);
 
         return hike;
     }

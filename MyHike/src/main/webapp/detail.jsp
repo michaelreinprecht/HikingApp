@@ -137,12 +137,14 @@
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
-            <%if ((session.getAttribute("isAdmin") != null &&
+            <%
+                if ((session.getAttribute("isAdmin") != null &&
                     ((boolean) session.getAttribute("isAdmin")) ||
                             (session.getAttribute("username") != null
                                     && hike.getHikeOfUser() !=null
                                     && session.getAttribute("username").equals(hike.getHikeOfUser().getUserName()))))
-            { %>
+            {
+                %>
             <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
                   enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
