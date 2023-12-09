@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Getter
 @Entity
 @Table(name = "MyHike.comment")
 public class Comment implements Serializable {

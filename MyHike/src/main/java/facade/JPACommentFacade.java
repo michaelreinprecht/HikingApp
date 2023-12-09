@@ -1,15 +1,15 @@
 package facade;
 
 import broker.JPABrokerBase;
-import broker.JPAUserBroker;
-import models.User;
+import broker.JPACommentBroker;
+import models.Comment;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class JPAUserFacade extends JPAFacade {
-    public List<User> getAllUsers() {
-        JPABrokerBase<User> broker = new JPAUserBroker();
+public class JPACommentFacade extends JPAFacade {
+    public List<Comment> getAllComments() {
+        JPABrokerBase<Comment> broker = new JPACommentBroker();
         try {
             return broker.getAll();
         } catch (SQLException | NullPointerException e) {
@@ -18,8 +18,8 @@ public class JPAUserFacade extends JPAFacade {
         return null;
     }
 
-    public User getUserById(String id) {
-        JPABrokerBase<User> broker = new JPAUserBroker();
+    public Comment getCommentById(String id) {
+        JPABrokerBase<Comment> broker = new JPACommentBroker();
         try {
             return broker.getById(id);
         } catch (SQLException | NullPointerException e) {

@@ -1,12 +1,27 @@
 //JavaScript for the detail.js page
 
-//TODO explain method
+//Displays the content belonging to the pressed button
 function toggleContent(buttonId) {
     let content = document.getElementById(buttonId + "-content");
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
     } else {
         content.style.display = "none";
+    }
+}
+
+//Makes sure all data is being displayed and initiates print.
+function printPage() {
+    showHiddenContent();
+    window.print();
+}
+
+//Gets all elements with class content and makes sure they are visible
+function showHiddenContent() {
+    let contentElements = document.getElementsByClassName("content");
+    // Iterate through each element and set style.display to 'block'
+    for (let i = 0; i < contentElements.length; i++) {
+        contentElements[i].style.display = 'block';
     }
 }
 
@@ -271,6 +286,4 @@ function hideLoading() {
     const loadingDiv = document.getElementById("loadingDiv");
     loadingDiv.style.display = 'none';
 }
-
-
 

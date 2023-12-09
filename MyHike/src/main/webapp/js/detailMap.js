@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     //Get the coordinates which have been written into the data-marker-coordinates field of the map element.
     const mapElement = document.getElementById('map');
-    const routeCoordinatesString = mapElement.getAttribute('data-route-coordinates');
-    let routeCoordinates = JSON.parse(routeCoordinatesString)
+    let routeCoordinatesJsonString = mapElement.getAttribute('data-route-coordinates');
+    let routeCoordinates = JSON.parse(routeCoordinatesJsonString);
 
     //Holds the leaflet map
     let myMap;

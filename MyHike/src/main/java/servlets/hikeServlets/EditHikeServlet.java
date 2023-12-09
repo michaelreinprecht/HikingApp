@@ -1,4 +1,4 @@
-package servlets;
+package servlets.hikeServlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,29 +8,31 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
-import myHikeJava.Database;
-import myHikeJava.ServletUtils;
+import database.Database;
+import servlets.ServletUtils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
 public class EditHikeServlet extends ServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
+        String hikeId = request.getParameter("Id");
         try {
             //Create new hike object based on the data entered in create.jsp
             Hike hike = getUpdatedHike(request);
             //Insert hike into database
             Database.update(hike);
 
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
-            response.sendRedirect("edit.jsp?Id=" + request.getParameter("Id") + "&error=" + response.encodeURL(error));
+            response.sendRedirect("edit.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("detail.jsp?Id=" + request.getParameter("Id") + "&successAlert=editSuccess");
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" + response.encodeURL("Successfully edited your hike!"));
         }
     }
 

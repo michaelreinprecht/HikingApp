@@ -1,4 +1,4 @@
-<%@ page import="myHikeJava.Database" %>
+<%@ page import="database.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -90,8 +90,9 @@
     <!-- Display successAlert based on successAlert parameter. -->
     <%
       String successAlert = request.getParameter("successAlert");
+      String error = request.getParameter("error");
     %>
-    <tags:successAlert alert='<%=successAlert%>'/>
+    <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
     <h1 class="display-8">Popular this Season</h1>
     <div class="row gutter">
       <%

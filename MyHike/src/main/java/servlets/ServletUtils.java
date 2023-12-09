@@ -1,5 +1,6 @@
-package myHikeJava;
+package servlets;
 
+import database.Database;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

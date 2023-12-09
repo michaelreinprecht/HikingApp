@@ -1,26 +1,25 @@
-package myHikeJava;
+package database;
 
 import facade.*;
-import models.Hike;
-import models.PointOfInterest;
-import models.Region;
-import models.User;
+import models.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @SuppressWarnings("unused")
 public class Database {
     public static JPAFacade facade = new JPAFacade();
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
-    public static JPAUserFacade userFacade = new JPAUserFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
+    public static JPAUserFacade userFacade = new JPAUserFacade();
+    public static JPACommentFacade commentFacade = new JPACommentFacade();
 
     //Insert, update and delete can be used with any model
-    public static void insert(Object databaseObject) {
+    public static void insert(Object databaseObject) throws SQLException {
         facade.insert(databaseObject);
     }
-    public static void update(Object databaseObject) {
+    public static void update(Object databaseObject) throws SQLException {
         facade.update(databaseObject);
     }
     public static void delete(Object databaseObject) {
@@ -49,7 +48,17 @@ public class Database {
         return pointOfInterestFacade.getPointOfInterestById(id);
     }
 
-    public static User getUserByName(String name) {
-        return userFacade.getUserByName(name);
+    public static List<User> getAllUsers() {
+        return userFacade.getAllUsers();
+    }
+    public static User getUserById(String id) {
+        return userFacade.getUserById(id);
+    }
+
+    public static List<Comment> getAllComments() {
+        return commentFacade.getAllComments();
+    }
+    public static Comment getCommentById(String id) {
+        return commentFacade.getCommentById(id);
     }
 }

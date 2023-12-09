@@ -1,4 +1,4 @@
-package servlets;
+package servlets.POIServlets;
 
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,9 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Hike;
 import models.PointOfInterest;
-import myHikeJava.Database;
+import database.Database;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/deletePOIServlet")
@@ -32,7 +33,7 @@ public class DeletePOIServlet extends HttpServlet {
             Database.delete(poi);
             response.getWriter().write("deleted");
         }
-        catch (IOException e) {
+        catch (IOException | SQLException e) {
             response.getWriter().write(e.getMessage());
         }
     }

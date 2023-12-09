@@ -1,4 +1,4 @@
-package servlets;
+package servlets.hikeServlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,10 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
-import myHikeJava.Database;
-import myHikeJava.ServletUtils;
+import database.Database;
+import servlets.ServletUtils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
@@ -24,14 +25,14 @@ public class CreateHikeServlet extends ServletUtils {
             Hike hike = getHike(request);
             //Insert hike into database
             Database.insert(hike);
-
-        } catch (IOException | ServletException e) {
+        } catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
-            response.sendRedirect("discover.jsp?successAlert=createSuccess");
+            response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully created your new " +
+                    "hike - you should now be able to view it in 'Your Hikes' or find it using the search function."));
         }
     }
 
