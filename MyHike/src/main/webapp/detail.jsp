@@ -12,6 +12,10 @@
     //Get the hike which is going to be displayed in detail in this page.
     String id = request.getParameter("Id");
     Hike hike = Database.getHikeById(id);
+
+    boolean loggedIn = session.getAttribute("username") != null;
+    boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+    boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
 %>
 
 <html>
@@ -80,7 +84,7 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <%if (session.getAttribute("username") == null) { %>
+                <%if (!loggedIn) { %>
                 <a class="nav-link" href="login.jsp">Login</a>
                 <% } else { %>
                 <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
@@ -121,37 +125,28 @@
     <div class="row">
         <!-- Edit Button -->
         <div class="col-md-6 text-left">
-            <%if ((session.getAttribute("isAdmin") != null &&
-                    ((boolean) session.getAttribute("isAdmin")) ||
-                    (session.getAttribute("username") != null
-                            && hike.getHikeOfUser() !=null
-                            && session.getAttribute("username").equals(hike.getHikeOfUser().getUserName()))))
-            { %>
+            <%
+                if (!loggedIn || (!ownsHike && !isAdmin)) {
+            %>
             <a href="edit.jsp?Id=<%=hike.getHikeId()%>" class="btn btn-warning">Edit</a>
-            <% } else { %>
-            <a href="#" class="btn btn-warning" style="cursor: not-allowed; opacity: 0.5">Edit</a>
-            <% } %>
-
+            <%
+            }
+            %>
         </div>
 
 
         <!-- Delete Button -->
         <div class="col-md-6 text-right">
             <%
-                if ((session.getAttribute("isAdmin") != null &&
-                    ((boolean) session.getAttribute("isAdmin")) ||
-                            (session.getAttribute("username") != null
-                                    && hike.getHikeOfUser() !=null
-                                    && session.getAttribute("username").equals(hike.getHikeOfUser().getUserName()))))
-            {
-                %>
+                if (!loggedIn || (!ownsHike && !isAdmin)) {
+            %>
             <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
                   enctype="multipart/form-data">
                 <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
-            <% } else {%>
-            <button type="submit" id="disabledButton" class="btn btn-danger" style="cursor: not-allowed;" disabled = "true">Delete</button>
-            <% } %>
+            <%
+                }
+            %>
         </div>
     </div>
 </div>
@@ -227,7 +222,6 @@
                 <h5 class="text-center">
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
-                        //TODO explain what is being generated
                         for (String rec : recommended) {
                             if (rec != null) {
                     %>
@@ -357,6 +351,9 @@
             <!-- Points of Interest -->
             <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
             <div id="pointsOfInterest-content" class="content" style="padding: 10px">
+                <%
+                    if (!loggedIn || (!ownsHike && !isAdmin)) {
+                %>
                 <h4 style="margin-top: 10px">Add new Points of Interest:</h4>
                 <form id="myForm" enctype="multipart/form-data">
                     <div class="row" style="padding: 10px">
@@ -419,6 +416,9 @@
                         </div>
                     </div>
                 </form>
+                <%
+                    }
+                %>
                 <div id="result" style="display: flex; flex-wrap: wrap; gap: 1%;">
                     <%
                         List<PointOfInterest> pointsOfInterest = hike.getHikePointsOfInterest();

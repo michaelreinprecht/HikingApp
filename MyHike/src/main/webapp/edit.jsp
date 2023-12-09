@@ -46,15 +46,14 @@
     String id = request.getParameter("Id");
     Hike hike = Database.getHikeById(id);
 %>
-<% // if not authenticated user try reach the page via a Uri, will be redirected to detail.jsp
-
-    if (session.getAttribute("username") == null
-                    || !((boolean) session.getAttribute("isAdmin")
-            || (hike.getHikeOfUser() !=null &&
-            hike.getHikeOfUser().getUserName().equals(session.getAttribute("username")))))
-    {
+<% // If unauthorized user tries reach the page via url redirected to detail.jsp
+    boolean loggedIn = session.getAttribute("username") != null;
+    boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+    boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+    // Not logged in OR (Logged in but not your hike AND no admin)
+    if (!loggedIn || (!ownsHike && !isAdmin)) {
 %>
-<jsp:forward page="detail.jsp?Id=<%=hike.getHikeId()%>"></jsp:forward>
+<jsp:forward page="detail.jsp?Id=<%=hike.getHikeId()%>"/>
 <%
     }
 %>

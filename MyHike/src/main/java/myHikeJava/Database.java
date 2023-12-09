@@ -12,7 +12,7 @@ import java.util.List;
 public class Database {
     public static JPAFacade facade = new JPAFacade();
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
-    private static JPAUserFacade userFacade = new JPAUserFacade();
+    public static JPAUserFacade userFacade = new JPAUserFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
 
