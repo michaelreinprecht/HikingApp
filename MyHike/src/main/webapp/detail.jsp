@@ -6,9 +6,6 @@
 <%@ page import="models.PointOfInterest" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Comment" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
@@ -198,11 +195,13 @@
                     <%
                         String[] recommended = Month.getMonthsByBitmap(hike.getHikeMonths());
                         //TODO explain what is being generated
-                        for (String rec : recommended) {
-                            if (rec != null) {
+                        if (recommended != null) {
+                            for (String rec : recommended) {
+                                if (rec != null) {
                     %>
                     <%=rec%>
                     <%
+                                }
                             }
                         }
                     %>
@@ -212,26 +211,12 @@
         <div class="images">
             <div class="image-container">
                 <!-- Rundgangsbild -->
-                <img alt="<%=hike.getHikeName()%>" src="data:image/png;base64,<%=hike.getHikeImage()%>"
+                <img alt="<%=hike.getHikeName()%>" src="<%=hike.getHikeImage() != null ? "data:image/png;base64," + hike.getHikeImage() : ""%>"
                      class="hikeImage">
             </div>
             <div class="image-container">
-                <%
-                    //Convert POI coordinates to a json string to pass them to the map.
-                    List<PointOfInterest> POIs = hike.getHikePointsOfInterest();
-                    List<String> coordinates = new ArrayList<>();
-
-                    for (PointOfInterest poi: POIs) {
-                        coordinates.add(poi.getPointOfInterestLat().toString());
-                        coordinates.add(poi.getPointOfInterestLon().toString());
-                    }
-                    String POIJson = new Gson().toJson(coordinates);
-                %>
                 <!-- Karte -->
-                <div id="map" style="height: 100%; width: 100%;"
-                     data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"
-                     data-poi='<%=POIJson%>'
-                ></div>
+                <div id="map" style="height: 100%; width: 100%;" data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
             </div>
         </div>
 

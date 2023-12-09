@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //Get the coordinates which have been written into the data-marker-coordinates field of the map element.
     const mapElement = document.getElementById('map');
     let routeCoordinatesJsonString = mapElement.getAttribute('data-route-coordinates');
-    let POIJsonString = mapElement.getAttribute('data-poi');
-    let POIs = JSON.parse(POIJsonString);
     let routeCoordinates = JSON.parse(routeCoordinatesJsonString);
 
     //Holds the leaflet map
@@ -11,8 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Focus on coordinates of start marker
     myMap = L.map('map').setView([routeCoordinates[0][0],routeCoordinates[0][1]], 15);
-
-
 
     //Copyright of Leaflet
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
