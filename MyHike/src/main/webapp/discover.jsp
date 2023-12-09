@@ -44,6 +44,15 @@
         <a class="nav-link" href="create.jsp">Create Hike</a>
       </li>
     </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%if (session.getAttribute("username") == null) { %>
+        <a class="nav-link" href="login.jsp">Login</a>
+        <% } else { %>
+        <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+        <% } %>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -53,6 +62,10 @@
      background-position: center center;
      height: 60%;">
   <div style="background-color: rgba(0, 0, 0, 0.5); margin-left: 20%; margin-right: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <%-- Display welcome if available by login--%>
+    <% if (request.getAttribute("welcome") != null) { %>
+    <p style="color: white; font-size: 20px"><%= request.getAttribute("welcome") %></p>
+    <% } %>
     <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
   <form method="POST" action="filterHikesServlet">
@@ -146,5 +159,6 @@
   </div>
 
 </div>
+
 </body>
 </html>

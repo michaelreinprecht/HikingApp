@@ -21,6 +21,16 @@ import java.time.Duration;
 import java.util.*;
 
 public class CreateHikeTest {
+
+    /*
+            <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+     */
+
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;

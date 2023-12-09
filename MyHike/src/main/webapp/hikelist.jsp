@@ -51,6 +51,15 @@
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <%if (session.getAttribute("username") == null) { %>
+                <a class="nav-link" href="login.jsp">Login</a>
+                <% } else { %>
+                <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+                <% } %>
+            </li>
+        </ul>
     </div>
 </nav>
 
