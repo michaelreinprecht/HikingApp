@@ -1,10 +1,9 @@
 package models;
 
-import lombok.Getter;
-
 import javax.persistence.*;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "user", schema = "MyHike")
 public class User {

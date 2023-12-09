@@ -1,5 +1,6 @@
 package servlets;
 
+import database.Database;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,11 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.User;
-import myHikeJava.Database;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.sql.SQLException;
 
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if (username != null && password != null) {
             //Database should return one user
-            User dUser = Database.getUserByName(username);
+            User dUser = Database.getUserById(username);
             String destination;
             String message;
             if (dUser != null && BCrypt.checkpw(password, dUser.getUserPassword()) && dUser.getUserName().equals(username)){
@@ -49,11 +49,14 @@ public class LoginServlet extends HttpServlet {
     public void addUser(String username, String password){
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         User user = new User();
-        String id = UUID.randomUUID().toString();
         user.setUserName(username);
         user.setUserPassword(hashedPassword);
         user.setAdmin(true);
         user.setUserHikes(null);
-        Database.insert(user);
+        try {
+            Database.insert(user);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
