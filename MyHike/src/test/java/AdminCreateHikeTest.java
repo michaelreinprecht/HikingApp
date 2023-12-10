@@ -68,9 +68,7 @@ public class AdminCreateHikeTest {
         driver.findElement(By.id("map")).click();
         driver.findElement(By.id("map")).click();
         driver.findElement(By.id("name")).click();
-        driver.findElement(By.id("name")).sendKeys("Selenium Test");
-        driver.findElement(By.id("name")).click();
-        driver.findElement(By.id("name")).sendKeys("Selenium Test User");
+        driver.findElement(By.id("name")).sendKeys("Selenium Test Admin");
         driver.findElement(By.id("altitude")).click();
         driver.findElement(By.id("altitude")).sendKeys("8");
         driver.findElement(By.id("distance")).sendKeys("8");
@@ -84,7 +82,7 @@ public class AdminCreateHikeTest {
         driver.findElement(By.cssSelector(".difficulty-rating:nth-child(2) path")).click();
         driver.findElement(By.id("description")).click();
         driver.findElement(By.id("description")).sendKeys("Testing");
-        //TODO somehow replace this path with intern image or sth like that
+        //Link to a fixed image inside of the project
         String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
         driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
         driver.findElement(By.cssSelector(".btn")).click();

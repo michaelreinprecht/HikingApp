@@ -17,7 +17,7 @@ import java.sql.SQLException;
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session =request.getSession();
+        HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if (username != null && password != null) {
