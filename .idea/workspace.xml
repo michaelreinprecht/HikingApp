@@ -11,8 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/css/discover.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/js/create_edit.js" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/js/create_edit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/js/detailMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/js/detailMap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/js/editMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/js/editMap.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +30,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_TAGS">
-      <GitPushTagMode>
-        <option name="argument" value="--tags" />
-        <option name="title" value="All" />
-      </GitPushTagMode>
-    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -84,7 +80,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;discovertab&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DetailsFromMap&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/kenan/Desktop/FHV/3_Semester/Software_engineering/Hiking Project/HikingApp&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -212,8 +208,11 @@
       <workItem from="1699808601613" duration="3113000" />
       <workItem from="1699958082401" duration="7922000" />
       <workItem from="1700068950257" duration="6286000" />
-      <workItem from="1700662189359" duration="3131000" />
-      <workItem from="1700687302731" duration="7315000" />
+      <workItem from="1701303517075" duration="1071000" />
+      <workItem from="1701683621244" duration="3666000" />
+      <workItem from="1701940197330" duration="4263000" />
+      <workItem from="1702091892951" duration="3348000" />
+      <workItem from="1702174306496" duration="8431000" />
     </task>
     <servers />
   </component>

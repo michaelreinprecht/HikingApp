@@ -32,6 +32,8 @@ function validateForm() {
     const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
     const distance = document.getElementById("distance").value;
 
+    const duration = document.getElementById("duration").value;
+
     const radioStrength = document.querySelector('input[name="strength-rating"]:checked');
     const radioStamina = document.querySelector('input[name="stamina-rating"]:checked');
     const radioDifficulty = document.querySelector('input[name="difficulty-rating"]:checked');
@@ -67,12 +69,16 @@ function validateForm() {
         return false;
     }
     //Altitude/Distance can be null or empty, if they are not they have to match their respective patterns.
-    if (altitude != null && altitude !== "" && !altitudePattern.test(altitude)){
+    if (!altitudePattern.test(altitude)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
         return false;
     }
-    if (distance != null && distance !== "" && !distancePattern.test(distance)){
+    if (!distancePattern.test(distance)){
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
+        return false;
+    }
+    if (duration === null || duration === "") {
+        validationAlert.innerHTML = "Please enter a valid duration in between 00:00 - 23:59 hours.";
         return false;
     }
     if (!radioLandscape) {
