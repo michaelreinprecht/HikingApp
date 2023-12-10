@@ -162,23 +162,7 @@
         <div class="characteristics">
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
-                <h5 class="text-center">
-                    <% //Null-Value check, if there is no duration we will instead just display a question mark
-                        // (TODO generate duration automatically if it has no value)
-                        if (hike.getHikeDuration() != null) {
-                            LocalTime localTime = hike.getHikeDuration().toLocalTime();
-                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                            String formattedTime = localTime.format(outputFormatter);
-                    %>
-                    <%= formattedTime%> hours
-                    <%
-                    } else {
-                    %>
-                    ? hours
-                    <%
-                        }
-                    %>
-                </h5>
+                <h5 class="text-center" id="duration-container"></h5>
             </div>
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">

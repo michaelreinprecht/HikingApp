@@ -41,22 +41,30 @@ document.addEventListener('DOMContentLoaded', function () {
         finishMarker.addTo(myMap);
         finishMarker.setIcon(finishIcon);
 
-        // Calculate and display the distance
+        // Calculate and display the distance and duration
         const routeControl = L.Routing.control({
             waypoints: [
                 L.latLng(routeCoordinates[0][0], routeCoordinates[0][1]),
                 L.latLng(routeCoordinates[routeCoordinates.length - 1][0], routeCoordinates[routeCoordinates.length - 1][1])
             ],
             routeWhileDragging: true,
-            show: false // Don't display the route on the map, only calculate the distance
+            // Include the 'foot' profile for walking
+            profile: 'foot',
+            show: false // Don't display the route on the map, only calculate the distance and duration
         });
 
         routeControl.on('routesfound', function (e) {
             const routes = e.routes;
             const distance = routes[0].summary.totalDistance / 1000; // Convert meters to kilometers
+            const durationInSeconds = routes[0].summary.totalTime;
 
-            // Display the distance on your JSP site
+            // Convert duration to hours and minutes
+            const hours = Math.floor(durationInSeconds / 3600);
+            const minutes = Math.floor((durationInSeconds % 3600) / 60);
+
+            // Display the distance and duration on your JSP site in the format 6:30 h
             document.getElementById('distance-container').innerHTML = 'Distance: ' + distance.toFixed(2) + ' km';
+            document.getElementById('duration-container').innerHTML = 'Duration: ' + hours + 'h ' + minutes + 'm';
         });
 
         routeControl.addTo(myMap);
