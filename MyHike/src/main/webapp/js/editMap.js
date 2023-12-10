@@ -146,7 +146,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let body = {
             coordinates: coordinatesLngLat,
-            continue_straight: true
+            elevation: true,
+            continue_straight: true,
         };
 
         if (coordinatesLngLat.length >= 2) {
@@ -162,7 +163,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     // Extract the route geometry
+                    // Getting Distance,Duration, Altitude from API and write them into inputs
                     let coordinatesInverted = data.features[0].geometry.coordinates;
+                    let distance = data.features[0].properties.summary.distance;
+                    let duration = data.features[0].properties.summary.duration;
+                    let altitude = data.features[0].properties.ascent;
+                    document.getElementById('distance').value = formatMetersToKilometers(distance);
+                    document.getElementById('duration').value = formatSecondsToTime(duration);
+                    document.getElementById('altitude').value = altitude.toFixed(0);
+
+
+
                     routeCoordinates = [];
                     coordinatesInverted.forEach((coordinate) => {
                         routeCoordinates.push([coordinate[1], coordinate[0]]);
@@ -188,5 +199,23 @@ document.addEventListener('DOMContentLoaded', function () {
     //Updates the values of the inputs in the form that will be sent to database.
     function updateFormValues() {
         routeCoordinatesInput.value = JSON.stringify(routeCoordinates);
+    }
+
+    function formatSecondsToTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+
+
+        const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+        return formattedTime;
+    }
+
+    function formatMetersToKilometers(meters) {
+        const kilometers = meters / 1000;
+        const formattedKilometers = kilometers.toFixed(2).replace('.', ',');
+
+        return formattedKilometers;
     }
 });
