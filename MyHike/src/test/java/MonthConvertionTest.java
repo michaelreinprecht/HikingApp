@@ -18,12 +18,4 @@ public class MonthConvertionTest {
         String bitmap = Month.getBitmapFromMonths(months);
         Assert.assertEquals(bitmap, expectedResult);
     }
-
-    @Test
-    public void ExampleDBTestWithMocking() {
-        //Database.hikeFacade = mock(JPAHikeFacade.class);
-        //when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(new Hike());
-
-        //Assert.assertTrue();
-    }
 }
