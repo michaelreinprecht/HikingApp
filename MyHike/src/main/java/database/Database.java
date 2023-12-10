@@ -17,9 +17,6 @@ public class Database {
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) throws SQLException {
-        if (facade == null) {
-            facade = new JPAFacade();
-        }
         facade.insert(databaseObject);
     }
     public static void update(Object databaseObject) throws SQLException {

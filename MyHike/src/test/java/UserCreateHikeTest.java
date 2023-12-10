@@ -22,6 +22,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
@@ -51,14 +52,6 @@ public class UserCreateHikeTest {
   @Test
   public void userCreateHike() {
 
-    //Mocking database and removing functionality from insert
-    JPAFacade mockFacade = mock(JPAFacade.class);
-    doNothing().when(mockFacade).insert(any(Object.class));
-    Database.facade = mockFacade;
-    doNothing().when(Database.facade).insert(any(Object.class));
-
-    Database.hikeFacade = mock(JPAHikeFacade.class);
-    doNothing().when(Database.hikeFacade).insert(any(Object.class));
 
     driver.get("http://localhost:8080/MyHike_war_exploded/discover.jsp");
     driver.manage().window().setSize(new Dimension(1936, 1056));
@@ -70,6 +63,9 @@ public class UserCreateHikeTest {
     driver.findElement(By.name("password")).sendKeys("admin");
     driver.findElement(By.cssSelector(".svg-inline--fa")).click();
     driver.findElement(By.linkText("Create Hike")).click();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    wait.until((ExpectedCondition<Boolean>) webDriver ->
+            ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     driver.findElement(By.id("map")).click();
     driver.findElement(By.id("map")).click();
     driver.findElement(By.id("map")).click();
@@ -91,6 +87,16 @@ public class UserCreateHikeTest {
 
     String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
+
+    //Mocking database and removing functionality from insert
+    JPAFacade mockFacade = mock(JPAFacade.class);
+    doNothing().when(mockFacade).insert(any(Object.class));
+    Database.facade = mockFacade;
+    doNothing().when(Database.facade).insert(any(Object.class));
+
+    Database.hikeFacade = mock(JPAHikeFacade.class);
+    doNothing().when(Database.hikeFacade).insert(any(Object.class));
+
     driver.findElement(By.cssSelector(".btn")).click();
 
     //Wait until the alert window pops up and check if alert is positive about the hike being created.
