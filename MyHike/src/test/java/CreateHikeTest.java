@@ -21,6 +21,14 @@ import java.time.Duration;
 import java.util.*;
 
 public class CreateHikeTest {
+    /*
+            <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.14.5</version>
+            <scope>test</scope>
+        </dependency>
+     */
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
@@ -48,6 +56,7 @@ public class CreateHikeTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
         wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create Hike")));
         driver.findElement(By.linkText("Create Hike")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("map")));
         driver.findElement(By.id("map")).click();
         driver.findElement(By.id("map")).click();
         driver.findElement(By.id("map")).click();
