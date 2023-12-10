@@ -162,11 +162,40 @@
         <div class="characteristics">
             <div class="group">
                 <img src="images/uhr_dauer.png" alt="uhr" class="icons">
-                <h5 class="text-center" id="duration-container"></h5>
+                <h5 class="text-center">
+                    <% //Null-Value check, if there is no duration we will instead just display a question mark
+                        // (TODO generate duration automatically if it has no value)
+                        if (hike.getHikeDuration() != null) {
+                            LocalTime localTime = hike.getHikeDuration().toLocalTime();
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                            String formattedTime = localTime.format(outputFormatter);
+                    %>
+                    <%= formattedTime%> hours
+                    <%
+                    } else {
+                    %>
+                    ? hours
+                    <%
+                        }
+                    %>
+                </h5>
             </div>
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
-                <h5 class="text-center" id="distance-container"></h5>
+                <h5 class="text-center">
+                    <% //Null-Value check, if there is no distance we will instead just display a question mark
+                        // (TODO generate distance automatically if it has no value)
+                        if (hike.getHikeDistance() != null) {
+                    %>
+                    <%= hike.getHikeDistance()%>km
+                    <%
+                    } else {
+                    %>
+                    ?km
+                    <%
+                        }
+                    %>
+                </h5>
             </div>
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">

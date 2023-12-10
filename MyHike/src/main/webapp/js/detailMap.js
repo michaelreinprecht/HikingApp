@@ -42,10 +42,5 @@ document.addEventListener('DOMContentLoaded', function () {
         finishMarker.addTo(myMap);
         finishMarker.setIcon(finishIcon);
 
-        // Calculate and display the distance between startMarker and finishMarker
-        let distance = startMarker.getLatLng().distanceTo(finishMarker.getLatLng());
-        let distanceInKm = distance / 1000;
-        document.getElementById('distance-container').innerHTML = 'Distance: ' + distanceInKm.toFixed(2) + ' km';
-
     }
 });

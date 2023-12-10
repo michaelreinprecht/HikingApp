@@ -138,13 +138,13 @@
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
-                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" value="<%=hike.getHikeAltitude()%>">
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" value="<%=hike.getHikeAltitude()%>" readonly>
                     </div>
 
                     <!-- Distance-->
                     <div class="clear">
                         <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
-                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" value="<%=hike.getHikeDistance()%>">
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" value="<%=hike.getHikeDistance()%>" readonly>
                     </div>
 
                     <!-- Duration-->
@@ -157,7 +157,7 @@
                             String formattedTime = localTime.format(outputFormatter);
                         %>
                         <label for="duration" class="labels_withmargin">Duration (in hours:minutes):</label>
-                        <input class="form-control w-100" type="time" id="duration" name="duration" value="<%=formattedTime%>">
+                        <input class="form-control w-100" type="time" id="duration" name="duration" value="<%=formattedTime%>" readonly>
                     </div>
                 </div>
             </div>

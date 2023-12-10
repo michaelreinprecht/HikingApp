@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formatMetersToKilometers(meters) {
         const kilometers = meters / 1000;
-        const formattedKilometers = kilometers.toFixed(2).replace('.', ',');
+        const formattedKilometers = kilometers.toFixed(2).replace(',', '.');
 
         return formattedKilometers;
     }
