@@ -7,6 +7,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="models.Comment" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page buffer="8192kb" autoFlush="true" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <%
@@ -468,6 +469,7 @@
                 <div id="result" style="display: flex; flex-wrap: wrap; gap: 1%;">
                     <%
                         List<PointOfInterest> pointsOfInterest = hike.getHikePointsOfInterest();
+                        if (pointsOfInterest != null) {
                         for (PointOfInterest poi : pointsOfInterest) {
                             String image = poi.getPointOfInterestImage();
                     %>
@@ -480,6 +482,7 @@
                             src="<%=image%>"
                             poiId="<%=poi.getPointOfInterestId()%>"/>
                     <%
+                        }
                         }
                     %>
                 </div>
