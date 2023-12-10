@@ -60,6 +60,12 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
 
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
     <!-- Link to detail.js -->
     <script src="js/detail.js"></script>
     <script src="js/detailMap.js"></script>
@@ -176,20 +182,7 @@
             </div>
             <div class="group">
                 <img src="images/streckenlänge.png" alt="streckenlänge" class="icons">
-                <h5 class="text-center">
-                    <% //Null-Value check, if there is no distance we will instead just display a question mark
-                        // (TODO generate distance automatically if it has no value)
-                        if (hike.getHikeDistance() != null) {
-                    %>
-                    <%= hike.getHikeDistance()%>km
-                    <%
-                    } else {
-                    %>
-                    ?km
-                    <%
-                        }
-                    %>
-                </h5>
+                <h5 class="text-center" id="distance-container"></h5>
             </div>
             <div class="group">
                 <img src="images/altitude_icon.png" alt="altitude" class="icons">

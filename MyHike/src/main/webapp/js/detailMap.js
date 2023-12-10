@@ -40,5 +40,26 @@ document.addEventListener('DOMContentLoaded', function () {
         let finishMarker = L.marker([routeCoordinates[routeCoordinates.length-1][0], routeCoordinates[routeCoordinates.length-1][1]]);
         finishMarker.addTo(myMap);
         finishMarker.setIcon(finishIcon);
+
+        // Calculate and display the distance
+        const routeControl = L.Routing.control({
+            waypoints: [
+                L.latLng(routeCoordinates[0][0], routeCoordinates[0][1]),
+                L.latLng(routeCoordinates[routeCoordinates.length - 1][0], routeCoordinates[routeCoordinates.length - 1][1])
+            ],
+            routeWhileDragging: true,
+            show: false // Don't display the route on the map, only calculate the distance
+        });
+
+        routeControl.on('routesfound', function (e) {
+            const routes = e.routes;
+            const distance = routes[0].summary.totalDistance / 1000; // Convert meters to kilometers
+
+            // Display the distance on your JSP site
+            document.getElementById('distance-container').innerHTML = 'Distance: ' + distance.toFixed(2) + ' km';
+        });
+
+        routeControl.addTo(myMap);
+        routeControl.route();
     }
 });
