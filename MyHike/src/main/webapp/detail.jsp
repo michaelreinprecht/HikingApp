@@ -112,7 +112,7 @@
         <!-- Edit Button -->
         <div class="col-md-2">
             <%
-                if (!loggedIn || (!ownsHike && !isAdmin)) {
+                if ((loggedIn && ownsHike) || isAdmin) {
             %>
             <a href="edit.jsp?Id=<%=hike.getHikeId()%>" class="btn btn-warning">Edit</a>
             <%
@@ -135,7 +135,7 @@
         <!-- Delete Button -->
         <div class="col-md-1">
             <%
-                if (!loggedIn || (!ownsHike && !isAdmin)) {
+                if ((loggedIn && ownsHike) || isAdmin) {
             %>
             <form id="deleteForm" action="softDeleteHikeServlet?Id=<%=hike.getHikeId()%>" method="post"
                   enctype="multipart/form-data">
