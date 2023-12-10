@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Database {
-    public static JPAFacade facade = new JPAFacade();
+    public static JPAFacade facade;
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
@@ -17,6 +17,9 @@ public class Database {
 
     //Insert, update and delete can be used with any model
     public static void insert(Object databaseObject) throws SQLException {
+        if (facade == null) {
+            facade = new JPAFacade();
+        }
         facade.insert(databaseObject);
     }
     public static void update(Object databaseObject) throws SQLException {
