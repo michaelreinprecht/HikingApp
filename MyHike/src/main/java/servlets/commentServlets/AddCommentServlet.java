@@ -4,6 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Comment;
 import models.Hike;
 import models.User;
@@ -19,6 +20,16 @@ public class AddCommentServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         String hikeId = request.getParameter("hikeId");
+
+        //If users is not logged in, redirect to detail page and display error.
+        HttpSession session = request.getSession();
+        boolean loggedIn = session.getAttribute("username") != null;
+        if (!loggedIn) {
+            error = "Unauthorized users are unable to create comments - please log in.";
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+            return;
+        }
+
         try {
             Hike hike = Database.getHikeById(hikeId);
             User user = Database.getUserById("admin"); //TODO replace hardcoded username with username from session variable
