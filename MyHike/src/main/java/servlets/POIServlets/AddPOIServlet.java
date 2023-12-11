@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.PointOfInterest;
@@ -38,6 +39,17 @@ public class AddPOIServlet extends ServletUtils {
             //Create new hike object based on the data entered in create.jsp
             Hike hike = Database.getHikeById(hikeId);
             PointOfInterest poi = new PointOfInterest(poiId, poiTitle, poiDescription, new BigDecimal(poiLon), new BigDecimal(poiLat), getBase64(filePart), hike);
+
+            //If users does not own the hike or is an admin, redirect to detail page and display error.
+            HttpSession session = request.getSession();
+            boolean loggedIn = request.getSession().getAttribute("username") != null;
+            boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+            if (!ownsHike && !isAdmin) {
+                error = "You are not authorized to create a Point of Interest for this hike.";
+                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+                return;
+            }
 
             //Insert the new Point of Interest
             Database.insert(poi);
