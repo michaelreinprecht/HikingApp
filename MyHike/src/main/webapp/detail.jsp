@@ -62,7 +62,7 @@
             crossorigin=""></script>
 
     <!-- Leaflet Routing Machine CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
 
     <!-- Leaflet Routing Machine JS -->
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
@@ -111,7 +111,6 @@
 <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
 
 
-
 <!-- Edit button -->
 <!-- Buttons Container -->
 <div class="container">
@@ -123,7 +122,7 @@
             %>
             <a href="edit.jsp?Id=<%=hike.getHikeId()%>" class="btn btn-warning">Edit</a>
             <%
-            }
+                }
             %>
         </div>
 
@@ -242,12 +241,14 @@
         <div class="images">
             <div class="image-container">
                 <!-- Rundgangsbild -->
-                <img alt="<%=hike.getHikeName()%>" src="<%=hike.getHikeImage() != null ? "data:image/png;base64," + hike.getHikeImage() : ""%>"
+                <img alt="<%=hike.getHikeName()%>"
+                     src="<%=hike.getHikeImage() != null ? "data:image/png;base64," + hike.getHikeImage() : ""%>"
                      class="hikeImage">
             </div>
             <div class="image-container">
                 <!-- Karte -->
-                <div id="map" style="height: 100%; width: 100%;" data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
+                <div id="map" style="height: 100%; width: 100%;"
+                     data-route-coordinates="<%=hike.getHikeRouteCoordinates()%>"></div>
             </div>
         </div>
 
@@ -357,6 +358,9 @@
             <!-- Rezensionen -->
             <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
             <div id="review-content" class="content">
+                <%
+                    if ((loggedIn && ownsHike) || isAdmin) {
+                %>
                 <form method="post" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
                     <div class="row">
                         <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"
@@ -368,6 +372,9 @@
                         </div>
                     </div>
                 </form>
+                <%
+                    }
+                %>
                 <div class="row">
                     <%
                         List<Comment> comments = hike.getHikeComments();
@@ -376,8 +383,8 @@
                     <p>Here are some reviews of this hike.</p>
                     <%
                     } else {
-                            //Iterate through comments list backwards, this way newest comments show up first
-                            for (i = comments.size()-1; i >= 0; i--) {
+                        //Iterate through comments list backwards, this way newest comments show up first
+                        for (i = comments.size() - 1; i >= 0; i--) {
                     %>
                     <div class="comment-card">
                         <div class="row" style="width: 100%">
@@ -388,9 +395,15 @@
                                 </label>
                             </div>
                             <div class="col-md-1 ml-auto d-flex align-items-center">
+                                <%
+                                    if ((loggedIn && ownsHike) || isAdmin) {
+                                %>
                                 <a href="deleteCommentServlet?hikeId=<%=hike.getHikeId()%>&commentId=<%=comments.get(i).getCommentId()%>">
                                     <img src="images/trash-icon.png" alt="Delete" style="height: 25px;">
                                 </a>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </div>
@@ -405,7 +418,7 @@
             <button class="btn btn-light" onclick="toggleContent('pointsOfInterest')">Points of Interest</button>
             <div id="pointsOfInterest-content" class="content" style="padding: 10px">
                 <%
-                    if (!loggedIn || (!ownsHike && !isAdmin)) {
+                    if ((loggedIn && ownsHike) || isAdmin) {
                 %>
                 <h4 style="margin-top: 10px">Add new Points of Interest:</h4>
                 <form id="myForm" enctype="multipart/form-data">
@@ -475,9 +488,11 @@
                 <div id="result" style="display: flex; flex-wrap: wrap; gap: 1%;">
                     <%
                         List<PointOfInterest> pointsOfInterest = hike.getHikePointsOfInterest();
+                        // Only display delete button if user owns hike or for admin
+                        String displayDelete = String.valueOf((loggedIn && ownsHike) || isAdmin);
                         if (pointsOfInterest != null) {
-                        for (PointOfInterest poi : pointsOfInterest) {
-                            String image = poi.getPointOfInterestImage();
+                            for (PointOfInterest poi : pointsOfInterest) {
+                                String image = poi.getPointOfInterestImage();
                     %>
                     <tags:card
                             id="<%=poi.getPointOfInterestId()%>"
@@ -486,9 +501,10 @@
                             lon="<%=poi.getPointOfInterestLon().toString()%>"
                             lat="<%=poi.getPointOfInterestLat().toString()%>"
                             src="<%=image%>"
-                            poiId="<%=poi.getPointOfInterestId()%>"/>
+                            poiId="<%=poi.getPointOfInterestId()%>"
+                            displayDelete="<%=displayDelete%>"/>
                     <%
-                        }
+                            }
                         }
                     %>
                 </div>
