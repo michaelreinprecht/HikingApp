@@ -175,6 +175,13 @@ $(document).ready(function () {
                 result.appendChild(card);
                 hideLoading();
                 displaySuccess();
+
+                //Clear values from input fields
+                document.getElementById("poiTitle").value = "";
+                document.getElementById("poiDescription").value = "";
+                document.getElementById("poiLon").value = "";
+                document.getElementById("poiLat").value = "";
+                document.getElementById('poiImage').value = "";
             },
             error: function(response) {
                 hideLoading();
