@@ -35,10 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //Display start and finish marker with according icon.
         let startMarker = L.marker([routeCoordinates[0][0], routeCoordinates[0][1]]);
+        console.log([routeCoordinates[0][0], routeCoordinates[0][1]]);
         startMarker.addTo(myMap);
         startMarker.setIcon(startIcon);
         let finishMarker = L.marker([routeCoordinates[routeCoordinates.length-1][0], routeCoordinates[routeCoordinates.length-1][1]]);
         finishMarker.addTo(myMap);
         finishMarker.setIcon(finishIcon);
+
     }
 });
