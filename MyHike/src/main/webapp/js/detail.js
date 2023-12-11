@@ -175,13 +175,7 @@ $(document).ready(function () {
                 result.appendChild(card);
                 hideLoading();
                 displaySuccess();
-
-                //Clear values from input fields
-                document.getElementById("poiTitle").value = "";
-                document.getElementById("poiDescription").value = "";
-                document.getElementById("poiLon").value = "";
-                document.getElementById("poiLat").value = "";
-                document.getElementById('poiImage').value = "";
+                clearPOIInputs();
             },
             error: function(response) {
                 hideLoading();
@@ -232,6 +226,17 @@ function deletePOI(poiId) {
             validationAlert.style.display = "block";
         }
     });
+}
+
+//Clear values from input fields
+function clearPOIInputs() {
+    document.getElementById("poiTitle").value = "";
+    document.getElementById("poiDescription").value = "";
+    document.getElementById("poiLon").value = "";
+    document.getElementById("poiLat").value = "";
+    document.getElementById('poiImage').value = "";
+    let image = document.getElementById('imgDisplay');
+    image.src = "";
 }
 
 //Returns false and displays a validation alert if validation fails, if validation is passed returns true
