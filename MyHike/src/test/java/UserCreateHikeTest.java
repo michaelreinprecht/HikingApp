@@ -51,7 +51,14 @@ public class UserCreateHikeTest {
   //This test uses images/beispiel_berge.jpg as a fixed image. Also uses our default user account.
   @Test
   public void userCreateHike() {
+    //Mocking database and removing functionality from insert
+    JPAFacade mockFacade = mock(JPAFacade.class);
+    doNothing().when(mockFacade).insert(any(Object.class));
+    Database.facade = mockFacade;
+    doNothing().when(Database.facade).insert(any(Object.class));
 
+    Database.hikeFacade = mock(JPAHikeFacade.class);
+    doNothing().when(Database.hikeFacade).insert(any(Object.class));
 
     driver.get("http://localhost:8080/MyHike_war_exploded/discover.jsp");
     driver.manage().window().setSize(new Dimension(1936, 1056));
@@ -72,7 +79,9 @@ public class UserCreateHikeTest {
     driver.findElement(By.id("name")).click();
     driver.findElement(By.id("name")).sendKeys("Selenium Test User");
     driver.findElement(By.id("altitude")).click();
+    driver.findElement(By.id("altitude")).clear();
     driver.findElement(By.id("altitude")).sendKeys("8");
+    driver.findElement(By.id("distance")).clear();
     driver.findElement(By.id("distance")).sendKeys("8");
     driver.findElement(By.id("duration")).sendKeys("08:00");
     driver.findElement(By.id("April")).click();
@@ -88,15 +97,11 @@ public class UserCreateHikeTest {
     String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
 
-    //Mocking database and removing functionality from insert
-    JPAFacade mockFacade = mock(JPAFacade.class);
-    doNothing().when(mockFacade).insert(any(Object.class));
-    Database.facade = mockFacade;
-    doNothing().when(Database.facade).insert(any(Object.class));
-
-    Database.hikeFacade = mock(JPAHikeFacade.class);
-    doNothing().when(Database.hikeFacade).insert(any(Object.class));
-
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
     driver.findElement(By.cssSelector(".btn")).click();
 
     //Wait until the alert window pops up and check if alert is positive about the hike being created.
