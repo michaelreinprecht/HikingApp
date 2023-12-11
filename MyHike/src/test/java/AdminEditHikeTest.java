@@ -23,6 +23,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -51,6 +52,8 @@ public class AdminEditHikeTest {
   }
   @Test
   public void adminEditHike() {
+    Actions actions = new Actions(driver);
+
     //Mocking database and removing functionality from insert
     Database.facade = mock(JPAFacade.class);
     doNothing().when(Database.facade).update(any(Hike.class));
@@ -61,35 +64,37 @@ public class AdminEditHikeTest {
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
     /* TODO Remove/Extract Login */
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
     driver.findElement(By.linkText("Login")).click();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
     driver.findElement(By.name("username")).click();
     driver.findElement(By.name("username")).sendKeys("admin");
     driver.findElement(By.name("password")).sendKeys("admin");
     driver.findElement(By.name("password")).sendKeys(Keys.ENTER);
     /* TODO Remove/Extract Login */
 
+    //Try to edit the first hike showing up on discover page.
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image")));
     driver.findElement(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image")).click();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Edit")));
     driver.findElement(By.linkText("Edit")).click();
     driver.findElement(By.cssSelector(".leaflet-marker-icon:nth-child(2)")).click();
-    driver.findElement(By.id("map")).click();
-    driver.findElement(By.id("map")).click();
+    //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
+    actions.moveToElement(driver.findElement(By.id("map")), 10, 10).click().perform();
+    actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();
+    //Wait a maximum of 10 seconds for the dom to be fully loaded.
+    wait.until((ExpectedCondition<Boolean>) webDriver ->
+            ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     driver.findElement(By.id("name")).click();
     driver.findElement(By.id("name")).clear();
     driver.findElement(By.id("name")).sendKeys("Test Edit");
-    driver.findElement(By.id("altitude")).click();
-    driver.findElement(By.id("altitude")).clear();
-    driver.findElement(By.id("altitude")).sendKeys("50");
-    driver.findElement(By.id("distance")).clear();
-    driver.findElement(By.id("distance")).sendKeys("2.00");
     driver.findElement(By.id("region")).click();
     {
       WebElement dropdown = driver.findElement(By.id("region"));
       Select regionDropdown = new Select(dropdown);
       regionDropdown.selectByVisibleText("Montafon");
     }
-    driver.findElement(By.cssSelector("form")).click();
-    driver.findElement(By.id("duration")).click();
-    driver.findElement(By.id("duration")).sendKeys("03:00");
+    //driver.findElement(By.cssSelector("form")).click(); //needed?
     driver.findElement(By.id("June")).click();
     driver.findElement(By.cssSelector(".landscape-rating:nth-child(8) path")).click();
     driver.findElement(By.cssSelector(".strength-rating:nth-child(2) path")).click();

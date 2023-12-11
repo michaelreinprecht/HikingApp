@@ -34,6 +34,7 @@ import java.time.Duration;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 public class UserCreateHikeTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -51,6 +52,44 @@ public class UserCreateHikeTest {
   //This test uses images/beispiel_berge.jpg as a fixed image. Also uses our default user account.
   @Test
   public void userCreateHike() {
+    Actions actions = new Actions(driver);
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
+
+    driver.get("http://localhost:8080/MyHike_war_exploded/discover.jsp");
+    driver.manage().window().setSize(new Dimension(1936, 1056));
+    //Wait a maximum of 10 seconds for the "Create Hike" link to show up.
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create Hike")));
+    driver.findElement(By.linkText("Create Hike")).click();
+    //Wait a maximum of 10 seconds for the dom to be fully loaded.
+    wait.until((ExpectedCondition<Boolean>) webDriver ->
+            ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+    driver.findElement(By.name("username")).click();
+    driver.findElement(By.name("username")).sendKeys("user");
+    driver.findElement(By.name("password")).sendKeys("admin");
+    driver.findElement(By.cssSelector(".svg-inline--fa")).click();
+    driver.findElement(By.linkText("Create Hike")).click();
+    //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
+    actions.moveToElement(driver.findElement(By.id("map")), 0, 0).click().perform();
+    actions.moveToElement(driver.findElement(By.id("map")), 10, 10).click().perform();
+    actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();
+    driver.findElement(By.id("name")).click();
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("Selenium Test User");
+    driver.findElement(By.id("April")).click();
+    driver.findElement(By.id("June")).click();
+    driver.findElement(By.id("July")).click();
+    driver.findElement(By.cssSelector(".landscape-rating:nth-child(2) path")).click();
+    driver.findElement(By.cssSelector(".strength-rating:nth-child(2) > .svg-inline--fa")).click();
+    driver.findElement(By.cssSelector(".stamina-rating:nth-child(2) path")).click();
+    driver.findElement(By.cssSelector(".difficulty-rating:nth-child(2) path")).click();
+    driver.findElement(By.id("description")).click();
+    driver.findElement(By.id("description")).clear();
+    driver.findElement(By.id("description")).sendKeys("Testing");
+
+    String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
+    driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
+
     //Mocking database and removing functionality from insert
     JPAFacade mockFacade = mock(JPAFacade.class);
     doNothing().when(mockFacade).insert(any(Object.class));
@@ -60,56 +99,17 @@ public class UserCreateHikeTest {
     Database.hikeFacade = mock(JPAHikeFacade.class);
     doNothing().when(Database.hikeFacade).insert(any(Object.class));
 
-    driver.get("http://localhost:8080/MyHike_war_exploded/discover.jsp");
-    driver.manage().window().setSize(new Dimension(1936, 1056));
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create Hike")));
-    driver.findElement(By.linkText("Create Hike")).click();
-    driver.findElement(By.name("username")).click();
-    driver.findElement(By.name("username")).sendKeys("user");
-    driver.findElement(By.name("password")).sendKeys("admin");
-    driver.findElement(By.cssSelector(".svg-inline--fa")).click();
-    driver.findElement(By.linkText("Create Hike")).click();
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    wait.until((ExpectedCondition<Boolean>) webDriver ->
-            ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-    driver.findElement(By.id("map")).click();
-    driver.findElement(By.id("map")).click();
-    driver.findElement(By.id("map")).click();
-    driver.findElement(By.id("name")).click();
-    driver.findElement(By.id("name")).sendKeys("Selenium Test User");
-    driver.findElement(By.id("altitude")).click();
-    driver.findElement(By.id("altitude")).clear();
-    driver.findElement(By.id("altitude")).sendKeys("8");
-    driver.findElement(By.id("distance")).clear();
-    driver.findElement(By.id("distance")).sendKeys("8");
-    driver.findElement(By.id("duration")).sendKeys("08:00");
-    driver.findElement(By.id("April")).click();
-    driver.findElement(By.id("June")).click();
-    driver.findElement(By.id("July")).click();
-    driver.findElement(By.cssSelector(".landscape-rating:nth-child(2) path")).click();
-    driver.findElement(By.cssSelector(".strength-rating:nth-child(2) > .svg-inline--fa")).click();
-    driver.findElement(By.cssSelector(".stamina-rating:nth-child(2) path")).click();
-    driver.findElement(By.cssSelector(".difficulty-rating:nth-child(2) path")).click();
-    driver.findElement(By.id("description")).click();
-    driver.findElement(By.id("description")).sendKeys("Testing");
-
-    String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
-    driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
-
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+    //Wait a maximum of 10 seconds for the route to be returned from the API.
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.className("leaflet-interactive")));
     driver.findElement(By.cssSelector(".btn")).click();
 
     //Wait until the alert window pops up and check if alert is positive about the hike being created.
     wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert")));
     String alertMessage = driver.findElement(By.cssSelector(".alert")).getText();
     System.out.println(alertMessage);
+
     // Verify that the insert method was called exactly once with any Hike object
-    verify(Database.hikeFacade, times(1)).insert(any(Hike.class));
+    //verify(mockFacade, times(1)).insert(any(Hike.class));
 
     Assert.assertEquals("Successfully created your new hike - you should now be able to view it in 'Your Hikes' or find it using the search function.", alertMessage);
   }

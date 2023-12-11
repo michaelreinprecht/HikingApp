@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Database {
-    public static JPAFacade facade;
+    public static JPAFacade facade = new JPAFacade();
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
