@@ -23,6 +23,7 @@ public class AddCommentServlet extends HttpServlet {
 
         //If users is not logged in, redirect to detail page and display error.
         HttpSession session = request.getSession();
+        String username = session.getAttribute("username").toString();
         boolean loggedIn = session.getAttribute("username") != null;
         if (!loggedIn) {
             error = "Unauthorized users are unable to create comments - please log in.";
@@ -32,7 +33,7 @@ public class AddCommentServlet extends HttpServlet {
 
         try {
             Hike hike = Database.getHikeById(hikeId);
-            User user = Database.getUserById("admin"); //TODO replace hardcoded username with username from session variable
+            User user = Database.getUserById(username);
             String commentDescription = request.getParameter("commentDescription");
 
             if (commentDescription != null && !commentDescription.isEmpty()) {
