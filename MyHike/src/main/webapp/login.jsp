@@ -49,7 +49,7 @@
      height: 60%">
     <%-- Display error if available by login--%>
     <% if (request.getAttribute("error") != null) { %>
-    <p style="color: black; font-size: 20px"><%= request.getAttribute("error") %></p>
+    <p style="color: white; font-size: 25px"><%= request.getAttribute("error") %></p>
     <% } %>
 
     <%-- Other content of your JSP page goes here --%>

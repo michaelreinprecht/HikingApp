@@ -64,10 +64,11 @@ public class UserCreateHikeTest {
     //Wait a maximum of 10 seconds for the dom to be fully loaded.
     wait.until((ExpectedCondition<Boolean>) webDriver ->
             ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-    driver.findElement(By.name("username")).click();
-    driver.findElement(By.name("username")).sendKeys("user");
-    driver.findElement(By.name("password")).sendKeys("admin");
-    driver.findElement(By.cssSelector(".svg-inline--fa")).click();
+
+    //Login as admin
+    AdminLoginTest loginTest = new AdminLoginTest();
+    loginTest.login(driver, wait);
+
     driver.findElement(By.linkText("Create Hike")).click();
     //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
     actions.moveToElement(driver.findElement(By.id("map")), 0, 0).click().perform();

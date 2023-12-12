@@ -63,15 +63,9 @@ public class AdminEditHikeTest {
     driver.get("http://localhost:8080/MyHike_war_exploded/");
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
-    /* TODO Remove/Extract Login */
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Login")));
-    driver.findElement(By.linkText("Login")).click();
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
-    driver.findElement(By.name("username")).click();
-    driver.findElement(By.name("username")).sendKeys("admin");
-    driver.findElement(By.name("password")).sendKeys("admin");
-    driver.findElement(By.name("password")).sendKeys(Keys.ENTER);
-    /* TODO Remove/Extract Login */
+    //Login as admin
+    AdminLoginTest loginTest = new AdminLoginTest();
+    loginTest.login(driver, wait);
 
     //Try to edit the first hike showing up on discover page.
     wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image")));

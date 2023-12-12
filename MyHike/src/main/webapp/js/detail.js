@@ -39,7 +39,7 @@ window.onload = function() {
 //Second confirmation, making sure that the user really wants to delete the hike.
 function confirmDelete(event) {
     event.preventDefault();
-    if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
+    if (confirm("Are you sure that you want to delete this hike entry?")) {
         document.getElementById('deleteForm').submit();
     }
 }
