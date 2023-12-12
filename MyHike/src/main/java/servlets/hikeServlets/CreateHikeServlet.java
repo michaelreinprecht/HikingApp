@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
@@ -20,6 +21,16 @@ import java.util.UUID;
 public class CreateHikeServlet extends ServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
+
+        //If users is not logged in, redirect to detail page and display error.
+        HttpSession session = request.getSession();
+        boolean loggedIn = session.getAttribute("username") != null;
+        if (!loggedIn) {
+            error = "Unauthorized users are unable to create a hike - please log in.";
+            response.sendRedirect("discover.jsp?error=" + response.encodeURL(error));
+            return;
+        }
+
         try {
             //Create new hike object based on the data entered in create.jsp
             Hike hike = getHike(request);

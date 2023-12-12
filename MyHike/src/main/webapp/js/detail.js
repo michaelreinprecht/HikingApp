@@ -39,7 +39,7 @@ window.onload = function() {
 //Second confirmation, making sure that the user really wants to delete the hike.
 function confirmDelete(event) {
     event.preventDefault();
-    if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
+    if (confirm("Are you sure that you want to delete this hike entry?")) {
         document.getElementById('deleteForm').submit();
     }
 }
@@ -175,6 +175,7 @@ $(document).ready(function () {
                 result.appendChild(card);
                 hideLoading();
                 displaySuccess();
+                clearPOIInputs();
             },
             error: function(response) {
                 hideLoading();
@@ -225,6 +226,17 @@ function deletePOI(poiId) {
             validationAlert.style.display = "block";
         }
     });
+}
+
+//Clear values from input fields
+function clearPOIInputs() {
+    document.getElementById("poiTitle").value = "";
+    document.getElementById("poiDescription").value = "";
+    document.getElementById("poiLon").value = "";
+    document.getElementById("poiLat").value = "";
+    document.getElementById('poiImage').value = "";
+    let image = document.getElementById('imgDisplay');
+    image.src = "";
 }
 
 //Returns false and displays a validation alert if validation fails, if validation is passed returns true

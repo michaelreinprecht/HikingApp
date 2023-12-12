@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Hike;
 import database.Database;
 
@@ -19,8 +20,21 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         String error = "";
         String hikeId = request.getParameter("Id");
         try {
-            Hike hike = softDeleteHike(request);
-            Database.update(hike);
+            Hike hike = Database.getHikeById(request.getParameter("Id"));
+
+            //If users does not own the hike or is an admin, redirect to detail page and display error.
+            HttpSession session = request.getSession();
+            boolean loggedIn = request.getSession().getAttribute("username") != null;
+            boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+            if (!ownsHike && !isAdmin) {
+                error = "You are not authorized to delete this hike.";
+                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+                return;
+            }
+
+            Hike deletedHike = softDeleteHike(hike);
+            Database.update(deletedHike);
         }
         catch (IOException | ServletException | SQLException e) {
             error = e.getMessage();
@@ -31,9 +45,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
             response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully deleted your hike!"));
         }
     }
-    public Hike softDeleteHike(HttpServletRequest request) throws IOException, ServletException {
-        Hike hike = Database.getHikeById(request.getParameter("Id"));
-
+    public Hike softDeleteHike(Hike hike) throws IOException, ServletException {
         hike.setIsDeleted(true);
         return hike;
     }

@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
@@ -19,10 +20,25 @@ import java.sql.SQLException;
 public class EditHikeServlet extends ServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
+
         String hikeId = request.getParameter("Id");
         try {
+            Hike oldHike = Database.getHikeById(request.getParameter("Id"));
+
+            //If users does not own the hike or is an admin, redirect to detail page and display error.
+            HttpSession session = request.getSession();
+            boolean loggedIn = request.getSession().getAttribute("username") != null;
+            boolean ownsHike = loggedIn && (oldHike.getHikeOfUser() != null) && oldHike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+            if (!ownsHike && !isAdmin) {
+                error = "You are not authorized to edit this hike.";
+                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+                return;
+            }
+
             //Create new hike object based on the data entered in create.jsp
-            Hike hike = getUpdatedHike(request);
+            Hike hike = getUpdatedHike(oldHike, request, response);
+
             //Insert hike into database
             Database.update(hike);
 
@@ -36,8 +52,7 @@ public class EditHikeServlet extends ServletUtils {
         }
     }
 
-    private Hike getUpdatedHike(HttpServletRequest request) throws IOException, ServletException {
-        Hike oldHike = Database.getHikeById(request.getParameter("Id"));
+    private Hike getUpdatedHike(Hike oldHike, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Hike newHike = getHikeBase(request, oldHike); //Gets the basic hike data (works same for edit and create)
 
         //Get recommended Months are String[] from html parameter and turn them into a Bitmap
@@ -48,6 +63,7 @@ public class EditHikeServlet extends ServletUtils {
 
         newHike.setHikeMonths(recommendedMonths);
         newHike.setHikeImage(image);
+
         return newHike;
     }
 

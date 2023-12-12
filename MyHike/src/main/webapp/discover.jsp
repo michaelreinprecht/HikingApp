@@ -64,7 +64,7 @@
   <div style="background-color: rgba(0, 0, 0, 0.5); margin-left: 20%; margin-right: 20%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
     <%-- Display welcome if available by login--%>
     <% if (request.getAttribute("welcome") != null) { %>
-    <p style="color: white; font-size: 20px"><%= request.getAttribute("welcome") %></p>
+    <p style="color: white; font-size: 30px"><%= request.getAttribute("welcome") %></p>
     <% } %>
     <h1 class="mb-3 h2">Discover a whole new adventure</h1>
 
@@ -78,8 +78,6 @@
         </button>
       </div>
     </form>
-
-    <p>This is a test</p>
   </div>
 
 </div>
@@ -87,7 +85,7 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <!-- Display successAlert based on successAlert parameter. -->
+    <!-- Display successAlert based on successAlert parameter or error. -->
     <%
       String successAlert = request.getParameter("successAlert");
       String error = request.getParameter("error");

@@ -15,12 +15,11 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session =request.getSession(false);
-
         if (session != null) {
             session.removeAttribute("username");
             session.removeAttribute("isAdmin");
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("discover.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("discover.jsp?successAlert=" + response.encodeURL("Successfully logged out!"));
             dispatcher.forward(request, response);
         }
     }

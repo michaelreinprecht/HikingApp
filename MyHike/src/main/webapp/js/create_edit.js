@@ -23,8 +23,8 @@ function validateForm() {
     //This input is empty if there are not at least 2 valid points selected.
     const routeCoordinatesString = document.getElementById("route-coordinates").value;
 
-    //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
-    const altitudePattern = /^[1-9][0-9]*$/;
+    //Pattern matching for altitude, needs to be either a 0 or any other number from 1-9 followed by additional digits from 0-9.
+    const altitudePattern = /^(0|[1-9][0-9]*)$/;
     const altitude = document.getElementById("altitude").value;
 
     //Pattern matching for distance, needs to be at least one number from 0-9, CAN OPTIONALLY be followed by a dot (.)
