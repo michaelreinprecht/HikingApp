@@ -11,6 +11,15 @@
 
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
+
+<%
+    if ((request.getSession(false).getAttribute("username") == null)){
+%>
+<jsp:forward page="login.jsp"/>
+<%
+    }
+%>
+
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
