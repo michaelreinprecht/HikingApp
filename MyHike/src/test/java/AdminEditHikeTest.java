@@ -54,6 +54,7 @@ public class AdminEditHikeTest {
   public void adminEditHike() {
     Actions actions = new Actions(driver);
 
+    //TODO Mock database/fix mocking
     //Mocking database and removing functionality from insert
     Database.facade = mock(JPAFacade.class);
     doNothing().when(Database.facade).update(any(Hike.class));
@@ -88,7 +89,6 @@ public class AdminEditHikeTest {
       Select regionDropdown = new Select(dropdown);
       regionDropdown.selectByVisibleText("Montafon");
     }
-    //driver.findElement(By.cssSelector("form")).click(); //needed?
     driver.findElement(By.id("June")).click();
     driver.findElement(By.cssSelector(".landscape-rating:nth-child(8) path")).click();
     driver.findElement(By.cssSelector(".strength-rating:nth-child(2) path")).click();
@@ -105,7 +105,6 @@ public class AdminEditHikeTest {
     //Wait until the alert window pops up and check if alert is positive about the hike being successfully edited.
     wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert")));
     String alertMessage = driver.findElement(By.cssSelector(".alert")).getText();
-    System.out.println(alertMessage);
     Assert.assertEquals("Successfully edited your hike!", alertMessage);
   }
 }

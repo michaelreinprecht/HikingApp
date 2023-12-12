@@ -52,6 +52,16 @@ public class UserCreateHikeTest {
   //This test uses images/beispiel_berge.jpg as a fixed image. Also uses our default user account.
   @Test
   public void userCreateHike() {
+    //TODO Mock database/fix mocking
+    //Mocking database and removing functionality from insert
+    JPAFacade mockFacade = mock(JPAFacade.class);
+    doNothing().when(mockFacade).insert(any(Object.class));
+    Database.facade = mockFacade;
+    doNothing().when(Database.facade).insert(any(Object.class));
+
+    Database.hikeFacade = mock(JPAHikeFacade.class);
+    doNothing().when(Database.hikeFacade).insert(any(Object.class));
+
     Actions actions = new Actions(driver);
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
@@ -91,15 +101,6 @@ public class UserCreateHikeTest {
     String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
 
-    //Mocking database and removing functionality from insert
-    JPAFacade mockFacade = mock(JPAFacade.class);
-    doNothing().when(mockFacade).insert(any(Object.class));
-    Database.facade = mockFacade;
-    doNothing().when(Database.facade).insert(any(Object.class));
-
-    Database.hikeFacade = mock(JPAHikeFacade.class);
-    doNothing().when(Database.hikeFacade).insert(any(Object.class));
-
     //Wait a maximum of 10 seconds for the route to be returned from the API.
     wait.until(ExpectedConditions.presenceOfElementLocated(By.className("leaflet-interactive")));
     driver.findElement(By.cssSelector(".btn")).click();
@@ -107,11 +108,9 @@ public class UserCreateHikeTest {
     //Wait until the alert window pops up and check if alert is positive about the hike being created.
     wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert")));
     String alertMessage = driver.findElement(By.cssSelector(".alert")).getText();
-    System.out.println(alertMessage);
+    Assert.assertEquals("Successfully created your new hike - you should now be able to view it in 'Your Hikes' or find it using the search function.", alertMessage);
 
     // Verify that the insert method was called exactly once with any Hike object
     //verify(mockFacade, times(1)).insert(any(Hike.class));
-
-    Assert.assertEquals("Successfully created your new hike - you should now be able to view it in 'Your Hikes' or find it using the search function.", alertMessage);
   }
 }

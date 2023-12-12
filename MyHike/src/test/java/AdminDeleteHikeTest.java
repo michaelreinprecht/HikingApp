@@ -52,6 +52,7 @@ public class AdminDeleteHikeTest {
     }
     @Test
     public void adminDeleteHike() {
+        //TODO Mock database/fix mocking
         //Mocking database and removing functionality from insert
         Database.facade = mock(JPAFacade.class);
         doNothing().when(Database.facade).delete(any(Hike.class));
@@ -76,7 +77,6 @@ public class AdminDeleteHikeTest {
         //Wait until the alert window pops up and check if alert is positive about the hike being successfully deleted.
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert")));
         String alertMessage = driver.findElement(By.cssSelector(".alert")).getText();
-        System.out.println(alertMessage);
         Assert.assertEquals("Successfully deleted your hike!", alertMessage);
     }
 }
