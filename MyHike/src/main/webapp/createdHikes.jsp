@@ -1,3 +1,6 @@
+<%@ page import="models.Hike" %>
+<%@ page import="java.util.List" %>
+<%@ page import="database.Database" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,9 +12,10 @@
 
     <link rel="stylesheet" type="text/css" href="css/discover.css">
 
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/createdHikes.css">
 </head>
 
+<!-- redirect to login page if no user is logged in -->
 <%
     if ((request.getSession(false).getAttribute("username") == null)){
 %>
@@ -53,6 +57,48 @@
         </ul>
     </div>
 </nav>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <!-- Display successAlert based on successAlert parameter or error. -->
+        <%
+            String successAlert = request.getParameter("successAlert");
+            String error = request.getParameter("error");
+        %>
+        <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
+        <h1 class="display-8">Your hikes</h1>
+        <div class="row gutter">
+            <%
+                List<Hike> hikes = Database.getHikesByUser((String) session.getAttribute("username"));
+                for (Hike hike : hikes){
+                    String image = hike.getHikeImage() != null ? hike.getHikeImage() : "";
+            %>
+            <div class="col-sm-4">
+                <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
+                    <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
+                        <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= hike.getHikeName()%></h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Strength: <%= hike.getHikeStrength()%>
+                                        Stamina: <%= hike.getHikeStamina()%>
+                                        Difficulty: <%= hike.getHikeDifficulty()%>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <%
+                }
+            %>
+        </div>
+    </div>
+
+</div>
+
 
 
 <!-- Bootstrap imports -->

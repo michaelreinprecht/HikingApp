@@ -19,6 +19,16 @@ public class JPAHikeFacade extends JPAFacade{
         return null;
     }
 
+    public List<Hike> getHikeByUser(String username) {
+        JPAHikeBroker broker = new JPAHikeBroker();
+        try {
+            return broker.getByUser(username);
+        } catch (SQLException | NullPointerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Hike getHikeById(Object id) {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
         try {
