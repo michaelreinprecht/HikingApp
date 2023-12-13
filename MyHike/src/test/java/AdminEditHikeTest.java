@@ -98,7 +98,7 @@ public class AdminEditHikeTest {
     driver.findElement(By.id("description")).clear();
     driver.findElement(By.id("description")).sendKeys("Testing Edit");
     //Link to a fixed image inside of the project
-    String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
+    String fixedFilePath = "src/main/webapp/images/HikeImageTest.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
     driver.findElement(By.cssSelector(".btn")).click();
 

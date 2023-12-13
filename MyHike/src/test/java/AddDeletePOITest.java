@@ -62,7 +62,7 @@ public class AddDeletePOITest {
     driver.findElement(By.id("poiLat")).sendKeys("10");
 
     //Link to a fixed image inside of the project.
-    String fixedFilePath = "src/main/webapp/images/poi-beispiel.jpg";
+    String fixedFilePath = "src/main/webapp/images/POIImageTest.jpg";
     driver.findElement(By.id("poiImage")).sendKeys(new File(fixedFilePath).getAbsolutePath());
 
     //Click add and assert the successAlert.

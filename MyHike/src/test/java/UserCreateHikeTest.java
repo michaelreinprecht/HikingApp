@@ -49,7 +49,7 @@ public class UserCreateHikeTest {
   public void tearDown() { driver.quit(); }
 
   //Tests if a user is able to properly create a hike. For this the user first needs to log in.
-  //This test uses images/beispiel_berge.jpg as a fixed image. Also uses our default user account.
+  //This test uses images/HikeImageTest.jpg as a fixed image. Also uses our default user account.
   @Test
   public void userCreateHike() {
     //TODO Mock database/fix mocking
@@ -98,7 +98,7 @@ public class UserCreateHikeTest {
     driver.findElement(By.id("description")).clear();
     driver.findElement(By.id("description")).sendKeys("Testing");
 
-    String fixedFilePath = "src/main/webapp/images/beispiel_berge.jpg";
+    String fixedFilePath = "src/test/resources/HikeImageTest.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
 
     //Wait a maximum of 10 seconds for the route to be returned from the API.
