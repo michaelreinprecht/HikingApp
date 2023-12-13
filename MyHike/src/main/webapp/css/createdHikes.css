@@ -4,12 +4,13 @@ body, html {
     margin: 0;
 }
 
-body {
-    overflow: hidden;
-}
-
 .navbar {
     width: 100%;
+}
+
+.card {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .login-container {
@@ -17,13 +18,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.bg-image {
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    min-height: 100vh;
 }
 
 .login-box {

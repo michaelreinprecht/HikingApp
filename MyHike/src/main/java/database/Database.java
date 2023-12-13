@@ -30,6 +30,9 @@ public class Database {
     public static List<Hike> getAllHikes(){
         return hikeFacade.getAllHikes();
     }
+    public static List<Hike> getHikesByUser(String username) {
+        return hikeFacade.getHikeByUser(username);
+    }
     public static Hike getHikeById(String id) {
         return hikeFacade.getHikeById(id);
     }
