@@ -41,7 +41,7 @@ public class ServletUtils extends HttpServlet {
             return new BigDecimal(distanceString);
         }
         else {
-            return null; //TODO replace with calculation
+            return null;
         }
     }
 
@@ -63,7 +63,7 @@ public class ServletUtils extends HttpServlet {
         //Get values from parameters
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String markerCoordinates = request.getParameter("route-coordinates");
+        String routeCoordinates = request.getParameter("route-coordinates");
 
         //Distance and altitude can be empty or null, therefore we need to check for this, if they are null or empty
         //we cannot cast the given String to BigDecimal or Integer.
@@ -82,11 +82,11 @@ public class ServletUtils extends HttpServlet {
         //Duration needs to be properly formatted with DateTimeFormatter
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Time duration = Time.valueOf(LocalTime.parse(request.getParameter("duration"), formatter));
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String hikeOfUser = (String) session.getAttribute("username");
         User user = Database.getUserById(hikeOfUser);
         //Populate hike object with formatted/adjusted parameter data.
-        hike = new Hike(hike.getHikeId(), name, description, markerCoordinates, duration, altitude, distance,
+        hike = new Hike(hike.getHikeId(), name, description, routeCoordinates, duration, altitude, distance,
                 staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null,false, user);
 
         return hike;
