@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Hike;
 
 import java.io.IOException;
@@ -126,10 +127,31 @@ public class FilterHikesServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        saveFilterValuesInSession(request);
 
         request.setAttribute("filteredHikes", hikes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("hikelist.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void saveFilterValuesInSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        session.setAttribute("durationFilter", request.getParameter("durationFilter"));
+        session.setAttribute("distanceFilter", request.getParameter("distanceFilter"));
+        session.setAttribute("staminaFilter", request.getParameter("staminaFilter"));
+        session.setAttribute("strengthFilter", request.getParameter("strengthFilter"));
+        session.setAttribute("landscapeFilter", request.getParameter("landscapeFilter"));
+        session.setAttribute("altitudeFilter", request.getParameter("altitudeFilter"));
+        session.setAttribute("difficultyFilter", request.getParameter("difficultyFilter"));
+        session.setAttribute("searchQuery", request.getParameter("searchQuery"));
+        String[] selectedMonths = request.getParameterValues("monthFilter");
+        if (selectedMonths != null && selectedMonths.length > 0) {
+            session.setAttribute("selectedMonths", selectedMonths);
+        } else {
+            // Wenn keine Monate ausgewählt sind, standardmäßig alle auswählen
+            session.setAttribute("selectedMonths", models.Month.ALL_MONTHS);
+        }
     }
 
     private boolean hasSelectedMonth(Hike hike, int selectedMonth) {

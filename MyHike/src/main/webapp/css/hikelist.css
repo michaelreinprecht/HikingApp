@@ -95,5 +95,10 @@
     margin-right: 3px; /* Adjust spacing between stars */
 }
 
+.row {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 
 
