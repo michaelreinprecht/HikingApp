@@ -21,17 +21,13 @@ public class AddCommentServlet extends HttpServlet {
         String error = "";
         String hikeId = request.getParameter("hikeId");
 
-        //If users is not logged in, redirect to detail page and display error.
-        HttpSession session = request.getSession();
-        String username = session.getAttribute("username").toString();
-        boolean loggedIn = session.getAttribute("username") != null;
-        if (!loggedIn) {
-            error = "Unauthorized users are unable to create comments - please log in.";
-            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+        if (!handleAuth(request, response)) {
             return;
         }
 
         try {
+            String username = request.getSession().getAttribute("username").toString();
+
             Hike hike = Database.getHikeById(hikeId);
             User user = Database.getUserById(username);
             String commentDescription = request.getParameter("commentDescription");
@@ -60,5 +56,18 @@ public class AddCommentServlet extends HttpServlet {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" +
                     response.encodeURL("Successfully added your comment!"));
         }
+    }
+
+    //If users is not logged in, redirect to detail.jsp for the current hike. Returns false if user is not authorized.
+    private boolean handleAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        String hikeId = request.getParameter("hikeId");
+        boolean loggedIn = session.getAttribute("username") != null;
+        if (!loggedIn) {
+            String error = "Unauthorized users are unable to create comments - please log in.";
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+            return false;
+        }
+        return true;
     }
 }

@@ -25,14 +25,7 @@ public class EditHikeServlet extends ServletUtils {
         try {
             Hike oldHike = Database.getHikeById(request.getParameter("Id"));
 
-            //If users does not own the hike or is an admin, redirect to detail page and display error.
-            HttpSession session = request.getSession();
-            boolean loggedIn = request.getSession().getAttribute("username") != null;
-            boolean ownsHike = loggedIn && (oldHike.getHikeOfUser() != null) && oldHike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
-            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
-            if (!ownsHike && !isAdmin) {
-                error = "You are not authorized to edit this hike.";
-                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+            if (!handleAuthForHike(oldHike, request, response)) {
                 return;
             }
 
@@ -65,6 +58,21 @@ public class EditHikeServlet extends ServletUtils {
         newHike.setHikeImage(image);
 
         return newHike;
+    }
+
+    //If users does not own the hike or is an admin, redirect to detail page and display error.
+    //Returns false if user is not authorized to edit this hike.
+    private boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        boolean loggedIn = request.getSession().getAttribute("username") != null;
+        boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+        boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+        if (!ownsHike && !isAdmin) {
+            String error = "You are not authorized to edit this hike.";
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hike.getHikeId()) + "&error=" + response.encodeURL(error));
+            return false;
+        }
+        return true;
     }
 
     //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is

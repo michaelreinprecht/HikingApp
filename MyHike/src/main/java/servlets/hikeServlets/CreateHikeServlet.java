@@ -6,7 +6,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
 import database.Database;
@@ -22,12 +21,7 @@ public class CreateHikeServlet extends ServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
 
-        //If users is not logged in, redirect to detail page and display error.
-        HttpSession session = request.getSession();
-        boolean loggedIn = session.getAttribute("username") != null;
-        if (!loggedIn) {
-            error = "Unauthorized users are unable to create a hike - please log in.";
-            response.sendRedirect("discover.jsp?error=" + response.encodeURL(error));
+        if (!handleAuth(request, response)) {
             return;
         }
 
@@ -65,5 +59,19 @@ public class CreateHikeServlet extends ServletUtils {
         hike.setHikeMonths(recommendedMonths);
         hike.setHikeImage(image);
         return hike;
+    }
+
+    //If user is not logged in send him back to discover page. Returns true if user is authorized to access this page.
+    public boolean handleAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //If users is not logged in, redirect to detail page and display error.
+        HttpSession session = request.getSession();
+        String error = "";
+        boolean loggedIn = session.getAttribute("username") != null;
+        if (!loggedIn) {
+                error = "Unauthorized users are unable to create a hike - please log in.";
+                response.sendRedirect("discover.jsp?error=" + response.encodeURL(error));
+                return false;
+        }
+        return true;
     }
 }

@@ -25,14 +25,7 @@ public class DeleteCommentServlet  extends HttpServlet {
             Comment comment = Database.getCommentById(commentId);
             Hike hike = Database.getHikeById(comment.getCommentHike().getHikeId());
 
-            //If users does not own the comment or is an admin, redirect to detail page and display error.
-            HttpSession session = request.getSession();
-            boolean loggedIn = request.getSession().getAttribute("username") != null;
-            boolean ownsComment = loggedIn && (comment.getCommentUser() != null) && comment.getCommentUser().getUserName().equals(session.getAttribute("username"));
-            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
-            if (!ownsComment && !isAdmin) {
-                error = "You are not authorized to delete this comment.";
-                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+            if (!handleAuthForComment(comment, request, response)) {
                 return;
             }
 
@@ -53,5 +46,21 @@ public class DeleteCommentServlet  extends HttpServlet {
         } else {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&successAlert=" + response.encodeURL("Successfully deleted your comment!"));
         }
+    }
+
+    //If users does not own the comment or is an admin, redirect to detail page and display error. Returns false if user
+    //is not authorized to delete the comment.
+    private boolean handleAuthForComment(Comment comment, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        String commentHikeId = comment.getCommentHike().getHikeId();
+        boolean loggedIn = request.getSession().getAttribute("username") != null;
+        boolean ownsComment = loggedIn && (comment.getCommentUser() != null) && comment.getCommentUser().getUserName().equals(session.getAttribute("username"));
+        boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+        if (!ownsComment && !isAdmin) {
+            String error = "You are not authorized to delete this comment.";
+            response.sendRedirect("detail.jsp?Id=" + response.encodeURL(commentHikeId) + "&error=" + response.encodeURL(error));
+            return false;
+        }
+        return true;
     }
 }
