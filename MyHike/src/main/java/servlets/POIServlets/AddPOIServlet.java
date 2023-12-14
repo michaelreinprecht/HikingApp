@@ -22,6 +22,10 @@ import java.util.UUID;
 @MultipartConfig
 public class AddPOIServlet extends POIServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        addPOI(request, response);
+    }
+
+    private void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Get values from parameters
         String poiId = UUID.randomUUID().toString(); //Create random UUID for POI
         String poiTitle = request.getParameter("poiTitle");

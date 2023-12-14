@@ -18,13 +18,18 @@ import java.util.UUID;
 @WebServlet(name = "addCommentServlet", value = "/addCommentServlet")
 public class AddCommentServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
-        String hikeId = request.getParameter("hikeId");
+        addComment(request, response);
+    }
 
+    //Attempts to add a new comment to the hike. If this method fails it will redirect to the detail page and display
+    //an error message. Otherwise, displays a success message.
+    private void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!handleAuth(request, response)) {
             return;
         }
 
+        String error = "";
+        String hikeId = request.getParameter("hikeId");
         try {
             String username = request.getSession().getAttribute("username").toString();
 

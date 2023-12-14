@@ -20,6 +20,10 @@ import static database.Database.getAllHikes;
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        filterHikes(request, response);
+    }
+
+    private void filterHikes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get all hikes from database
         List<Hike> hikes = getAllHikes();
         //Filter hikes according to filter values in request parameters

@@ -17,28 +17,9 @@ import java.util.UUID;
 
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
-public class CreateHikeServlet extends ServletUtils {
+public class CreateHikeServlet extends HikeServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
-
-        if (!handleAuth(request, response)) {
-            return;
-        }
-
-        try {
-            //Create new hike object based on the data entered in create.jsp
-            Hike hike = getHike(request);
-            //Insert hike into database
-            Database.insert(hike);
-        } catch (IOException | ServletException | SQLException e) {
-            error = e.getMessage();
-        }
-        if (!error.isEmpty()) {
-            response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
-        } else {
-            response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully created your new " +
-                    "hike - you should now be able to view it in 'Your Hikes' or find it using the search function."));
-        }
+        createHike(request, response);
     }
 
     private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
@@ -59,6 +40,31 @@ public class CreateHikeServlet extends ServletUtils {
         hike.setHikeMonths(recommendedMonths);
         hike.setHikeImage(image);
         return hike;
+    }
+
+    //Attempts to create a new hike. If this method fails it will redirect back to the create page and display an error
+    //message. Otherwise it will redirect to the discover page and display a success message.
+    private void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String error = "";
+
+        if (!handleAuth(request, response)) {
+            return;
+        }
+
+        try {
+            //Create new hike object based on the data entered in create.jsp
+            Hike hike = getHike(request);
+            //Insert hike into database
+            Database.insert(hike);
+        } catch (IOException | ServletException | SQLException e) {
+            error = e.getMessage();
+        }
+        if (!error.isEmpty()) {
+            response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
+        } else {
+            response.sendRedirect("discover.jsp?successAlert=" + response.encodeURL("Successfully created your new " +
+                    "hike - you should now be able to view it in 'Your Hikes' or find it using the search function."));
+        }
     }
 
     //If user is not logged in send him back to discover page. Returns true if user is authorized to access this page.

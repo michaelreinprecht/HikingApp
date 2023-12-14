@@ -18,7 +18,10 @@ import java.util.List;
 @MultipartConfig
 public class DeletePOIServlet extends POIServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
+        deletePOI(request, response);
+    }
+
+    private void deletePOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String poiId = request.getParameter("poiId");
         try {
             //Get the POI based on its id, as well as the hike related to the POI.

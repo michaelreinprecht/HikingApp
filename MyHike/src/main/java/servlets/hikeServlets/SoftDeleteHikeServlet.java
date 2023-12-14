@@ -17,6 +17,10 @@ import java.sql.SQLException;
 @MultipartConfig
 public class SoftDeleteHikeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        softDeleteHike(request, response);
+    }
+
+    private void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         String hikeId = request.getParameter("Id");
         try {
@@ -26,10 +30,10 @@ public class SoftDeleteHikeServlet extends HttpServlet {
                 return;
             }
 
-            Hike deletedHike = softDeleteHike(hike);
-            Database.update(deletedHike);
+            hike.setIsDeleted(true);
+            Database.update(hike);
         }
-        catch (IOException | ServletException | SQLException e) {
+        catch (IOException | SQLException e) {
             error = e.getMessage();
         }
         if (!error.isEmpty()) {
@@ -53,10 +57,4 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         }
         return true;
     }
-
-    public Hike softDeleteHike(Hike hike) throws IOException, ServletException {
-        hike.setIsDeleted(true);
-        return hike;
-    }
-
 }

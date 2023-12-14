@@ -16,6 +16,12 @@ import java.util.List;
 @WebServlet(name = "deleteCommentServlet", value = "/deleteCommentServlet")
 public class DeleteCommentServlet  extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        deleteComment(request, response);
+    }
+
+    //Attempts to delete the given comment. If this method fails it will redirect to detail page and display an error
+    //message. Otherwise, displays a success message.
+    private void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         String commentId = request.getParameter("commentId");
         String hikeId = request.getParameter("hikeId");

@@ -14,6 +14,10 @@ import java.io.IOException;
 @WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logoutUser(request, response);
+    }
+
+    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session =request.getSession(false);
         if (session != null) {
             session.removeAttribute("username");

@@ -17,8 +17,12 @@ import java.sql.SQLException;
 
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
-public class EditHikeServlet extends ServletUtils {
+public class EditHikeServlet extends HikeServletUtils {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        editHike(request, response);
+    }
+
+    private void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
 
         String hikeId = request.getParameter("Id");
