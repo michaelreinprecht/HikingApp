@@ -1,4 +1,4 @@
-package servlets;
+package servlets.loginServlets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
