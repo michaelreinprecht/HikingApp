@@ -1,3 +1,6 @@
+<%@ page import="models.Hike" %>
+<%@ page import="java.util.List" %>
+<%@ page import="database.Database" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,8 +12,18 @@
 
     <link rel="stylesheet" type="text/css" href="css/discover.css">
 
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/createdHikes.css">
 </head>
+
+<!-- redirect to login page if no user is logged in -->
+<%
+    if ((request.getSession(false).getAttribute("username") == null)){
+%>
+<jsp:forward page="login.jsp"/>
+<%
+    }
+%>
+
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
@@ -29,14 +42,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
-            <%if (session.getAttribute("username") != null) { %>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
             </li>
-            <% } %>
         </ul>
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <%if (session.getAttribute("username") == null) { %>
                 <a class="nav-link" href="login.jsp">Login</a>
                 <% } else { %>
@@ -47,36 +58,48 @@
     </div>
 </nav>
 
-<div class="bg-image p-5 text-center shadow-1-strong text-white flex-column align-items-center"
-     style="background-image: url(images/beispiel_berge.jpg);
-     background-size: cover;
-     background-position: center center;
-     height: 60%">
-    <%-- Display error if available by login--%>
-    <% if (request.getAttribute("error") != null) { %>
-    <p style="color: white; font-size: 25px"><%= request.getAttribute("error") %></p>
-    <% } %>
-
-    <%-- Other content of your JSP page goes here --%>
-    <h1 class="mb-3 h2" style="margin-top: 100px">Login to your Account</h1>
-
-    <form method="POST" action="loginServlet">
-        <div class="input-group mb-3 mx-auto" style="width: 500px">
-            <input type="text" class="form-control" name="username" aria-label="Username"
-                   placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)">
-
-            <input type="password" class="form-control" name="password" aria-label="Password"
-                   placeholder="Password" style="background-color: rgba(255, 255, 255, 0.8)">
-
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary" data-mdb-ripple-init
-                        style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
-                    Login <i class="fas fa-sign-in-alt"></i>
-                </button>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <!-- Display successAlert based on successAlert parameter or error. -->
+        <%
+            String successAlert = request.getParameter("successAlert");
+            String error = request.getParameter("error");
+        %>
+        <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
+        <h1 class="display-8">Your hikes</h1>
+        <div class="row gutter">
+            <%
+                List<Hike> hikes = Database.getHikesByUser((String) session.getAttribute("username"));
+                for (Hike hike : hikes){
+                    String image = hike.getHikeImage() != null ? hike.getHikeImage() : "";
+            %>
+            <div class="col-sm-4">
+                <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
+                    <div class="bg-image card shadow-1-strong" style="background-image: url('data:image/png;base64,<%=image%>'); background-size: cover;">
+                        <div class="card-body text-white" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 1, 0.7); height: 50%;">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= hike.getHikeName()%></h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Strength: <%= hike.getHikeStrength()%>
+                                        Stamina: <%= hike.getHikeStamina()%>
+                                        Difficulty: <%= hike.getHikeDifficulty()%>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
+            <%
+                }
+            %>
         </div>
-    </form>
+    </div>
+
 </div>
+
+
 
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"

@@ -89,6 +89,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -311,7 +316,7 @@
                         }
                     %><br>
 
-                    <div class="rating-label"><b>Stamina:</b></div>
+                    <div class="rating-label"><b>Level of Fitness:</b></div>
                     <%
                         int staminaRating = hike.getHikeStamina();
                         //Display a number of "active" and "inactive" stars, depending on the staminaRating
