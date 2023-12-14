@@ -5,10 +5,29 @@ import models.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
+import java.io.File;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.any;
 
 @SuppressWarnings("unused")
 public class Database {
-    public static JPAFacade facade = new JPAFacade();
+    private static JPAFacade facade = Database.createFacade();
+    private static JPAFacade createFacade() {
+        //Mocking database and removing functionality from insert
+        String fileName = "test.txt";
+        java.io.File file = new File(fileName);
+        if (file.exists()) {
+            JPAFacade mockFacade;
+            mockFacade = mock(JPAFacade.class);
+            doNothing().when(Database.facade).update(any(Hike.class));
+            return mockFacade;
+        }
+        return new JPAFacade();
+    }
+
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();

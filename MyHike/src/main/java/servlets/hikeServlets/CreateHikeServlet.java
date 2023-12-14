@@ -60,16 +60,10 @@ public class CreateHikeServlet extends ServletUtils {
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
 
         //Encode image to Base64 String
-        String image = encodeToBase64(request.getPart("fileToUpload"));
+        String image = getBase64(request.getPart("fileToUpload"));
 
         hike.setHikeMonths(recommendedMonths);
         hike.setHikeImage(image);
         return hike;
-    }
-
-    //Attempts to encode the given file to a base64 String (doesn't need to check if it's png, jpg, jpeg, as this is
-    //already validated in create_edit.js -> function validateForm()
-    private String encodeToBase64(Part fileToUpload) throws IOException {
-        return getBase64(fileToUpload);
     }
 }

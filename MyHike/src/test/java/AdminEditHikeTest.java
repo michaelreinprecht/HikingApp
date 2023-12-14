@@ -56,8 +56,8 @@ public class AdminEditHikeTest {
 
     //TODO Mock database/fix mocking
     //Mocking database and removing functionality from insert
-    Database.facade = mock(JPAFacade.class);
-    doNothing().when(Database.facade).update(any(Hike.class));
+    //Database.facade = mock(JPAFacade.class);
+    //doNothing().when(Database.facade).update(any(Hike.class));
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
