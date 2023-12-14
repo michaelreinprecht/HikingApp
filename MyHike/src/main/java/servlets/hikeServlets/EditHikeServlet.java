@@ -71,7 +71,7 @@ public class EditHikeServlet extends ServletUtils {
     //already validated in create.js -> function validateForm()
     private String getBase64(Part fileToUpload, Hike oldHike) throws IOException {
         if (fileToUpload.getSize() != 0) {
-            return getBase64(fileToUpload);
+            return super.getBase64(fileToUpload);
         } else {
             return oldHike.getHikeImage();
         }

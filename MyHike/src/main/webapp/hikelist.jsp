@@ -108,19 +108,19 @@
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="landscapeFilter">Landscape (1-5):</label>
+            <label class="input-group-text" for="landscapeFilter">Min. Landscape rating:</label>
             <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("landscapeFilter") %>">
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="strengthFilter">Max. Strength (1-5):</label>
+            <label class="input-group-text" for="strengthFilter">Max. Strength rating:</label>
             <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("strengthFilter") %>">
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="difficultyFilter">Max. Difficulty (1-5):</label>
+            <label class="input-group-text" for="difficultyFilter">Max. Difficulty rating:</label>
             <input class="form-control" type="number" name="difficultyFilter" id="difficultyFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("difficultyFilter") %>">
         </div>
@@ -181,7 +181,7 @@
         for (Hike hike : filteredHikes) {
             String image = hike.getHikeImage();
     %>
-    <div class="row">
+    <div class="row" style="margin-top: 40px">
         <div class="col-md-6">
             <!-- Bild und Name -->
             <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
