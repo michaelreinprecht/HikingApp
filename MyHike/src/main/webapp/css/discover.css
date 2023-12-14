@@ -1,3 +1,5 @@
+@import url('global.css');
+
 /* Anfang CSS für Searchbar und Searchbutton */
 .searchButton .input-group-append {
     flex: 0 0 auto; /* Behält die Größe des Buttons bei */

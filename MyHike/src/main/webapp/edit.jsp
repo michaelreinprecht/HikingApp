@@ -1,7 +1,7 @@
 <%@ page import="models.Month" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Region" %>
-<%@ page import="myHikeJava.Database" %>
+<%@ page import="database.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.Objects" %>
 <%@ page import="java.time.LocalTime" %>
@@ -19,7 +19,12 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
-    <!-- Link to edit.css -->
+    <!-- Google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
+    <!-- Link to css files -->
     <link rel="stylesheet" href="css/edit.css">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -32,14 +37,32 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
 
+
+
     <!-- Link to .js -->
     <script src="js/create_edit.js"></script>
     <script src="js/editMap.js"></script>
 </head>
+<%
+    //Get the hike which is going to be displayed in for editing in this page.
+    String id = request.getParameter("Id");
+    Hike hike = Database.getHikeById(id);
+%>
+<% // If unauthorized user tries reach the page via url redirected to detail.jsp
+    boolean loggedIn = session.getAttribute("username") != null;
+    boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
+    boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
+    // Not logged in OR (Logged in but not your hike AND no admin)
+    if (!loggedIn || (!ownsHike && !isAdmin)) {
+%>
+<jsp:forward page="detail.jsp?Id=<%=hike.getHikeId()%>"/>
+<%
+    }
+%>
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #07773a; height: 80px">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <img src="images/icon3.png" alt="MyHike" class="icon">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -52,15 +75,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike <span class="sr-only">(current)</span></a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <%if (session.getAttribute("username") == null) { %>
+                <a class="nav-link" href="login.jsp">Login</a>
+                <% } else { %>
+                <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+                <% } %>
+            </li>
         </ul>
     </div>
 </nav>
 
-<%
-    //Get the hike which is going to be displayed in for editing in this page.
-    String id = request.getParameter("Id");
-    Hike hike = Database.getHikeById(id);
-%>
+
 
 <!-- Titel -->
 <div class="title">
@@ -110,13 +143,13 @@
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
-                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" value="<%=hike.getHikeAltitude()%>">
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" value="<%=hike.getHikeAltitude()%>" readonly>
                     </div>
 
                     <!-- Distance-->
                     <div class="clear">
                         <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
-                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" value="<%=hike.getHikeDistance()%>">
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" value="<%=hike.getHikeDistance()%>" readonly>
                     </div>
 
                     <!-- Duration-->
@@ -129,7 +162,7 @@
                             String formattedTime = localTime.format(outputFormatter);
                         %>
                         <label for="duration" class="labels_withmargin">Duration (in hours:minutes):</label>
-                        <input class="form-control w-100" type="time" id="duration" name="duration" value="<%=formattedTime%>">
+                        <input class="form-control w-100" type="time" id="duration" name="duration" value="<%=formattedTime%>" readonly>
                     </div>
                 </div>
             </div>
@@ -288,7 +321,7 @@
                         <div>
                             <img id="uploadedImage" src="data:image/png;base64,<%=hike.getHikeImage()%>" style="max-width: 100%; max-height: 200px; margin-top: 20px;" alt=<%=hike.getHikeName()%>/>
                         </div>
-                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <label for="fileToUpload" class="form-label">Image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
                     </div>
                 </div>
@@ -304,16 +337,11 @@
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
             <%
             String error = request.getParameter("error");
-            if (error != null && !error.isEmpty()) {
-        %>
-        <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
-            Database error: <%= error %>
-        </div>
-            <%
-            }
-        %>
+            %>
+            <tags:multiAlert error="<%=error%>"/>
 
-        <div class="row" style="clear:both;">
+
+        <div class="row-md" style="clear:both;">
             <div class="col-md-5 offset-md-5 text-right">
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

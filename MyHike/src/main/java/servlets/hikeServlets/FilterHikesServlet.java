@@ -1,4 +1,4 @@
-package servlets;
+package servlets.hikeServlets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static myHikeJava.Database.getAllHikes;
+import static database.Database.getAllHikes;
 
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
@@ -26,15 +26,17 @@ public class FilterHikesServlet extends HttpServlet {
         String staminaFilter = request.getParameter("staminaFilter");
         String strengthFilter = request.getParameter("strengthFilter");
         String landscapeFilter = request.getParameter("landscapeFilter");
-        String monateFilter = request.getParameter("monateFilter");
+        String altitudeFilter = request.getParameter("altitudeFilter");
+        String difficultyFilter = request.getParameter("difficultyFilter");
+        String monthFilter = request.getParameter("monthFilter");
 
-        String searchQuery = request.getParameter("searchQuery"); // Holen der Suchanfrage aus der Suchzeile
+        String searchQuery = request.getParameter("searchQuery"); // Get search query from searchbar.
         if (searchQuery != null && !searchQuery.isEmpty()) {
             hikes = hikes.stream()
                     .filter(hike ->
-                            hike.getHikeRegion().getRegionName().toLowerCase().contains(searchQuery.toLowerCase()) ||   //Sucht Region
-                                    hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Sucht Name
-                    .collect(Collectors.toList()); //Gibt dann die Liste mit den Hikes, die das Suchbegriff im Name oder Region haben
+                            hike.getHikeRegion().getRegionName().toLowerCase().contains(searchQuery.toLowerCase()) ||   //Search Region
+                                    hike.getHikeName().toLowerCase().contains(searchQuery.toLowerCase()))   //Search Name
+                    .collect(Collectors.toList());
         }
 
         if (durationFilter != null && !durationFilter.isEmpty() && !durationFilter.equals("0")) {
@@ -45,11 +47,11 @@ public class FilterHikesServlet extends HttpServlet {
                 hikes = hikes.stream()
                         .filter(hike ->
                                 hike.getHikeDuration() != null &&
-                                        hike.getHikeDuration().toLocalTime().compareTo(duration.toLocalTime()) <= 0
+                                        !hike.getHikeDuration().toLocalTime().isAfter(duration.toLocalTime())
                         )
                         .collect(Collectors.toList());
             } catch (IllegalArgumentException e) {
-                System.err.println("Fehler: durationFilter ist kein gültiges Zeitformat");
+                System.err.println("Error: Duration is not a valid time format.");
             }
         }
 
@@ -67,7 +69,23 @@ public class FilterHikesServlet extends HttpServlet {
                         })
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                System.err.println("Fehler: distanceFilter ist keine gültige Zahl");
+                System.err.println("Error: Distance filter does not hold a valid distance.");
+            }
+        }
+
+        if (altitudeFilter != null && !altitudeFilter.isEmpty() && !altitudeFilter.equals("0")) {
+            try {
+                int altitude = Integer.parseInt(altitudeFilter);
+
+                hikes = hikes.stream()
+                        .filter(hike -> {
+                            int hikeAltitude = hike.getHikeAltitude();
+                            return hikeAltitude >= 0 &&
+                                    hikeAltitude <= altitude;
+                        })
+                        .collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                System.err.println("Fehler: difficultyFilter ist keine gültige Zahl");
             }
         }
 
@@ -91,12 +109,19 @@ public class FilterHikesServlet extends HttpServlet {
             }
         }
 
-        if (monateFilter != null && !monateFilter.isEmpty()) {
-
+        if (difficultyFilter != null && !difficultyFilter.isEmpty() && !difficultyFilter.equals("0")) {
             try {
-                int monat = Integer.parseInt(monateFilter);
+                int difficulty = Integer.parseInt(difficultyFilter);
+                hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() == difficulty).collect(Collectors.toList());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        if (monthFilter != null && !monthFilter.isEmpty()) {
+            try {
+                int month = Integer.parseInt(monthFilter);
                 hikes = hikes.stream()
-                        .filter(hike -> hasSelectedMonth(hike, monat))
+                        .filter(hike -> hasSelectedMonth(hike, month))
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
                 e.printStackTrace();

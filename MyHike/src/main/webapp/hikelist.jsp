@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kilic
-  Date: 14.11.2023
-  Time: 14:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="database.Database" %>
 <%@ page import="models.Hike" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -56,6 +50,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -279,6 +278,7 @@
             </div>
         </div>
     </div>
+    <% } %>
     <!-- Trennlinie -->
     <hr size="8" color="green">
     <% }
@@ -298,7 +298,5 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-
 </body>
 </html>
-

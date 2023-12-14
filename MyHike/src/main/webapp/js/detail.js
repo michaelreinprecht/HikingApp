@@ -1,12 +1,27 @@
 //JavaScript for the detail.js page
 
-//TODO explain method
+//Displays the content belonging to the pressed button
 function toggleContent(buttonId) {
     let content = document.getElementById(buttonId + "-content");
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
     } else {
         content.style.display = "none";
+    }
+}
+
+//Makes sure all data is being displayed and initiates print.
+function printPage() {
+    showHiddenContent();
+    window.print();
+}
+
+//Gets all elements with class content and makes sure they are visible
+function showHiddenContent() {
+    let contentElements = document.getElementsByClassName("content");
+    // Iterate through each element and set style.display to 'block'
+    for (let i = 0; i < contentElements.length; i++) {
+        contentElements[i].style.display = 'block';
     }
 }
 
@@ -24,7 +39,7 @@ window.onload = function() {
 //Second confirmation, making sure that the user really wants to delete the hike.
 function confirmDelete(event) {
     event.preventDefault();
-    if (confirm("Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?")) {
+    if (confirm("Are you sure that you want to delete this hike entry?")) {
         document.getElementById('deleteForm').submit();
     }
 }
@@ -160,6 +175,7 @@ $(document).ready(function () {
                 result.appendChild(card);
                 hideLoading();
                 displaySuccess();
+                clearPOIInputs();
             },
             error: function(response) {
                 hideLoading();
@@ -210,6 +226,17 @@ function deletePOI(poiId) {
             validationAlert.style.display = "block";
         }
     });
+}
+
+//Clear values from input fields
+function clearPOIInputs() {
+    document.getElementById("poiTitle").value = "";
+    document.getElementById("poiDescription").value = "";
+    document.getElementById("poiLon").value = "";
+    document.getElementById("poiLat").value = "";
+    document.getElementById('poiImage').value = "";
+    let image = document.getElementById('imgDisplay');
+    image.src = "";
 }
 
 //Returns false and displays a validation alert if validation fails, if validation is passed returns true
@@ -271,6 +298,4 @@ function hideLoading() {
     const loadingDiv = document.getElementById("loadingDiv");
     loadingDiv.style.display = 'none';
 }
-
-
 

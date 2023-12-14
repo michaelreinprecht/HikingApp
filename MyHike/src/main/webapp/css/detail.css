@@ -1,5 +1,6 @@
-/* CSS for the detail.jsp page */
+@import url('global.css');
 
+/* CSS for the detail.jsp page */
 /* CSS for the star ratings */
 .input {
     height: 100%;
@@ -35,10 +36,9 @@
 }
 
 .text-center {
-    color: green;
-    font-style: italic;
     margin: auto;
 }
+
 .button-group {
     display: flex;
     flex-direction: column;
@@ -89,9 +89,7 @@
 }
 
 .text-center-name {
-    color: green;
     margin-top: 40px;
-    font-style: italic
 }
 
 .name {
@@ -114,4 +112,14 @@
     width: 230px;
     margin-top: 30px;
     font-weight: bold
+}
+
+.comment-card {
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+    text-align: left;
 }

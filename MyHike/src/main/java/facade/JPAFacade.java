@@ -1,9 +1,7 @@
 package facade;
 
 import broker.*;
-import models.Hike;
-import models.PointOfInterest;
-import models.Region;
+import models.*;
 
 import java.sql.SQLException;
 
@@ -36,7 +34,7 @@ public class JPAFacade implements IDatabaseFacade {
         }
     }
 
-    private JPABrokerBase getBroker(Object databaseObject) {
+    private JPABrokerBase getBroker(Object databaseObject) throws NullPointerException {
         if (databaseObject instanceof Hike) {
             return new JPAHikeBroker();
         }
@@ -45,6 +43,12 @@ public class JPAFacade implements IDatabaseFacade {
         }
         if (databaseObject instanceof PointOfInterest) {
             return new JPAPointOfInterestBroker();
+        }
+        if (databaseObject instanceof User) {
+            return new JPAUserBroker();
+        }
+        if (databaseObject instanceof Comment) {
+            return new JPACommentBroker();
         }
         return null;
     }

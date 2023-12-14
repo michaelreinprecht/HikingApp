@@ -20,14 +20,19 @@ function displayImage() {
 
 //Validates the information entered into the create.jsp or edit.jsp pages form
 function validateForm() {
-    //Pattern matching for altitude, needs to be at least one number from 1-9 followed by multiple numbers of 0-9
-    const altitudePattern = /^[1-9][0-9]*$/;
+    //This input is empty if there are not at least 2 valid points selected.
+    const routeCoordinatesString = document.getElementById("route-coordinates").value;
+
+    //Pattern matching for altitude, needs to be either a 0 or any other number from 1-9 followed by additional digits from 0-9.
+    const altitudePattern = /^(0|[1-9][0-9]*)$/;
     const altitude = document.getElementById("altitude").value;
 
     //Pattern matching for distance, needs to be at least one number from 0-9, CAN OPTIONALLY be followed by a dot (.)
     //and 2 decimals (lowest possible is 0.00km).
     const distancePattern = /^[0-9]+(?:.[0-9]?[0-9])?$/;
     const distance = document.getElementById("distance").value;
+
+    const duration = document.getElementById("duration").value;
 
     const radioStrength = document.querySelector('input[name="strength-rating"]:checked');
     const radioStamina = document.querySelector('input[name="stamina-rating"]:checked');
@@ -47,6 +52,11 @@ function validateForm() {
     //therefore be invisible.
     validationAlert.style.display = "block";
 
+    if (routeCoordinatesString === null || routeCoordinatesString === "") {
+        validationAlert.innerHTML = "Please select at least a starting and ending point for your hike."
+        return false;
+    }
+
     let monthIsChecked = false;
     //Check if at least one month is checked
     for (let i = 0; i < checkboxes.length; i++) {
@@ -59,15 +69,18 @@ function validateForm() {
         return false;
     }
     //Altitude/Distance can be null or empty, if they are not they have to match their respective patterns.
-    if (altitude != null && altitude !== "" && !altitudePattern.test(altitude)){
+    if (!altitudePattern.test(altitude)){
         validationAlert.innerHTML = "Please enter a valid altitude in meters.";
         return false;
     }
-    if (distance != null && distance !== "" && !distancePattern.test(distance)){
+    if (!distancePattern.test(distance)){
         validationAlert.innerHTML = "Please enter a valid distance in kilometers.";
         return false;
     }
-
+    if (duration === null || duration === "") {
+        validationAlert.innerHTML = "Please enter a valid duration in between 00:00 - 23:59 hours.";
+        return false;
+    }
     if (!radioLandscape) {
         validationAlert.innerHTML = "Please rate the landscape.";
         return false;

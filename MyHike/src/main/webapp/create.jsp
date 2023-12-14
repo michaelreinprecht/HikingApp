@@ -1,7 +1,7 @@
 <%@ page import="models.Month" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Region" %>
-<%@ page import="myHikeJava.Database" %>
+<%@ page import="database.Database" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
@@ -14,8 +14,12 @@
     <!-- Font Awesome Icons link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
+    <!-- Google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+
     <!-- Link to css files -->
-    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/create.css">
 
     <!-- JQuery import -->
@@ -33,10 +37,17 @@
     <script src="js/create_edit.js"></script>
     <script src="js/editMap.js"></script>
 </head>
+<%
+    if ((request.getSession(false).getAttribute("username") == null)){
+        %>
+<jsp:forward page="login.jsp"/>
+<%
+    }
+%>
 <body>
 <!-- Navigation bar -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="index.jsp">
+    <a class="navbar-brand" href="discover.jsp">
         <img src="images/icon3.png" alt="MyHike" class="icon">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -46,10 +57,24 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="index.jsp">Discover</a>
+                <a class="nav-link" href="discover.jsp">Discover</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="create.jsp">Create Hike <span class="sr-only">(current)</span></a>
+            </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <%if (session.getAttribute("username") == null) { %>
+                <a class="nav-link" href="login.jsp">Login</a>
+                <% } else { %>
+                <a class="nav-link" href="logoutServlet"><%=session.getAttribute("username")%><br>Logout</a>
+                <% } %>
             </li>
         </ul>
     </div>
@@ -95,20 +120,19 @@
                     <!-- Altitude-->
                     <div class="clear">
                         <label for="altitude" class="labels_withmargin">Altitude (in meters):</label>
-                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100">
+                        <input class="form-control w-100" type="text" id="altitude" name="altitude" placeholder="100" readonly>
                     </div>
 
                     <!-- Distance-->
                     <div class="clear">
                         <label for="distance" class="labels_withmargin">Distance (in kilometers):</label>
-                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00">
+                        <input class="form-control w-100" type="text" id="distance" name="distance" placeholder="1.00" readonly>
                     </div>
 
                     <!-- Duration-->
-
                     <div class="clear">
                         <label for="duration" class="labels_withmargin">Duration (in hours:minutes):</label>
-                        <input class="form-control w-100" type="time" id="duration" name="duration" value="01:00">
+                        <input class="form-control w-100" type="time" id="duration" name="duration" value="01:00" readonly>
                     </div>
                 </div>
             </div>
@@ -204,7 +228,7 @@
                         <div>
                             <img id="uploadedImage" alt=""/>
                         </div>
-                        <label for="fileToUpload" class="form-label">image upload:</label>
+                        <label for="fileToUpload" class="form-label">Image upload:</label>
                         <input class="form-control" type="file" id="fileToUpload" name="fileToUpload" onchange="displayImage()"/>
 
                     </div>
@@ -221,16 +245,10 @@
         <!-- This alert will be displayed if the database upload fails even though validation was passed, or if no valid image was uploaded -->
         <%
             String error = request.getParameter("error");
-            if (error != null && !error.isEmpty()) {
         %>
-        <div id="databaseAlert" class="alert alert-danger row-md" role="alert" style="clear:both; margin-bottom: 10px; margin-top: 10px;">
-            Database error: <%= error %>
-        </div>
-        <%
-            }
-        %>
+        <tags:multiAlert error="<%=error%>"/>
 
-        <div class="row" style="clear:both;">
+        <div class="row-md" style="clear:both;">
             <div class="col-md-5 offset-md-5 text-right">
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
