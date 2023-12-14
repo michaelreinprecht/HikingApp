@@ -270,7 +270,7 @@
                         }
                     %><br>
 
-                    <div class="rating-label"><b>Stamina:</b></div>
+                    <div class="rating-label"><b>Level of Fitness:</b></div>
                     <%
                         int staminaRating = hike.getHikeStamina();
                         //Display a number of "active" and "inactive" stars, depending on the staminaRating
