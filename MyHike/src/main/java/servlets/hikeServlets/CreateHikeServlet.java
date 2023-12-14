@@ -1,5 +1,6 @@
 package servlets.hikeServlets;
 
+import database.Database;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,8 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
 import models.Month;
-import database.Database;
-import servlets.ServletUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -71,7 +70,7 @@ public class CreateHikeServlet extends HikeServletUtils {
     public boolean handleAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //If users is not logged in, redirect to detail page and display error.
         HttpSession session = request.getSession();
-        String error = "";
+        String error;
         boolean loggedIn = session.getAttribute("username") != null;
         if (!loggedIn) {
                 error = "Unauthorized users are unable to create a hike - please log in.";

@@ -1,16 +1,14 @@
 package servlets.POIServlets;
 
+import database.Database;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.PointOfInterest;
-import database.Database;
-import servlets.ServletUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,6 +23,8 @@ public class AddPOIServlet extends POIServletUtils {
         addPOI(request, response);
     }
 
+    //Adds a new point of interest to the hike passed in the request using the values passed in the request.
+    //If this method fails errors are handled in the ajax segment in detail.js.
     private void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Get values from parameters
         String poiId = UUID.randomUUID().toString(); //Create random UUID for POI

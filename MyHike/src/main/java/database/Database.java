@@ -3,14 +3,11 @@ package database;
 import facade.*;
 import models.*;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
-import java.io.File;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unused")
 public class Database {

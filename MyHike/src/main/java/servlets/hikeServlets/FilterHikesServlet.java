@@ -23,6 +23,7 @@ public class FilterHikesServlet extends HttpServlet {
         filterHikes(request, response);
     }
 
+    //Filters the hikes according to the filter parameters passed in the request.
     private void filterHikes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get all hikes from database
         List<Hike> hikes = getAllHikes();

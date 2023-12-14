@@ -13,7 +13,10 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+//Contains basic methods useful for most Hike related servlets.
 public class HikeServletUtils extends ServletUtils {
+
+    //Fills (at least the basic) values passed in the request into a hike object.
     protected Hike getHikeBase(HttpServletRequest request, Hike hike) {
         //Get values from parameters
         String name = request.getParameter("name");
@@ -48,7 +51,7 @@ public class HikeServletUtils extends ServletUtils {
     }
 
     //getAltitude(HttpServletRequest request) returns the altitude entered into our create.jsp inputs, if the value of
-    //this input field is empty or null it will return null -> TODO replace "return null" with calculation
+    //this input field is empty or null it will return null
     protected Integer getAltitude(HttpServletRequest request) {
         String altitudeString = request.getParameter("altitude");
 
@@ -61,7 +64,7 @@ public class HikeServletUtils extends ServletUtils {
     }
 
     //getDistance(HttpServletRequest request) returns the distance entered into our create.jsp inputs, if the value of
-    //this input field is empty or null it will return null -> TODO replace "return null" with calculation
+    //this input field is empty or null it will return null
     protected BigDecimal getDistance(HttpServletRequest request) {
         String distanceString = request.getParameter("distance");
         if (distanceString != null && !distanceString.isEmpty()) {

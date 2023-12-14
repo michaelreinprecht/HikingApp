@@ -1,6 +1,6 @@
 package servlets.hikeServlets;
 
-import jakarta.servlet.ServletException;
+import database.Database;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
-import database.Database;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,6 +19,8 @@ public class SoftDeleteHikeServlet extends HttpServlet {
         softDeleteHike(request, response);
     }
 
+    //Attempts to delete the given hike (in the request). If this method fails it will redirect back to the edit page and
+    //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
     private void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
         String hikeId = request.getParameter("Id");

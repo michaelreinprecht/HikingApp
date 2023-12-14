@@ -1,5 +1,6 @@
 package servlets.commentServlets;
 
+import database.Database;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import models.Comment;
 import models.Hike;
 import models.User;
-import database.Database;
 
 import java.io.IOException;
 import java.util.List;

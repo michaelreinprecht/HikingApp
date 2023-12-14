@@ -1,7 +1,6 @@
 package broker;
 
 import models.Hike;
-import models.User;
 import servlets.ResourceServlet;
 
 import javax.persistence.EntityManager;

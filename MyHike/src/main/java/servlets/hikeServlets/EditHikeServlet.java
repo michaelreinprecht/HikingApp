@@ -1,5 +1,6 @@
 package servlets.hikeServlets;
 
+import database.Database;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,8 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.Month;
-import database.Database;
-import servlets.ServletUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +21,8 @@ public class EditHikeServlet extends HikeServletUtils {
         editHike(request, response);
     }
 
+    //Attempts to edit the given hike (in the request). If this method fails it will redirect back to the edit page and
+    //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
     private void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
 
@@ -34,7 +35,7 @@ public class EditHikeServlet extends HikeServletUtils {
             }
 
             //Create new hike object based on the data entered in create.jsp
-            Hike hike = getUpdatedHike(oldHike, request, response);
+            Hike hike = getUpdatedHike(oldHike, request);
 
             //Insert hike into database
             Database.update(hike);
@@ -49,7 +50,7 @@ public class EditHikeServlet extends HikeServletUtils {
         }
     }
 
-    private Hike getUpdatedHike(Hike oldHike, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private Hike getUpdatedHike(Hike oldHike, HttpServletRequest request) throws IOException, ServletException {
         Hike newHike = getHikeBase(request, oldHike); //Gets the basic hike data (works same for edit and create)
 
         //Get recommended Months are String[] from html parameter and turn them into a Bitmap

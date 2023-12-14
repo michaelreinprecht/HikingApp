@@ -20,6 +20,8 @@ public class LoginServlet extends HttpServlet {
         loginUser(request, response);
     }
 
+    //Attempts to log in the user with the username and password passed in the request. Redirects back to login page
+    //and displays error message if login is unsuccessful, otherwise redirects to discover page and displays welcome message.
     private void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String username = request.getParameter("username");

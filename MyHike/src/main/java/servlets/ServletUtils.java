@@ -1,23 +1,14 @@
 package servlets;
 
-import database.Database;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import models.Hike;
-import models.Region;
-import models.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 
+//Contains methods which may be useful in many different types of servlets.
 public class ServletUtils extends HttpServlet {
     protected String getBase64(Part fileToUpload) throws IOException {
         try (InputStream is = fileToUpload.getInputStream();

@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import models.Hike;
 import models.User;
 import org.junit.jupiter.api.Test;
-import servlets.ServletUtils;
 
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -13,7 +12,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -17,6 +17,7 @@ public class LogoutServlet extends HttpServlet {
         logoutUser(request, response);
     }
 
+    //Logs out the current user by removing the session attributes for username and isAdmin.
     private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session =request.getSession(false);
         if (session != null) {

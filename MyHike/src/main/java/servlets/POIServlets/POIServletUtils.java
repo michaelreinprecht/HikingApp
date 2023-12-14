@@ -1,6 +1,5 @@
 package servlets.POIServlets;
 
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -9,9 +8,10 @@ import servlets.ServletUtils;
 
 import java.io.IOException;
 
+//Contains basic methods useful for most POI related servlets.
 public class POIServletUtils extends ServletUtils {
+    //If users does not own the hike or is an admin, redirect to detail page and display error.
     protected boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //If users does not own the hike or is an admin, redirect to detail page and display error.
         HttpSession session = request.getSession();
         boolean loggedIn = request.getSession().getAttribute("username") != null;
         boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
