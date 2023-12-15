@@ -20,7 +20,7 @@ import static database.Database.getAllHikes;
 
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
-    private String error = "Test";
+    private String error = "";
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         filterHikes(request, response);
     }
