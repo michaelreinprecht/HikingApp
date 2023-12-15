@@ -6,20 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
 import models.Hike;
-import models.Region;
-import models.User;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

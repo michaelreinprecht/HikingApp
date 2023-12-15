@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
+import models.Month;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import static database.Database.getAllHikes;
 
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
+    private String error = "";
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         filterHikes(request, response);
     }
@@ -34,6 +36,7 @@ public class FilterHikesServlet extends HttpServlet {
         //Set filtered hikes as attribute for new request
         request.setAttribute("filteredHikes", hikes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("hikelist.jsp");
+        //TODO forward error and display in hikelist
         dispatcher.forward(request, response);
     }
 
@@ -82,7 +85,7 @@ public class FilterHikesServlet extends HttpServlet {
                         .collect(Collectors.toList());
                 return hikes;
             } catch (IllegalArgumentException e) {
-                System.err.println("Error: Duration is not a valid time format.");
+                error = "Error: Duration is not a valid time format.";
             }
         }
         return hikes;
@@ -92,18 +95,15 @@ public class FilterHikesServlet extends HttpServlet {
         if (distanceFilter != null && !distanceFilter.isEmpty() && !distanceFilter.equals("0")) {
             try {
                 BigDecimal distance = new BigDecimal(distanceFilter);
-                BigDecimal upperBound = distance.add(new BigDecimal("10"));
-
                 hikes = hikes.stream()
                         .filter(hike -> {
                             BigDecimal hikeDistance = hike.getHikeDistance();
                             return hikeDistance != null &&
-                                    hikeDistance.compareTo(distance) >= 0 &&
-                                    hikeDistance.compareTo(upperBound) <= 0;
+                                    hikeDistance.compareTo(distance) <= 0;
                         })
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                System.err.println("Error: Distance filter does not hold a valid distance.");
+                error = "Error: Distance filter does not hold a valid distance value.";
             }
         }
         return hikes;
@@ -122,7 +122,7 @@ public class FilterHikesServlet extends HttpServlet {
                         })
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                System.err.println("Fehler: difficultyFilter ist keine gültige Zahl");
+                error = "Error: Altitude filter does not hold a valid altitude value.";
             }
         }
         return hikes;
@@ -135,7 +135,7 @@ public class FilterHikesServlet extends HttpServlet {
                 hikes = hikes.stream().filter(hike -> hike.getHikeStamina() <= stamina).collect(Collectors.toList());
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            error = "Error: Level of fitness filter does not hold a valid fitness value.";
         }
         return hikes;
     }
@@ -147,7 +147,7 @@ public class FilterHikesServlet extends HttpServlet {
                 hikes = hikes.stream().filter(hike -> hike.getHikeStrength() <= strength).collect(Collectors.toList());
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            error = "Error: Strength rating filter does not hold a valid strength value.";
         }
         return hikes;
     }
@@ -158,7 +158,7 @@ public class FilterHikesServlet extends HttpServlet {
                 int landscape = Integer.parseInt(landscapeFilter);
                 hikes = hikes.stream().filter(hike -> hike.getHikeLandscape() >= landscape).collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                error = "Error: Landscape rating filter does not hold a valid landscape rating.";
             }
         }
         return hikes;
@@ -170,7 +170,7 @@ public class FilterHikesServlet extends HttpServlet {
                 int difficulty = Integer.parseInt(difficultyFilter);
                 hikes = hikes.stream().filter(hike -> hike.getHikeDifficulty() <= difficulty).collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                error = "Error: Difficulty rating filter does not hold a valid difficulty rating.";
             }
         }
         return hikes;
@@ -184,7 +184,7 @@ public class FilterHikesServlet extends HttpServlet {
                         .filter(hike -> hasSelectedMonth(hike, month))
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                error = "Error: Something went wrong when selecting the months in the month filter.";
             }
         }
         return hikes;
@@ -200,7 +200,7 @@ public class FilterHikesServlet extends HttpServlet {
         String landscapeFilter = request.getParameter("landscapeFilter");
         String altitudeFilter = request.getParameter("altitudeFilter");
         String difficultyFilter = request.getParameter("difficultyFilter");
-        String monthFilter = request.getParameter("monthFilter");
+        String monthFilter = Month.getBitmapFromMonths(request.getParameterValues("monthFilter"));
 
         hikes = filterHikesBySearchQuery(hikes, searchQuery);
         hikes = filterHikesByDuration(hikes, durationFilter);
@@ -218,5 +218,9 @@ public class FilterHikesServlet extends HttpServlet {
         String hikeMonthsBitmap = hike.getHikeMonths(); // Replace with the actual method to get the months bitmap
 
         return selectedMonth >= 0 && selectedMonth < hikeMonthsBitmap.length() && hikeMonthsBitmap.charAt(selectedMonth) == '1';
+    }
+
+    public String getError() {
+        return error;
     }
 }

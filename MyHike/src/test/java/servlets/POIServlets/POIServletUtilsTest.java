@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
-import models.User;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
@@ -39,11 +38,5 @@ class POIServletUtilsTest extends TestHelper {
         when(mockSession.getAttribute("username")).thenReturn("admin");
         userIsAuthorized = poiServletUtils.handleAuthForHike(oldHike ,mockedRequest, mockedResponse);
         assertTrue(userIsAuthorized);
-    }
-
-    private Hike getHikeForPOI() {
-        Hike hike = new Hike();
-        hike.setHikeId("test1");
-        return hike;
     }
 }
