@@ -2,8 +2,10 @@ package servlets.hikeServlets;
 
 import database.Database;
 import facade.JPAHikeFacade;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
 import models.Region;
@@ -157,15 +159,14 @@ class FilterHikesServletTest extends TestHelper {
 
     @Test
     void filterHikesByMonths() {
-        //TODO finish once filter works properly
         List<Hike> hikes = getHikesToFilter();
 
-        //Case: expected hike is not filtered out
-        hikes = filterHikesServlet.filterHikesByMonths(hikes, "111000111000");
+        //Case: expected hike is not filtered out (filtering for february)
+        hikes = filterHikesServlet.filterHikesByMonths(hikes, "010000000000");
         assertTrue((hikes.contains((expectedHike)) && hikes.size() == 1));
 
-        //Case: expected hike is filtered out
-        hikes = filterHikesServlet.filterHikesByMonths(hikes, "010101010101");
+        //Case: expected hike is filtered out (filtering for may)
+        hikes = filterHikesServlet.filterHikesByMonths(hikes, "000010000000");
         assertFalse(hikes.contains((expectedHike)));
         assertTrue(filterHikesServlet.getError().isEmpty());
     }
@@ -181,22 +182,13 @@ class FilterHikesServletTest extends TestHelper {
     }
 
     @Test
-    void filterHikes() throws ServletException, IOException {
-        //Mock database
-        Database.hikeFacade = mock(JPAHikeFacade.class);
-
-        filterHikesServlet.filterHikes(getMockedRequest(), getMockedResponse());
-        assertTrue(filterHikesServlet.getError().isEmpty());
-    }
-
-    @Test
     void hasSelectedMonth() {
         //Case: the month is 1 in the bitmap of the hike and therefore recommended
-        boolean februaryRecommended = filterHikesServlet.hasSelectedMonth(expectedHike, 1);
+        boolean februaryRecommended = filterHikesServlet.hasSelectedMonth(expectedHike, Integer.parseInt("010000000000", 2));
         assertTrue(februaryRecommended);
 
         //Case: the month is 0 in the bitmap of the hike and therefore not recommended
-        boolean mayRecommended = filterHikesServlet.hasSelectedMonth(expectedHike, 4);
+        boolean mayRecommended = filterHikesServlet.hasSelectedMonth(expectedHike, Integer.parseInt("000010000000", 2));
         assertFalse(mayRecommended);
     }
 
@@ -212,7 +204,7 @@ class FilterHikesServletTest extends TestHelper {
         when(request.getParameter("altitudeFilter")).thenReturn("111");
         when(request.getParameter("difficultyFilter")).thenReturn("3");
         when(request.getParameter("searchQuery")).thenReturn("Test");
-        String[] selectedMonths = {"June"};
+        String[] selectedMonths = {"February"};
         when(request.getParameterValues("monthFilter")).thenReturn(selectedMonths);
 
         //Mock session
