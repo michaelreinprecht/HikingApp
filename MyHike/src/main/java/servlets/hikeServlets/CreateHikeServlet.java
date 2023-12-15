@@ -21,29 +21,9 @@ public class CreateHikeServlet extends HikeServletUtils {
         createHike(request, response);
     }
 
-    private Hike getHike(HttpServletRequest request) throws IOException, ServletException {
-        Hike hike = new Hike();
-
-        //Get values from parameters
-        String id = UUID.randomUUID().toString(); //Create random UUID for hike
-        hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
-        hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
-
-        //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
-        //need to be inserted into the recommended_in table).
-        String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
-
-        //Encode image to Base64 String
-        String image = getBase64(request.getPart("fileToUpload"));
-
-        hike.setHikeMonths(recommendedMonths);
-        hike.setHikeImage(image);
-        return hike;
-    }
-
     //Attempts to create a new hike. If this method fails it will redirect back to the create page and display an error
     //message. Otherwise it will redirect to the discover page and display a success message.
-    private void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String error = "";
 
         if (!handleAuth(request, response)) {
@@ -65,6 +45,27 @@ public class CreateHikeServlet extends HikeServletUtils {
                     "hike - you should now be able to view it in 'Your Hikes' or find it using the search function."));
         }
     }
+
+    protected Hike getHike(HttpServletRequest request) throws IOException, ServletException {
+        Hike hike = new Hike();
+
+        //Get values from parameters
+        String id = UUID.randomUUID().toString(); //Create random UUID for hike
+        hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
+        hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
+
+        //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
+        //need to be inserted into the recommended_in table).
+        String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
+
+        //Encode image to Base64 String
+        String image = getBase64(request.getPart("fileToUpload"));
+
+        hike.setHikeMonths(recommendedMonths);
+        hike.setHikeImage(image);
+        return hike;
+    }
+
 
     //If user is not logged in send him back to discover page. Returns true if user is authorized to access this page.
     public boolean handleAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
