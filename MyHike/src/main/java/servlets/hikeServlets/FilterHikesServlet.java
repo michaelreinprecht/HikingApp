@@ -179,9 +179,10 @@ public class FilterHikesServlet extends HttpServlet {
     protected List<Hike> filterHikesByMonths(List<Hike> hikes, String monthFilter) {
         if (monthFilter != null && !monthFilter.isEmpty()) {
             try {
-                int month = Integer.parseInt(monthFilter);
+                int monthFilterInt = Integer.parseInt(monthFilter, 2);
+
                 hikes = hikes.stream()
-                        .filter(hike -> hasSelectedMonth(hike, month))
+                        .filter(hike -> hasSelectedMonth(hike, monthFilterInt))
                         .collect(Collectors.toList());
             } catch (NumberFormatException e) {
                 error = "Error: Something went wrong when selecting the months in the month filter.";
@@ -214,10 +215,18 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    protected boolean hasSelectedMonth(Hike hike, int selectedMonth) {
-        String hikeMonthsBitmap = hike.getHikeMonths(); // Replace with the actual method to get the months bitmap
+    protected boolean hasSelectedMonth(Hike hike, int monthFilter) {
+        // Assuming hike.getMonths() returns the 12-bit bitmap as a string
+        String hikeMonths = hike.getHikeMonths();
 
-        return selectedMonth >= 0 && selectedMonth < hikeMonthsBitmap.length() && hikeMonthsBitmap.charAt(selectedMonth) == '1';
+        // Iterate through each bit in the monthFilter
+        for (int i = 0; i < hikeMonths.length(); i++) {
+            // Check if the corresponding bit in hikeMonths is '1'
+            if (((monthFilter >> (11 - i)) & 1) == 1 && hikeMonths.charAt(i) == '1') {
+                return true; // Hike has at least one recommended month
+            }
+        }
+        return false; // Hike has no recommended months in the monthFilter
     }
 
     public String getError() {
