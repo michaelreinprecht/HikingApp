@@ -24,7 +24,7 @@ public class FilterHikesServlet extends HttpServlet {
     }
 
     //Filters the hikes according to the filter parameters passed in the request.
-    private void filterHikes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void filterHikes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get all hikes from database
         List<Hike> hikes = getAllHikes();
         //Filter hikes according to filter values in request parameters
@@ -37,7 +37,7 @@ public class FilterHikesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void saveFilterValuesInSession(HttpServletRequest request) {
+    protected void saveFilterValuesInSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         session.setAttribute("durationFilter", request.getParameter("durationFilter"));
@@ -57,7 +57,7 @@ public class FilterHikesServlet extends HttpServlet {
         }
     }
 
-    private List<Hike> filterHikesBySearchQuery(List<Hike> hikes, String searchQuery) {
+    protected List<Hike> filterHikesBySearchQuery(List<Hike> hikes, String searchQuery) {
         if (searchQuery != null && !searchQuery.isEmpty()) {
             hikes = hikes.stream()
                     .filter(hike ->
@@ -68,7 +68,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByDuration(List<Hike> hikes, String durationFilter) {
+    protected List<Hike> filterHikesByDuration(List<Hike> hikes, String durationFilter) {
         if (durationFilter != null && !durationFilter.isEmpty() && !durationFilter.equals("0")) {
             try {
                 String formattedDuration = durationFilter + ":00";
@@ -88,7 +88,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByDistance(List<Hike> hikes, String distanceFilter) {
+    protected List<Hike> filterHikesByDistance(List<Hike> hikes, String distanceFilter) {
         if (distanceFilter != null && !distanceFilter.isEmpty() && !distanceFilter.equals("0")) {
             try {
                 BigDecimal distance = new BigDecimal(distanceFilter);
@@ -109,7 +109,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByAltitude(List<Hike> hikes, String altitudeFilter) {
+    protected List<Hike> filterHikesByAltitude(List<Hike> hikes, String altitudeFilter) {
         if (altitudeFilter != null && !altitudeFilter.isEmpty() && !altitudeFilter.equals("0")) {
             try {
                 int altitude = Integer.parseInt(altitudeFilter);
@@ -128,7 +128,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByStamina(List<Hike> hikes, String staminaFilter) {
+    protected List<Hike> filterHikesByStamina(List<Hike> hikes, String staminaFilter) {
         try {
             if (staminaFilter != null && !staminaFilter.isEmpty() && !staminaFilter.equals("0")) {
                 int stamina = Integer.parseInt(staminaFilter);
@@ -140,7 +140,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByStrength(List<Hike> hikes, String strengthFilter) {
+    protected List<Hike> filterHikesByStrength(List<Hike> hikes, String strengthFilter) {
         try {
             if (strengthFilter != null && !strengthFilter.isEmpty() && !strengthFilter.equals("0")) {
                 int strength = Integer.parseInt(strengthFilter);
@@ -152,7 +152,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByLandscape(List<Hike> hikes, String landscapeFilter) {
+    protected List<Hike> filterHikesByLandscape(List<Hike> hikes, String landscapeFilter) {
         if (landscapeFilter != null && !landscapeFilter.isEmpty() && !landscapeFilter.equals("0")) {
             try {
                 int landscape = Integer.parseInt(landscapeFilter);
@@ -164,7 +164,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByDifficulty(List<Hike> hikes, String difficultyFilter) {
+    protected List<Hike> filterHikesByDifficulty(List<Hike> hikes, String difficultyFilter) {
         if (difficultyFilter != null && !difficultyFilter.isEmpty() && !difficultyFilter.equals("0")) {
             try {
                 int difficulty = Integer.parseInt(difficultyFilter);
@@ -176,7 +176,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private List<Hike> filterHikesByMonths(List<Hike> hikes, String monthFilter) {
+    protected List<Hike> filterHikesByMonths(List<Hike> hikes, String monthFilter) {
         if (monthFilter != null && !monthFilter.isEmpty()) {
             try {
                 int month = Integer.parseInt(monthFilter);
@@ -191,7 +191,7 @@ public class FilterHikesServlet extends HttpServlet {
     }
 
     //Applies all filter methods for the current request
-    private List<Hike> filterHikesByRequest(List<Hike> hikes, HttpServletRequest request) {
+    protected List<Hike> filterHikesByRequest(List<Hike> hikes, HttpServletRequest request) {
         String searchQuery = request.getParameter("searchQuery"); // Get search query from searchbar.
         String durationFilter = request.getParameter("durationFilter");
         String distanceFilter = request.getParameter("distanceFilter");
@@ -214,7 +214,7 @@ public class FilterHikesServlet extends HttpServlet {
         return hikes;
     }
 
-    private boolean hasSelectedMonth(Hike hike, int selectedMonth) {
+    protected boolean hasSelectedMonth(Hike hike, int selectedMonth) {
         String hikeMonthsBitmap = hike.getHikeMonths(); // Replace with the actual method to get the months bitmap
 
         return selectedMonth >= 0 && selectedMonth < hikeMonthsBitmap.length() && hikeMonthsBitmap.charAt(selectedMonth) == '1';

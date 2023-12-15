@@ -21,8 +21,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +45,17 @@ class CreateHikeServletTest extends TestHelper {
 
     @Test
     void handleAuth() throws IOException, ServletException {
-        boolean userIsAuthorized = createHikeServlet.handleAuth(getMockedRequest(), getMockedResponse());
+        HttpServletRequest mockedRequest = getMockedRequest();
+        HttpServletResponse mockedResponse = getMockedResponse();
+
+        //Case: user is logged in
+        boolean userIsAuthorized = createHikeServlet.handleAuth(mockedRequest, mockedResponse);
         assertTrue(userIsAuthorized);
+
+        //Case: user is not logged in
+        HttpSession mockSession = mock(HttpSession.class);
+        when(mockedRequest.getSession()).thenReturn(mockSession);
+        userIsAuthorized = createHikeServlet.handleAuth(mockedRequest, mockedResponse);
+        assertFalse(userIsAuthorized);
     }
 }
