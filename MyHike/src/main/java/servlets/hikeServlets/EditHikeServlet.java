@@ -17,14 +17,15 @@ import java.sql.SQLException;
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
 public class EditHikeServlet extends HikeServletUtils {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         editHike(request, response);
     }
 
     //Attempts to edit the given hike (in the request). If this method fails it will redirect back to the edit page and
     //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
-    private void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
+    protected void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        error = "";
 
         String hikeId = request.getParameter("Id");
         try {
@@ -50,7 +51,7 @@ public class EditHikeServlet extends HikeServletUtils {
         }
     }
 
-    private Hike getUpdatedHike(Hike oldHike, HttpServletRequest request) throws IOException, ServletException {
+    protected Hike getUpdatedHike(Hike oldHike, HttpServletRequest request) throws IOException, ServletException {
         Hike newHike = getHikeBase(request, oldHike); //Gets the basic hike data (works same for edit and create)
 
         //Get recommended Months are String[] from html parameter and turn them into a Bitmap
@@ -67,7 +68,7 @@ public class EditHikeServlet extends HikeServletUtils {
 
     //If users does not own the hike or is an admin, redirect to detail page and display error.
     //Returns false if user is not authorized to edit this hike.
-    private boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         boolean loggedIn = request.getSession().getAttribute("username") != null;
         boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
@@ -88,5 +89,9 @@ public class EditHikeServlet extends HikeServletUtils {
         } else {
             return oldHike.getHikeImage();
         }
+    }
+
+    public String getError() {
+        return error;
     }
 }

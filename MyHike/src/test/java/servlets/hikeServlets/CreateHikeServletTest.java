@@ -1,50 +1,52 @@
 package servlets.hikeServlets;
 
+import database.Database;
+import facade.JPAFacade;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import models.Hike;
+import models.Region;
+import models.User;
 import org.junit.jupiter.api.Test;
+import servlets.TestHelper;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CreateHikeServletTest {
+class CreateHikeServletTest extends TestHelper {
     CreateHikeServlet createHikeServlet = new CreateHikeServlet();
 
     @Test
-    void createHike() {
+    void createHike() throws IOException, ServletException {
+        Database.facade = mock(JPAFacade.class);
+        createHikeServlet.createHike(getMockedRequest(), getMockedResponse());
+        assertTrue(createHikeServlet.getError().isEmpty());
     }
 
     @Test
-    void getHike() {
+    void getHike() throws ServletException, IOException {
+        Hike hike = createHikeServlet.getHike(getMockedRequest());
+        hike.setHikeId("test1");
+        Hike expectedHike = getExpectedHike();
+        assertEquals(expectedHike.toString(), hike.toString());
     }
 
     @Test
-    void handleAuth() {
-
-
-    }
-
-    private HttpServletRequest getMockedRequest() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getParameter("name")).thenReturn("Test Hike");
-        when(request.getParameter("description")).thenReturn("Testing");
-        when(request.getParameter("route-coordinates")).thenReturn("[[10,10][10,10]]");
-        when(request.getParameter("distance")).thenReturn("1.11");
-        when(request.getParameter("altitude")).thenReturn("111");
-        when(request.getParameter("landscape-rating")).thenReturn("5");
-        when(request.getParameter("strength-rating")).thenReturn("5");
-        when(request.getParameter("stamina-rating")).thenReturn("5");
-        when(request.getParameter("difficulty-rating")).thenReturn("5");
-        when(request.getParameter("region")).thenReturn("Bregenzerwald");
-        when(request.getParameter("duration")).thenReturn("01:00");
-
-
-        return request;
-    }
-
-    private HttpServletResponse getMockedResponse() {
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        return response;
+    void handleAuth() throws IOException, ServletException {
+        boolean userIsAuthorized = createHikeServlet.handleAuth(getMockedRequest(), getMockedResponse());
+        assertTrue(userIsAuthorized);
     }
 }

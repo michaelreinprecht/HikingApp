@@ -17,6 +17,7 @@ import java.util.UUID;
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
 public class CreateHikeServlet extends HikeServletUtils {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         createHike(request, response);
     }
@@ -24,7 +25,7 @@ public class CreateHikeServlet extends HikeServletUtils {
     //Attempts to create a new hike. If this method fails it will redirect back to the create page and display an error
     //message. Otherwise it will redirect to the discover page and display a success message.
     protected void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
+        error = "";
 
         if (!handleAuth(request, response)) {
             return;
@@ -79,5 +80,9 @@ public class CreateHikeServlet extends HikeServletUtils {
                 return false;
         }
         return true;
+    }
+
+    public String getError() {
+        return error;
     }
 }

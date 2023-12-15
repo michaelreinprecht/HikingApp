@@ -209,7 +209,7 @@ public class Hike {
                 "hikeId='" + hikeId + '\'' +
                 ", hikeName='" + hikeName + '\'' +
                 ", hikeDescription='" + hikeDescription + '\'' +
-                ", hikeRouteCoordinates=" + hikeRouteCoordinates +
+                ", hikeRouteCoordinates='" + hikeRouteCoordinates + '\'' +
                 ", hikeDuration=" + hikeDuration +
                 ", hikeAltitude=" + hikeAltitude +
                 ", hikeDistance=" + hikeDistance +
@@ -219,8 +219,11 @@ public class Hike {
                 ", hikeLandscape=" + hikeLandscape +
                 ", hikeImage='" + hikeImage + '\'' +
                 ", hikeMonths='" + hikeMonths + '\'' +
-                ", hikeRegion=" + hikeRegion +
+                ", hikeRegion=" + hikeRegion.getRegionName() +
+                ", hikePointsOfInterest=" + hikePointsOfInterest +
+                ", hikeComments=" + hikeComments +
                 ", isDeleted=" + isDeleted +
+                ", hikeOfUser=" + hikeOfUser.getUserName() +
                 '}';
     }
 }

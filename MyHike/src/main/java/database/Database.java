@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unused")
 public class Database {
-    private static JPAFacade facade = Database.createFacade();
+    public static JPAFacade facade = Database.createFacade();
     private static JPAFacade createFacade() {
         //Mocking database and removing functionality from insert
         String fileName = "test.txt";
