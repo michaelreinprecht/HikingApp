@@ -20,7 +20,7 @@ import static database.Database.getAllHikes;
 
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
-    private String error = "";
+    private String error = "Test";
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         filterHikes(request, response);
     }
@@ -36,7 +36,9 @@ public class FilterHikesServlet extends HttpServlet {
         //Set filtered hikes as attribute for new request
         request.setAttribute("filteredHikes", hikes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("hikelist.jsp");
-        //TODO forward error and display in hikelist
+        if (error != null && !error.isEmpty()) {
+            request.setAttribute("error", error);
+        }
         dispatcher.forward(request, response);
     }
 

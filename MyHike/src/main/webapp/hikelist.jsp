@@ -167,6 +167,14 @@
     </div>
     <div id="hikes">
         <%
+            String error = request.getAttribute("error").toString();
+            if (error != null && !error.isEmpty()) {
+        %>
+        <div class="alert alert-danger" role="alert">
+            <%=error%>
+        </div>
+        <%
+            }
             List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
 
             if (filteredHikes == null || filteredHikes.isEmpty()) {
