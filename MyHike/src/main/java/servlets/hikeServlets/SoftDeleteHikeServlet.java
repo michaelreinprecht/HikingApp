@@ -15,14 +15,15 @@ import java.sql.SQLException;
 @WebServlet(name = "softDeleteHikeServlet", value = "/softDeleteHikeServlet")
 @MultipartConfig
 public class SoftDeleteHikeServlet extends HttpServlet {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         softDeleteHike(request, response);
     }
 
     //Attempts to delete the given hike (in the request). If this method fails it will redirect back to the edit page and
     //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
-    private void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
+    protected void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        error = "";
         String hikeId = request.getParameter("Id");
         try {
             Hike hike = Database.getHikeById(request.getParameter("Id"));
@@ -46,7 +47,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
 
     //If users does not own the hike or is an admin, redirect to detail page and display error.
     //Returns false if user is not authorized to delete this hike.
-    public boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected boolean handleAuthForHike(Hike hike, HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         boolean loggedIn = request.getSession().getAttribute("username") != null;
         boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
@@ -57,5 +58,9 @@ public class SoftDeleteHikeServlet extends HttpServlet {
             return false;
         }
         return true;
+    }
+
+    public String getError() {
+        return error;
     }
 }
