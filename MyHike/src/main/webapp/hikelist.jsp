@@ -167,7 +167,7 @@
     </div>
     <div id="hikes">
         <%
-            String error = request.getAttribute("error").toString();
+            String error = request.getAttribute("error") != null ? request.getAttribute("error").toString() : "";
             if (error != null && !error.isEmpty()) {
         %>
         <div class="alert alert-danger" role="alert">
