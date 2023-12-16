@@ -13,20 +13,28 @@ import java.io.IOException;
 
 @WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet {
+    private String error;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logoutUser(request, response);
     }
 
     //Logs out the current user by removing the session attributes for username and isAdmin.
-    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session =request.getSession(false);
+    protected void logoutUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        error = "";
+        HttpSession session =request.getSession();
         if (session != null) {
             session.removeAttribute("username");
             session.removeAttribute("isAdmin");
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("discover.jsp?successAlert=" + response.encodeURL("Successfully logged out!"));
+            dispatcher.forward(request, response);
+        } else {
+            error = "Failed to perform logout.";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("discover.jsp?error=" + response.encodeURL(error));
             dispatcher.forward(request, response);
         }
     }
 
+    public String getError() {
+        return error;
+    }
 }
