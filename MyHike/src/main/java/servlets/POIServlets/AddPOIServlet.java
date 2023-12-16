@@ -19,13 +19,17 @@ import java.util.UUID;
 @WebServlet("/addPOIServlet")
 @MultipartConfig
 public class AddPOIServlet extends POIServletUtils {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         addPOI(request, response);
     }
 
     //Adds a new point of interest to the hike passed in the request using the values passed in the request.
     //If this method fails errors are handled in the ajax segment in detail.js.
-    private void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //If an error it will be saved to this parameter and later be displayed
+        error = "";
+
         //Get values from parameters
         String poiId = UUID.randomUUID().toString(); //Create random UUID for POI
         String poiTitle = request.getParameter("poiTitle");
@@ -34,8 +38,6 @@ public class AddPOIServlet extends POIServletUtils {
         String poiLat = request.getParameter("poiLat");
         String hikeId = request.getParameter("hikeId");
 
-        //If an error it will be saved to this parameter and later be displayed
-        String error = "";
         try {
             //Get Part of image
             Part filePart = request.getPart("poiImage");
@@ -65,5 +67,9 @@ public class AddPOIServlet extends POIServletUtils {
         } else {
             response.getWriter().write(poiId);
         }
+    }
+
+    public String getError() {
+        return error;
     }
 }

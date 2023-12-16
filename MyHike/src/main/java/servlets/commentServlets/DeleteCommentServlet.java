@@ -15,14 +15,16 @@ import java.util.List;
 
 @WebServlet(name = "deleteCommentServlet", value = "/deleteCommentServlet")
 public class DeleteCommentServlet  extends HttpServlet {
+    private String error;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         deleteComment(request, response);
     }
 
     //Attempts to delete the given comment. If this method fails it will redirect to detail page and display an error
     //message. Otherwise, displays a success message.
-    private void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String error = "";
+    protected void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        error = "";
+
         String commentId = request.getParameter("commentId");
         String hikeId = request.getParameter("hikeId");
 
@@ -56,7 +58,7 @@ public class DeleteCommentServlet  extends HttpServlet {
 
     //If users does not own the comment or is an admin, redirect to detail page and display error. Returns false if user
     //is not authorized to delete the comment.
-    private boolean handleAuthForComment(Comment comment, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected boolean handleAuthForComment(Comment comment, HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String commentHikeId = comment.getCommentHike().getHikeId();
         boolean loggedIn = request.getSession().getAttribute("username") != null;
@@ -68,5 +70,9 @@ public class DeleteCommentServlet  extends HttpServlet {
             return false;
         }
         return true;
+    }
+
+    public String getError() {
+        return error;
     }
 }

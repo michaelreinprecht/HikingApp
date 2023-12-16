@@ -45,7 +45,7 @@ public class HikeServletUtils extends ServletUtils {
         User user = Database.getUserById(hikeOfUser);
         //Populate hike object with formatted/adjusted parameter data.
         hike = new Hike(hike.getHikeId(), name, description, routeCoordinates, duration, altitude, distance,
-                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null,false, user);
+                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null, null,false, user);
 
         return hike;
     }

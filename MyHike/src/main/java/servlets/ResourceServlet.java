@@ -18,7 +18,6 @@ public class ResourceServlet implements ServletContextListener {
 
     // Called when the servlet context is about to be destroyed
     public void contextDestroyed(ServletContextEvent sce) {
-        // TODO Close entityManager when page is closed
         entityManager.close();
     }
 

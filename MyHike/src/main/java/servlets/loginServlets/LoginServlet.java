@@ -16,13 +16,15 @@ import java.sql.SQLException;
 
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         loginUser(request, response);
     }
 
     //Attempts to log in the user with the username and password passed in the request. Redirects back to login page
     //and displays error message if login is unsuccessful, otherwise redirects to discover page and displays welcome message.
-    private void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        error = "";
         HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -30,17 +32,15 @@ public class LoginServlet extends HttpServlet {
             //Database should return one user
             User dUser = Database.getUserById(username);
             String destination;
-            String message;
             if (dUser != null && BCrypt.checkpw(password, dUser.getUserPassword()) && dUser.getUserName().equals(username)) {
                 session.setAttribute("username", username);
                 session.setAttribute("isAdmin", dUser.isAdmin());
-                message = "Welcome " + username + "!";
-                request.setAttribute("welcome", message);
+                request.setAttribute("welcome", "Welcome " + username + "!");
                 destination = "discover.jsp";
             } else {
                 destination = "login.jsp";
-                message = "Invalid username or password";
-                request.setAttribute("error", message);
+                error = "Invalid username or password";
+                request.setAttribute("error", error);
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher(destination);
             dispatcher.forward(request, response);
@@ -60,5 +60,9 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public String getError() {
+        return error;
     }
 }

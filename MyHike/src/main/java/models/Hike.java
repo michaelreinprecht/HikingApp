@@ -32,7 +32,7 @@ public class Hike {
 
     public Hike() {}
 
-    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeRouteCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted, User hikeOfUser) {
+    public Hike(String hikeId, String hikeName, String hikeDescription, String hikeRouteCoordinates, Time hikeDuration, Integer hikeAltitude, BigDecimal hikeDistance, Integer hikeStamina, Integer hikeStrength, Integer hikeDifficulty, Integer hikeLandscape, String hikeImage, String hikeMonths, Region hikeRegion, List<Comment> hikeComments, List<PointOfInterest> hikePointsOfInterest, boolean isDeleted, User hikeOfUser) {
         this.hikeId = hikeId;
         this.hikeName = hikeName;
         this.hikeDescription = hikeDescription;
@@ -47,6 +47,7 @@ public class Hike {
         this.hikeImage = hikeImage;
         this.hikeMonths = hikeMonths;
         this.hikeRegion = hikeRegion;
+        this.hikeComments = hikeComments;
         this.hikePointsOfInterest = hikePointsOfInterest;
         this.isDeleted = isDeleted;
         this.hikeOfUser = hikeOfUser;

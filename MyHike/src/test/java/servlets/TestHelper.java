@@ -5,23 +5,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import models.Hike;
-import models.Region;
-import models.User;
+import models.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestHelper {
     protected Hike getExpectedHike() {
+        List<PointOfInterest> pois = new ArrayList<>();
+        List<Comment> comments = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Time duration = Time.valueOf(LocalTime.parse("01:00", formatter));
         Hike expectedHike;
@@ -39,10 +42,30 @@ public class TestHelper {
                 "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSotDnYo4pChdrIgKuIoVSyChdJWaNXB5NIvaGJIUlwcBdeCgx+LVQcXZ10dXAVB8APE1cVJ0UVK/F9SaBHjwXE/3t173L0DhGaNqWbPOKBqlpFJJsR8YUUMvCKIEPoRQUxipp7KLuTgOb7u4ePrXZxneZ/7c4SUoskAn0g8y3TDIl4nnt60dM77xGFWkRTic+Ixgy5I/Mh12eU3zmWHBZ4ZNnKZOeIwsVjuYrmLWcVQiaeIo4qqUb6Qd1nhvMVZrdVZ+578hcGitpzlOs0RJLGIFNIQIaOOKmqwEKdVI8VEhvYTHv5hx58ml0yuKhg55rEBFZLjB/+D392apckJNymYAHpfbPtjFAjsAq2GbX8f23brBPA/A1dax7/RBGY+SW90tOgRMLgNXFx3NHkPuNwBIk+6ZEiO5KcplErA+xl9UwEYugUGVt3e2vs4fQBy1NXSDXBwCMTKlL3m8e6+7t7+PdPu7weBp3KtjjzVbQAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+cMDQkaErxKBFoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAARElEQVQY02P8V8zxn4EIwMJozkAUYPz/n0gTP/9kJcpEFsv9EsQp/PWfmTg38p9/S5wbf7IIEWe11tZ7xCnk2vKaKIUA/pQSEcYhZyYAAAAASUVORK5CYII=",
                 "111000111000",
                 new Region("Bregenzerwald"),
-                null,
+                comments,
+                pois,
                 false,
                 new User("admin", "admin", true, null));
         return expectedHike;
+    }
+
+    protected User getExpectedUser() {
+        User expectedUser;
+        List<Hike> hikes = new ArrayList<>();
+        hikes.add(getExpectedHike());
+        expectedUser = new User("admin", "admin", true, hikes);
+        return expectedUser;
+    }
+
+    protected Comment getExpectedComment() {
+        Comment expectedComment;
+        expectedComment = new Comment(
+                "commentTest1",
+                "Testing",
+                getExpectedHike(),
+                getExpectedUser()
+        );
+        return expectedComment;
     }
 
     protected HttpServletRequest getMockedRequest() throws IOException, ServletException {
@@ -75,7 +98,7 @@ public class TestHelper {
         return request;
     }
 
-    protected HttpServletResponse getMockedResponse() {
+    protected HttpServletResponse getMockedResponse() throws IOException {
         HttpServletResponse response = mock(HttpServletResponse.class);
         return response;
     }
