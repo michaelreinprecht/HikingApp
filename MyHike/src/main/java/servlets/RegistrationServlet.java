@@ -41,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
             User user = new User();
             user.setUserName(username);
             user.setUserPassword(hashedPassword);
-            user.setAdmin(true);  //oder false, weiß noch nicht genau wie wir das machen...
+            user.setAdmin(false);  //oder false, weiß noch nicht genau wie wir das machen...
 
 
             try {
@@ -53,7 +53,7 @@ public class RegistrationServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            request.setAttribute("errror", "Passwords do not match, try again!");
+            request.setAttribute("error", "Passwords do not match, try again!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
             dispatcher.forward(request,response);
         }
