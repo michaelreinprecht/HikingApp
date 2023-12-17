@@ -53,10 +53,11 @@
     <% } %>
 
     <%-- Other content of your JSP page goes here --%>
-    <h1 class="mb-3 h2" style="margin-top: 100px">Login to your Account</h1>
+    <h1 class="mb-3 h2" style="margin-top: 100px;color: #fff; /* Weißer Text */
+        text-shadow: 2px 2px 4px #000000;">Login to your Account</h1>
 
     <form method="POST" action="loginServlet">
-        <div class="input-group mb-3 mx-auto" style="width: 500px">
+        <div class="input-group mb-3 mx-auto" style="width: 500px;">
             <input type="text" class="form-control" name="username" aria-label="Username"
                    placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)">
 
@@ -68,6 +69,23 @@
                         style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
                     Login <i class="fas fa-sign-in-alt"></i>
                 </button>
+            </div>
+
+            <div class="registrationPart">
+                <h2 class="mb-3 h2" style="color: #fff; /* Weißer Text */
+                                    text-shadow: 2px 2px 4px #000000; /* Schwarzer Schatten für bessere Lesbarkeit */
+                                    /*background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+                                    display: inline-block; /* Damit der Hintergrund nur so breit wie der Text ist */
+                                    padding: 5px 10px; /* Etwas Abstand im Inneren des Hintergrunds */
+                                    border-radius: 5px; /* Abgerundete Ecken für den Hintergrund */">
+                    You do not have an account? Register here!</h2>
+
+                <a href="registration.jsp" style="display: block">
+                    <button type="button" class="btn btn-primary" data-mdb-ripple-init style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
+                            Registration
+                    </button>
+                </a>
+
             </div>
         </div>
     </form>

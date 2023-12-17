@@ -1,0 +1,11 @@
+.cardReg{
+    background-color: rgba(255,255,255,0.005);
+    width: 320px;
+    height: 250px;
+    transition: transform 0.3s ease;
+    overflow: hidden; /* Ensure overflow is hidden to prevent content overflow during zoom */
+}
+
+.cardReg:hover{
+    transform: scale(1);
+}
