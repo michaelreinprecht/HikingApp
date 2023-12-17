@@ -73,13 +73,13 @@
 <form method="post">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-               placeholder="Search by name or region!" value="<%= session.getAttribute("searchQuery")%>">
+               placeholder="<%= (request.getParameter("searchQuery") == null || request.getParameter("searchQuery").isEmpty()) ? "Search by name or region!" : request.getParameter("searchQuery") %>"
+               value="<%= (request.getParameter("searchQuery") == null) ? "" : request.getParameter("searchQuery") %>">
         <span class="input-group-text">
             <button type="submit" class="searchButton">Search</button>
         </span>
     </div>
 </form>
-
 
 
 <form method="post" action="filterHikesServlet">
@@ -126,23 +126,16 @@
         </div>
 
         <div class="col-md-2 mb-3">
-            <label class="input-group-text" id="monthFilter" for="monthFilter">Select Months</label>
-            <div class="form-check form-control" style="max-height: 150px; overflow-y: auto;">
+            <button class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
+            <div class="dropdown-menu" aria-labelledby="monthDropdown">
                 <%
-                    String selectedMonthsBitmap = "";
-                    String[] selectedMonths = (String[]) session.getAttribute("selectedMonths");
-                    if (selectedMonths == null) {
-                        // Wenn keine Monate ausgewählt sind, standardmäßig alle auswählen
-                        selectedMonths = models.Month.ALL_MONTHS;
-                    }
-
+                    String[] selectedMonths = (String[])session.getAttribute("selectedMonths");
                     for (int monthIndex = 0; monthIndex < Month.ALL_MONTHS.length; monthIndex++) {
                         String month = models.Month.ALL_MONTHS[monthIndex];
                         boolean isSelected = Arrays.asList(selectedMonths).contains(month);
                 %>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="month_<%=monthIndex%>" name="monthFilter"
-                           value="<%=month%>" <% if (isSelected) { %>checked<% } %>>
+                    <input class="form-check-input" type="checkbox" id="month_<%=monthIndex%>" name="monthFilter" value="<%=month%>" <% if (isSelected) { %>checked<% } %>>
                     <label class="form-check-label" for="month_<%=monthIndex%>">
                         <%=month%>
                     </label>

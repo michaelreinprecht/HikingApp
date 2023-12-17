@@ -234,4 +234,5 @@ public class FilterHikesServlet extends HttpServlet {
     public String getError() {
         return error;
     }
+
 }

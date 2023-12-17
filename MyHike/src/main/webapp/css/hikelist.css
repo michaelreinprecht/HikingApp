@@ -42,7 +42,9 @@
     justify-content: space-evenly;
 }
 /* Anfang CSS für Searchbar und Searchbutton */
-#hikelist-searchbar {
+
+#hikelist-searchbar .form-control{
+    border-radius: 0;
     margin-top: 40px;
     width: 500px;
     display: flex;
