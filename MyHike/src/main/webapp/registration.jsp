@@ -49,7 +49,7 @@
      background-position: center center;
      height: 100vh;">
     <% if (request.getAttribute("error") != null) { %>
-    <p style="color: black; font-size: 20px"><%= request.getAttribute("error") %></p>
+    <p style="color: #ffffff; font-size: 20px; text-shadow: 2px 2px 4px #000000"><%= request.getAttribute("error") %></p>
     <% } %>
 
     <div class="d-flex justify-content-center align-items-center h-100">
