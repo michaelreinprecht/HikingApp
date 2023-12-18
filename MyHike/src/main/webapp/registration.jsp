@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kilic
-  Date: 13.12.2023
-  Time: 09:30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
     <title>registration</title>
@@ -48,9 +42,11 @@
      background-size: cover;
      background-position: center center;
      height: 100vh;">
-    <% if (request.getAttribute("error") != null) { %>
-    <p style="color: #ffffff; font-size: 20px; text-shadow: 2px 2px 4px #000000"><%= request.getAttribute("error") %></p>
-    <% } %>
+    <%
+        String successAlert = request.getParameter("successAlert");
+        String error = request.getParameter("error");
+    %>
+    <tags:multiAlert alert='<%=successAlert%>' error="<%=error%>"/>
 
     <div class="d-flex justify-content-center align-items-center h-100">
         <div class="cardReg p-5 rounded shadow-lg" style="width: 500px;height: 70%"> <!-- White area with shadow and rounded corners -->
@@ -69,7 +65,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password2" aria-label="Password2"
+                    <input type="password" class="form-control" name="confirmPassword" aria-label="Password2"
                            placeholder="Enter password again" style="background-color: rgba(255, 255, 255, 0.8)">
                 </div>
 
