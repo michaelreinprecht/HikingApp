@@ -64,10 +64,10 @@
     <form method="POST" action="loginServlet">
         <div class="input-group mb-3 mx-auto" style="width: 500px;">
             <input type="text" class="form-control" name="username" aria-label="Username"
-                   placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)">
+                   placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="30">
 
             <input type="password" class="form-control" name="password" aria-label="Password"
-                   placeholder="Password" style="background-color: rgba(255, 255, 255, 0.8)">
+                   placeholder="Password" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="30">
 
             <div class="input-group-append">
                 <button type="submit" class="btn btn-primary" data-mdb-ripple-init

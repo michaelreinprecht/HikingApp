@@ -56,17 +56,17 @@
                   </div>
                 <div class="form-group">
                     <input type="text" class ="form-control" name="username" aria-label="Username"
-                           placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)">
+                           placeholder="Username" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="30">
                 </div>
 
                 <div class="form-group">
                     <input type="password" class="form-control" name="password" aria-label="Password"
-                           placeholder="Password" style="background-color: rgba(255, 255, 255, 0.8)">
+                           placeholder="Password" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="30">
                 </div>
 
                 <div class="form-group">
                     <input type="password" class="form-control" name="confirmPassword" aria-label="Password2"
-                           placeholder="Enter password again" style="background-color: rgba(255, 255, 255, 0.8)">
+                           placeholder="Enter password again" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="30">
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="background-color:rgba(13, 182, 15, 0.8); border-color: #07773a;">
