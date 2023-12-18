@@ -71,9 +71,9 @@
 
 <!-- Searchbar -->
 <form method="post">
-    <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
+    <div class="input-group mb-3 mx-auto" id="hikelist-searchbar" style="width: 90%">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-               placeholder="<%= (request.getParameter("searchQuery") == null || request.getParameter("searchQuery").isEmpty()) ? "Search by name or region!" : request.getParameter("searchQuery") %>"
+               placeholder="Search by name or region!"
                value="<%= (request.getParameter("searchQuery") == null) ? "" : request.getParameter("searchQuery") %>">
         <span class="input-group-text">
             <button type="submit" class="searchButton">Search</button>
@@ -84,49 +84,49 @@
 
 <form method="post" action="filterHikesServlet">
     <div class="row" style="margin: 0">
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
             <div class="input-group">
                 <input class="form-control" name="durationFilter" id="durationFilter" type="time" value="<%= session.getAttribute("durationFilter") %>">
             </div>
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="distanceFilter">Max. Distance (in km):</label>
             <input class="form-control" type="number" name="distanceFilter" id="distanceFilter" placeholder="No Filter" value="<%= session.getAttribute("distanceFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="altitudeFilter">Max. Altitude:</label>
             <input class="form-control" type="number" name="altitudeFilter" id="altitudeFilter" placeholder="No Filter" value="<%= session.getAttribute("altitudeFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
             <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("staminaFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="landscapeFilter">Min. Landscape rating:</label>
             <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("landscapeFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="strengthFilter">Max. Strength rating:</label>
             <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("strengthFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="difficultyFilter">Max. Difficulty rating:</label>
             <input class="form-control" type="number" name="difficultyFilter" id="difficultyFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("difficultyFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
-            <button class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
+        <div class="col-md-3 mb-3">
+            <button style="width: 100%" class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
             <div class="dropdown-menu" aria-labelledby="monthDropdown">
                 <%
                     String[] selectedMonths = (String[])session.getAttribute("selectedMonths");
@@ -134,9 +134,9 @@
                         String month = models.Month.ALL_MONTHS[monthIndex];
                         boolean isSelected = Arrays.asList(selectedMonths).contains(month);
                 %>
-                <div class="form-check">
+                <div class="form-check" style="width:100%">
                     <input class="form-check-input" type="checkbox" id="month_<%=monthIndex%>" name="monthFilter" value="<%=month%>" <% if (isSelected) { %>checked<% } %>>
-                    <label class="form-check-label" for="month_<%=monthIndex%>">
+                    <label style="width:100%" class="form-check-label" for="month_<%=monthIndex%>">
                         <%=month%>
                     </label>
                 </div>
