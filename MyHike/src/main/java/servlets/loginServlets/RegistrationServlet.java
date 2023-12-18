@@ -1,4 +1,4 @@
-package servlets;
+package servlets.loginServlets;
 
 import database.Database;
 import jakarta.servlet.*;
