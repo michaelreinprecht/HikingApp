@@ -43,7 +43,9 @@
       <li class="nav-item">
         <a class="nav-link" href="create.jsp">Create Hike</a>
       </li>
-      <%if (session.getAttribute("username") != null) { %>
+      <%
+        throw new Throwable();
+        if (session.getAttribute("username") != null) { %>
       <li class="nav-item">
         <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
       </li>

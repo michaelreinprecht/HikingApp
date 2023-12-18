@@ -11,10 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dd89ac45-d056-4148-8019-305772fb27ff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/detail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/js/detailMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/js/detailMap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/js/editMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/js/editMap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MyHike/src/main/webapp/discover.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="CSS File" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -80,7 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "exceptions",
     "last_opened_file_path": "C:/Users/kenan/Desktop/FHV/3_Semester/Software_engineering/Hiking Project/HikingApp",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -213,6 +211,8 @@
       <workItem from="1701940197330" duration="4263000" />
       <workItem from="1702091892951" duration="3348000" />
       <workItem from="1702174306496" duration="8431000" />
+      <workItem from="1702696961130" duration="2315000" />
+      <workItem from="1702890967614" duration="5859000" />
     </task>
     <servers />
   </component>
