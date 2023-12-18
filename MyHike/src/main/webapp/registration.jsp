@@ -48,6 +48,9 @@
      background-size: cover;
      background-position: center center;
      height: 100vh;">
+    <% if (request.getAttribute("error") != null) { %>
+    <p style="color: black; font-size: 20px"><%= request.getAttribute("error") %></p>
+    <% } %>
 
     <div class="d-flex justify-content-center align-items-center h-100">
         <div class="cardReg p-5 rounded shadow-lg" style="width: 500px;height: 70%"> <!-- White area with shadow and rounded corners -->
