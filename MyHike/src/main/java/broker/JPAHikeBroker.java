@@ -25,4 +25,16 @@ public class JPAHikeBroker extends JPABrokerBase<Hike> {
         EntityManager entityManager = ResourceServlet.getEntityManager();
         return entityManager.find(Hike.class, id);
     }
+
+    public List<Hike> getByUser(String user) throws SQLException {
+        EntityManager entityManager = ResourceServlet.getEntityManager();
+        List<Hike> hikes = entityManager.createQuery("SELECT h from models.Hike h WHERE h.hikeOfUser.userName =: user", Hike.class)
+                .setParameter("user", user)
+                .getResultList();
+
+        List<Hike> filteredHikes;
+        filteredHikes = hikes.stream().filter(hike -> !hike.getIsDeleted()).collect(Collectors.toList());
+
+        return filteredHikes;
+    }
 }

@@ -10,6 +10,12 @@ import javax.persistence.Table;
 public class Region {
     private String regionName;
 
+    public Region() {}
+
+    public Region(String regionName) {
+        this.regionName = regionName;
+    }
+
     @Id
     @Column(name = "region_name", length = 40)
     public  String getRegionName() {

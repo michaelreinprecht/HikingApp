@@ -1,16 +1,14 @@
 package servlets.POIServlets;
 
+import database.Database;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import models.Hike;
 import models.PointOfInterest;
-import database.Database;
-import servlets.ServletUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,8 +18,18 @@ import java.util.UUID;
 
 @WebServlet("/addPOIServlet")
 @MultipartConfig
-public class AddPOIServlet extends ServletUtils {
+public class AddPOIServlet extends POIServletUtils {
+    private String error;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        addPOI(request, response);
+    }
+
+    //Adds a new point of interest to the hike passed in the request using the values passed in the request.
+    //If this method fails errors are handled in the ajax segment in detail.js.
+    protected void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //If an error it will be saved to this parameter and later be displayed
+        error = "";
+
         //Get values from parameters
         String poiId = UUID.randomUUID().toString(); //Create random UUID for POI
         String poiTitle = request.getParameter("poiTitle");
@@ -30,8 +38,6 @@ public class AddPOIServlet extends ServletUtils {
         String poiLat = request.getParameter("poiLat");
         String hikeId = request.getParameter("hikeId");
 
-        //If an error it will be saved to this parameter and later be displayed
-        String error = "";
         try {
             //Get Part of image
             Part filePart = request.getPart("poiImage");
@@ -40,14 +46,7 @@ public class AddPOIServlet extends ServletUtils {
             Hike hike = Database.getHikeById(hikeId);
             PointOfInterest poi = new PointOfInterest(poiId, poiTitle, poiDescription, new BigDecimal(poiLon), new BigDecimal(poiLat), getBase64(filePart), hike);
 
-            //If users does not own the hike or is an admin, redirect to detail page and display error.
-            HttpSession session = request.getSession();
-            boolean loggedIn = request.getSession().getAttribute("username") != null;
-            boolean ownsHike = loggedIn && (hike.getHikeOfUser() != null) && hike.getHikeOfUser().getUserName().equals(session.getAttribute("username"));
-            boolean isAdmin = session.getAttribute("isAdmin") != null && (boolean) session.getAttribute("isAdmin");
-            if (!ownsHike && !isAdmin) {
-                error = "You are not authorized to create a Point of Interest for this hike.";
-                response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
+            if (!handleAuthForHike(hike, request, response)) {
                 return;
             }
 
@@ -68,5 +67,9 @@ public class AddPOIServlet extends ServletUtils {
         } else {
             response.getWriter().write(poiId);
         }
+    }
+
+    public String getError() {
+        return error;
     }
 }

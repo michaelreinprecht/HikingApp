@@ -43,6 +43,11 @@
       <li class="nav-item">
         <a class="nav-link" href="create.jsp">Create Hike</a>
       </li>
+      <%if (session.getAttribute("username") != null) { %>
+      <li class="nav-item">
+        <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+      </li>
+      <% } %>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item">

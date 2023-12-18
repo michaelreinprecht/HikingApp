@@ -89,6 +89,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -311,7 +316,7 @@
                         }
                     %><br>
 
-                    <div class="rating-label"><b>Stamina:</b></div>
+                    <div class="rating-label"><b>Level of Fitness:</b></div>
                     <%
                         int staminaRating = hike.getHikeStamina();
                         //Display a number of "active" and "inactive" stars, depending on the staminaRating
@@ -359,7 +364,7 @@
             <button class="btn btn-light" onclick="toggleContent('review')">Reviews</button>
             <div id="review-content" class="content">
                 <%
-                    if ((loggedIn && ownsHike) || isAdmin) {
+                    if (loggedIn) {
                 %>
                 <form method="post" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
                     <div class="row">
@@ -396,7 +401,9 @@
                             </div>
                             <div class="col-md-1 ml-auto d-flex align-items-center">
                                 <%
-                                    if ((loggedIn && ownsHike) || isAdmin) {
+                                    String commentUsername = comments.get(i).getCommentUser().getUserName();
+                                    boolean ownsComment = loggedIn && (comments.get(i).getCommentUser() != null) && commentUsername.equals(session.getAttribute("username"));
+                                    if ((loggedIn && ownsComment) || isAdmin) {
                                 %>
                                 <a href="deleteCommentServlet?hikeId=<%=hike.getHikeId()%>&commentId=<%=comments.get(i).getCommentId()%>">
                                     <img src="images/trash-icon.png" alt="Delete" style="height: 25px;">

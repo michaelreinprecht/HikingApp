@@ -23,15 +23,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="discover.jsp">Discover</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
         </ul>
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item active">
                 <%if (session.getAttribute("username") == null) { %>
                 <a class="nav-link" href="login.jsp">Login</a>
                 <% } else { %>

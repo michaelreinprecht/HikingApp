@@ -50,6 +50,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="create.jsp">Create Hike</a>
             </li>
+            <%if (session.getAttribute("username") != null) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="createdHikes.jsp">Your Hikes</a>
+            </li>
+            <% } %>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -66,9 +71,10 @@
 
 <!-- Searchbar -->
 <form method="post">
-    <div class="input-group mb-3 mx-auto" id="hikelist-searchbar">
+    <div class="input-group mb-3 mx-auto" id="hikelist-searchbar" style="width: 90%">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
-               placeholder="Search by name or region!">
+               placeholder="Search by name or region!"
+               value="<%= (request.getParameter("searchQuery") == null) ? "" : request.getParameter("searchQuery") %>">
         <span class="input-group-text">
             <button type="submit" class="searchButton">Search</button>
         </span>
@@ -78,72 +84,72 @@
 
 <form method="post" action="filterHikesServlet">
     <div class="row" style="margin: 0">
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
             <div class="input-group">
-                <input class="form-control" name="durationFilter" id="durationFilter" type="time">
+                <input class="form-control" name="durationFilter" id="durationFilter" type="time" value="<%= session.getAttribute("durationFilter") %>">
             </div>
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="distanceFilter">Max. Distance (in km):</label>
-            <input class="form-control" type="number" name="distanceFilter" id="distanceFilter" placeholder="No Filter">
+            <input class="form-control" type="number" name="distanceFilter" id="distanceFilter" placeholder="No Filter" value="<%= session.getAttribute("distanceFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="altitudeFilter">Max. Altitude:</label>
-            <input class="form-control" type="number" name="altitudeFilter" id="altitudeFilter" placeholder="No Filter">
+            <input class="form-control" type="number" name="altitudeFilter" id="altitudeFilter" placeholder="No Filter" value="<%= session.getAttribute("altitudeFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
             <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
             <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5"
-                   placeholder="No Filter">
+                   placeholder="No Filter" value="<%= session.getAttribute("staminaFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="landscapeFilter">Landscape (1-5):</label>
+        <div class="col-md-3 mb-3">
+            <label class="input-group-text" for="landscapeFilter">Min. Landscape rating:</label>
             <input class="form-control" type="number" name="landscapeFilter" id="landscapeFilter" min="1" max="5"
-                   placeholder="No Filter">
+                   placeholder="No Filter" value="<%= session.getAttribute("landscapeFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="strengthFilter">Max. Strength (1-5):</label>
+        <div class="col-md-3 mb-3">
+            <label class="input-group-text" for="strengthFilter">Max. Strength rating:</label>
             <input class="form-control" type="number" name="strengthFilter" id="strengthFilter" min="1" max="5"
-                   placeholder="No Filter">
+                   placeholder="No Filter" value="<%= session.getAttribute("strengthFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="difficultyFilter">Max. Difficulty (1-5):</label>
+        <div class="col-md-3 mb-3">
+            <label class="input-group-text" for="difficultyFilter">Max. Difficulty rating:</label>
             <input class="form-control" type="number" name="difficultyFilter" id="difficultyFilter" min="1" max="5"
-                   placeholder="No Filter">
+                   placeholder="No Filter" value="<%= session.getAttribute("difficultyFilter") %>">
         </div>
 
-        <div class="col-md-2 mb-3">
-            <label class="input-group-text" for="monthFilter">Select Months</label>
-            <select class="form-control" id="monthFilter" name="monthFilter">
+        <div class="col-md-3 mb-3">
+            <button style="width: 100%" class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
+            <div class="dropdown-menu" aria-labelledby="monthDropdown">
                 <%
-                    String selectedMonthsBitmap = "";
-                    String[] selectedMonths = models.Month.getMonthsByBitmap(selectedMonthsBitmap);
-
+                    String[] selectedMonths = (String[])session.getAttribute("selectedMonths");
                     for (int monthIndex = 0; monthIndex < Month.ALL_MONTHS.length; monthIndex++) {
-                        String month = models.Month.ALL_MONTHS[monthIndex];%>
-                <option value="<%=monthIndex%>"
-                        <% if (Arrays.asList(selectedMonths).contains(month)) { %>selected<% } %>>
-                    <%=month%>
-                </option>
+                        String month = models.Month.ALL_MONTHS[monthIndex];
+                        boolean isSelected = Arrays.asList(selectedMonths).contains(month);
+                %>
+                <div class="form-check" style="width:100%">
+                    <input class="form-check-input" type="checkbox" id="month_<%=monthIndex%>" name="monthFilter" value="<%=month%>" <% if (isSelected) { %>checked<% } %>>
+                    <label style="width:100%" class="form-check-label" for="month_<%=monthIndex%>">
+                        <%=month%>
+                    </label>
+                </div>
                 <% } %>
-            </select>
+            </div>
         </div>
     </div>
-
     <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
-        <div class="col-md-6 offset-md-6 text-right">
-            <button type="submit" class="btn btn-success">Apply Filters</button>
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success mr-auto">Apply Filters</button>
         </div>
     </div>
 </form>
-
 
 <div class="container">
     <!-- Header -->
@@ -154,6 +160,14 @@
     </div>
     <div id="hikes">
         <%
+            String error = request.getAttribute("error") != null ? request.getAttribute("error").toString() : "";
+            if (error != null && !error.isEmpty()) {
+        %>
+        <div class="alert alert-danger" role="alert">
+            <%=error%>
+        </div>
+        <%
+            }
             List<Hike> filteredHikes = (List<Hike>) request.getAttribute("filteredHikes");
 
             if (filteredHikes == null || filteredHikes.isEmpty()) {
@@ -168,7 +182,7 @@
         for (Hike hike : filteredHikes) {
             String image = hike.getHikeImage();
     %>
-    <div class="row">
+    <div class="row" style="margin-top: 40px">
         <div class="col-md-6">
             <!-- Bild und Name -->
             <a href="detail.jsp?Id=<%=hike.getHikeId()%>">
@@ -265,9 +279,10 @@
             </div>
         </div>
     </div>
+    <% } %>
     <!-- Trennlinie -->
     <hr size="8" color="green">
-    <% }
+    <%
     } %>
 </div>
 

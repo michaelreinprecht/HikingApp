@@ -3,12 +3,28 @@ package database;
 import facade.*;
 import models.*;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 @SuppressWarnings("unused")
 public class Database {
-    public static JPAFacade facade = new JPAFacade();
+    public static JPAFacade facade = Database.createFacade();
+    private static JPAFacade createFacade() {
+        //Mocking database and removing functionality from insert
+        String fileName = "test.txt";
+        java.io.File file = new File(fileName);
+        if (file.exists()) {
+            JPAFacade mockFacade;
+            mockFacade = mock(JPAFacade.class);
+            doNothing().when(Database.facade).update(any(Hike.class));
+            return mockFacade;
+        }
+        return new JPAFacade();
+    }
+
     public static JPAHikeFacade hikeFacade = new JPAHikeFacade();
     public static JPARegionFacade regionFacade = new JPARegionFacade();
     public static JPAPointOfInterestFacade pointOfInterestFacade = new JPAPointOfInterestFacade();
@@ -29,6 +45,9 @@ public class Database {
     /* Model specific methods */
     public static List<Hike> getAllHikes(){
         return hikeFacade.getAllHikes();
+    }
+    public static List<Hike> getHikesByUser(String username) {
+        return hikeFacade.getHikeByUser(username);
     }
     public static Hike getHikeById(String id) {
         return hikeFacade.getHikeById(id);
