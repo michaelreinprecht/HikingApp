@@ -17,7 +17,7 @@ public class RegistrationServlet extends HttpServlet {
     private boolean isPrintableAscii(String input) {
         //ensures that the entire string consists of one or more printable ASCII characters,
         //meaning characters that are visible and typically used for display (for example no spacebar)
-        return input != null && !input.equals("") && input.matches("\\A[\\x21-\\x7E]+\\z");
+        return input != null && !input.isEmpty() && input.matches("\\A[\\x21-\\x7E]+\\z");
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,7 @@ public class RegistrationServlet extends HttpServlet {
         String destination = "registration.jsp";
 
         if (userInDb != null) {
-            error = "User with username " + username + "already exists.<br>Please choose another username!";
+            error = "User with username " + username + " already exists.<br>Please choose another username!";
             response.sendRedirect(destination + "?error=" + response.encodeURL(error));
             return;
         }
