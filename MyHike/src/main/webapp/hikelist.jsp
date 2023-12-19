@@ -70,19 +70,16 @@
 
 
 <!-- Searchbar -->
-<form method="post">
+<form method="post" action="filterHikesServlet">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar" style="width: 90%">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
                placeholder="Search by name or region!"
                value="<%= (request.getParameter("searchQuery") == null) ? "" : request.getParameter("searchQuery") %>">
-        <span class="input-group-text">
+        <span class="input-group-text" id="searchButton">
             <button type="submit" class="searchButton">Search</button>
         </span>
     </div>
-</form>
 
-
-<form method="post" action="filterHikesServlet">
     <div class="row" style="margin: 0">
         <div class="col-md-3 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
@@ -126,7 +123,8 @@
         </div>
 
         <div class="col-md-3 mb-3">
-            <button style="width: 100%" class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
+            <label class="input-group-text" for="difficultyFilter">Recommended Months:</label>
+            <button style="width: 100%" class="input-group form-control" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
             <div class="dropdown-menu" aria-labelledby="monthDropdown">
                 <%
                     String[] selectedMonths = (String[])session.getAttribute("selectedMonths");
@@ -144,6 +142,7 @@
             </div>
         </div>
     </div>
+
     <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
         <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-success mr-auto">Apply Filters</button>
