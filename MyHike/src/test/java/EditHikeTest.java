@@ -34,11 +34,6 @@ public class EditHikeTest {
   public void adminEditHike() {
     Actions actions = new Actions(driver);
 
-    //TODO Mock database/fix mocking
-    //Mocking database and removing functionality from insert
-    //Database.facade = mock(JPAFacade.class);
-    //doNothing().when(Database.facade).update(any(Hike.class));
-
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
     driver.get("http://localhost:8080/MyHike_war_exploded/");
@@ -67,7 +62,7 @@ public class EditHikeTest {
     {
       WebElement dropdown = driver.findElement(By.id("region"));
       Select regionDropdown = new Select(dropdown);
-      regionDropdown.selectByVisibleText("Montafon");
+      regionDropdown.selectByVisibleText("Bregenzerwald");
     }
     driver.findElement(By.id("June")).click();
     driver.findElement(By.cssSelector(".landscape-rating:nth-child(8) path")).click();
@@ -77,8 +72,9 @@ public class EditHikeTest {
     driver.findElement(By.cssSelector(".row:nth-child(2)")).click();
     driver.findElement(By.id("description")).clear();
     driver.findElement(By.id("description")).sendKeys("Testing Edit");
+
     //Link to a fixed image inside of the project
-    String fixedFilePath = "src/main/webapp/images/HikeImageTest.jpg";
+    String fixedFilePath = "src/test/resources/HikeImageTest.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
     driver.findElement(By.cssSelector(".btn")).click();
 

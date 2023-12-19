@@ -32,7 +32,7 @@ public class TestHelper {
                 "test1",
                 "Testing",
                 "Testing",
-                "[[10,10][10,10]]",
+                "[[47.324426,10.817871],[47.318965,10.825028]]",
                 duration, 111,
                 new BigDecimal("1.11"),
                 3,
@@ -45,7 +45,7 @@ public class TestHelper {
                 comments,
                 pois,
                 false,
-                new User("admin", "admin", true, null));
+                new User("admin", "$2a$10$FY20m9VBfZb3LcGaR.Z7/uGci6CXLIQkuvpDqEm31sjWpDCAaWpIq", true, null));
         return expectedHike;
     }
 
@@ -53,7 +53,7 @@ public class TestHelper {
         User expectedUser;
         List<Hike> hikes = new ArrayList<>();
         hikes.add(getExpectedHike());
-        expectedUser = new User("admin", "admin", true, hikes);
+        expectedUser = new User("admin", "$2a$10$FY20m9VBfZb3LcGaR.Z7/uGci6CXLIQkuvpDqEm31sjWpDCAaWpIq", true, hikes);
         return expectedUser;
     }
 
