@@ -26,18 +26,12 @@ public class MockListener implements ServletContextListener {
             JPAFacade mockFacade = mock(JPAFacade.class);
             JPAHikeFacade mockHikeFacade = mock(JPAHikeFacade.class);
             JPAPointOfInterestFacade mockPointOfInterestFacade = mock(JPAPointOfInterestFacade.class);
-            JPAUserFacade mockUserFacade = mock(JPAUserFacade.class);
             JPACommentFacade mockCommentFacade = mock(JPACommentFacade.class);
 
             Database.facade = mockFacade;
             Database.hikeFacade = mockHikeFacade;
             Database.pointOfInterestFacade = mockPointOfInterestFacade;
-            //Database.userFacade = mockUserFacade;
             Database.commentFacade = mockCommentFacade;
-
-            //Return testing user.
-            //User expectedUser = getExpectedUser();
-            //when(Database.userFacade.getUserById("admin")).thenReturn(expectedUser);
 
             //Return testing hikes.
             List<Hike> expectedHikes = new ArrayList<>();
@@ -45,6 +39,13 @@ public class MockListener implements ServletContextListener {
             expectedHikes.add(expectedHike);
             when(Database.hikeFacade.getAllHikes()).thenReturn(expectedHikes);
             when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(expectedHike);
+
+            List<Comment> expectedComments = new ArrayList<>();
+            Comment expectedComment = getExpectedComment();
+            expectedComments.add(expectedComment);
+            when(Database.commentFacade.getAllComments()).thenReturn(expectedComments);
+            when(Database.commentFacade.getCommentById(any(String.class))).thenReturn(expectedComment);
+
         }
     }
 
@@ -75,9 +76,9 @@ public class MockListener implements ServletContextListener {
         return expectedHike;
     }
 
-    private User getExpectedUser() {
-        User expectedUser;
-        expectedUser= new User("admin", "$2a$10$FY20m9VBfZb3LcGaR.Z7/uGci6CXLIQkuvpDqEm31sjWpDCAaWpIq", true, null);
-        return expectedUser;
+    private Comment getExpectedComment() {
+        Comment expectedComment;
+        expectedComment = new Comment("commentTest1", "Test comment", getExpectedHike(), null);
+        return expectedComment;
     }
 }

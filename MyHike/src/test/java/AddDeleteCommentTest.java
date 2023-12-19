@@ -32,8 +32,6 @@ public class AddDeleteCommentTest {
   }
   @Test
   public void comments() {
-    //TODO Mock database/fix mocking
-
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
     driver.get("http://localhost:8080/MyHike_war_exploded/");
