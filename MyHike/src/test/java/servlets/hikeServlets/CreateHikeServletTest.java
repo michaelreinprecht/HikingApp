@@ -49,4 +49,12 @@ class CreateHikeServletTest extends TestHelper {
         userIsAuthorized = createHikeServlet.handleAuth(mockedRequest, mockedResponse);
         assertFalse(userIsAuthorized);
     }
+
+    @Override
+    protected  Hike getExpectedHike() {
+        Hike expectedHike = super.getExpectedHike();
+        expectedHike.setHikeComments(null);
+        expectedHike.setHikePointsOfInterest(null);
+        return expectedHike;
+    }
 }

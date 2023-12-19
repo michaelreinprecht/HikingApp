@@ -16,7 +16,7 @@ import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-public class AdminEditHikeTest {
+public class EditHikeTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -31,13 +31,8 @@ public class AdminEditHikeTest {
     driver.quit();
   }
   @Test
-  public void adminEditHike() {
+  public void editHike() {
     Actions actions = new Actions(driver);
-
-    //TODO Mock database/fix mocking
-    //Mocking database and removing functionality from insert
-    //Database.facade = mock(JPAFacade.class);
-    //doNothing().when(Database.facade).update(any(Hike.class));
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
@@ -45,7 +40,7 @@ public class AdminEditHikeTest {
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
     //Login as admin
-    AdminLoginTest loginTest = new AdminLoginTest();
+    LoginTest loginTest = new LoginTest();
     loginTest.login(driver, wait);
 
     //Try to edit the first hike showing up on discover page.
@@ -53,7 +48,8 @@ public class AdminEditHikeTest {
     driver.findElement(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image")).click();
     wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Edit")));
     driver.findElement(By.linkText("Edit")).click();
-    driver.findElement(By.cssSelector(".leaflet-marker-icon:nth-child(2)")).click();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".leaflet-marker-icon:nth-child(1)")));
+    driver.findElement(By.cssSelector(".leaflet-marker-icon:nth-child(1)")).click();
     //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
     actions.moveToElement(driver.findElement(By.id("map")), 10, 10).click().perform();
     actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();
@@ -67,7 +63,7 @@ public class AdminEditHikeTest {
     {
       WebElement dropdown = driver.findElement(By.id("region"));
       Select regionDropdown = new Select(dropdown);
-      regionDropdown.selectByVisibleText("Montafon");
+      regionDropdown.selectByVisibleText("Bregenzerwald");
     }
     driver.findElement(By.id("June")).click();
     driver.findElement(By.cssSelector(".landscape-rating:nth-child(8) path")).click();
@@ -77,8 +73,9 @@ public class AdminEditHikeTest {
     driver.findElement(By.cssSelector(".row:nth-child(2)")).click();
     driver.findElement(By.id("description")).clear();
     driver.findElement(By.id("description")).sendKeys("Testing Edit");
+
     //Link to a fixed image inside of the project
-    String fixedFilePath = "src/main/webapp/images/HikeImageTest.jpg";
+    String fixedFilePath = "src/test/resources/HikeImageTest.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
     driver.findElement(By.cssSelector(".btn")).click();
 

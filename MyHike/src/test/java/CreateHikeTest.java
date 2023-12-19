@@ -21,20 +21,13 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserCreateHikeTest {
+public class CreateHikeTest {
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
 
     @Before
     public void setUp() throws IOException {
-        /*
-        String fileName = "test.txt";
-        File file = new File(fileName);
-        file.createNewFile();
-        FileWriter writer = new FileWriter(file);
-        writer.close();
-        */
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
@@ -42,19 +35,13 @@ public class UserCreateHikeTest {
 
     @After
     public void tearDown() {
-        /*
-        String fileName = "test.txt";
-        File file = new File(fileName);
-        file.delete();
-         */
         driver.quit();
     }
 
     //Tests if a user is able to properly create a hike. For this the user first needs to log in.
     //This test uses images/HikeImageTest.jpg as a fixed image. Also uses our default user account.
     @Test
-    public void userCreateHike() throws SQLException {
-        //TODO Mock database/fix mocking
+    public void createHike() throws SQLException {
         Actions actions = new Actions(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
@@ -69,11 +56,13 @@ public class UserCreateHikeTest {
                 ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
 
         //Login as admin
-        AdminLoginTest loginTest = new AdminLoginTest();
+        LoginTest loginTest = new LoginTest();
         loginTest.login(driver, wait);
 
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Create Hike")));
         driver.findElement(By.linkText("Create Hike")).click();
         //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("map")));
         actions.moveToElement(driver.findElement(By.id("map")), 0, 0).click().perform();
         actions.moveToElement(driver.findElement(By.id("map")), 10, 10).click().perform();
         actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();
@@ -102,8 +91,5 @@ public class UserCreateHikeTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert")));
         String alertMessage = driver.findElement(By.cssSelector(".alert")).getText();
         Assert.assertEquals("Successfully created your new hike - you should now be able to view it in 'Your Hikes' or find it using the search function.", alertMessage);
-
-        // Verify that the insert method was called exactly once with any Hike object
-        //verify(mockFacade, times(1)).insert(any(Hike.class));
     }
 }

@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-public class AdminDeleteHikeTest {
+public class DeleteHikeTest {
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
@@ -33,19 +33,14 @@ public class AdminDeleteHikeTest {
         driver.quit();
     }
     @Test
-    public void adminDeleteHike() {
-        //TODO Mock database/fix mocking
-        //Mocking database and removing functionality from insert
-        //Database.facade = mock(JPAFacade.class);
-        //doNothing().when(Database.facade).delete(any(Hike.class));
-
+    public void deleteHike() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
         driver.get("http://localhost:8080/MyHike_war_exploded/");
         driver.manage().window().setSize(new Dimension(1936, 1056));
 
         //Login as admin
-        AdminLoginTest loginTest = new AdminLoginTest();
+        LoginTest loginTest = new LoginTest();
         loginTest.login(driver, wait);
 
         //Try to edit the first hike showing up on discover page.
