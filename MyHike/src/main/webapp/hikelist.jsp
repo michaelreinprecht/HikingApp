@@ -70,19 +70,16 @@
 
 
 <!-- Searchbar -->
-<form method="post">
+<form method="post" action="filterHikesServlet">
     <div class="input-group mb-3 mx-auto" id="hikelist-searchbar" style="width: 90%">
         <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
                placeholder="Search by name or region!"
                value="<%= (request.getParameter("searchQuery") == null) ? "" : request.getParameter("searchQuery") %>">
-        <span class="input-group-text">
+        <span class="input-group-text" id="searchButton">
             <button type="submit" class="searchButton">Search</button>
         </span>
     </div>
-</form>
 
-
-<form method="post" action="filterHikesServlet">
     <div class="row" style="margin: 0">
         <div class="col-md-3 mb-3">
             <label class="input-group-text" for="durationFilter">Max. Duration (in hours):</label>
