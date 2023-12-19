@@ -369,7 +369,7 @@
                 <form method="post" action="addCommentServlet?hikeId=<%=hike.getHikeId()%>">
                     <div class="row">
                         <textarea style="width: 100%; padding: 10px;" name="commentDescription" id="commentDescription"
-                                  placeholder="Enter your comment here ..."></textarea>
+                                  placeholder="Enter your comment here ..." maxlength="1000"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md ml-auto" style="text-align: right; margin-top: 10px; margin-bottom:10px;">
