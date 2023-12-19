@@ -31,7 +31,7 @@ public class AddDeleteCommentTest {
     driver.quit();
   }
   @Test
-  public void comments() {
+  public void addDeleteComment() {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
     driver.get("http://localhost:8080/MyHike_war_exploded/");

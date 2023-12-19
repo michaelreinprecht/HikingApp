@@ -31,7 +31,7 @@ public class EditHikeTest {
     driver.quit();
   }
   @Test
-  public void adminEditHike() {
+  public void editHike() {
     Actions actions = new Actions(driver);
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
@@ -48,7 +48,8 @@ public class EditHikeTest {
     driver.findElement(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image")).click();
     wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Edit")));
     driver.findElement(By.linkText("Edit")).click();
-    driver.findElement(By.cssSelector(".leaflet-marker-icon:nth-child(2)")).click();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".leaflet-marker-icon:nth-child(1)")));
+    driver.findElement(By.cssSelector(".leaflet-marker-icon:nth-child(1)")).click();
     //Click on 3 different positions in the map (create one start-, way- and endpoint and initiate routing)
     actions.moveToElement(driver.findElement(By.id("map")), 10, 10).click().perform();
     actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();

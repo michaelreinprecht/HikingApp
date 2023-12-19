@@ -33,7 +33,7 @@ public class DeleteHikeTest {
         driver.quit();
     }
     @Test
-    public void adminDeleteHike() {
+    public void deleteHike() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
         driver.get("http://localhost:8080/MyHike_war_exploded/");

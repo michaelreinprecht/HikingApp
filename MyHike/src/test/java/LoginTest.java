@@ -26,7 +26,7 @@ public class LoginTest {
         driver.quit();
     }
     @Test
-    public void adminLogin() {
+    public void login() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
         driver.get("http://localhost:8080/MyHike_war_exploded/");

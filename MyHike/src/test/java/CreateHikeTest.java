@@ -41,7 +41,7 @@ public class CreateHikeTest {
     //Tests if a user is able to properly create a hike. For this the user first needs to log in.
     //This test uses images/HikeImageTest.jpg as a fixed image. Also uses our default user account.
     @Test
-    public void userCreateHike() throws SQLException {
+    public void createHike() throws SQLException {
         Actions actions = new Actions(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
