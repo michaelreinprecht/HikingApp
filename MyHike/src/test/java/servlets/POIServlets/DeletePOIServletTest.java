@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.when;
 class DeletePOIServletTest extends TestHelper {
     private final DeletePOIServlet deletePOIServlet = new DeletePOIServlet();
     @Test
-    void deletePOI() throws ServletException, IOException {
+    void deletePOI() throws ServletException, IOException, SQLException ,NullPointerException {
         //Mock database
         Database.facade = mock(JPAFacade.class);
         Database.hikeFacade = mock(JPAHikeFacade.class);

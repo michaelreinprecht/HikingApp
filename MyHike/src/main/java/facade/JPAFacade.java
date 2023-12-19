@@ -7,31 +7,19 @@ import java.sql.SQLException;
 
 @SuppressWarnings({"unchecked", "rawtypes", "CallToPrintStackTrace"})
 public class JPAFacade implements IDatabaseFacade {
-    public void insert(Object databaseObject) {
+    public void insert(Object databaseObject) throws SQLException ,NullPointerException {
         JPABrokerBase broker = getBroker(databaseObject);
-        try {
-            broker.insert(databaseObject);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
+        broker.insert(databaseObject);
     }
 
-    public void update(Object databaseObject) {
+    public void update(Object databaseObject) throws SQLException ,NullPointerException {
         JPABrokerBase broker = getBroker(databaseObject);
-        try {
-            broker.update(databaseObject);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
+        broker.update(databaseObject);
     }
 
-    public void delete(Object databaseObject) {
+    public void delete(Object databaseObject) throws SQLException ,NullPointerException {
         JPABrokerBase broker = getBroker(databaseObject);
-        try {
-            broker.delete(databaseObject);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
+        broker.delete(databaseObject);
     }
 
     private JPABrokerBase getBroker(Object databaseObject) throws NullPointerException {

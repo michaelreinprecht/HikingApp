@@ -8,23 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JPACommentFacade extends JPAFacade {
-    public List<Comment> getAllComments() {
+    public List<Comment> getAllComments() throws SQLException ,NullPointerException{
         JPABrokerBase<Comment> broker = new JPACommentBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getAll();
     }
 
-    public Comment getCommentById(String id) {
+    public Comment getCommentById(String id) throws SQLException ,NullPointerException {
         JPABrokerBase<Comment> broker = new JPACommentBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getById(id);
     }
 }

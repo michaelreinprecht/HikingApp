@@ -8,23 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JPARegionFacade extends JPAFacade {
-    public List<Region> getAllRegions() {
+    public List<Region> getAllRegions() throws SQLException ,NullPointerException {
         JPABrokerBase<Region> broker = new JPARegionBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getAll();
     }
 
-    public Region getRegionById(String id) {
+    public Region getRegionById(String id) throws SQLException ,NullPointerException {
         JPABrokerBase<Region> broker = new JPARegionBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getById(id);
     }
 }

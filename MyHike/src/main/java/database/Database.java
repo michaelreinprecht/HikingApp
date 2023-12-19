@@ -11,8 +11,17 @@ import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unused")
 public class Database {
-    public static JPAFacade facade = Database.createFacade();
-    private static JPAFacade createFacade() {
+    public static JPAFacade facade;
+
+    static {
+        try {
+            facade = Database.createFacade();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static JPAFacade createFacade() throws SQLException ,NullPointerException {
         //Mocking database and removing functionality from insert
         String fileName = "test.txt";
         java.io.File file = new File(fileName);
@@ -38,46 +47,46 @@ public class Database {
     public static void update(Object databaseObject) throws SQLException {
         facade.update(databaseObject);
     }
-    public static void delete(Object databaseObject) {
+    public static void delete(Object databaseObject) throws SQLException ,NullPointerException {
         facade.delete(databaseObject);
     }
 
     /* Model specific methods */
-    public static List<Hike> getAllHikes(){
+    public static List<Hike> getAllHikes() throws SQLException ,NullPointerException {
         return hikeFacade.getAllHikes();
     }
-    public static List<Hike> getHikesByUser(String username) {
+    public static List<Hike> getHikesByUser(String username) throws SQLException ,NullPointerException {
         return hikeFacade.getHikeByUser(username);
     }
-    public static Hike getHikeById(String id) {
+    public static Hike getHikeById(String id) throws SQLException ,NullPointerException {
         return hikeFacade.getHikeById(id);
     }
 
-    public static List<Region> getAllRegions() {
+    public static List<Region> getAllRegions() throws SQLException, NullPointerException {
         return regionFacade.getAllRegions();
     }
-    public static Region getRegionById(String id) {
+    public static Region getRegionById(String id) throws SQLException ,NullPointerException{
         return regionFacade.getRegionById(id);
     }
 
-    public static List<PointOfInterest> getAllPointsOfInterest(){
+    public static List<PointOfInterest> getAllPointsOfInterest() throws SQLException ,NullPointerException{
         return pointOfInterestFacade.getAllPointsOfInterest();
     }
-    public static PointOfInterest getPointOfInterestById(String id) {
+    public static PointOfInterest getPointOfInterestById(String id) throws SQLException ,NullPointerException {
         return pointOfInterestFacade.getPointOfInterestById(id);
     }
 
-    public static List<User> getAllUsers() {
+    public static List<User> getAllUsers() throws SQLException, NullPointerException {
         return userFacade.getAllUsers();
     }
-    public static User getUserById(String id) {
+    public static User getUserById(String id) throws SQLException, NullPointerException {
         return userFacade.getUserById(id);
     }
 
-    public static List<Comment> getAllComments() {
+    public static List<Comment> getAllComments() throws SQLException ,NullPointerException {
         return commentFacade.getAllComments();
     }
-    public static Comment getCommentById(String id) {
+    public static Comment getCommentById(String id) throws SQLException ,NullPointerException {
         return commentFacade.getCommentById(id);
     }
 }

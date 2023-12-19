@@ -12,6 +12,7 @@ import models.Month;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,12 @@ public class FilterHikesServlet extends HttpServlet {
     //Filters the hikes according to the filter parameters passed in the request.
     protected void filterHikes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get all hikes from database
-        List<Hike> hikes = getAllHikes();
+        List<Hike> hikes = null;
+        try {
+            hikes = getAllHikes();
+        } catch (NullPointerException | SQLException e) {
+            error = e.getMessage();
+        }
         //Filter hikes according to filter values in request parameters
         hikes = filterHikesByRequest(hikes, request);
         //Keep the filter values in the input fields

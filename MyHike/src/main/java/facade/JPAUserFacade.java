@@ -8,23 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JPAUserFacade extends JPAFacade {
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException, NullPointerException {
         JPABrokerBase<User> broker = new JPAUserBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getAll();
     }
 
-    public User getUserById(String id) {
+    public User getUserById(String id) throws SQLException, NullPointerException {
         JPABrokerBase<User> broker = new JPAUserBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getById(id);
     }
 }

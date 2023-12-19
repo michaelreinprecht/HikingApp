@@ -30,7 +30,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if (username != null && password != null) {
             //Database should return one user
-            User dUser = Database.getUserById(username);
+            User dUser = null;
+            try {
+                dUser = Database.getUserById(username);
+            } catch (NullPointerException | SQLException e) {
+                error = e.getMessage();
+            }
             String destination;
             if (dUser != null && BCrypt.checkpw(password, dUser.getUserPassword()) && dUser.getUserName().equals(username)) {
                 session.setAttribute("username", username);

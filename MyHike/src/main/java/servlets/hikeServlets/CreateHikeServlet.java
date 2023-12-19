@@ -53,7 +53,11 @@ public class CreateHikeServlet extends HikeServletUtils {
         //Get values from parameters
         String id = UUID.randomUUID().toString(); //Create random UUID for hike
         hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
-        hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
+        try {
+            hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
+        } catch (SQLException | NullPointerException e) {
+            error = e.getMessage();
+        }
 
         //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
         //need to be inserted into the recommended_in table).

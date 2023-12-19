@@ -52,7 +52,24 @@
         </ul>
     </div>
 </nav>
-<h1> Error </h1>
+    <%
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        Throwable throwable2 = (Throwable) request.getAttribute("javax.servlet.error.exception");
+
+
+        if (statusCode != null) {
+            request.setAttribute("errorCode", statusCode);
+        } else if (throwable2 != null) {
+            request.setAttribute("errorMessage", throwable2.getMessage());
+        }
+
+        request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+    %>
+
+    <h2>Error Details</h2>
+    <p>Error Type: <%= throwable2 %></p>
+    <p>Status Code: <%= statusCode %></p>
+<!-- You can display more details about the exception if needed -->
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

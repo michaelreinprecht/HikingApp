@@ -9,6 +9,7 @@ import models.User;
 import servlets.ServletUtils;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 public class HikeServletUtils extends ServletUtils {
 
     //Fills (at least the basic) values passed in the request into a hike object.
-    protected Hike getHikeBase(HttpServletRequest request, Hike hike) {
+    protected Hike getHikeBase(HttpServletRequest request, Hike hike) throws SQLException {
         //Get values from parameters
         String name = request.getParameter("name");
         String description = request.getParameter("description");

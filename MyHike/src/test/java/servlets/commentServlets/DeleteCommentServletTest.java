@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.when;
 class DeleteCommentServletTest extends TestHelper {
     private final DeleteCommentServlet deleteCommentServlet = new DeleteCommentServlet();
     @Test
-    void deleteComment() throws IOException, ServletException {
+    void deleteComment() throws IOException, ServletException, NullPointerException, SQLException {
         //Mock database
         Database.facade = mock(JPAFacade.class);
         Database.hikeFacade = mock(JPAHikeFacade.class);

@@ -8,23 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JPAPointOfInterestFacade extends JPAFacade{
-    public List<PointOfInterest> getAllPointsOfInterest() {
+    public List<PointOfInterest> getAllPointsOfInterest() throws SQLException ,NullPointerException {
         JPABrokerBase<PointOfInterest> broker = new JPAPointOfInterestBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getAll();
     }
 
-    public PointOfInterest getPointOfInterestById(Object id) {
+    public PointOfInterest getPointOfInterestById(Object id) throws SQLException ,NullPointerException {
         JPABrokerBase<PointOfInterest> broker = new JPAPointOfInterestBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getById(id);
     }
 }

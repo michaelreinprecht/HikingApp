@@ -9,33 +9,18 @@ import java.util.List;
 
 
 public class JPAHikeFacade extends JPAFacade{
-    public List<Hike> getAllHikes() {
+    public List<Hike> getAllHikes() throws SQLException ,NullPointerException {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
-        try {
-            return broker.getAll();
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getAll();
     }
 
-    public List<Hike> getHikeByUser(String username) {
+    public List<Hike> getHikeByUser(String username) throws SQLException ,NullPointerException{
         JPAHikeBroker broker = new JPAHikeBroker();
-        try {
-            return broker.getByUser(username);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getByUser(username);
     }
 
-    public Hike getHikeById(Object id) {
+    public Hike getHikeById(Object id) throws SQLException ,NullPointerException {
         JPABrokerBase<Hike> broker = new JPAHikeBroker();
-        try {
-            return broker.getById(id);
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return broker.getById(id);
     }
 }

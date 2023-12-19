@@ -16,6 +16,7 @@ import servlets.TestHelper;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.any;
 class AddCommentServletTest extends TestHelper {
     private final AddCommentServlet addCommentServlet = new AddCommentServlet();
     @Test
-    void addComment() throws ServletException, IOException {
+    void addComment() throws ServletException, IOException, SQLException, NullPointerException{
         //Mock database
         Database.facade = mock(JPAFacade.class);
         Database.hikeFacade = mock(JPAHikeFacade.class);
