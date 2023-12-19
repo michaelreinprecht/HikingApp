@@ -39,6 +39,7 @@ class EditHikeServletTest extends TestHelper {
         Hike hike = editHikeServlet.getUpdatedHike(oldHike, getMockedRequest());
         hike.setHikeId("test1");
         Hike expectedHike = getExpectedHike();
+
         assertEquals(expectedHike.toString(), hike.toString());
     }
 
@@ -71,6 +72,14 @@ class EditHikeServletTest extends TestHelper {
         HttpServletRequest request = super.getMockedRequest();
         when(request.getParameter("Id")).thenReturn("test1");
         return request;
+    }
+
+    @Override
+    protected  Hike getExpectedHike() {
+        Hike expectedHike = super.getExpectedHike();
+        expectedHike.setHikeComments(null);
+        expectedHike.setHikePointsOfInterest(null);
+        return expectedHike;
     }
 
     //Creates a basic hike with id="test1" for us to update.

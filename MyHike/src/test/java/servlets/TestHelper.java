@@ -72,15 +72,17 @@ public class TestHelper {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameter("name")).thenReturn("Testing");
         when(request.getParameter("description")).thenReturn("Testing");
-        when(request.getParameter("route-coordinates")).thenReturn("[[10,10][10,10]]");
+        when(request.getParameter("route-coordinates")).thenReturn("[[47.324426,10.817871],[47.318965,10.825028]]");
         when(request.getParameter("distance")).thenReturn("1.11");
         when(request.getParameter("altitude")).thenReturn("111");
-        when(request.getParameter("landscape-rating")).thenReturn("5");
-        when(request.getParameter("strength-rating")).thenReturn("5");
-        when(request.getParameter("stamina-rating")).thenReturn("5");
-        when(request.getParameter("difficulty-rating")).thenReturn("5");
+        when(request.getParameter("landscape-rating")).thenReturn("3");
+        when(request.getParameter("strength-rating")).thenReturn("3");
+        when(request.getParameter("stamina-rating")).thenReturn("3");
+        when(request.getParameter("difficulty-rating")).thenReturn("3");
         when(request.getParameter("region")).thenReturn("Bregenzerwald");
         when(request.getParameter("duration")).thenReturn("01:00");
+        String[] months = {"January", "February", "March", "July", "August", "September"};
+        when(request.getParameterValues("months")).thenReturn(months);
 
         Part filePart = mock(Part.class);
         when(filePart.getContentType()).thenReturn("image/png");
