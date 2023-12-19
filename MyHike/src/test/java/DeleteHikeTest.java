@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-public class AdminDeleteHikeTest {
+public class DeleteHikeTest {
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
@@ -45,7 +45,7 @@ public class AdminDeleteHikeTest {
         driver.manage().window().setSize(new Dimension(1936, 1056));
 
         //Login as admin
-        AdminLoginTest loginTest = new AdminLoginTest();
+        LoginTest loginTest = new LoginTest();
         loginTest.login(driver, wait);
 
         //Try to edit the first hike showing up on discover page.

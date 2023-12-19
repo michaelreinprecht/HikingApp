@@ -40,7 +40,7 @@ public class AddDeleteCommentTest {
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
     //Login as admin
-    AdminLoginTest loginTest = new AdminLoginTest();
+    LoginTest loginTest = new LoginTest();
     loginTest.login(driver, wait);
 
     driver.findElement(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image > .card-body")).click();

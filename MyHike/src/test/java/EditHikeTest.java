@@ -16,7 +16,7 @@ import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-public class AdminEditHikeTest {
+public class EditHikeTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -45,7 +45,7 @@ public class AdminEditHikeTest {
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
     //Login as admin
-    AdminLoginTest loginTest = new AdminLoginTest();
+    LoginTest loginTest = new LoginTest();
     loginTest.login(driver, wait);
 
     //Try to edit the first hike showing up on discover page.
