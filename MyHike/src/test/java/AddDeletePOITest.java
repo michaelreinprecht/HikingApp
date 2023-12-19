@@ -32,8 +32,6 @@ public class AddDeletePOITest {
   }
   @Test
   public void addDeletePOI() {
-    //TODO Mock database/fix mocking
-
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
     driver.get("http://localhost:8080/MyHike_war_exploded/");
@@ -52,7 +50,7 @@ public class AddDeletePOITest {
     driver.findElement(By.id("poiLat")).sendKeys("10");
 
     //Link to a fixed image inside of the project.
-    String fixedFilePath = "src/main/webapp/images/POIImageTest.jpg";
+    String fixedFilePath = "src/test/resources/POIImageTest.jpg";
     driver.findElement(By.id("poiImage")).sendKeys(new File(fixedFilePath).getAbsolutePath());
 
     //Click add and assert the successAlert.

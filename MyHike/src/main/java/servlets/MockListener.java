@@ -40,12 +40,19 @@ public class MockListener implements ServletContextListener {
             when(Database.hikeFacade.getAllHikes()).thenReturn(expectedHikes);
             when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(expectedHike);
 
+            //Return testing comments.
             List<Comment> expectedComments = new ArrayList<>();
             Comment expectedComment = getExpectedComment();
             expectedComments.add(expectedComment);
             when(Database.commentFacade.getAllComments()).thenReturn(expectedComments);
             when(Database.commentFacade.getCommentById(any(String.class))).thenReturn(expectedComment);
 
+            //Return testing pois.
+            List<PointOfInterest> expectedPOIs = new ArrayList<>();
+            PointOfInterest expectedPOI = getExpectedPointOfInterest();
+            expectedPOIs.add(expectedPOI);
+            when(Database.pointOfInterestFacade.getAllPointsOfInterest()).thenReturn(expectedPOIs);
+            when(Database.pointOfInterestFacade.getPointOfInterestById(any(String.class))).thenReturn(expectedPOI);
         }
     }
 
@@ -68,11 +75,11 @@ public class MockListener implements ServletContextListener {
                 3,
                 "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSotDnYo4pChdrIgKuIoVSyChdJWaNXB5NIvaGJIUlwcBdeCgx+LVQcXZ10dXAVB8APE1cVJ0UVK/F9SaBHjwXE/3t173L0DhGaNqWbPOKBqlpFJJsR8YUUMvCKIEPoRQUxipp7KLuTgOb7u4ePrXZxneZ/7c4SUoskAn0g8y3TDIl4nnt60dM77xGFWkRTic+Ixgy5I/Mh12eU3zmWHBZ4ZNnKZOeIwsVjuYrmLWcVQiaeIo4qqUb6Qd1nhvMVZrdVZ+578hcGitpzlOs0RJLGIFNIQIaOOKmqwEKdVI8VEhvYTHv5hx58ml0yuKhg55rEBFZLjB/+D392apckJNymYAHpfbPtjFAjsAq2GbX8f23brBPA/A1dax7/RBGY+SW90tOgRMLgNXFx3NHkPuNwBIk+6ZEiO5KcplErA+xl9UwEYugUGVt3e2vs4fQBy1NXSDXBwCMTKlL3m8e6+7t7+PdPu7weBp3KtjjzVbQAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+cMDQkaErxKBFoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAARElEQVQY02P8V8zxn4EIwMJozkAUYPz/n0gTP/9kJcpEFsv9EsQp/PWfmTg38p9/S5wbf7IIEWe11tZ7xCnk2vKaKIUA/pQSEcYhZyYAAAAASUVORK5CYII=",
                 "111000111000",
-                new Region("Montafon"),
+                new Region("Bregenzerwald"),
                 comments,
                 pois,
                 false,
-                new User("admin", "admin", true, null));
+                null);
         return expectedHike;
     }
 
@@ -80,5 +87,11 @@ public class MockListener implements ServletContextListener {
         Comment expectedComment;
         expectedComment = new Comment("commentTest1", "Test comment", getExpectedHike(), null);
         return expectedComment;
+    }
+
+    private PointOfInterest getExpectedPointOfInterest() {
+        PointOfInterest expectedPOI;
+        expectedPOI = new PointOfInterest("poiTest1", "Test poi", "Testing", new BigDecimal("10.10"), new BigDecimal("10.10"), null, getExpectedHike());
+        return expectedPOI;
     }
 }
