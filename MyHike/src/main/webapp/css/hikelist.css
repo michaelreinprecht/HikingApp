@@ -106,5 +106,20 @@
     margin-bottom: 15px;
 }
 
+.col-md-3 .input-group-text {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.col-md-3 .form-control {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.dropdown-menu {
+    width: 92%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 
 

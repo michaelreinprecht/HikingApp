@@ -123,7 +123,8 @@
         </div>
 
         <div class="col-md-3 mb-3">
-            <button style="width: 100%" class="btn custom-white-button custom-green-border input-group-text" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
+            <label class="input-group-text" for="difficultyFilter">Recommended Months:</label>
+            <button style="width: 100%" class="input-group form-control" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Months</button>
             <div class="dropdown-menu" aria-labelledby="monthDropdown">
                 <%
                     String[] selectedMonths = (String[])session.getAttribute("selectedMonths");
@@ -141,6 +142,7 @@
             </div>
         </div>
     </div>
+
     <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
         <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-success mr-auto">Apply Filters</button>
