@@ -14,6 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
     private String error;

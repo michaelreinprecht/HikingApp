@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static database.Database.getAllHikes;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet("/filterHikesServlet")
 public class FilterHikesServlet extends HttpServlet {
     private String error = "";

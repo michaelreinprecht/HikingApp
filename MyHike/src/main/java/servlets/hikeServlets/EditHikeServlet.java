@@ -14,6 +14,7 @@ import models.Month;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "editHikeServlet", value = "/editHikeServlet")
 @MultipartConfig
 public class EditHikeServlet extends HikeServletUtils {

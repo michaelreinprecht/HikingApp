@@ -1,11 +1,17 @@
 package servlets;
 
 import database.Database;
-import facade.*;
+import facade.JPACommentFacade;
+import facade.JPAFacade;
+import facade.JPAHikeFacade;
+import facade.JPAPointOfInterestFacade;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import models.*;
+import models.Comment;
+import models.Hike;
+import models.PointOfInterest;
+import models.Region;
 
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -14,9 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.*;
 
 @WebListener
 public class MockListener implements ServletContextListener {

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet {
     private String error;

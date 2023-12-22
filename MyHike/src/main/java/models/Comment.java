@@ -5,6 +5,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@SuppressWarnings("unused")
 @Getter
 @Entity
 @Table(name = "MyHike.comment")

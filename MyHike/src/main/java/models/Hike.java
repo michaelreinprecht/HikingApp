@@ -224,7 +224,7 @@ public class Hike {
                 ", hikePointsOfInterest=" + hikePointsOfInterest +
                 ", hikeComments=" + hikeComments +
                 ", isDeleted=" + isDeleted +
-                ", hikeOfUser=" + hikeOfUser.getUserName() +
+                ", hikeOfUser=" + (hikeOfUser != null ? hikeOfUser.getUserName() : "null") +
                 '}';
     }
 }
