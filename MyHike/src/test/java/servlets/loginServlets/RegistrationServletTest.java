@@ -13,58 +13,79 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegistrationServletTest {
-    private HttpServletRequest request = mock(HttpServletRequest.class);
-    private HttpServletResponse response = mock(HttpServletResponse.class);
-    private RegistrationServlet mockServlet= new RegistrationServlet();
+    private final HttpServletRequest request = mock(HttpServletRequest.class);
+    private final HttpServletResponse response = mock(HttpServletResponse.class);
+    private final RegistrationServlet registrationServlet = new RegistrationServlet();
 
-    private void setup(String username, String password, String confirmPassword){
-        when(request.getParameter("username")).thenReturn(username);
-        when(request.getParameter("password")).thenReturn(password);
-        when(request.getParameter("confirmPassword")).thenReturn(confirmPassword);
+    // Verifies if the given string consists of one or more printable ascii characters
+    @Test
+    void isPrintableAscii() {
+        //Case: Given string consists of printable ascii
+        assertTrue(registrationServlet.isPrintableAscii("ascii"));
+
+        //Case: Given string doesn't consist of printable ascii
+        assertFalse(registrationServlet.isPrintableAscii("asc ii"));
     }
 
-    //It tests whether the username already exists in the database.
+    // Verifies whether the username already exists in the database.
     @Test
-    void usernameExistInDatabase() throws Exception {
-        setup("admin", "admin", "admin");
-        mockServlet.doPost(request, response);
-        assertTrue(!mockServlet.getError().isEmpty());
+    void usernameAvailable() {
+        registrationServlet.usernameAvailable("admin");
+        assertFalse(registrationServlet.getError().isEmpty());
     }
 
-    // It tests that the password does not match the confirmed password.
+    // Verifies if the username does not adhere to the expected regex pattern.
     @Test
-    void passwortMissMach() throws Exception {
-        setup("admins", "admi", "admin");
-        mockServlet.doPost(request, response);
-        assertTrue(!mockServlet.getError().isEmpty());
-    }
+    void usernameIsValid() throws Exception {
+        //Case: Username is valid
+        registrationServlet.usernameIsValid("admin");
+        assertTrue(registrationServlet.getError().isEmpty());
 
-    // It verifies that the username does not adhere to the expected regex pattern.
-    @Test
-    void notValidName() throws Exception {
-        setup("ad min", "admi", "admin");
-        mockServlet.doPost(request, response);
-        assertTrue(!mockServlet.getError().isEmpty());
+        //Case: Username does not consist of printable ascii -> not valid
+        registrationServlet.usernameIsValid("adm in");
+        assertFalse(registrationServlet.getError().isEmpty());
     }
 
     // It verifies that the password does not adhere to the expected regex pattern.
     @Test
-    void notValidPasswort() throws Exception {
-        setup("admins", "ad min", "ad min");
-        mockServlet.doPost(request, response);
-        assertTrue(!mockServlet.getError().isEmpty());
+    void passwordIsValid() throws Exception {
+        //Case: Password is valid
+        registrationServlet.usernameIsValid("secret");
+        assertTrue(registrationServlet.getError().isEmpty());
+
+        //Case: Password does not consist of printable ascii -> not valid
+        registrationServlet.usernameIsValid("sec ret");
+        assertFalse(registrationServlet.getError().isEmpty());
     }
 
-
-    //It checks whether the user registration is functioning properly with the right data.
+    // Verifies if the password does not match the confirmed password.
     @Test
-    void registration() throws Exception {
-        setup("test", "test", "test");
+    void passwordsMatch() throws Exception {
+        //Case: Passwords to match
+        registrationServlet.passwordsMatch("secret", "secret");
+        assertTrue(registrationServlet.getError().isEmpty());
+
+        //Case: Passwords do not match
+        registrationServlet.passwordsMatch("secret1", "secret2");
+        assertFalse(registrationServlet.getError().isEmpty());
+    }
+
+    // Checks whether the user registration is functioning properly with the right data.
+    @Test
+    void registerUser() throws Exception {
+        when(request.getParameter("username")).thenReturn("test");
+        when(request.getParameter("password")).thenReturn("test");
+        when(request.getParameter("confirmPassword")).thenReturn("test");
+
+        //Mock database
         Database.facade = mock(JPAFacade.class);
-        JPAUserFacade mockUserFacade = mock(JPAUserFacade.class);
+        JPAUserFacade mockUserFacade;
+        mockUserFacade = mock(JPAUserFacade.class);
         Database.userFacade = mockUserFacade;
+        //Always return null -> act as if every username is currently available.
         when(Database.getUserById(any(String.class))).thenReturn(null);
-        mockServlet.doPost(request, response);
-        assertTrue(mockServlet.getError().isEmpty());
+
+        registrationServlet.registerUser(request, response);
+        assertTrue(registrationServlet.getError().isEmpty());
     }
 }
