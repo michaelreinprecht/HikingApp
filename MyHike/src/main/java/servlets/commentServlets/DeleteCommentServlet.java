@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "deleteCommentServlet", value = "/deleteCommentServlet")
 public class DeleteCommentServlet  extends HttpServlet {
     private String error;

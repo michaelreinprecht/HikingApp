@@ -12,12 +12,13 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "RegistrationServlet", value = "/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
     private String error = "";
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         registerUser(request, response);
     }
 

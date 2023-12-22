@@ -12,6 +12,7 @@ import models.Hike;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "softDeleteHikeServlet", value = "/softDeleteHikeServlet")
 @MultipartConfig
 public class SoftDeleteHikeServlet extends HttpServlet {

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "addCommentServlet", value = "/addCommentServlet")
 public class AddCommentServlet extends HttpServlet {
     private String error;
