@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -86,8 +85,8 @@ public class TestHelper {
 
         Part filePart = mock(Part.class);
         when(filePart.getContentType()).thenReturn("image/png");
-        when(filePart.getInputStream()).thenReturn(new FileInputStream(new File("src/test/resources/Base64Test.png")));
-        when(filePart.getSize()).thenReturn((long) new File("src/test/resources/Base64Test.png").length());
+        when(filePart.getInputStream()).thenReturn(new FileInputStream("src/test/resources/Base64Test.png"));
+        when(filePart.getSize()).thenReturn(new File("src/test/resources/Base64Test.png").length());
         when(filePart.getName()).thenReturn("fileToUpload");
         when(request.getPart("fileToUpload")).thenReturn(filePart);
 
@@ -101,7 +100,6 @@ public class TestHelper {
     }
 
     protected HttpServletResponse getMockedResponse() throws IOException {
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        return response;
+        return mock(HttpServletResponse.class);
     }
 }

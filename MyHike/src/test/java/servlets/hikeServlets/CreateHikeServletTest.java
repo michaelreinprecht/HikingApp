@@ -30,6 +30,7 @@ class CreateHikeServletTest extends TestHelper {
     void getHike() throws ServletException, IOException {
         Hike hike = createHikeServlet.getHike(getMockedRequest());
         hike.setHikeId("test1");
+        hike.setHikeOfUser(getExpectedUser());
         Hike expectedHike = getExpectedHike();
         assertEquals(expectedHike.toString(), hike.toString());
     }

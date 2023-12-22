@@ -15,22 +15,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreateHikeTest {
     private WebDriver driver;
-    private Map<String, Object> vars;
     JavascriptExecutor js;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
-        vars = new HashMap<String, Object>();
     }
 
     @After
@@ -41,7 +35,7 @@ public class CreateHikeTest {
     //Tests if a user is able to properly create a hike. For this the user first needs to log in.
     //This test uses images/HikeImageTest.jpg as a fixed image. Also uses our default user account.
     @Test
-    public void createHike() throws SQLException {
+    public void createHike() {
         Actions actions = new Actions(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
@@ -53,7 +47,10 @@ public class CreateHikeTest {
         driver.findElement(By.linkText("Create Hike")).click();
         //Wait a maximum of 10 seconds for the dom to be fully loaded.
         wait.until((ExpectedCondition<Boolean>) webDriver ->
-                ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        {
+            assert webDriver != null;
+            return ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
+        });
 
         //Login as admin
         LoginTest loginTest = new LoginTest();

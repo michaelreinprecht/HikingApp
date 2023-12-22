@@ -14,17 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 public class EditHikeTest {
   private WebDriver driver;
-  private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
   }
   @After
   public void tearDown() {
@@ -55,7 +51,10 @@ public class EditHikeTest {
     actions.moveToElement(driver.findElement(By.id("map")), 20, 20).click().perform();
     //Wait a maximum of 10 seconds for the dom to be fully loaded.
     wait.until((ExpectedCondition<Boolean>) webDriver ->
-            ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+    {
+        assert webDriver != null;
+        return ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
+    });
     driver.findElement(By.id("name")).click();
     driver.findElement(By.id("name")).clear();
     driver.findElement(By.id("name")).sendKeys("Test Edit");
@@ -74,7 +73,7 @@ public class EditHikeTest {
     driver.findElement(By.id("description")).clear();
     driver.findElement(By.id("description")).sendKeys("Testing Edit");
 
-    //Link to a fixed image inside of the project
+    //Link to a fixed image in test/resources
     String fixedFilePath = "src/test/resources/HikeImageTest.jpg";
     driver.findElement(By.id("fileToUpload")).sendKeys(new File(fixedFilePath).getAbsolutePath());
     driver.findElement(By.cssSelector(".btn")).click();

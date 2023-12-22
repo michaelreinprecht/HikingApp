@@ -7,10 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RegistrationServletTest {
     private final HttpServletRequest request = mock(HttpServletRequest.class);
@@ -30,13 +31,15 @@ class RegistrationServletTest {
     // Verifies whether the username already exists in the database.
     @Test
     void usernameAvailable() {
-        registrationServlet.usernameAvailable("admin");
-        assertFalse(registrationServlet.getError().isEmpty());
+        Database.userFacade = mock(JPAUserFacade.class);
+        when(Database.userFacade.getUserById("nameNotTaken")).thenReturn(null);
+        registrationServlet.usernameAvailable("nameNotTaken");
+        assertTrue(registrationServlet.getError().isEmpty());
     }
 
     // Verifies if the username does not adhere to the expected regex pattern.
     @Test
-    void usernameIsValid() throws Exception {
+    void usernameIsValid() {
         //Case: Username is valid
         registrationServlet.usernameIsValid("admin");
         assertTrue(registrationServlet.getError().isEmpty());
@@ -48,7 +51,7 @@ class RegistrationServletTest {
 
     // It verifies that the password does not adhere to the expected regex pattern.
     @Test
-    void passwordIsValid() throws Exception {
+    void passwordIsValid() {
         //Case: Password is valid
         registrationServlet.usernameIsValid("secret");
         assertTrue(registrationServlet.getError().isEmpty());
@@ -60,7 +63,7 @@ class RegistrationServletTest {
 
     // Verifies if the password does not match the confirmed password.
     @Test
-    void passwordsMatch() throws Exception {
+    void passwordsMatch() {
         //Case: Passwords to match
         registrationServlet.passwordsMatch("secret", "secret");
         assertTrue(registrationServlet.getError().isEmpty());
