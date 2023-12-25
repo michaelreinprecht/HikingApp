@@ -145,7 +145,7 @@
 
     <div class="row mt-3" style="margin-left: 0; margin-right: 0; align-self: center">
         <div class="col-md-12 text-right">
-            <button type="submit" class="btn btn-success mr-auto">Apply Filters</button>
+            <button type="submit" class="btn btn-success mr-auto" id="FilterButton">Apply Filters</button>
         </div>
     </div>
 </form>

@@ -78,7 +78,7 @@
       <input type="text" class="form-control" name="searchQuery" aria-label="Amount (to the nearest dollar)"
              placeholder="Search a hike by name or region!" style="background-color: rgba(255, 255, 255, 0.8)" maxlength="100">
 
-        <button type="submit" class="btn btn-primary" data-mdb-ripple-init style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
+        <button type="submit" class="btn btn-primary" id="searchButton" data-mdb-ripple-init style="background-color: rgba(13, 182, 15, 0.8); border-color: #07773a; border-bottom-left-radius: 0; border-top-left-radius: 0">
           <i class="fas fa-search"></i>
         </button>
       </div>
