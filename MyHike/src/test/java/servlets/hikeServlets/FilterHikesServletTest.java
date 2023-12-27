@@ -1,18 +1,12 @@
 package servlets.hikeServlets;
 
-import database.Database;
-import facade.JPAHikeFacade;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
 import models.Region;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -20,7 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -30,6 +30,7 @@ class CreateHikeServletTest extends TestHelper {
     void getHike() throws ServletException, IOException {
         Hike hike = createHikeServlet.getHike(getMockedRequest());
         hike.setHikeId("test1");
+        hike.setHikeOfUser(getExpectedUser());
         Hike expectedHike = getExpectedHike();
         assertEquals(expectedHike.toString(), hike.toString());
     }
@@ -48,5 +49,13 @@ class CreateHikeServletTest extends TestHelper {
         when(mockedRequest.getSession()).thenReturn(mockSession);
         userIsAuthorized = createHikeServlet.handleAuth(mockedRequest, mockedResponse);
         assertFalse(userIsAuthorized);
+    }
+
+    @Override
+    protected  Hike getExpectedHike() {
+        Hike expectedHike = super.getExpectedHike();
+        expectedHike.setHikeComments(null);
+        expectedHike.setHikePointsOfInterest(null);
+        return expectedHike;
     }
 }

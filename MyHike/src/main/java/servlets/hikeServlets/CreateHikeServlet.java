@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 @WebServlet(name = "createHikeServlet", value = "/createHikeServlet")
 @MultipartConfig
 public class CreateHikeServlet extends HikeServletUtils {

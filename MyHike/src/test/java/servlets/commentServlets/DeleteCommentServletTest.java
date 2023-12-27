@@ -4,23 +4,21 @@ import database.Database;
 import facade.JPACommentFacade;
 import facade.JPAFacade;
 import facade.JPAHikeFacade;
-import facade.JPAUserFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Comment;
 import models.Hike;
-import models.User;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

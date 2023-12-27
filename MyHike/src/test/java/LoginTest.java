@@ -9,26 +9,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-public class AdminLoginTest {
+public class LoginTest {
     private WebDriver driver;
-    private Map<String, Object> vars;
     JavascriptExecutor js;
     @Before
     public void setUp() {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
-        vars = new HashMap<String, Object>();
     }
     @After
     public void tearDown() {
         driver.quit();
     }
     @Test
-    public void adminLogin() {
-        //TODO Mock database/fix mocking
-
+    public void login() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
         driver.get("http://localhost:8080/MyHike_war_exploded/");

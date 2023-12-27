@@ -13,34 +13,28 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddDeleteCommentTest {
   private WebDriver driver;
-  private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
   }
   @After
   public void tearDown() {
     driver.quit();
   }
   @Test
-  public void comments() {
-    //TODO Mock database/fix mocking
-
+  public void addDeleteComment() {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // 10 seconds timeout
 
     driver.get("http://localhost:8080/MyHike_war_exploded/");
     driver.manage().window().setSize(new Dimension(1936, 1056));
 
     //Login as admin
-    AdminLoginTest loginTest = new AdminLoginTest();
+    LoginTest loginTest = new LoginTest();
     loginTest.login(driver, wait);
 
     driver.findElement(By.cssSelector(".row:nth-child(2) > .col-sm-4:nth-child(1) .bg-image > .card-body")).click();

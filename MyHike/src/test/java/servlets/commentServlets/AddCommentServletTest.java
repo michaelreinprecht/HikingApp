@@ -1,11 +1,11 @@
 package servlets.commentServlets;
 
 import database.Database;
-import facade.JPACommentFacade;
 import facade.JPAFacade;
 import facade.JPAHikeFacade;
 import facade.JPAUserFacade;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Hike;
@@ -13,15 +13,12 @@ import models.User;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 class AddCommentServletTest extends TestHelper {
     private final AddCommentServlet addCommentServlet = new AddCommentServlet();
@@ -52,7 +49,7 @@ class AddCommentServletTest extends TestHelper {
 
         //Case: user is logged in and can create comments
         boolean isAuthorized = addCommentServlet.handleAuth(request, response);
-        assertTrue(addCommentServlet.handleAuth(request, response));
+        assertTrue(isAuthorized);
 
         //Case: user is not logged in and can not create comments
         HttpSession mockSession = mock(HttpSession.class);

@@ -14,9 +14,7 @@ import servlets.TestHelper;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.*;
 
 class EditHikeServletTest extends TestHelper {
     private final EditHikeServlet editHikeServlet = new EditHikeServlet();
@@ -39,6 +37,7 @@ class EditHikeServletTest extends TestHelper {
         Hike hike = editHikeServlet.getUpdatedHike(oldHike, getMockedRequest());
         hike.setHikeId("test1");
         Hike expectedHike = getExpectedHike();
+
         assertEquals(expectedHike.toString(), hike.toString());
     }
 
@@ -71,6 +70,14 @@ class EditHikeServletTest extends TestHelper {
         HttpServletRequest request = super.getMockedRequest();
         when(request.getParameter("Id")).thenReturn("test1");
         return request;
+    }
+
+    @Override
+    protected  Hike getExpectedHike() {
+        Hike expectedHike = super.getExpectedHike();
+        expectedHike.setHikeComments(null);
+        expectedHike.setHikePointsOfInterest(null);
+        return expectedHike;
     }
 
     //Creates a basic hike with id="test1" for us to update.

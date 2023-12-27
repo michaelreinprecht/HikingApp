@@ -34,3 +34,8 @@ body {
     width: 100%;
     max-width: 500px;
 }
+
+.registrationPart {
+    text-align: center;
+    margin-top: 20px;
+}

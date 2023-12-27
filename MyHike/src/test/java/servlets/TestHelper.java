@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +31,7 @@ public class TestHelper {
                 "test1",
                 "Testing",
                 "Testing",
-                "[[10,10][10,10]]",
+                "[[47.324426,10.817871],[47.318965,10.825028]]",
                 duration, 111,
                 new BigDecimal("1.11"),
                 3,
@@ -45,7 +44,7 @@ public class TestHelper {
                 comments,
                 pois,
                 false,
-                new User("admin", "admin", true, null));
+                new User("admin", "$2a$10$FY20m9VBfZb3LcGaR.Z7/uGci6CXLIQkuvpDqEm31sjWpDCAaWpIq", true, null));
         return expectedHike;
     }
 
@@ -53,7 +52,7 @@ public class TestHelper {
         User expectedUser;
         List<Hike> hikes = new ArrayList<>();
         hikes.add(getExpectedHike());
-        expectedUser = new User("admin", "admin", true, hikes);
+        expectedUser = new User("admin", "$2a$10$FY20m9VBfZb3LcGaR.Z7/uGci6CXLIQkuvpDqEm31sjWpDCAaWpIq", true, hikes);
         return expectedUser;
     }
 
@@ -72,20 +71,22 @@ public class TestHelper {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameter("name")).thenReturn("Testing");
         when(request.getParameter("description")).thenReturn("Testing");
-        when(request.getParameter("route-coordinates")).thenReturn("[[10,10][10,10]]");
+        when(request.getParameter("route-coordinates")).thenReturn("[[47.324426,10.817871],[47.318965,10.825028]]");
         when(request.getParameter("distance")).thenReturn("1.11");
         when(request.getParameter("altitude")).thenReturn("111");
-        when(request.getParameter("landscape-rating")).thenReturn("5");
-        when(request.getParameter("strength-rating")).thenReturn("5");
-        when(request.getParameter("stamina-rating")).thenReturn("5");
-        when(request.getParameter("difficulty-rating")).thenReturn("5");
+        when(request.getParameter("landscape-rating")).thenReturn("3");
+        when(request.getParameter("strength-rating")).thenReturn("3");
+        when(request.getParameter("stamina-rating")).thenReturn("3");
+        when(request.getParameter("difficulty-rating")).thenReturn("3");
         when(request.getParameter("region")).thenReturn("Bregenzerwald");
         when(request.getParameter("duration")).thenReturn("01:00");
+        String[] months = {"January", "February", "March", "July", "August", "September"};
+        when(request.getParameterValues("months")).thenReturn(months);
 
         Part filePart = mock(Part.class);
         when(filePart.getContentType()).thenReturn("image/png");
-        when(filePart.getInputStream()).thenReturn(new FileInputStream(new File("src/test/resources/Base64Test.png")));
-        when(filePart.getSize()).thenReturn((long) new File("src/test/resources/Base64Test.png").length());
+        when(filePart.getInputStream()).thenReturn(new FileInputStream("src/test/resources/Base64Test.png"));
+        when(filePart.getSize()).thenReturn(new File("src/test/resources/Base64Test.png").length());
         when(filePart.getName()).thenReturn("fileToUpload");
         when(request.getPart("fileToUpload")).thenReturn(filePart);
 
@@ -99,7 +100,6 @@ public class TestHelper {
     }
 
     protected HttpServletResponse getMockedResponse() throws IOException {
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        return response;
+        return mock(HttpServletResponse.class);
     }
 }
