@@ -99,7 +99,7 @@
         </div>
 
         <div class="col-md-3 mb-3">
-            <label class="input-group-text" for="staminaFilter">Level of Fitness (1-5):</label>
+            <label class="input-group-text" for="staminaFilter">Max. Stamina rating:</label>
             <input class="form-control" type="number" name="staminaFilter" id="staminaFilter" min="1" max="5"
                    placeholder="No Filter" value="<%= session.getAttribute("staminaFilter") %>">
         </div>

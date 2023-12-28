@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 //Contains basic methods useful for most Hike related servlets.
 public class HikeServletUtils extends ServletUtils {
@@ -46,7 +47,7 @@ public class HikeServletUtils extends ServletUtils {
         User user = Database.getUserById(hikeOfUser);
         //Populate hike object with formatted/adjusted parameter data.
         hike = new Hike(hike.getHikeId(), name, description, routeCoordinates, duration, altitude, distance,
-                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, null, null,false, user);
+                staminaRating, strengthRating, difficultyRating, landscapeRating, null, null, region, new ArrayList<>(), new ArrayList<>(),false, user);
 
         return hike;
     }
