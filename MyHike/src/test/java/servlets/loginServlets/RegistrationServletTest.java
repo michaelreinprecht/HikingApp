@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +32,7 @@ class RegistrationServletTest {
 
     // Verifies whether the username already exists in the database.
     @Test
-    void usernameAvailable() {
+    void usernameAvailable() throws SQLException {
         Database.userFacade = mock(JPAUserFacade.class);
         when(Database.userFacade.getUserById("nameNotTaken")).thenReturn(null);
         registrationServlet.usernameAvailable("nameNotTaken");

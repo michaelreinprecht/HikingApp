@@ -64,7 +64,12 @@ public class RegistrationServlet extends HttpServlet {
 
     //Checks if the entered username is already claimed by another user. Sets error accordingly if it is.
     protected boolean usernameAvailable(String username) {
-        User userInDb = Database.getUserById(username);
+        User userInDb = null;
+        try {
+            userInDb = Database.getUserById(username);
+        } catch (SQLException e) {
+            error = "An error occurred when trying to check for username availability, please try again later.";
+        }
         if (userInDb != null) {
             error = "User with username " + username + " already exists.<br>Please choose another username!";
             return false;

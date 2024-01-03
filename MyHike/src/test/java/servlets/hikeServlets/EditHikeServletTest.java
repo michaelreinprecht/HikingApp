@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.*;
 class EditHikeServletTest extends TestHelper {
     private final EditHikeServlet editHikeServlet = new EditHikeServlet();
     @Test
-    void editHike() throws ServletException, IOException {
+    void editHike() throws ServletException, IOException, SQLException {
         Hike oldHike = getHikeToEdit();
 
         //Mock Database

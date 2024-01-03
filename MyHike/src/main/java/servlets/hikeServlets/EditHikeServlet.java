@@ -53,7 +53,13 @@ public class EditHikeServlet extends HikeServletUtils {
     }
 
     protected Hike getUpdatedHike(Hike oldHike, HttpServletRequest request) throws IOException, ServletException {
-        Hike newHike = getHikeBase(request, oldHike); //Gets the basic hike data (works same for edit and create)
+        Hike newHike; //Gets the basic hike data (works same for edit and create)
+        try {
+            newHike = getHikeBase(request, oldHike);
+        } catch (SQLException e) {
+            error = "A database error has occurred. Please try again later.";
+            newHike = new Hike();
+        }
 
         //Get recommended Months are String[] from html parameter and turn them into a Bitmap
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));

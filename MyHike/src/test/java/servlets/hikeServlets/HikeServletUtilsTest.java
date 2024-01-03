@@ -7,6 +7,7 @@ import models.User;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +22,7 @@ class HikeServletUtilsTest {
 
 
     @Test
-    void getHikeBase() {
+    void getHikeBase() throws SQLException {
         Hike hike = new Hike();
         //Set a random UUID for the new Hike.
         String id = UUID.randomUUID().toString();

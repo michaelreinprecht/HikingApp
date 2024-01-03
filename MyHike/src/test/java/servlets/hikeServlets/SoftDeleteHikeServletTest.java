@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 class SoftDeleteHikeServletTest extends TestHelper {
     SoftDeleteHikeServlet softDeleteHikeServlet = new SoftDeleteHikeServlet();
     @Test
-    void softDeleteHike() throws ServletException, IOException {
+    void softDeleteHike() throws ServletException, IOException, SQLException {
         Hike hike = getHikeToDelete();
 
         //Mock Database

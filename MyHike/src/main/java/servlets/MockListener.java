@@ -14,6 +14,7 @@ import models.PointOfInterest;
 import models.Region;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -26,37 +27,41 @@ import static org.mockito.Mockito.*;
 public class MockListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         String mockIt = System.getenv("MOCK");
-        if (mockIt!=null) {
-            JPAFacade mockFacade = mock(JPAFacade.class);
-            JPAHikeFacade mockHikeFacade = mock(JPAHikeFacade.class);
-            JPAPointOfInterestFacade mockPointOfInterestFacade = mock(JPAPointOfInterestFacade.class);
-            JPACommentFacade mockCommentFacade = mock(JPACommentFacade.class);
+        if (mockIt != null) {
+            try {
+                JPAFacade mockFacade = mock(JPAFacade.class);
+                JPAHikeFacade mockHikeFacade = mock(JPAHikeFacade.class);
+                JPAPointOfInterestFacade mockPointOfInterestFacade = mock(JPAPointOfInterestFacade.class);
+                JPACommentFacade mockCommentFacade = mock(JPACommentFacade.class);
 
-            Database.facade = mockFacade;
-            Database.hikeFacade = mockHikeFacade;
-            Database.pointOfInterestFacade = mockPointOfInterestFacade;
-            Database.commentFacade = mockCommentFacade;
+                Database.facade = mockFacade;
+                Database.hikeFacade = mockHikeFacade;
+                Database.pointOfInterestFacade = mockPointOfInterestFacade;
+                Database.commentFacade = mockCommentFacade;
 
-            //Return testing hikes.
-            List<Hike> expectedHikes = new ArrayList<>();
-            Hike expectedHike = getExpectedHike();
-            expectedHikes.add(expectedHike);
-            when(Database.hikeFacade.getAllHikes()).thenReturn(expectedHikes);
-            when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(expectedHike);
+                //Return testing hikes.
+                List<Hike> expectedHikes = new ArrayList<>();
+                Hike expectedHike = getExpectedHike();
+                expectedHikes.add(expectedHike);
+                when(Database.hikeFacade.getAllHikes()).thenReturn(expectedHikes);
+                when(Database.hikeFacade.getHikeById(any(String.class))).thenReturn(expectedHike);
 
-            //Return testing comments.
-            List<Comment> expectedComments = new ArrayList<>();
-            Comment expectedComment = getExpectedComment();
-            expectedComments.add(expectedComment);
-            when(Database.commentFacade.getAllComments()).thenReturn(expectedComments);
-            when(Database.commentFacade.getCommentById(any(String.class))).thenReturn(expectedComment);
+                //Return testing comments.
+                List<Comment> expectedComments = new ArrayList<>();
+                Comment expectedComment = getExpectedComment();
+                expectedComments.add(expectedComment);
+                when(Database.commentFacade.getAllComments()).thenReturn(expectedComments);
+                when(Database.commentFacade.getCommentById(any(String.class))).thenReturn(expectedComment);
 
-            //Return testing pois.
-            List<PointOfInterest> expectedPOIs = new ArrayList<>();
-            PointOfInterest expectedPOI = getExpectedPointOfInterest();
-            expectedPOIs.add(expectedPOI);
-            when(Database.pointOfInterestFacade.getAllPointsOfInterest()).thenReturn(expectedPOIs);
-            when(Database.pointOfInterestFacade.getPointOfInterestById(any(String.class))).thenReturn(expectedPOI);
+                //Return testing pois.
+                List<PointOfInterest> expectedPOIs = new ArrayList<>();
+                PointOfInterest expectedPOI = getExpectedPointOfInterest();
+                expectedPOIs.add(expectedPOI);
+                when(Database.pointOfInterestFacade.getAllPointsOfInterest()).thenReturn(expectedPOIs);
+                when(Database.pointOfInterestFacade.getPointOfInterestById(any(String.class))).thenReturn(expectedPOI);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

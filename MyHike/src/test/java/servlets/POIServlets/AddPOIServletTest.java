@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.*;
 class AddPOIServletTest extends TestHelper {
     private final AddPOIServlet addPOIServlet = new AddPOIServlet();
     @Test
-    void addPOI() throws ServletException, IOException {
+    void addPOI() throws ServletException, IOException, SQLException {
         //Mock database
         Database.facade = mock(JPAFacade.class);
         Database.hikeFacade = mock(JPAHikeFacade.class);
