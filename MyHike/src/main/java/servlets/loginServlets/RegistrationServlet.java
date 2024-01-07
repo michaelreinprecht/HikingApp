@@ -18,11 +18,11 @@ public class RegistrationServlet extends HttpServlet {
     private String error = "";
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         registerUser(request, response);
     }
 
-    protected void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         error = "";
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -38,7 +38,13 @@ public class RegistrationServlet extends HttpServlet {
             try {
                 Database.insert(user);
             } catch (SQLException e) {
-                error = "We encountered a problem during registration.<br>Please try registering again.";
+
+
+                String errorMessage = "We encountered a problem during registration.<br>Please try registering again.";
+                request.setAttribute("errorMessage", errorMessage);
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+
+
             }
 
             if (!error.isEmpty()) {

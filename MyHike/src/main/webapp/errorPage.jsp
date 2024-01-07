@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -52,28 +51,29 @@
         </ul>
     </div>
 </nav>
-    <%
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        Throwable throwable2 = (Throwable) request.getAttribute("javax.servlet.error.exception");
+<%
+    Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+    Throwable throwable2 = (Throwable) request.getAttribute("javax.servlet.error.exception");
 
+    if (statusCode != null) {
+        request.setAttribute("errorCode", statusCode);
+    } else if (throwable2 != null) {
+        request.setAttribute("errorMessage", throwable2.getMessage());
+    }
 
-        if (statusCode != null) {
-            request.setAttribute("errorCode", statusCode);
-        } else if (throwable2 != null) {
-            request.setAttribute("errorMessage", throwable2.getMessage());
-        }
+    String errorMessage = (String) request.getAttribute("errorMessage");
+%>
 
-        request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
-    %>
+<h2>Error Details</h2>
+<p>Error Type: <%= throwable2 %></p>
+<p>Status Code: <%= statusCode %></p>
+<p>Error Message: <%= errorMessage %></p>
 
-    <h2>Error Details</h2>
-    <p>Error Type: <%= throwable2 %></p>
-    <p>Status Code: <%= statusCode %></p>
 <!-- You can display more details about the exception if needed -->
+
 <!-- Bootstrap imports -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

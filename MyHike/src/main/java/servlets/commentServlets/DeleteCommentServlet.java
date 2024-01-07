@@ -1,6 +1,7 @@
 package servlets.commentServlets;
 
 import database.Database;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,13 +18,13 @@ import java.util.List;
 @WebServlet(name = "deleteCommentServlet", value = "/deleteCommentServlet")
 public class DeleteCommentServlet  extends HttpServlet {
     private String error;
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         deleteComment(request, response);
     }
 
     //Attempts to delete the given comment. If this method fails it will redirect to detail page and display an error
     //message. Otherwise, displays a success message.
-    protected void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         error = "";
 
         String commentId = request.getParameter("commentId");
@@ -46,10 +47,14 @@ public class DeleteCommentServlet  extends HttpServlet {
 
             //Delete the comment from the database.
             Database.delete(comment);
+
         }
         catch (Exception e) {
-            error = e.getMessage();
+            String errorMessage = "A database error has occurred please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
+
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) +  "&error=" + response.encodeURL(error));
         } else {

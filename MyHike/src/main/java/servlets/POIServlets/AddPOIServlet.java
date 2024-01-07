@@ -20,13 +20,13 @@ import java.util.UUID;
 @MultipartConfig
 public class AddPOIServlet extends POIServletUtils {
     private String error;
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         addPOI(request, response);
     }
 
     //Adds a new point of interest to the hike passed in the request using the values passed in the request.
     //If this method fails errors are handled in the ajax segment in detail.js.
-    protected void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void addPOI(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //If an error it will be saved to this parameter and later be displayed
         error = "";
 
@@ -60,7 +60,9 @@ public class AddPOIServlet extends POIServletUtils {
             Database.update(hike);
 
         } catch (IOException | ServletException | SQLException e) {
-            error = e.getMessage();
+            String errorMessage = "An error occurred while editing the hike.Please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
         if (!error.isEmpty()) {
             response.getWriter().write(error);

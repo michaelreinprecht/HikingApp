@@ -33,8 +33,13 @@ public class FilterHikesServlet extends HttpServlet {
         List<Hike> hikes = null;
         try {
             hikes = getAllHikes();
+
+
         } catch (NullPointerException | SQLException e) {
-            error = e.getMessage();
+            // Handle exceptions here
+            String errorMessage = "A database error has occurred please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
         //Filter hikes according to filter values in request parameters
         hikes = filterHikesByRequest(hikes, request);

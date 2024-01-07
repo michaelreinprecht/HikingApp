@@ -35,7 +35,10 @@ public class LoginServlet extends HttpServlet {
             try {
                 dUser = Database.getUserById(username);
             } catch (NullPointerException | SQLException e) {
-                error = e.getMessage();
+                String errorMessage = "An error occurred during login. Please try again later.";
+                request.setAttribute("errorMessage", errorMessage);
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+
             }
             String destination;
             if (dUser != null && BCrypt.checkpw(password, dUser.getUserPassword()) && dUser.getUserName().equals(username)) {

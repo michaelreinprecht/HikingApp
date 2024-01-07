@@ -1,6 +1,7 @@
 package servlets.commentServlets;
 
 import database.Database;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,13 +20,14 @@ import java.util.UUID;
 @WebServlet(name = "addCommentServlet", value = "/addCommentServlet")
 public class AddCommentServlet extends HttpServlet {
     private String error;
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         addComment(request, response);
     }
 
     //Attempts to add a new comment to the hike. If this method fails it will redirect to the detail page and display
     //an error message. Otherwise, displays a success message.
-    protected void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         error = "";
 
         if (!handleAuth(request, response)) {
@@ -41,23 +43,26 @@ public class AddCommentServlet extends HttpServlet {
             String commentDescription = request.getParameter("commentDescription");
 
             if (commentDescription != null && !commentDescription.isEmpty()) {
-                //Create new comment object with the given data
-                String id = UUID.randomUUID().toString(); //Create new random UUID for comment.
+                String id = UUID.randomUUID().toString();
                 Comment comment = new Comment(id, commentDescription, hike, user);
                 //Insert comment into database
                 Database.insert(comment);
 
-                //Update hike table with new comment
                 List<Comment> comments = hike.getHikeComments();
                 comments.add(comment);
                 hike.setHikeComments(comments);
                 Database.update(hike);
+
             } else {
                 error = "Please enter a valid comment description.";
             }
         } catch (Exception e) {
-            error = e.getMessage();
+            String errorMessage = "A database error has occurred please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            return;
         }
+
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) +  "&error=" + response.encodeURL(error));
         } else {
@@ -65,7 +70,6 @@ public class AddCommentServlet extends HttpServlet {
                     response.encodeURL("Successfully added your comment!"));
         }
     }
-
     //If users is not logged in, redirect to detail.jsp for the current hike. Returns false if user is not authorized.
     protected boolean handleAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();

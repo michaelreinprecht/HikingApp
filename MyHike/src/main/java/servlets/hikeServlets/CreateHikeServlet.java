@@ -19,13 +19,13 @@ import java.util.UUID;
 @MultipartConfig
 public class CreateHikeServlet extends HikeServletUtils {
     private String error;
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         createHike(request, response);
     }
 
     //Attempts to create a new hike. If this method fails it will redirect back to the create page and display an error
-    //message. Otherwise it will redirect to the discover page and display a success message.
-    protected void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //message.Otherwise it will redirect to the discover page and display a success message.
+    protected void createHike(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         error = "";
 
         if (!handleAuth(request, response)) {
@@ -37,9 +37,19 @@ public class CreateHikeServlet extends HikeServletUtils {
             Hike hike = getHike(request);
             //Insert hike into database
             Database.insert(hike);
-        } catch (IOException | ServletException | SQLException e) {
-            error = e.getMessage();
+            //throw new IOException("Simulated Exception");
+        } catch (IOException e) {
+            String errorMessage = "An error occurred while processing the file. Please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+
+
+        } catch (ServletException | SQLException e) {
+            String errorMessage = "A database error occurred. Please try again later.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
         }
+
         if (!error.isEmpty()) {
             response.sendRedirect("create.jsp?error=" + response.encodeURL(error));
         } else {
@@ -53,24 +63,27 @@ public class CreateHikeServlet extends HikeServletUtils {
 
         //Get values from parameters
         String id = UUID.randomUUID().toString(); //Create random UUID for hike
-        hike.setHikeId(id); //Id needs to be set early, so that Recommended Objects can be created.
+        hike.setHikeId(id); //ID needs to be set early, so that Recommended Objects can be created.
         try {
             hike = getHikeBase(request, hike); //Gets the basic hike data (works same for edit and create)
+
+            String image = getBase64(request.getPart("fileToUpload"));
+            hike.setHikeImage(image);
+
+
         } catch (SQLException | NullPointerException e) {
             error = e.getMessage();
+
         }
 
         //Populate the List<Recommended> recommendedMonths (these months are not only needed for our hike, but also
         //need to be inserted into the recommended_in table).
         String recommendedMonths = Month.getBitmapFromMonths(request.getParameterValues("months"));
-
-        //Encode image to Base64 String
-        String image = getBase64(request.getPart("fileToUpload"));
-
         hike.setHikeMonths(recommendedMonths);
-        hike.setHikeImage(image);
+
         return hike;
     }
+
 
 
     //If user is not logged in send him back to discover page. Returns true if user is authorized to access this page.
