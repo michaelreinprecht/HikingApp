@@ -19,13 +19,13 @@ import java.sql.SQLException;
 @MultipartConfig
 public class EditHikeServlet extends HikeServletUtils {
     private String error;
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         editHike(request, response);
     }
 
     //Attempts to edit the given hike (in the request). If this method fails it will redirect back to the edit page and
     //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
-    protected void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void editHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         error = "";
 
         String hikeId = request.getParameter("Id");
@@ -43,9 +43,7 @@ public class EditHikeServlet extends HikeServletUtils {
             Database.update(hike);
 
         } catch (IOException | ServletException | SQLException e) {
-            String errorMessage = "An error occurred while editing the hike.Please try again later.";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            error = e.getMessage();
         }
         if (!error.isEmpty()) {
             response.sendRedirect("edit.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));

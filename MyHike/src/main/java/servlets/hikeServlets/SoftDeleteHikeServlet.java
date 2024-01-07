@@ -1,7 +1,6 @@
 package servlets.hikeServlets;
 
 import database.Database;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,13 +17,13 @@ import java.sql.SQLException;
 @MultipartConfig
 public class SoftDeleteHikeServlet extends HttpServlet {
     private String error;
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         softDeleteHike(request, response);
     }
 
     //Attempts to delete the given hike (in the request). If this method fails it will redirect back to the edit page and
     //display an error message. Otherwise, it will redirect to the detail page of the edited hike and display a success message.
-    protected void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void softDeleteHike(HttpServletRequest request, HttpServletResponse response) throws IOException {
         error = "";
         String hikeId = request.getParameter("Id");
         try {
@@ -38,11 +37,7 @@ public class SoftDeleteHikeServlet extends HttpServlet {
             Database.update(hike);
         }
         catch (IOException | SQLException e) {
-            // Handle exceptions here
-            String errorMessage = "A database error has occurred. Please try again later.";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
-            return; // Return early to prevent further processing
+            error = e.getMessage();
         }
         if (!error.isEmpty()) {
             response.sendRedirect("detail.jsp?Id=" + response.encodeURL(hikeId) + "&error=" + response.encodeURL(error));
