@@ -2,7 +2,9 @@ package servlets.hikeServlets;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import models.Comment;
 import models.Hike;
+import models.PointOfInterest;
 import models.User;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,7 +53,7 @@ class HikeServletUtilsTest {
         Time duration = Time.valueOf(LocalTime.parse("01:00", formatter));
 
         Hike result = hikeServletUtils.getHikeBase(request, hike);
-        Hike expectedHike = new Hike(id, "Test Hike", "Testing", "[[10,10][10,10]]", duration, 111, new BigDecimal("1.11"), 5, 5, 5, 5, null, null, result.getHikeRegion(), null, null, false, new User("admin", "admin", true, null));
+        Hike expectedHike = new Hike(id, "Test Hike", "Testing", "[[10,10][10,10]]", duration, 111, new BigDecimal("1.11"), 5, 5, 5, 5, null, null, result.getHikeRegion(), new ArrayList<Comment>(), new ArrayList<PointOfInterest>(), false, new User("admin", "admin", true, null));
         assertEquals(result.toString(), expectedHike.toString());
     }
 
