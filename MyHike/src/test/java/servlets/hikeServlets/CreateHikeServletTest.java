@@ -6,13 +6,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import models.Comment;
 import models.Hike;
-import models.PointOfInterest;
 import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -58,8 +55,8 @@ class CreateHikeServletTest extends TestHelper {
     @Override
     protected  Hike getExpectedHike() {
         Hike expectedHike = super.getExpectedHike();
-        expectedHike.setHikeComments(new ArrayList<Comment>());
-        expectedHike.setHikePointsOfInterest(new ArrayList<PointOfInterest>());
+        expectedHike.setHikeComments(new ArrayList<>());
+        expectedHike.setHikePointsOfInterest(new ArrayList<>());
         return expectedHike;
     }
 }

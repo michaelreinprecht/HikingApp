@@ -1,7 +1,6 @@
 package servlets.loginServlets;
 
 import database.Database;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
