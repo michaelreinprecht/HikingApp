@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import servlets.TestHelper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -76,8 +77,8 @@ class EditHikeServletTest extends TestHelper {
     @Override
     protected  Hike getExpectedHike() {
         Hike expectedHike = super.getExpectedHike();
-        expectedHike.setHikeComments(null);
-        expectedHike.setHikePointsOfInterest(null);
+        expectedHike.setHikeComments(new ArrayList<>());
+        expectedHike.setHikePointsOfInterest(new ArrayList<>());
         return expectedHike;
     }
 
