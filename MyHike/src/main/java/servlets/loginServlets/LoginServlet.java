@@ -53,21 +53,6 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    //TODO remove on final cleanup, just leaving it here in case we add a register page
-    public void addUser(String username, String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        User user = new User();
-        user.setUserName(username);
-        user.setUserPassword(hashedPassword);
-        user.setAdmin(true);
-        user.setUserHikes(null);
-        try {
-            Database.insert(user);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public String getError() {
         return error;
     }
